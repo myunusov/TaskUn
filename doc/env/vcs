@@ -1,3 +1,7 @@
 cd existing_git_repo
 git remote add origin git@github.com:myunusov/TaskUn.git
 git push -u origin master
+git push -u origin work
+
+#master - release 
+#work - build

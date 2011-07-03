@@ -1,0 +1,1 @@
+mvn archetype:create -DgroupId=org.maxur -DartifactId=taskun.war -DarchetypeArtifactId=maven-archetype-webapp
