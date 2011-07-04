@@ -6,7 +6,6 @@ import org.maxur.taskun.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,7 +15,6 @@ import java.util.List;
  * @since <pre>04.07.11</pre>
  */
 @Repository("employeeDao")
-@Transactional
 public class EmployeeDAOImpl implements EmployeeDAO {
 
 
@@ -29,26 +27,24 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 
     @Override
-    @Transactional(readOnly = false)
-    public void save(Employee employee) {
+    public void save(final Employee employee) {
         hibernateTemplate.saveOrUpdate(employee);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Employee> getAll() {
-        return (List<Employee>) hibernateTemplate.find("from " + Employee.class.getName());
+        return (List<Employee>) hibernateTemplate.find("from org.maxur.taskun.domain.Employee");
 
     }
 
     @Override
-    public Employee get(String id) {
+    public Employee get(final String id) {
         return hibernateTemplate.get(Employee.class, id);
     }
 
     @Override
-    @Transactional(readOnly = false)
-    public void delete(Employee employee) {
+    public void delete(final Employee employee) {
         hibernateTemplate.delete(employee);
     }
 }
