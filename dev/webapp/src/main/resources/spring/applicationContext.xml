@@ -12,7 +12,7 @@
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>/hibernate-test.properties</value>
+                <value>/hibernate.properties</value>
             </list>
         </property>
     </bean>
