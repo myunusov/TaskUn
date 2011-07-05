@@ -11,12 +11,12 @@ import java.util.List;
  */
 public interface EmployeeDAO {
 
-    public void save(Employee employee);
+    void save(Employee employee);
 
-    public List<Employee> getAll();
+    List<Employee> getAll();
 
-    public Employee get(String id);
+    Employee get(String id);
 
-    public void delete(Employee employee);
+    void delete(Employee employee);
 
 }

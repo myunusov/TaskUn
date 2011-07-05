@@ -44,11 +44,11 @@ public class ApplicationControllerTest {
         Assert.assertEquals(1, employees.size());
         final Employee employee1 = employees.get(0);
         Assert.assertEquals(employee, employee1);
-        final Employee employee2 = controller.getEmployee(employee1.getId());
+        final Employee employee2 = controller.getEmployee(employee1.getIdentifier());
         Assert.assertEquals(employee, employee2);
         employee2.setMiddleName("Петрович");
         controller.saveEmployee(employee2);
-        final Employee employee3 = controller.getEmployee(employee1.getId());
+        final Employee employee3 = controller.getEmployee(employee1.getIdentifier());
         Assert.assertEquals(employee, employee3);
         Assert.assertEquals("Петрович", employee3.getMiddleName());
         controller.deleteEmployee(employee3);

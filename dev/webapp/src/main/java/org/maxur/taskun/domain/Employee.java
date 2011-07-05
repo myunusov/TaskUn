@@ -27,7 +27,7 @@ public class Employee implements Serializable {
     /**
      * The Employee's Id.
      */
-    private String Id;
+    private String identifier;
     /**
      * The Employee's First Name.
      */
@@ -45,12 +45,12 @@ public class Employee implements Serializable {
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "employeeId")
-    public String getId() {
-        return Id;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setIdentifier(final String identifier) {
+        this.identifier = identifier;
     }
 
     @Column(name = "firstName", nullable=false)
@@ -58,7 +58,7 @@ public class Employee implements Serializable {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
@@ -88,7 +88,7 @@ public class Employee implements Serializable {
     @Override
     public String toString() {
         return "Employee{" +
-                "Id='" + Id + '\'' +
+                "Id='" + identifier + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
@@ -96,21 +96,21 @@ public class Employee implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
         if (!(o instanceof Employee)) {
             return false;
         }
-        Employee employee = (Employee) o;
-        return !(Id != null ? !Id.equals(employee.Id) : employee.Id != null);
+        final Employee employee = (Employee) o;
+        return !(identifier != null ? !identifier.equals(employee.identifier) : employee.identifier != null);
 
     }
 
     @Override
     public int hashCode() {
-        return Id != null ? Id.hashCode() : 0;
+        return identifier != null ? identifier.hashCode() : 0;
     }
 
 }

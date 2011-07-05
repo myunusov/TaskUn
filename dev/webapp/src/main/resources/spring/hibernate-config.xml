@@ -31,7 +31,12 @@
                 <prop key="hibernate.archive.autodetection">class</prop>
                 <prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.show_sql">true</prop>
-			</props>
+                <prop key="hibernate.connection.url">jdbc:derby:/home/maxim/DEV/TaskUn/dev/target/database/TaskUnDB
+                </prop>
+                <prop key="hibernate.connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</prop>
+                <prop key="hibernate.connection.username"></prop>
+                <prop key="hibernate.connection.password"></prop>
+            </props>
 		</property>
 	</bean>
 

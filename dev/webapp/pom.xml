@@ -40,6 +40,7 @@
         <derby.version>10.4.1000003.648739</derby.version>
         <hibernate.version>3.5.2-Final</hibernate.version>
         <spring.version>3.0.4.RELEASE</spring.version>
+        <wicket.version>1.4.17</wicket.version>
     </properties>
 
 
@@ -160,11 +161,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>org.springframework.web</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>org.springframework.transaction</artifactId>
             <version>${spring.version}</version>
         </dependency>
@@ -173,12 +169,12 @@
             <artifactId>org.springframework.orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!-- javax -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>com.springsource.javax.servlet</artifactId>
-            <version>2.4.0</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>org.springframework.web</artifactId>
+            <version>${spring.version}</version>
         </dependency>
+        <!-- javax -->
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>com.springsource.javax.annotation</artifactId>
@@ -194,6 +190,7 @@
             <artifactId>com.springsource.javax.persistence</artifactId>
             <version>1.0.0</version>
         </dependency>
+<!--
         <dependency>
             <groupId>javax.portlet</groupId>
             <artifactId>com.springsource.javax.portlet</artifactId>
@@ -209,15 +206,29 @@
             <artifactId>com.springsource.javax.jms</artifactId>
             <version>1.1.0</version>
         </dependency>
+-->
         <dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>com.springsource.javax.transaction</artifactId>
             <version>1.1.0</version>
         </dependency>
+<!--
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>com.springsource.javax.el</artifactId>
             <version>1.0.0</version>
+        </dependency>
+-->
+        <!-- Wicket -->
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-spring</artifactId>
+            <version>${wicket.version}</version>
         </dependency>
     </dependencies>
 
