@@ -9,21 +9,46 @@ import javax.persistence.Transient;
  */
 public abstract class Employee {
 
-
+    /**
+     * Getter for Identifier.
+     * @return The Identifier.
+     */
     public abstract String getIdentifier();
-
+    /**
+     * Getter for First Name.
+     * @return The First Name.
+     */
     public abstract String getFirstName();
-
+    /**
+     * Setter for First Name.
+     * @param firstName The First Name.
+     */
     public abstract void setFirstName(String firstName);
-
+    /**
+     * Getter for Last Name.
+     * @return The Last Name.
+     */
     public abstract String getLastName();
-
+    /**
+     * Setter for Last Name.
+     * @param lastName The Last Name.
+     */
     public abstract void setLastName(String lastName);
-
+    /**
+     * Getter for Middle Name.
+     * @return The Middle Name.
+     */
     public abstract String getMiddleName();
-
+    /**
+     * Setter for Middle Name.
+     * @param middleName The Middle Name.
+     */
     public abstract void setMiddleName(String middleName);
 
+    /**
+     * Getter for Title.
+     * @return The Title.
+     */
     @Transient
     public String getTitle() {
         return String.format("%s %s %s", getFirstName(), getMiddleName(), getLastName());
