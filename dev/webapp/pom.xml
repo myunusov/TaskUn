@@ -43,6 +43,29 @@
         <wicket.version>1.4.17</wicket.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>DEV</id>
+            <properties>
+                <env>DEV</env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>QA</id>
+            <properties>
+                <env>QA</env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>PROD</id>
+            <properties>
+                <env>PROD</env>
+            </properties>
+        </profile>
+    </profiles>
+
 
     <dependencies>
         <dependency>
@@ -190,41 +213,41 @@
             <artifactId>com.springsource.javax.persistence</artifactId>
             <version>1.0.0</version>
         </dependency>
-<!--
-        <dependency>
-            <groupId>javax.portlet</groupId>
-            <artifactId>com.springsource.javax.portlet</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>com.springsource.javax.servlet.jsp</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.jms</groupId>
-            <artifactId>com.springsource.javax.jms</artifactId>
-            <version>1.1.0</version>
-        </dependency>
--->
+        <!--
+                <dependency>
+                    <groupId>javax.portlet</groupId>
+                    <artifactId>com.springsource.javax.portlet</artifactId>
+                    <version>1.0.0</version>
+                </dependency>
+                <dependency>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>com.springsource.javax.servlet.jsp</artifactId>
+                    <version>2.1.0</version>
+                </dependency>
+                <dependency>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>com.springsource.javax.jms</artifactId>
+                    <version>1.1.0</version>
+                </dependency>
+        -->
         <dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>com.springsource.javax.transaction</artifactId>
             <version>1.1.0</version>
         </dependency>
-<!--
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>com.springsource.javax.el</artifactId>
-            <version>1.0.0</version>
-        </dependency>
--->
+        <!--
+                <dependency>
+                    <groupId>javax.el</groupId>
+                    <artifactId>com.springsource.javax.el</artifactId>
+                    <version>1.0.0</version>
+                </dependency>
+        -->
         <!-- Wicket -->
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-spring</artifactId>
@@ -234,6 +257,15 @@
 
     <build>
         <finalName>taskun</finalName>
+        <filters>
+            <filter>src/main/filters/filters-${env}.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

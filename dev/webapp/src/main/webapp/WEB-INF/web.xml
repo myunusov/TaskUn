@@ -16,6 +16,17 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <filter>
+       <filter-name>open.hibernate.session.in.view</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+
+    <!-- Important! This filter mapping must come before Wicket's! -->
+    <filter-mapping>
+       <filter-name>open.hibernate.session.in.view</filter-name>
+       <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>wicket</servlet-name>
         <servlet-class>org.apache.wicket.protocol.http.WicketServlet</servlet-class>
@@ -32,7 +43,7 @@
 
     <servlet-mapping>
         <servlet-name>wicket</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/taskun/*</url-pattern>
     </servlet-mapping>
 
 

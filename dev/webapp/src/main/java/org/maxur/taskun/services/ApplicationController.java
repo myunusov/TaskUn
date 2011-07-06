@@ -1,4 +1,4 @@
-package org.maxur.taskun.view;
+package org.maxur.taskun.services;
 
 import org.maxur.taskun.datasource.EmployeeDAO;
 import org.maxur.taskun.domain.Employee;

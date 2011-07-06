@@ -1,7 +1,7 @@
 package org.maxur.taskun.view;
 
 import org.apache.wicket.protocol.http.WebApplication;
-import org.maxur.taskun.view.pages.IndexPage;
+import org.maxur.taskun.view.pages.HomePage;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,6 +16,6 @@ public class TaskunApplication extends WebApplication {
      */
     @Override
     public Class getHomePage() {
-        return IndexPage.class;
+        return HomePage.class;
     }
 }
