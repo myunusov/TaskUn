@@ -1,6 +1,4 @@
-package org.maxur.taskun.datasource;
-
-import org.maxur.taskun.domain.Employee;
+package org.maxur.taskun.domain;
 
 import java.util.List;
 
@@ -9,7 +7,7 @@ import java.util.List;
  * @version 1.0
  * @since <pre>04.07.11</pre>
  */
-public interface EmployeeDAO {
+public interface EmployeeRepository {
 
     void save(Employee employee);
 

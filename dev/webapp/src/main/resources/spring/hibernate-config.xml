@@ -23,7 +23,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
-		<property name="packagesToScan" value="org.maxur.taskun.domain" />
+		<property name="packagesToScan" value="org.maxur.taskun.datasource.hibernate" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${jdbc.hibernate.dialect}</prop>
@@ -31,11 +31,6 @@
                 <prop key="hibernate.archive.autodetection">class</prop>
                 <prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.connection.url">jdbc:derby:/home/maxim/DEV/TaskUn/dev/target/database/TaskUnDB
-                </prop>
-                <prop key="hibernate.connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</prop>
-                <prop key="hibernate.connection.username"></prop>
-                <prop key="hibernate.connection.password"></prop>
             </props>
 		</property>
 	</bean>

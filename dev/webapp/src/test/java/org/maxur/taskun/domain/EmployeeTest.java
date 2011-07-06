@@ -3,6 +3,7 @@ package org.maxur.taskun.domain;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.maxur.taskun.datasource.hibernate.EmployeeFactoryImpl;
 
 /**
  * @author Maxim Yunusov
@@ -17,7 +18,7 @@ public class EmployeeTest {
     @Test
     public void testCreateEmployee() throws Exception {
         //Arrange
-        EmployeeFactory factory = new EmployeeFactory();
+        EmployeeFactory factory = new EmployeeFactoryImpl();
         //Act
         final Employee employee = factory.create();
         //Assert
@@ -27,7 +28,7 @@ public class EmployeeTest {
     @Test
     public void testEmployeeTitle() throws Exception {
         //Arrange
-        EmployeeFactory factory = new EmployeeFactory();
+        EmployeeFactory factory = new EmployeeFactoryImpl();
         //Act
         final Employee employee = factory.create();
         employee.setFirstName("Иван");

@@ -1,6 +1,6 @@
 package org.maxur.taskun.services;
 
-import org.maxur.taskun.datasource.EmployeeDAO;
+import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.EmployeeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class ApplicationController {
     private EmployeeFactory factory;
 
     @Autowired
-    private EmployeeDAO dao;
+    private EmployeeRepository repository;
 
 
     public Employee createEmployee() {
@@ -31,19 +31,19 @@ public class ApplicationController {
 
     @Transactional(readOnly = false)
     public void saveEmployee(final Employee employee) {
-        dao.save(employee);
+        repository.save(employee);
     }
 
     public List<Employee> getAllEmployee() {
-        return dao.getAll();
+        return repository.getAll();
     }
 
     public Employee getEmployee(final String id) {
-        return dao.get(id);
+        return repository.get(id);
     }
 
     @Transactional(readOnly = false)
     public void deleteEmployee(final Employee employee) {
-        dao.delete(employee);
+        repository.delete(employee);
     }
 }

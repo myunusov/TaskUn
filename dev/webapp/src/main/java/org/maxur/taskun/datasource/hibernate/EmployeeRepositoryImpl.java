@@ -1,7 +1,7 @@
 package org.maxur.taskun.datasource.hibernate;
 
 import org.hibernate.SessionFactory;
-import org.maxur.taskun.datasource.EmployeeDAO;
+import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -15,7 +15,7 @@ import java.util.List;
  * @since <pre>04.07.11</pre>
  */
 @Repository("employeeDao")
-public class EmployeeDAOImpl implements EmployeeDAO {
+public class EmployeeRepositoryImpl implements EmployeeRepository {
 
 
     private HibernateTemplate hibernateTemplate;
@@ -34,13 +34,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<Employee> getAll() {
-        return (List<Employee>) hibernateTemplate.find("from org.maxur.taskun.domain.Employee");
+        return (List<Employee>) hibernateTemplate.find("from org.maxur.taskun.datasource.hibernate.EmployeeImpl");
 
     }
 
     @Override
     public Employee get(final String id) {
-        return hibernateTemplate.get(Employee.class, id);
+        return hibernateTemplate.get(EmployeeImpl.class, id);
     }
 
     @Override
