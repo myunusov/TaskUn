@@ -3,6 +3,7 @@ package org.maxur.taskun.datasource.hibernate;
 import com.sun.istack.Nullable;
 import org.hibernate.annotations.GenericGenerator;
 import org.maxur.taskun.domain.Employee;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "EMPLOYEE")
+@Component
 public class EmployeeImpl extends Employee implements Serializable {
     /**
      * Serial Version UID.

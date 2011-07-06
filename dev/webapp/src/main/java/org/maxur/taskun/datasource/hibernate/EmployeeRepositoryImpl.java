@@ -3,6 +3,7 @@ package org.maxur.taskun.datasource.hibernate;
 import org.hibernate.SessionFactory;
 import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.utils.Benchmark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -27,11 +28,13 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
 
     @Override
+    @Benchmark
     public void save(final Employee employee) {
         hibernateTemplate.saveOrUpdate(employee);
     }
 
     @Override
+    @Benchmark
     @SuppressWarnings("unchecked")
     public List<Employee> getAll() {
         return (List<Employee>) hibernateTemplate.find("from org.maxur.taskun.datasource.hibernate.EmployeeImpl");
@@ -39,11 +42,13 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
+    @Benchmark
     public Employee get(final String id) {
         return hibernateTemplate.get(EmployeeImpl.class, id);
     }
 
     @Override
+    @Benchmark
     public void delete(final Employee employee) {
         hibernateTemplate.delete(employee);
     }

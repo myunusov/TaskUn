@@ -7,13 +7,8 @@ import javax.persistence.Transient;
  * @version 1.0
  * @since <pre>06.07.11</pre>
  */
-public abstract class Employee {
+public abstract class Employee implements Entity {
 
-    /**
-     * Getter for Identifier.
-     * @return The Identifier.
-     */
-    public abstract String getIdentifier();
     /**
      * Getter for First Name.
      * @return The First Name.

@@ -38,5 +38,12 @@ public class EmployeeTest {
         Assert.assertEquals("The employee's title is wrong", "Иван Иванович Иванов", employee.getTitle());
     }
 
-
+    @Test
+    public void testEmployeeEquals() throws Exception {
+        //Arrange
+        EmployeeFactory factory = new EmployeeFactoryImpl();
+        final Employee employee = factory.create();
+        //Act
+        Assert.assertTrue(employee.equals(employee));
+    }
 }
