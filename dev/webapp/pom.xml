@@ -6,7 +6,7 @@
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>TaskUN Webapp</name>
-    <url>http://www.org.maxur</url>
+    <url>http://www.maxur.org</url>
 
     <description>Office Task management and monitoring</description>
 
@@ -41,6 +41,7 @@
         <hibernate.version>3.5.2-Final</hibernate.version>
         <spring.version>3.0.4.RELEASE</spring.version>
         <wicket.version>1.4.17</wicket.version>
+        <clover.version>3.1.0</clover.version>
     </properties>
 
     <profiles>
@@ -49,6 +50,41 @@
             <properties>
                 <env>DEV</env>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.atlassian.maven.plugins</groupId>
+                        <artifactId>maven-clover2-plugin</artifactId>
+                        <version>${clover.version}</version>
+                        <configuration>
+                            <licenseLocation>clover.license</licenseLocation>
+                            <targetPercentage>75%</targetPercentage>
+                            <excludes>
+                                <exclude>org/maxur/taskun/view/**/*.java</exclude>
+                            </excludes>
+                            <includesTestSourceRoots>false</includesTestSourceRoots>
+                            <jdk>${compileSource}</jdk>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>com.atlassian.maven.plugins</groupId>
+                        <artifactId>maven-clover2-plugin</artifactId>
+                        <version>${clover.version}</version>
+                        <configuration>
+                            <targetPercentage>75%</targetPercentage>
+                            <excludes>
+                                <exclude>org/maxur/taskun/view/**/*.java</exclude>
+                            </excludes>
+                            <includesTestSourceRoots>false</includesTestSourceRoots>
+                            <jdk>${compileSource}</jdk>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </reporting>
         </profile>
 
         <profile>
@@ -309,6 +345,7 @@
                     <outputEncoding>UTF-8</outputEncoding>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -317,6 +354,7 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
