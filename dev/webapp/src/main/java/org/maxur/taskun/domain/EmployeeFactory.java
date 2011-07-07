@@ -1,7 +1,7 @@
 package org.maxur.taskun.domain;
 
 /**
- * The employee factory interface.
+ * The Employee Factory interface.
  *
  * @author Maxim Yunusov
  * @version 1.0
@@ -10,7 +10,7 @@ package org.maxur.taskun.domain;
 public interface EmployeeFactory {
 
     /**
-     * The Employee Factory Method.
+     * The Employee Factory Method. It creates new instance of Employee.
      * @return The Employee implementation.
      */
     Employee create();

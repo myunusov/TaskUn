@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * The Employee domain class.
+ * The Employee persistence class (hibernate implementation).
  *
  * @author Maxim Yunusov
  * @version 1.0 7/3/11
@@ -45,109 +45,122 @@ public class EmployeeImpl extends Employee implements Serializable {
 
     /**
      * @see org.maxur.taskun.domain.Employee#getIdentifier()
+     * @return The Identifier.
      */
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "EMPLOYEE_ID")
     @Override
-    public String getIdentifier() {
+    public final String getIdentifier() {
         return identifier;
     }
 
     /**
      * @see org.maxur.taskun.domain.Employee#getFirstName()
+     * @return The Employee's First Name
      */
-    @Column(name = "FIRST_NAME", nullable=false)
+    @Column(name = "FIRST_NAME", nullable = false)
     @Override
-    public String getFirstName() {
+    public final String getFirstName() {
         return firstName;
     }
 
     /**
      * @see org.maxur.taskun.domain.Employee#getLastName()
+     * @return The Employee's Last Name
      */
-    @Column(name = "LAST_NAME", nullable=false)
+    @Column(name = "LAST_NAME", nullable = false)
     @Override
-    public String getLastName() {
+    public final String getLastName() {
         return lastName;
     }
 
     /**
      * @see org.maxur.taskun.domain.Employee#getMiddleName()
+     * @return The Employee's Middle Name
      */
     @Column(name = "MIDDLE_NAME")
     @Override
-    public String getMiddleName() {
+    public final String getMiddleName() {
         return middleName;
     }
 
     /**
      * Setter for Identifier.
-     * @param identifier The Identifier.
+     * @param value The Identifier.
      */
-    public void setIdentifier(final String identifier) {
-        this.identifier = identifier;
+    public final void setIdentifier(final String value) {
+        this.identifier = value;
     }
 
     /**
      * @see org.maxur.taskun.domain.Employee#setFirstName(String)
+     * @param value The Employee's First Name
      */
     @Override
-    public void setFirstName(final String firstName) {
-        this.firstName = firstName;
+    public final void setFirstName(final String value) {
+        this.firstName = value;
     }
 
     /**
      * @see org.maxur.taskun.domain.Employee#setLastName(String)
+     * @param value The Employee's Last Name
      */
     @Override
-    public void setLastName(final String lastName) {
-        this.lastName = lastName;
+    public final void setLastName(final String value) {
+        this.lastName = value;
     }
 
     /**
      * @see org.maxur.taskun.domain.Employee#setMiddleName(String)
+     * @param value The Employee's Middle Name
      */
     @Override
-    public void setMiddleName(@Nullable final String middleName) {
-        this.middleName = middleName;
+    public final void setMiddleName(@Nullable final String value) {
+        this.middleName = value;
     }
 
     /**
      * @see Object#toString()
+     * @return  a string representation of the object.
      */
     @Override
-    public String toString() {
-        return "Employee{" +
-                "Id='" + identifier + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                '}';
+    public final String toString() {
+        return "Employee{"
+                + "Id='" + identifier + '\''
+                + ", firstName='" + firstName + '\''
+                + ", lastName='" + lastName + '\''
+                + ", middleName='" + middleName + '\''
+                + '}';
     }
 
     /**
      * @see Object#equals(Object)
+     * @param   obj   the reference object with which to compare.
+     * @return  <code>true</code> if this object is the same as the obj
+     *          argument; <code>false</code> otherwise.
      */
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof EmployeeImpl)) {
+        if (!(obj instanceof EmployeeImpl)) {
             return false;
         }
-        final EmployeeImpl employee = (EmployeeImpl) o;
-        return !(identifier != null ? !identifier.equals(employee.identifier) : employee.identifier != null);
-
+        final EmployeeImpl employee = (EmployeeImpl) obj;
+        return !(identifier != null
+                ? !identifier.equals(employee.identifier)
+                : employee.identifier != null);
     }
 
     /**
      * @see Object#hashCode()
+     * @return  a hash code value for this object.
      */
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return identifier != null ? identifier.hashCode() : 0;
     }
 }

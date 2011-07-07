@@ -3,6 +3,8 @@ package org.maxur.taskun.domain;
 import javax.persistence.Transient;
 
 /**
+ * The Employee domain class.
+ *
  * @author Maxim Yunusov
  * @version 1.0
  * @since <pre>06.07.11</pre>
@@ -41,8 +43,8 @@ public abstract class Employee implements Entity {
     public abstract void setMiddleName(String middleName);
 
     /**
-     * Getter for Title.
-     * @return The Title.
+     * Getter for Employee's Title.
+     * @return The Title of Employee.
      */
     @Transient
     public String getTitle() {

@@ -20,14 +20,17 @@ public class EmployeeFactoryImpl implements EmployeeFactory {
     /**
      * The logger.
      */
-    private static final Logger logger = LoggerFactory.getLogger(EmployeeFactoryImpl.class);
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(EmployeeFactoryImpl.class);
 
     /**
      * @see org.maxur.taskun.domain.EmployeeFactory#create()
+     * @return The Employee implementation.
+     *
      */
     @Override
-    public Employee create() {
-        logger.debug("New Employee was created ");
+    public final Employee create() {
+        LOGGER.debug("New Employee was created ");
         return new EmployeeImpl();
     }
 }

@@ -4,13 +4,21 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 
 /**
+ * The Base Page Controller.
+ *
  * @author Maxim Yunusov
  * @version 1.0 7/5/11
  */
 public class BasePage extends WebPage {
 
+    /**
+     *  The Serial Version UID.
+     */
     private static final long serialVersionUID = -7735630739445684538L;
 
+    /**
+     * The constructor of the Base Page Controller.
+     */
     public BasePage() {
         add(new Label("title", "ТаскУН: Управление задачами"));
         add(new Label("app_name", "ТаскУН"));
