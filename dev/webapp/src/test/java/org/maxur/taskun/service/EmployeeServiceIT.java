@@ -1,4 +1,4 @@
-package org.maxur.taskun.view;
+package org.maxur.taskun.service;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,7 +22,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/spring/applicationContext-test.xml"})
-public class ApplicationControllerTest {
+public class EmployeeServiceIT {
 
     @Autowired
     ApplicationController controller;
