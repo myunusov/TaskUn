@@ -1,5 +1,8 @@
 package org.maxur.taskun.domain;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Transient;
 
 /**
@@ -15,27 +18,34 @@ public abstract class Employee implements Entity {
      * Getter for First Name.
      * @return The First Name.
      */
+    @NotEmpty
+    @Length(max = 50)
     public abstract String getFirstName();
+    /**
+     * Getter for Last Name.
+     * @return The Last Name.
+     */
+    @NotEmpty
+    @Length(max = 50)
+    public abstract String getLastName();
+    /**
+     * Getter for Middle Name.
+     * @return The Middle Name.
+     */
+    @Length(max = 50)
+    public abstract String getMiddleName();
+
     /**
      * Setter for First Name.
      * @param firstName The First Name.
      */
     public abstract void setFirstName(String firstName);
-    /**
-     * Getter for Last Name.
-     * @return The Last Name.
-     */
-    public abstract String getLastName();
+
     /**
      * Setter for Last Name.
      * @param lastName The Last Name.
      */
     public abstract void setLastName(String lastName);
-    /**
-     * Getter for Middle Name.
-     * @return The Middle Name.
-     */
-    public abstract String getMiddleName();
     /**
      * Setter for Middle Name.
      * @param middleName The Middle Name.
