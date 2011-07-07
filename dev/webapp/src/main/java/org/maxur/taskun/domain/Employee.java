@@ -1,5 +1,6 @@
 package org.maxur.taskun.domain;
 
+import com.sun.istack.Nullable;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -12,45 +13,75 @@ import javax.persistence.Transient;
  * @version 1.0
  * @since <pre>06.07.11</pre>
  */
-public abstract class Employee implements Entity {
+public abstract class Employee extends Entity {
+
+    /**
+     * The Employee's First Name.
+     */
+    @NotEmpty
+    @Length(max = 50)
+    private String firstName;
+    /**
+     * The Employee's Last Name.
+     */
+    @NotEmpty
+    @Length(max = 50)
+    private String lastName;
+    /**
+     * The Employee's Middle Name.
+     */
+    @Length(max = 50)
+    private String middleName;
+
 
     /**
      * Getter for First Name.
-     * @return The First Name.
+     * @return The Employee's First Name
      */
-    @NotEmpty
-    @Length(max = 50)
-    public abstract String getFirstName();
+    public String getFirstName() {
+        return firstName;
+    }
+
     /**
      * Getter for Last Name.
-     * @return The Last Name.
+     * @return The Employee's Last Name
      */
-    @NotEmpty
-    @Length(max = 50)
-    public abstract String getLastName();
+    public String getLastName() {
+        return lastName;
+    }
+
     /**
      * Getter for Middle Name.
-     * @return The Middle Name.
+     * @return The Employee's Middle Name
      */
-    @Length(max = 50)
-    public abstract String getMiddleName();
+    public String getMiddleName() {
+        return middleName;
+    }
 
     /**
      * Setter for First Name.
-     * @param firstName The First Name.
+     * @param value The Employee's First Name
      */
-    public abstract void setFirstName(String firstName);
+    public void setFirstName(final String value) {
+        this.firstName = value;
+    }
 
     /**
      * Setter for Last Name.
-     * @param lastName The Last Name.
+     * @param value The Employee's Last Name
      */
-    public abstract void setLastName(String lastName);
+    public void setLastName(final String value) {
+        this.lastName = value;
+    }
+
     /**
      * Setter for Middle Name.
-     * @param middleName The Middle Name.
+     * @param value The Employee's Middle Name
      */
-    public abstract void setMiddleName(String middleName);
+    public void setMiddleName(@Nullable final String value) {
+        this.middleName = value;
+    }
+
 
     /**
      * Getter for Employee's Title.
@@ -60,5 +91,22 @@ public abstract class Employee implements Entity {
     public String getTitle() {
         return String.format("%s %s %s", getFirstName(), getMiddleName(), getLastName());
     }
+
+
+    /**
+     * @see Object#toString()
+     * @return  a string representation of the object.
+     */
+    @Override
+    public final String toString() {
+        return "Employee{"
+                + "Id='" + getIdentifier() + '\''
+                + ", firstName='" + firstName + '\''
+                + ", lastName='" + lastName + '\''
+                + ", middleName='" + middleName + '\''
+                + '}';
+    }
+
+
 
 }

@@ -22,29 +22,15 @@ import java.io.Serializable;
 @Table(name = "EMPLOYEE")
 @Component
 public class EmployeeImpl extends Employee implements Serializable {
+
     /**
      * Serial Version UID.
      */
     private static final long serialVersionUID = -5936703120817989967L;
-    /**
-     * The Employee's Id.
-     */
-    private String identifier;
-    /**
-     * The Employee's First Name.
-     */
-    private String firstName;
-    /**
-     * The Employee's Last Name.
-     */
-    private String lastName;
-    /**
-     * The Employee's Middle Name.
-     */
-    private String middleName;
+
 
     /**
-     * @see org.maxur.taskun.domain.Employee#getIdentifier()
+     * @see Employee#getIdentifier()
      * @return The Identifier.
      */
     @Id
@@ -53,8 +39,17 @@ public class EmployeeImpl extends Employee implements Serializable {
     @Column(name = "EMPLOYEE_ID")
     @Override
     public final String getIdentifier() {
-        return identifier;
+        return super.getIdentifier();
     }
+
+    /**
+     * Setter for Identifier.
+     * @param value The Identifier.
+     */
+    public final void setIdentifier(final String value) {
+        super.setIdentifier(value);
+    }
+
 
     /**
      * @see org.maxur.taskun.domain.Employee#getFirstName()
@@ -63,7 +58,7 @@ public class EmployeeImpl extends Employee implements Serializable {
     @Column(name = "FIRST_NAME", nullable = false)
     @Override
     public final String getFirstName() {
-        return firstName;
+        return super.getFirstName();
     }
 
     /**
@@ -73,7 +68,7 @@ public class EmployeeImpl extends Employee implements Serializable {
     @Column(name = "LAST_NAME", nullable = false)
     @Override
     public final String getLastName() {
-        return lastName;
+        return super.getLastName();
     }
 
     /**
@@ -83,15 +78,7 @@ public class EmployeeImpl extends Employee implements Serializable {
     @Column(name = "MIDDLE_NAME")
     @Override
     public final String getMiddleName() {
-        return middleName;
-    }
-
-    /**
-     * Setter for Identifier.
-     * @param value The Identifier.
-     */
-    public final void setIdentifier(final String value) {
-        this.identifier = value;
+        return super.getMiddleName();
     }
 
     /**
@@ -100,7 +87,7 @@ public class EmployeeImpl extends Employee implements Serializable {
      */
     @Override
     public final void setFirstName(final String value) {
-        this.firstName = value;
+        super.setFirstName(value);
     }
 
     /**
@@ -109,7 +96,7 @@ public class EmployeeImpl extends Employee implements Serializable {
      */
     @Override
     public final void setLastName(final String value) {
-        this.lastName = value;
+        super.setLastName(value);
     }
 
     /**
@@ -118,49 +105,7 @@ public class EmployeeImpl extends Employee implements Serializable {
      */
     @Override
     public final void setMiddleName(@Nullable final String value) {
-        this.middleName = value;
+        super.setMiddleName(value);
     }
 
-    /**
-     * @see Object#toString()
-     * @return  a string representation of the object.
-     */
-    @Override
-    public final String toString() {
-        return "Employee{"
-                + "Id='" + identifier + '\''
-                + ", firstName='" + firstName + '\''
-                + ", lastName='" + lastName + '\''
-                + ", middleName='" + middleName + '\''
-                + '}';
-    }
-
-    /**
-     * @see Object#equals(Object)
-     * @param   obj   the reference object with which to compare.
-     * @return  <code>true</code> if this object is the same as the obj
-     *          argument; <code>false</code> otherwise.
-     */
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof EmployeeImpl)) {
-            return false;
-        }
-        final EmployeeImpl employee = (EmployeeImpl) obj;
-        return !(identifier != null
-                ? !identifier.equals(employee.identifier)
-                : employee.identifier != null);
-    }
-
-    /**
-     * @see Object#hashCode()
-     * @return  a hash code value for this object.
-     */
-    @Override
-    public final int hashCode() {
-        return identifier != null ? identifier.hashCode() : 0;
-    }
 }
