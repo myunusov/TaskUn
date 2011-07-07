@@ -7,7 +7,7 @@ package org.maxur.taskun.domain;
  * @version 1.0
  * @since <pre>06.07.11</pre>
  */
-public class Entity {
+public abstract class Entity {
 
     /**
      * The Employee's Id.
