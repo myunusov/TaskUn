@@ -46,10 +46,48 @@
 
     <profiles>
         <profile>
-            <id>DEV</id>
+            <id>sonar</id>
             <properties>
-                <env>DEV</env>
+                <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+                <sonar.surefire.reportsPath>${basedir}/target/surefire-reports</sonar.surefire.reportsPath>
+                <sonar.clover.reportPath>${basedir}/target/site/clover</sonar.clover.reportPath>
+                <sonar.jdbc.url>jdbc:postgresql://localhost/sonar</sonar.jdbc.url>
+                <sonar.jdbc.driverClassName>org.postgresql.Driver</sonar.jdbc.driverClassName>
+                <sonar.jdbc.validationQuery>select 1</sonar.jdbc.validationQuery>
+                <sonar.jdbc.username>sonar</sonar.jdbc.username>
+                <sonar.jdbc.password>sonar</sonar.jdbc.password>
+                <sonar.java.source>${compileSource}</sonar.java.source>
+                <sonar.java.target>${compileSource}</sonar.java.target>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>1.0-beta-2</version>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>1.0-beta-2</version>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+        <profile>
+            <id>clover</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.cenqua.clover</groupId>
+                    <artifactId>clover</artifactId>
+                    <version>${clover.version}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -64,8 +102,27 @@
                             </excludes>
                             <includesTestSourceRoots>false</includesTestSourceRoots>
                             <jdk>${compileSource}</jdk>
-                            <generateXml>true</generateXml>
+                            <snapshot>${basedir}/.clover/${groupId}-${artifactId}/clover.snapshot</snapshot>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>clover</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>instrument</goal>
+                                    <goal>check</goal>
+                                    <goal>clover</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>clover</goal>
+                                    <goal>log</goal>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -87,6 +144,13 @@
                     </plugin>
                 </plugins>
             </reporting>
+        </profile>
+
+        <profile>
+            <id>DEV</id>
+            <properties>
+                <env>DEV</env>
+            </properties>
         </profile>
 
         <profile>
@@ -375,6 +439,7 @@
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>
+                            <!--suppress MavenModelInspection -->
                             <Implementation-Build>${buildNumber}</Implementation-Build>
                         </manifestEntries>
                     </archive>
@@ -517,6 +582,14 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.5.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <check>true</check>
+                    <formats>
+                      <format>html</format>
+                      <format>xml</format>
+                    </formats>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -527,7 +600,7 @@
     </reporting>
 
     <repositories>
-        <repository>
+<!--        <repository>
             <id>com.springsource.repository.bundles.release</id>
             <name>EBR Spring Release Repository</name>
             <url>http://repository.springsource.com/maven/bundles/release</url>
@@ -548,7 +621,7 @@
                 <enabled>true</enabled>
             </snapshots>
             <url>http://maven.springframework.org/osgi</url>
-        </repository>
+        </repository>-->
     </repositories>
 
 </project>
