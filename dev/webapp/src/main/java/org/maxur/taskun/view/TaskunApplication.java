@@ -21,6 +21,7 @@ public class TaskunApplication extends WebApplication {
      */
     @Override
     public Class<? extends Page> getHomePage() {
+//        mountBookmarkablePage("/example", ExamplePage.class);
         return HomePage.class;
     }
 }
