@@ -80,14 +80,14 @@
         </profile>
         <profile>
             <id>clover</id>
-            <dependencies>
+<!--            <dependencies>
                 <dependency>
                     <groupId>com.cenqua.clover</groupId>
                     <artifactId>clover</artifactId>
                     <version>${clover.version}</version>
                     <scope>test</scope>
                 </dependency>
-            </dependencies>
+            </dependencies>-->
             <build>
                 <plugins>
                     <plugin>
@@ -97,9 +97,6 @@
                         <configuration>
                             <licenseLocation>clover.license</licenseLocation>
                             <targetPercentage>75%</targetPercentage>
-                            <excludes>
-                                <exclude>org/maxur/taskun/view/**/*.java</exclude>
-                            </excludes>
                             <includesTestSourceRoots>false</includesTestSourceRoots>
                             <jdk>${compileSource}</jdk>
                             <snapshot>${basedir}/.clover/${groupId}-${artifactId}/clover.snapshot</snapshot>
@@ -133,10 +130,6 @@
                         <artifactId>maven-clover2-plugin</artifactId>
                         <version>${clover.version}</version>
                         <configuration>
-                            <targetPercentage>75%</targetPercentage>
-                            <excludes>
-                                <exclude>org/maxur/taskun/view/**/*.java</exclude>
-                            </excludes>
                             <includesTestSourceRoots>false</includesTestSourceRoots>
                             <jdk>${compileSource}</jdk>
                             <generateXml>true</generateXml>

@@ -21,7 +21,8 @@ public class BasePage extends WebPage {
      */
     public BasePage() {
         add(new Label("title", "ТаскУН: Управление задачами"));
-        add(new Label("app_name", "ТаскУН"));
-        add(new Label("app_desc", "простое управление задачами"));
+        add(new MenuPanel("menu"));
+        add(new HeaderPanel("header"));
+        add(new FooterPanel("footer"));
     }
 }
