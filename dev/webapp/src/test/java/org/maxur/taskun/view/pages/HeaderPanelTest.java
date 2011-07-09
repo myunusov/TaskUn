@@ -18,8 +18,6 @@ public class HeaderPanelTest {
     public void setUp() {
         tester = new WicketTester();
         tester.startPanel(new ITestPanelSource() {
-            private static final long serialVersionUID = -2267672189100332393L;
-
             @Override
             public Panel getTestPanel(String panelId) {
                 return new HeaderPanel(panelId);

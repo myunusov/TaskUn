@@ -20,10 +20,10 @@ public class FooterPanel extends Panel {
      * The panel's constructor.
      * @param id The panel's identifier.
      */
+    //TODO MY must be exclude string constants
     public FooterPanel(final String id) {
         super(id);
-        String url = "http://www.maxur.org/";
-        ExternalLink link = new ExternalLink("author_url", url);
+        ExternalLink link = new ExternalLink("author_url", "http://www.maxur.org/");
         link.add(new Label("author_name", "Maxim Yunusov"));
         add(link);
     }

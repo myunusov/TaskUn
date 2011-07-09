@@ -3,6 +3,7 @@ package org.maxur.taskun.view.pages;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
+import org.maxur.taskun.view.TaskunApplication;
 
 /**
  * @author Maxim Yunusov
@@ -15,7 +16,7 @@ public class BasePageTest {
 
     @Before
     public void setUp() {
-        tester = new WicketTester();
+        tester = new WicketTester(new TaskunApplication());
         tester.startPage(BasePage.class);
     }
 
@@ -34,6 +35,16 @@ public class BasePageTest {
         // assert rendered label components
         tester.assertLabel("title", "ТаскУН: Управление задачами");
     }
+
+/*    @Test
+//TODO MY Make test on click
+    public void testOnClickAction() {
+        // click link and render
+        tester.clickLink("menu:menu_items:menu_item");
+        tester.assertRenderedPage(ExamplePage.class);
+        tester.assertLabel("nextPageMessage", "Hello!");
+    }*/
+
 
 /*
     public void testOnClickAction() {
@@ -61,22 +72,22 @@ public class BasePageTest {
 
     public void testFormSubmit ()
    {
-      		// Create the FormTester object
-      		FormTester ft = tester.newFormTester("myForm");
+              // Create the FormTester object
+              FormTester ft = tester.newFormTester("myForm");
 
-      		// Set the input values on the field elements
-      		ft.setValue("firstName", "Kumar");
-      		ft.setValue("lastName", "Nadar");
+              // Set the input values on the field elements
+              ft.setValue("firstName", "Kumar");
+              ft.setValue("lastName", "Nadar");
 
-      		// Submit the form once the form is completed
-      		ft.submit("Submit");
+              // Submit the form once the form is completed
+              ft.submit("Submit");
 
-      		// Check the rendered page on form submission
-      		tester.asserRenderedPage(Welcome.class);
-      		// verify the message on the rendered page
-      		tester.assertInfoMessage(new String[]{"Welcome to Wicket"});
+              // Check the rendered page on form submission
+              tester.asserRenderedPage(Welcome.class);
+              // verify the message on the rendered page
+              tester.assertInfoMessage(new String[]{"Welcome to Wicket"});
 
-	}
+    }
 
 */
 

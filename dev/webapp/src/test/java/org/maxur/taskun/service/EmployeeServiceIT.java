@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.List;
+import java.util.Collection;
 
 
 /**
@@ -41,9 +41,9 @@ public class EmployeeServiceIT {
         employee.setLastName("Иванов");
         employee.setMiddleName("Иванович");
         controller.saveEmployee(employee);
-        final List<Employee> employees = controller.getAllEmployee();
+        final Collection<Employee> employees = controller.getAllEmployee();
         Assert.assertEquals(1, employees.size());
-        final Employee employee1 = employees.get(0);
+        final Employee employee1 = employees.iterator().next();
         Assert.assertEquals(employee, employee1);
         final Employee employee2 = controller.getEmployee(employee1.getIdentifier());
         Assert.assertEquals(employee, employee2);
@@ -53,7 +53,7 @@ public class EmployeeServiceIT {
         Assert.assertEquals(employee, employee3);
         Assert.assertEquals("Петрович", employee3.getMiddleName());
         controller.deleteEmployee(employee3);
-        final List<Employee> employees2 = controller.getAllEmployee();
+        final Collection<Employee> employees2 = controller.getAllEmployee();
         Assert.assertEquals(0, employees2.size());
 	}
 

@@ -1,14 +1,11 @@
 package org.maxur.taskun.view.pages;
 
-import org.apache.wicket.behavior.SimpleAttributeModifier;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.maxur.taskun.view.components.MenuItemsView;
+import org.maxur.taskun.view.model.MenuItem;
+import org.maxur.taskun.view.state.UserSession;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,6 +22,7 @@ public class MenuPanel extends Panel {
      */
     private static final long serialVersionUID = -1753691216752234935L;
 
+
     /**
      * The panel's constructor.
      *
@@ -32,69 +30,26 @@ public class MenuPanel extends Panel {
      */
     public MenuPanel(final String id) {
         super(id);
-        add(new ListView("menu_items", getMenuItems()) {
-
-            private static final long serialVersionUID = -2596647392896422489L;
-
-            @Override
-            protected void populateItem(ListItem listItem) {
-                MenuItem item = (MenuItem) listItem.getModelObject();
-                final Link link = new Link("menu_item") {
-
-                    @Override
-                    public void onClick() {
-
-                    }
-                };
-                if (item.isActive()) {
-                    link.add(new SimpleAttributeModifier("class", "current_page_item"));
-                }
-                listItem.add(link);
-                final Link link1 = new Link("menu_item_link") {
-                    @Override
-                    public void onClick() {
-                    }
-                };
-                link.add(link1);
-                link1.add(new Label("menu_item_name", item.getValue()));
-            }
-        });
-//        add(new Label("home", "Главная"));
-//        add(new Label("about", "О программе"));
-//        add(new Label("blogs", "Блог"));
-//        add(new Label("contact", "Контаткы"));
-//        add(new Label("example", "Пример"));
+        final ListView listView = new MenuItemsView("menu_items", getMenuItems());
+        add(listView);
     }
 
-    private List<MenuItem> getMenuItems() {
-        List<MenuItem> items = new ArrayList<MenuItem>();
-        items.add(new MenuItem("Главная", true));
-        items.add(new MenuItem("Блог"));
-        items.add(new MenuItem("О программе"));
-        return Collections.unmodifiableList(items);
+    /**
+     * Get The User Session.
+     *
+     * @return The User Session.
+     */
+    public UserSession getUserSession() {
+        return (UserSession) getSession();
     }
 
-    private class MenuItem {
-
-        private final String value;
-        private final boolean active;
-
-        public MenuItem(final String value) {
-            this.value = value;
-            this.active = false;
-        }
-
-        public MenuItem(final String value, final boolean active) {
-            this.value = value;
-            this.active = active;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public boolean isActive() {
-            return active;
-        }
+    /**
+     * Get Menu Items.
+     *
+     * @return The Menu Items List.
+     */
+    public final List<MenuItem> getMenuItems() {
+        return getUserSession().getMenuItems();
     }
+
 }

@@ -19,6 +19,7 @@ public class BasePage extends WebPage {
     /**
      * The constructor of the Base Page Controller.
      */
+        //TODO MY must be exclude string constants
     public BasePage() {
         add(new Label("title", "ТаскУН: Управление задачами"));
         add(new MenuPanel("menu"));

@@ -8,6 +8,10 @@ import org.junit.runners.Suite;
  * @version 1.0
  * @since <pre>08.07.11</pre>
  */
-@RunWith(Suite.class)@Suite.SuiteClasses({EmployeeTest.class})
+@RunWith(Suite.class)@Suite.SuiteClasses({
+        EmployeeTest.class,
+        EntityTest.class
+})
+
 public class DomainTests {
 }

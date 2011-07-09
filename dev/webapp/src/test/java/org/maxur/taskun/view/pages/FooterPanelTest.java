@@ -1,10 +1,12 @@
 package org.maxur.taskun.view.pages;
 
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.ITestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
+
 
 /**
  * @author Maxim Yunusov
@@ -18,8 +20,6 @@ public class FooterPanelTest {
     public void setUp() {
         tester = new WicketTester();
         tester.startPanel(new ITestPanelSource() {
-            private static final long serialVersionUID = -2267672189100332393L;
-
             @Override
             public Panel getTestPanel(String panelId) {
                 return new FooterPanel(panelId);
@@ -29,7 +29,12 @@ public class FooterPanelTest {
 
     @Test
     public void testAppNameLabel() throws Exception {
-        tester.assertLabel("panel:author_name", "Maxim Yunusov");
+        tester.assertLabel("panel:author_url:author_name", "Maxim Yunusov");
+    }
+
+    @Test
+    public void testAppURLLink() throws Exception {
+        tester.assertComponent("panel:author_url", ExternalLink.class);
     }
 
 }

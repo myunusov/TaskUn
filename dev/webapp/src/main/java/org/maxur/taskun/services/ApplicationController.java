@@ -1,14 +1,14 @@
 package org.maxur.taskun.services;
 
-import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.EmployeeFactory;
+import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.utils.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * The TaskUN Application Controller.
@@ -24,13 +24,11 @@ public class ApplicationController {
     /**
      * @see EmployeeFactory
      */
-    @Autowired
     private EmployeeFactory factory;
 
     /**
      * @see EmployeeRepository
      */
-    @Autowired
     private EmployeeRepository repository;
 
     /**
@@ -57,7 +55,7 @@ public class ApplicationController {
      * @return The List of Employees.
      */
     @Trace
-    public List<Employee> getAllEmployee() {
+    public Collection<Employee> getAllEmployee() {
         return repository.getAll();
     }
 
@@ -79,5 +77,23 @@ public class ApplicationController {
     @Transactional(readOnly = false)
     public void deleteEmployee(final Employee employee) {
         repository.delete(employee);
+    }
+
+    /**
+     * Setter for The Employee Factory object.
+     * @param factory The Employee Factory object.
+     */
+    @Autowired
+    public void setFactory(final EmployeeFactory factory) {
+        this.factory = factory;
+    }
+
+    /**
+     * Setter for The Employee Repository object.
+     * @param repository The Employee Repository object.
+     */
+    @Autowired
+    public void setRepository(final EmployeeRepository repository) {
+        this.repository = repository;
     }
 }

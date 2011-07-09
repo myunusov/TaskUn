@@ -1,14 +1,13 @@
 package org.maxur.taskun.datasource.hibernate;
 
-import org.hibernate.SessionFactory;
-import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.utils.Benchmark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * The Employee Repository (hibernate implementation).
@@ -28,11 +27,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     /**
      * Setter for the SessionFactory.
-     * @param sessionFactory The SessionFactory
+     * @param template The SessionFactory
      */
     @Autowired
-    public final void setSessionFactory(final SessionFactory sessionFactory) {
-        hibernateTemplate = new HibernateTemplate(sessionFactory);
+    public final void setHibernateTemplate(final HibernateTemplate template) {
+        this.hibernateTemplate = template;
     }
 
     /**
@@ -52,8 +51,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     @Benchmark
     @SuppressWarnings("unchecked")
-    public List<Employee> getAll() {
-        return (List<Employee>) hibernateTemplate.find(
+    public Collection<Employee> getAll() {
+        return (Collection<Employee>) hibernateTemplate.find(
                 "from org.maxur.taskun.datasource.hibernate.EmployeeImpl"
         );
 
