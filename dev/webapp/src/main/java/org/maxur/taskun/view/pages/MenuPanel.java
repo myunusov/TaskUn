@@ -22,7 +22,6 @@ public class MenuPanel extends Panel {
      */
     private static final long serialVersionUID = -1753691216752234935L;
 
-
     /**
      * The panel's constructor.
      *

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * The TaskUN Application Controller.
@@ -55,7 +55,7 @@ public class ApplicationController {
      * @return The List of Employees.
      */
     @Trace
-    public Collection<Employee> getAllEmployee() {
+    public List<Employee> getAllEmployee() {
         return repository.getAll();
     }
 

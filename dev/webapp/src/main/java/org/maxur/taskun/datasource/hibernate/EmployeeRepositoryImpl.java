@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * The Employee Repository (hibernate implementation).
@@ -51,10 +52,10 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     @Benchmark
     @SuppressWarnings("unchecked")
-    public Collection<Employee> getAll() {
-        return (Collection<Employee>) hibernateTemplate.find(
+    public List<Employee> getAll() {
+        return (List<Employee>) Collections.unmodifiableList(hibernateTemplate.find(
                 "from org.maxur.taskun.datasource.hibernate.EmployeeImpl"
-        );
+        ));
 
     }
 

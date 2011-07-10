@@ -5,10 +5,12 @@ import org.apache.wicket.Request;
 import org.apache.wicket.Response;
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.model.MenuItems;
 import org.maxur.taskun.view.pages.ExamplePage;
 import org.maxur.taskun.view.pages.HomePage;
 import org.maxur.taskun.view.state.UserSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,6 +22,15 @@ import org.springframework.stereotype.Component;
  */
 @Component(value = "wicketApplication")
 public class TaskunApplication extends WebApplication {
+
+
+    private ApplicationController controller;
+
+    @Autowired
+    public void setController(final ApplicationController controller) {
+        this.controller = controller;
+    }
+
 
     /**
      * @see org.apache.wicket.Application#getHomePage()
@@ -40,7 +51,9 @@ public class TaskunApplication extends WebApplication {
      */
     @Override
     public Session newSession(final Request request, final Response response) {
-        return new UserSession(request, createMenuItems());
+        final UserSession session = new UserSession(request, createMenuItems());
+        session.setController(controller);
+        return session;
     }
 
     /**

@@ -2,6 +2,8 @@ package org.maxur.taskun.view.state;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.protocol.http.WebSession;
+import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.model.MenuItem;
 import org.maxur.taskun.view.model.MenuItems;
 
@@ -13,6 +15,12 @@ import java.util.List;
  * @version 1.0 7/9/11
  */
 public class UserSession extends WebSession {
+
+    private ApplicationController controller;
+
+    public void setController(final ApplicationController controller) {
+        this.controller = controller;
+    }
 
     /**
      * Serial Version UID.
@@ -45,4 +53,7 @@ public class UserSession extends WebSession {
     }
 
 
+    public List<Employee> getAllEmployee() {
+        return controller.getAllEmployee();
+    }
 }

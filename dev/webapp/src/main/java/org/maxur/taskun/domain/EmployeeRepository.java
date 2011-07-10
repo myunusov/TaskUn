@@ -1,6 +1,6 @@
 package org.maxur.taskun.domain;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * The Employee Repository interface.
@@ -21,7 +21,7 @@ public interface EmployeeRepository {
      * Get all employees.
      * @return The List of Employees.
      */
-    Collection<Employee> getAll();
+    List<Employee> getAll();
 
     /**
      * Get employees by it's identifier.

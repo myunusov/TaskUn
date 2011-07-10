@@ -12,6 +12,9 @@ import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.Employee;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+import java.util.Collection;
+import java.util.Collections;
+
 /**
  * @author Maxim Yunusov
  * @version 1.0 7/9/11
@@ -53,6 +56,19 @@ public class EmployeeRepositoryImplTest {
             oneOf(template).find("from org.maxur.taskun.datasource.hibernate.EmployeeImpl");
         }});
         repository.getAll();
+        context.assertIsSatisfied();
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testGetAllCheckUnmodifiableResult() throws Exception {
+        final HibernateTemplate template = context.mock(HibernateTemplate.class);
+        repository.setHibernateTemplate(template);
+        context.checking(new Expectations() {{
+            oneOf(template).find(with(any(String.class)));
+            will(returnValue(Collections.nCopies(3, dummy)));
+        }});
+        final Collection<Employee> all = repository.getAll();
+        all.add(dummy);
         context.assertIsSatisfied();
     }
 
