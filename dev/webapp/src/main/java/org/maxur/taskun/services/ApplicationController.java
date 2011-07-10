@@ -42,7 +42,7 @@ public class ApplicationController {
 
     /**
      * Save the Employee.
-     * @param employee The Employee to save.
+     * @param employee The Employee to saveEmployee.
      */
     @Trace
     @Transactional(readOnly = false)

@@ -13,7 +13,7 @@ public interface EmployeeRepository {
 
     /**
      * Save the Employee.
-     * @param employee The Employee to save.
+     * @param employee The Employee to saveEmployee.
      */
     void save(Employee employee);
 

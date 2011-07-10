@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Transient;
+import java.io.Serializable;
 
 /**
  * The Employee domain class.
@@ -13,8 +14,12 @@ import javax.persistence.Transient;
  * @version 1.0
  * @since <pre>06.07.11</pre>
  */
-public abstract class Employee extends Entity {
+public abstract class Employee extends Entity implements Serializable {
 
+     /**
+     * The Serial Version UID.
+     */
+    private static final long serialVersionUID = -4499503762661672297L;
     /**
      * The Employee's First Name.
      */

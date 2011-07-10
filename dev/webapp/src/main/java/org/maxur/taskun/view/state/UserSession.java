@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class UserSession extends WebSession {
 
-    private ApplicationController controller;
+    private transient ApplicationController controller;
 
     public void setController(final ApplicationController controller) {
         this.controller = controller;
@@ -55,5 +55,9 @@ public class UserSession extends WebSession {
 
     public List<Employee> getAllEmployee() {
         return controller.getAllEmployee();
+    }
+
+    public void saveEmployee(final Employee employee) {
+       controller.saveEmployee(employee);
     }
 }

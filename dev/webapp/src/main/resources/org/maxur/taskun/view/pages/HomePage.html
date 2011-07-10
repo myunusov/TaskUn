@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <body>
 <wicket:extend>
     <!-- start content -->
     <div id="content">
+        <div>
+            <div wicket:id="feedback" class="feedback"></div>
+            <form wicket:id="employees_form">
+                <table>
+                    <tr><td>Имя</td><td><input type="text" wicket:id="firstName"></td></tr>
+                    <tr><td>Фамилия</td><td><input type="text" wicket:id="lastName"></td></tr>
+                    <tr><td>Отчество</td><td><input type="text" wicket:id="middleName"></td></tr>
+                </table>
+                <input type="submit" value="OK">
+            </form>
+        </div>
         <div wicket:id="employees">
             <span wicket:id="employee_title"></span>
         </div>

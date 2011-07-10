@@ -37,7 +37,8 @@ public class EmployeesView extends ListView<Employee> {
     @Override
     protected void populateItem(ListItem<Employee> listItem) {
         Employee item = listItem.getModelObject();
-        new Label("employee_title", item.getTitle());
+        final Label title = new Label("employee_title", item.getTitle());
+        listItem.add(title);
 /*        final Link link = new MenuItemLink(item);
         listItem.add(link);
         final Mark mark = new Mark();

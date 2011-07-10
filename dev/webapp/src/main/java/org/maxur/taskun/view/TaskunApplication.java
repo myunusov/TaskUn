@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 public class TaskunApplication extends WebApplication {
 
 
-    private ApplicationController controller;
+    private transient ApplicationController controller;
 
     @Autowired
     public void setController(final ApplicationController controller) {
