@@ -94,7 +94,9 @@ public abstract class Employee extends Entity implements Serializable {
      */
     @Transient
     public String getTitle() {
-        return String.format("%s %s %s", getFirstName(), getMiddleName(), getLastName());
+        return getMiddleName() == null ?
+                String.format("%s %s", getFirstName(), getLastName()):
+                String.format("%s %s %s", getFirstName(), getMiddleName(), getLastName());
     }
 
 

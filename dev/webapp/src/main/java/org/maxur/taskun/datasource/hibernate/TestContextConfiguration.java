@@ -15,7 +15,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @version 1.0 7/9/11
  */
 @Configuration
-public class ContextConfiguration {
+public class TestContextConfiguration {
 
     /**
      * Declares HibernateTemplate Bean.
@@ -27,4 +27,5 @@ public class ContextConfiguration {
     public HibernateTemplate hibernateTemplate(final SessionFactory sessionFactory) {
         return new HibernateTemplate(sessionFactory);
     }
+
 }

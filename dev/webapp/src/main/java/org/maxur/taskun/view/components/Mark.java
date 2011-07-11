@@ -3,12 +3,12 @@ package org.maxur.taskun.view.components;
 import org.apache.wicket.markup.html.link.Link;
 
 /**
- * Dummy Link without behaviour.
+ * Dummy Link without behavior.
  *
  * @author Maxim Yunusov
  * @version 1.0 7/9/11
  */
-final class Mark extends Link {
+final class Mark<E> extends Link<E> {
 
     /**
      * Serial Version UID.

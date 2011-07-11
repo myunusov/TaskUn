@@ -32,7 +32,7 @@ public class HomePage extends BasePage {
     public HomePage() {
         super();
         add(new FeedbackPanel("feedback"));
-        add(new EmployeeForm("employees_form", getUserSession()));
+        add(new EmployeeForm("employees_form", getUserSession(), HomePage.class));
         final ListView<Employee> listView = new EmployeesView("employees", getUserSession().getAllEmployee());
         add(listView);
     }

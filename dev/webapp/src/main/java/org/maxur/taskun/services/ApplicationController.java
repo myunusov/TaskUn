@@ -18,7 +18,6 @@ import java.util.List;
  * @since <pre>04.07.11</pre>
  */
 @Service
-@Transactional
 public class ApplicationController {
 
     /**
@@ -55,6 +54,7 @@ public class ApplicationController {
      * @return The List of Employees.
      */
     @Trace
+    @Transactional
     public List<Employee> getAllEmployee() {
         return repository.getAll();
     }
@@ -65,6 +65,7 @@ public class ApplicationController {
      * @return The selected Employee.
      */
     @Trace
+    @Transactional
     public Employee getEmployee(final String id) {
         return repository.get(id);
     }

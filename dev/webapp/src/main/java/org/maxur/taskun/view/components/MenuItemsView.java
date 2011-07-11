@@ -39,11 +39,11 @@ public class MenuItemsView extends ListView<MenuItem> {
      * @param listItem The item to populate
      */
     @Override
-    protected void populateItem(ListItem listItem) {
-        MenuItem item = (MenuItem) listItem.getModelObject();
-        final Link link = new MenuItemLink(item);
+    protected void populateItem(ListItem<MenuItem> listItem) {
+        MenuItem item = listItem.getModelObject();
+        final Link<MenuItem> link = new MenuItemLink(item);
         listItem.add(link);
-        final Mark mark = new Mark();
+        final Mark<?> mark = new Mark<Object>();
         link.add(mark);
         mark.add(new Label("menu_item_name", item.getValue()));
     }

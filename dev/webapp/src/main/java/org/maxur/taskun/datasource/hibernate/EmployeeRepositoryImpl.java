@@ -31,7 +31,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
      * @param template The SessionFactory
      */
     @Autowired
-    public final void setHibernateTemplate(final HibernateTemplate template) {
+    public void setHibernateTemplate(final HibernateTemplate template) {
         this.hibernateTemplate = template;
     }
 

@@ -18,7 +18,15 @@
 		<property name="jdbcUrl" value="${jdbc.url}"/>
 		<property name="user" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}"/>
-	</bean>
+
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
+        <property name="checkoutTimeout" value="20000"/>
+        <!-- Give up waiting for a connection after this many milliseconds -->
+        <property name="maxIdleTime" value="${c3p0.maxIdleTime}"/>
+<!--        <property name="idleConnectionTestPeriod" value="${c3p0.idle ConnectionTestPeriod}"/>
+        <property name="automaticTestTable" value="${c3p0.automaticTestTable}"/>-->
+    </bean>
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -35,7 +43,7 @@
 		</property>
 	</bean>
 
-	<bean id="transactionManager"
+    <bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>

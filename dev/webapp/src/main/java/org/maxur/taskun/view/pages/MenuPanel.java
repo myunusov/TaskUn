@@ -29,7 +29,7 @@ public class MenuPanel extends Panel {
      */
     public MenuPanel(final String id) {
         super(id);
-        final ListView listView = new MenuItemsView("menu_items", getMenuItems());
+        final ListView<MenuItem> listView = new MenuItemsView("menu_items", getMenuItems());
         add(listView);
     }
 

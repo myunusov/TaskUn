@@ -43,7 +43,6 @@ public class MenuItemsTest {
     @Test
     public void testAddConcretePage() throws Exception {
         items.add("1", BasePage.class, false);
-        int i = 0;
         for (MenuItem item : items) {
             Assert.assertEquals(BasePage.class, item.getTargetPage());
         }
@@ -52,7 +51,6 @@ public class MenuItemsTest {
     @Test
     public void testAddConcreteValue() throws Exception {
         items.add("1", BasePage.class, false);
-        int i = 0;
         for (MenuItem item : items) {
             Assert.assertEquals("1", item.getValue());
         }

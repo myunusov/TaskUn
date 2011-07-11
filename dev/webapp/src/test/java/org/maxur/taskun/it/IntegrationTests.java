@@ -1,4 +1,4 @@
-package org.maxur.taskun.domain;
+package org.maxur.taskun.it;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -6,11 +6,11 @@ import org.junit.runners.Suite;
 /**
  * @author Maxim Yunusov
  * @version 1.0
- * @since <pre>08.07.11</pre>
+ * @since <pre>11.07.11</pre>
  */
 @RunWith(Suite.class)@Suite.SuiteClasses({
-        EmployeeTest.class,
-        EntityTest.class
+        EmployeeServiceIT.class,
+        EmployeeTransactionIT.class
 })
-public class DomainTests {
+public class IntegrationTests {
 }

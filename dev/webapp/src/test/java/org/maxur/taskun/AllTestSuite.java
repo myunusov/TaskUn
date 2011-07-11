@@ -10,14 +10,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.maxur.taskun.datasource.DatasourceTests;
 import org.maxur.taskun.domain.DomainTests;
-import org.maxur.taskun.services.ApplicationControllerTest;
+import org.maxur.taskun.it.IntegrationTests;
 import org.maxur.taskun.view.ViewTests;
 
 @RunWith(Suite.class)@Suite.SuiteClasses({
-        ApplicationControllerTest.class,
+        IntegrationTests.class,
         DatasourceTests.class,
         DomainTests.class,
         ViewTests.class
 })
-public class UnitTestSuite {
+public class AllTestSuite {
 }

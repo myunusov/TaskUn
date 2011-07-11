@@ -226,6 +226,12 @@
             <artifactId>com.springsource.org.apache.derby</artifactId>
             <version>${derby.version}</version>
         </dependency>
+        <!-- PostgreSQL -->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.0-801.jdbc4</version>
+        </dependency>
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>

@@ -1,4 +1,4 @@
-package org.maxur.taskun.service;
+package org.maxur.taskun.it;
 
 import org.junit.Assert;
 import org.junit.Test;

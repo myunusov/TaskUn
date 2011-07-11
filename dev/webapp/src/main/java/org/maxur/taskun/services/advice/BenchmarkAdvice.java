@@ -28,6 +28,7 @@ public class BenchmarkAdvice {
     /**
      * The Pointcut for benchmarking methods.
      */
+    @SuppressWarnings("unused")
     @Pointcut("@annotation(org.maxur.taskun.utils.Benchmark)")
     private void benchmarkPointcut() {
     }

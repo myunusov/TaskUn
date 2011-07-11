@@ -51,6 +51,18 @@ public class EmployeeTest {
     }
 
     @Test
+    public void testEmployeeTitleWithoutMiddleName() throws Exception {
+        //Arrange
+        EmployeeFactory factory = new EmployeeFactoryImpl();
+        //Act
+        final Employee employee = factory.create();
+        employee.setFirstName("Иван");
+        employee.setLastName("Иванов");
+        //Assert
+        Assert.assertEquals("The employee's title is wrong", "Иван Иванов", employee.getTitle());
+    }
+
+    @Test
     public void testEmployeeEquals() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();

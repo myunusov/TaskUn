@@ -26,9 +26,7 @@ public class ApplicationControllerTest {
 
     private Mockery context;
 
-    Employee dummy = new Employee() {
-
-    };
+    static private Employee dummy = new Employee() {};
 
     @Before
     public void setUp() throws Exception {

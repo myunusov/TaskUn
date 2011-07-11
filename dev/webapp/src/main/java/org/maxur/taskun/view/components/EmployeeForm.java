@@ -1,12 +1,12 @@
 package org.maxur.taskun.view.components;
 
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.maxur.taskun.datasource.hibernate.EmployeeImpl;
 import org.maxur.taskun.domain.Employee;
-import org.maxur.taskun.view.pages.HomePage;
 import org.maxur.taskun.view.state.UserSession;
 
 /**
@@ -18,10 +18,12 @@ public class EmployeeForm extends Form<Employee> {
     private static final long serialVersionUID = 816388810515322983L;
 
     private final UserSession session;
+    private Class<? extends WebPage> page;
 
-    public EmployeeForm(final String id, final UserSession session) {
+    public EmployeeForm(final String id, final UserSession session, final Class<? extends WebPage> page) {
         super(id, new CompoundPropertyModel<Employee>(new EmployeeImpl()));
         this.session = session;
+        this.page = page;
         add(createTextField("firstName", true));
         add(createTextField("lastName", true));
         add(createTextField("middleName", false));
@@ -37,6 +39,6 @@ public class EmployeeForm extends Form<Employee> {
     @Override
     protected void onSubmit() {
         session.saveEmployee(getModelObject());
-        setResponsePage(HomePage.class);
+        setResponsePage(page);
     }
 }

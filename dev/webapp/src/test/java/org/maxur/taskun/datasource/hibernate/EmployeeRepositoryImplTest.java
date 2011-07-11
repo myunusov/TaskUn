@@ -26,7 +26,7 @@ public class EmployeeRepositoryImplTest {
 
     private EmployeeRepositoryImpl repository;
 
-    Employee dummy = new Employee() {
+    static private Employee dummy = new Employee() {
     };
 
     @Before
