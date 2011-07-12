@@ -15,7 +15,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @version 1.0 7/9/11
  */
 @Configuration
-public class TestContextConfiguration {
+public class ContextConfiguration {
 
     /**
      * Declares HibernateTemplate Bean.

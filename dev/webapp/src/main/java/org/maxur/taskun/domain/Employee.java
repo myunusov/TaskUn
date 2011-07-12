@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -37,11 +38,16 @@ public abstract class Employee extends Entity implements Serializable {
      */
     @Length(max = 50)
     private String middleName;
+    /**
+     * The Employee's Gender.
+     */
+    @NotNull
+    private Gender gender = Gender.UNKNOWN;
 
 
     /**
      * Getter for First Name.
-     * @return The Employee's First Name
+     * @return The Employee's First Name.
      */
     public String getFirstName() {
         return firstName;
@@ -49,7 +55,7 @@ public abstract class Employee extends Entity implements Serializable {
 
     /**
      * Getter for Last Name.
-     * @return The Employee's Last Name
+     * @return The Employee's Last Name.
      */
     public String getLastName() {
         return lastName;
@@ -57,10 +63,18 @@ public abstract class Employee extends Entity implements Serializable {
 
     /**
      * Getter for Middle Name.
-     * @return The Employee's Middle Name
+     * @return The Employee's Middle Name.
      */
     public String getMiddleName() {
         return middleName;
+    }
+
+    /**
+     * Getter for Gender.
+     * @return The Employee's Gender.
+     */
+    public Gender getGender() {
+        return gender;
     }
 
     /**
@@ -84,6 +98,13 @@ public abstract class Employee extends Entity implements Serializable {
      * @param value The Employee's Middle Name
      */
     public void setMiddleName(@Nullable final String value) {
+        if (null != value && gender == Gender.UNKNOWN) {
+            if (value.endsWith("вич")) {
+                gender = Gender.MALE;
+            } else if (value.endsWith("вна")) {
+                gender = Gender.FEMALE;
+            }
+        }
         this.middleName = value;
     }
 
@@ -115,5 +136,7 @@ public abstract class Employee extends Entity implements Serializable {
     }
 
 
-
+    public void setGender(final Gender value) {
+        this.gender = value;
+    }
 }

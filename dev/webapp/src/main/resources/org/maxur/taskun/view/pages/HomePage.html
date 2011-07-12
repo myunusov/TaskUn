@@ -5,28 +5,83 @@
 <wicket:extend>
     <!-- start content -->
     <div id="content">
-        <div>
-            <div wicket:id="feedback" class="feedback"></div>
-            <form wicket:id="employees_form">
-                <table>
-                    <tr><td>Имя</td><td><input type="text" wicket:id="firstName"/></td></tr>
-                    <tr><td>Фамилия</td><td><input type="text" wicket:id="lastName"/></td></tr>
-                    <tr><td>Отчество</td><td><input type="text" wicket:id="middleName"/></td></tr>
-                </table>
-                <input type="submit" value="OK"/>
-            </form>
-        </div>
-        <div wicket:id="employees">
-            <span wicket:id="employee_title"></span>
+        <div class="post">
+            <h1 class="title" wicket:id="employees_title">[EMPLOYEES]</h1>
+
+            <div class="entry">
+                <div class="bigpix" style="vertical-align: baseline; display: block;">
+                    <div class="gridimage" wicket:id="employees" style="width: 64px; height: 100px">
+                        <img src="/images/User_male.png" alt="" width="64" height="64" wicket:id="employee_img" />
+                        <p class="caption" wicket:id="employee_title">Неизвестный</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- end content -->
     <!-- start sidebar one -->
     <div id="sidebar1" class="sidebar">
+        <ul>
+            <li>
+                <h2>Recent Posts</h2>
+                <ul>
+                    <li><a href="#">Aliquam libero</a></li>
+                    <li><a href="#">Consectetuer adipiscing elit</a></li>
+                    <li><a href="#">Metus aliquam pellentesque</a></li>
+                    <li><a href="#">Suspendisse iaculis mauris</a></li>
+                    <li><a href="#">Urnanet non molestie semper</a></li>
+                    <li><a href="#">Proin gravida orci porttitor</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
     <!-- end sidebar one -->
     <!-- start sidebar two -->
     <div id="sidebar2" class="sidebar">
+        <div class="bigpix">
+            <div class="gridimage">
+                <img src="/images/User_black.png" alt="" width="64" height="64"/>
+            </div>
+            <p class="caption">Неизвестный</p>
+        </div>
+        <ul>
+            <li>
+                <h2 wicket:id="current_user">[Current User]</h2>
+            </li>
+        </ul>
+        <div>
+            <div wicket:id="feedback" class="feedback"></div>
+            <form wicket:id="employees_form">
+                <table>
+                    <tr>
+                        <td wicket:id="first_name">[firstName]</td>
+                    </tr>
+                    <tr>
+                        <td><label>
+                            <input type="text" wicket:id="firstName"/>
+                        </label></td>
+                    </tr>
+                    <tr>
+                        <td wicket:id="middle_name">[middleName]</td>
+                    </tr>
+                    <tr>
+                        <td><label>
+                            <input type="text" wicket:id="middleName"/>
+                        </label></td>
+                    </tr>
+                    <tr>
+                        <td wicket:id="last_name">[lastName]</td>
+                    </tr>
+                    <tr>
+                        <td><label>
+                            <input type="text" wicket:id="lastName"/>
+                        </label></td>
+                    </tr>
+                </table>
+                <br/>
+                <input type="submit" value="Регистрация"/>
+            </form>
+        </div>
     </div>
     <!-- end sidebar two -->
 </wicket:extend>

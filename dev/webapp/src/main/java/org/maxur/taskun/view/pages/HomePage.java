@@ -1,5 +1,6 @@
 package org.maxur.taskun.view.pages;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.maxur.taskun.domain.Employee;
@@ -25,15 +26,17 @@ public class HomePage extends BasePage {
      *
      * @return The User Session.
      */
-    public UserSession getUserSession() {
+    public final UserSession getUserSession() {
         return (UserSession) getSession();
     }
 
     public HomePage() {
         super();
         add(new FeedbackPanel("feedback"));
+        add(new Label("employees_title", "Коллеги"));
         add(new EmployeeForm("employees_form", getUserSession(), HomePage.class));
         final ListView<Employee> listView = new EmployeesView("employees", getUserSession().getAllEmployee());
+        add(new Label("current_user", "Кто Вы ?"));
         add(listView);
     }
 

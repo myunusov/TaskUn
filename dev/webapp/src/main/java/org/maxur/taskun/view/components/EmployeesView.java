@@ -1,6 +1,8 @@
 package org.maxur.taskun.view.components;
 
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.maxur.taskun.domain.Employee;
@@ -39,10 +41,19 @@ public class EmployeesView extends ListView<Employee> {
         Employee item = listItem.getModelObject();
         final Label title = new Label("employee_title", item.getTitle());
         listItem.add(title);
-/*        final Link link = new MenuItemLink(item);
-        listItem.add(link);
-        final Mark mark = new Mark();
-        link.add(mark);
-        mark.add(new Label("menu_item_name", item.getValue()));*/
+        // TODO rewrite to resource reference use
+        final Image image = new Image("employee_img");
+        switch (item.getGender()) {
+            case MALE:
+                image.add(new SimpleAttributeModifier("src", "/images/User_male.png"));
+                break;
+            case FEMALE:
+                image.add(new SimpleAttributeModifier("src", "/images/User_female.png"));
+                break;
+            default:
+                image.add(new SimpleAttributeModifier("src", "/images/User_black.png"));
+                break;
+        }
+        listItem.add(image);
     }
 }

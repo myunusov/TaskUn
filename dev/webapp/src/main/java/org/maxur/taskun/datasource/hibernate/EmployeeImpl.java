@@ -2,7 +2,10 @@ package org.maxur.taskun.datasource.hibernate;
 
 import com.sun.istack.Nullable;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.Gender;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
@@ -79,6 +82,18 @@ public class EmployeeImpl extends Employee implements Serializable {
     @Override
     public final String getMiddleName() {
         return super.getMiddleName();
+    }
+
+    /**
+     * @see org.maxur.taskun.domain.Employee#getGender()
+     * @return The Employee's Gender.
+     */
+    @Column(name = "GENDER")
+    @Type(type = "org.maxur.taskun.datasource.hibernate.EnumUserType",
+            parameters = @Parameter(name = "type", value = "org.maxur.taskun.domain.Gender"))
+    @Override
+    public Gender getGender() {
+        return super.getGender();
     }
 
     /**

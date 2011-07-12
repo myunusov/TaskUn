@@ -18,7 +18,6 @@ import java.util.Set;
  */
 public class EmployeeTest {
 
-
     private Validator validator;
 
     @Before
@@ -61,6 +60,20 @@ public class EmployeeTest {
         //Assert
         Assert.assertEquals("The employee's title is wrong", "Иван Иванов", employee.getTitle());
     }
+
+    @Test
+    public void testEmployeeGender() throws Exception {
+        //Arrange
+        EmployeeFactory factory = new EmployeeFactoryImpl();
+        //Act
+        final Employee employee = factory.create();
+        employee.setFirstName("Иван");
+        employee.setLastName("Иванов");
+        employee.setGender(Gender.MALE);
+        //Assert
+        Assert.assertEquals("The employee's gender is wrong", Gender.MALE, employee.getGender());
+    }
+
 
     @Test
     public void testEmployeeEquals() throws Exception {

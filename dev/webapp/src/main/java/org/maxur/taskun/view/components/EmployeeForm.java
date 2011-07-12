@@ -1,6 +1,7 @@
 package org.maxur.taskun.view.components;
 
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -24,8 +25,11 @@ public class EmployeeForm extends Form<Employee> {
         super(id, new CompoundPropertyModel<Employee>(new EmployeeImpl()));
         this.session = session;
         this.page = page;
+        add(new Label("first_name", "Имя"));
         add(createTextField("firstName", true));
+        add(new Label("last_name", "Фамилия"));
         add(createTextField("lastName", true));
+        add(new Label("middle_name", "Отчество"));
         add(createTextField("middleName", false));
     }
 

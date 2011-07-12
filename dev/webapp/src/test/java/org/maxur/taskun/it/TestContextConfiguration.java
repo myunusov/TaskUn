@@ -15,7 +15,7 @@ import org.springframework.orm.hibernate3.HibernateTransactionManager;
  * @version 1.0 7/9/11
  */
 @Configuration
-public class ContextConfiguration {
+public class TestContextConfiguration {
 
     @Bean(name = "txMan1")
     @Autowired

@@ -230,6 +230,14 @@ html>body #content {
 .post .bigpix .image {
 }
 
+.post .bigpix .gridimage {
+    float: left;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 2px 10px 5px 10px;
+    border: 1px
+}
+
 .post .bigpix .caption {
 	margin: 0;
 	padding: 2px 10px 5px 10px;
@@ -298,6 +306,20 @@ html>body #content {
 .post .links .permalink {
 	padding-left: 18px;
 	background: url(/images/img14.gif) no-repeat left center;
+}
+
+
+/** Employee view style */
+
+.avatar {
+}
+
+.avatar em {
+    width: 64px;
+    display: block;
+    overflow: hidden;
+    height: 64px;
+    background-position: 0 0;
 }
 
 /* Sidebar Common Style */
