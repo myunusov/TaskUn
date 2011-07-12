@@ -27,7 +27,7 @@ import java.util.Collection;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/spring/applicationContext-test.xml"})
-@TransactionConfiguration(transactionManager="txMan1", defaultRollback=false)
+@TransactionConfiguration(transactionManager="txMan2", defaultRollback=false)
 @Transactional
 public class EmployeeTransactionIT {
 

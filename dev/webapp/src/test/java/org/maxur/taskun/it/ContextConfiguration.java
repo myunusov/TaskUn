@@ -26,7 +26,7 @@ public class ContextConfiguration {
     @Bean(name = "txMan2")
     @Autowired
     public HibernateTransactionManager txMan2(final SessionFactory sessionFactory) {
-        return new HibernateTransactionManager(sessionFactory);
+        return new FakeTransactionManager(sessionFactory);
     }
 
 
