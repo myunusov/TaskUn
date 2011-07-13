@@ -17,6 +17,9 @@ import java.util.List;
  */
 public class EmployeesView extends ListView<Employee> {
 
+    /**
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = -1086603569385693092L;
 
     /**
@@ -37,7 +40,7 @@ public class EmployeesView extends ListView<Employee> {
      * @param listItem The item to populate
      */
     @Override
-    protected void populateItem(ListItem<Employee> listItem) {
+    protected void populateItem(final ListItem<Employee> listItem) {
         Employee item = listItem.getModelObject();
         final Label title = new Label("employee_title", item.getTitle());
         listItem.add(title);

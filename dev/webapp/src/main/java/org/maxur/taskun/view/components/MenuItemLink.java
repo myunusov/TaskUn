@@ -16,8 +16,11 @@ class MenuItemLink extends Link<MenuItem> {
      */
     private static final long serialVersionUID = -899628430579241468L;
 
-
-    public MenuItemLink(MenuItem item) {
+    /**
+     * Constructs the MenuItemLink instance.
+     * @param item The Menu Item descriptor.
+     */
+    public MenuItemLink(final MenuItem item) {
         super("menu_item", new Model<MenuItem>(item));
         if (item.isActive()) {
             add(new SimpleAttributeModifier("class", "current_page_item"));
@@ -25,6 +28,9 @@ class MenuItemLink extends Link<MenuItem> {
     }
 
     @Override
+    /**
+     * Is called on Click.
+     */
     public void onClick() {
         MenuItem item = getModelObject();
         setResponsePage(item.getTargetPage());

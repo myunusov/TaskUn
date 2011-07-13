@@ -29,7 +29,7 @@ public class TraceAdvice {
      * The Pointcut for tracing methods.
      */
     @SuppressWarnings("unused")
-	@Pointcut("@annotation(org.maxur.taskun.utils.Trace)")
+    @Pointcut("@annotation(org.maxur.taskun.utils.Trace)")
     private void tracePointcut() {
     }
 

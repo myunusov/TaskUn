@@ -23,24 +23,35 @@ public class ApplicationController {
     /**
      * @see EmployeeFactory
      */
-    private EmployeeFactory factory;
+    private EmployeeFactory employeeFactory;
 
     /**
      * @see EmployeeRepository
      */
-    private EmployeeRepository repository;
+    private EmployeeRepository employeeRepository;
 
-    //TODO MY exclude after set aop dynamic proxy
+    /**
+     * Constructs the instance of ApplicationController class.
+     * It Needs for CGLIB Proxy.
+     */
     public ApplicationController() {
+        //TODO MY should be exclude after set aop dynamic proxy
     }
 
+
+    /**
+     * Constructs the instance of ApplicationController class.
+     *
+     * @param factory The Employee Factory bean.
+     * @param repository The Employee Repository bean.
+     */
     @Autowired
     public ApplicationController(
             final EmployeeFactory factory,
             final EmployeeRepository repository
     ) {
-        this.factory = factory;
-        this.repository = repository;
+        this.employeeFactory = factory;
+        this.employeeRepository = repository;
     }
 
     /**
@@ -49,7 +60,7 @@ public class ApplicationController {
      */
     @Trace
     public Employee createEmployee() {
-        return factory.create();
+        return employeeFactory.create();
     }
 
     /**
@@ -59,7 +70,7 @@ public class ApplicationController {
     @Trace
     @Transactional(readOnly = false)
     public void saveEmployee(final Employee employee) {
-        repository.save(employee);
+        employeeRepository.save(employee);
     }
 
     /**
@@ -69,7 +80,7 @@ public class ApplicationController {
     @Trace
     @Transactional
     public List<Employee> getAllEmployee() {
-        return repository.getAll();
+        return employeeRepository.getAll();
     }
 
     /**
@@ -80,7 +91,7 @@ public class ApplicationController {
     @Trace
     @Transactional
     public Employee getEmployee(final String id) {
-        return repository.get(id);
+        return employeeRepository.get(id);
     }
 
     /**
@@ -90,7 +101,7 @@ public class ApplicationController {
     @Trace
     @Transactional(readOnly = false)
     public void deleteEmployee(final Employee employee) {
-        repository.delete(employee);
+        employeeRepository.delete(employee);
     }
 
     /**
@@ -98,8 +109,8 @@ public class ApplicationController {
      * @param factory The Employee Factory object.
      */
     @Autowired
-    public void setFactory(final EmployeeFactory factory) {
-        this.factory = factory;
+    public void setEmployeeFactory(final EmployeeFactory factory) {
+        this.employeeFactory = factory;
     }
 
     /**
@@ -107,7 +118,7 @@ public class ApplicationController {
      * @param repository The Employee Repository object.
      */
     @Autowired
-    public void setRepository(final EmployeeRepository repository) {
-        this.repository = repository;
+    public void setEmployeeRepository(final EmployeeRepository repository) {
+        this.employeeRepository = repository;
     }
 }

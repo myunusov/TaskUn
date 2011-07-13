@@ -116,14 +116,22 @@ public abstract class Employee extends Entity implements Serializable {
 
 
     /**
+     * Setter for Gender.
+     * @param value The Employee's Gender
+     */
+    public void setGender(final Gender value) {
+        this.gender = value;
+    }
+
+    /**
      * Getter for Employee's Title.
      * @return The Title of Employee.
      */
     @Transient
     public String getTitle() {
-        return getMiddleName() == null ?
-                String.format("%s %s", getFirstName(), getLastName()):
-                String.format("%s %s %s", getFirstName(), getMiddleName(), getLastName());
+        return getMiddleName() == null
+                ? String.format("%s %s", getFirstName(), getLastName())
+                : String.format("%s %s %s", getFirstName(), getMiddleName(), getLastName());
     }
 
 
@@ -141,8 +149,4 @@ public abstract class Employee extends Entity implements Serializable {
                 + '}';
     }
 
-
-    public void setGender(final Gender value) {
-        this.gender = value;
-    }
 }

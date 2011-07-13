@@ -27,7 +27,7 @@ public class MenuItemsView extends ListView<MenuItem> {
      * @param id        The MenuItemsView
      * @param menuItems The Menu items List for represent on web.
      */
-    public MenuItemsView(String id, List<MenuItem> menuItems) {
+    public MenuItemsView(final String id, final List<MenuItem> menuItems) {
         super(id, menuItems);
     }
 
@@ -39,13 +39,13 @@ public class MenuItemsView extends ListView<MenuItem> {
      * @param listItem The item to populate
      */
     @Override
-    protected void populateItem(ListItem<MenuItem> listItem) {
+    protected void populateItem(final ListItem<MenuItem> listItem) {
         MenuItem item = listItem.getModelObject();
         final Link<MenuItem> link = new MenuItemLink(item);
         listItem.add(link);
         final Mark<?> mark = new Mark<Object>();
         link.add(mark);
-        mark.add(new Label("menu_item_name", item.getValue()));
+        mark.add(new Label("menu_item_name", item.getTitle()));
     }
 
 }

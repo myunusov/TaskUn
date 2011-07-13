@@ -19,8 +19,8 @@ public class HeaderPanel extends Panel {
      * The panel's constructor.
      * @param id The panel's identifier.
      */
+    public HeaderPanel(final String id) {
         //TODO MY must be exclude string constants
-    public HeaderPanel(String id) {
         super(id);
         add(new Label("app_name", "ТаскУН"));
         add(new Label("app_desc", "простое управление задачами"));

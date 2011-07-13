@@ -29,5 +29,4 @@ public class StubContextConfiguration {
         return new FakeTransactionManager(sessionFactory);
     }
 
-
 }

@@ -22,14 +22,24 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     /**
      * Instance of Helper class that simplifies Hibernate data access code.
+     *
      * @see HibernateTemplate
      */
     private HibernateTemplate hibernateTemplate;
 
-     //TODO MY exclude after set aop dynamic proxy
+    /**
+     * Constructs the instance of EmployeeRepository class.
+     * It Needs for CGLIB Proxy.
+     */
     public EmployeeRepositoryImpl() {
+        //TODO MY exclude after set aop dynamic proxy
     }
 
+
+    /**
+     * Constructs the instance of EmployeeRepository class.
+     * @param template The Hibernate Template bean.
+     */
     @Autowired
     public EmployeeRepositoryImpl(final HibernateTemplate template) {
         this.hibernateTemplate = template;
@@ -37,6 +47,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     /**
      * Setter for the SessionFactory.
+     *
      * @param template The SessionFactory
      */
     @Autowired
@@ -45,8 +56,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     /**
-     * @see org.maxur.taskun.domain.EmployeeRepository#save(Employee)
      * @param employee The Employee for saving.
+     * @see org.maxur.taskun.domain.EmployeeRepository#save(Employee)
      */
     @Override
     @Benchmark
@@ -55,8 +66,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     /**
-     * @see org.maxur.taskun.domain.EmployeeRepository#getAll()
      * @return The List of Employees.
+     * @see org.maxur.taskun.domain.EmployeeRepository#getAll()
      */
     @Override
     @Benchmark
@@ -69,9 +80,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     /**
-     * @see org.maxur.taskun.domain.EmployeeRepository#get(String)
      * @param id The Employees identifier.
      * @return The selected Employee.
+     * @see org.maxur.taskun.domain.EmployeeRepository#get(String)
      */
     @Override
     @Benchmark
@@ -80,8 +91,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     /**
-     * @see org.maxur.taskun.domain.EmployeeRepository#delete(org.maxur.taskun.domain.Employee)
      * @param employee The deleted Employee.
+     * @see org.maxur.taskun.domain.EmployeeRepository#delete(org.maxur.taskun.domain.Employee)
      */
     @Override
     @Benchmark

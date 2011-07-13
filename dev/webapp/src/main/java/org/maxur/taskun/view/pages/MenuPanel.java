@@ -4,7 +4,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.maxur.taskun.view.components.MenuItemsView;
 import org.maxur.taskun.view.model.MenuItem;
-import org.maxur.taskun.view.state.UserSession;
+import org.maxur.taskun.view.model.UserSession;
 
 import java.util.List;
 

@@ -7,15 +7,14 @@ import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.model.MenuItems;
+import org.maxur.taskun.view.model.UserSession;
 import org.maxur.taskun.view.pages.ExamplePage;
 import org.maxur.taskun.view.pages.HomePage;
-import org.maxur.taskun.view.state.UserSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * This class is intended to be subclassed by framework
- * clients to define a web application.
+ * This class represents Taskun Application and it's context.
  *
  * @author Maxim Yunusov
  * @version 1.0 7/5/11
@@ -23,14 +22,10 @@ import org.springframework.stereotype.Component;
 @Component(value = "wicketApplication")
 public class TaskunApplication extends WebApplication {
 
-
-    private transient ApplicationController controller;
-
-    @Autowired
-    public void setController(final ApplicationController controller) {
-        this.controller = controller;
-    }
-
+    /**
+     * The ApplicationController bean.
+     */
+    private transient ApplicationController applicationController;
 
     /**
      * @see org.apache.wicket.Application#getHomePage()
@@ -38,8 +33,18 @@ public class TaskunApplication extends WebApplication {
      */
     @Override
     public Class<? extends Page> getHomePage() {
-//        mountBookmarkablePage("/example", ExamplePage.class);
+// TODO MY  Create short url as  mountBookmarkablePage("/example", ExamplePage.class);
         return HomePage.class;
+    }
+
+
+    /**
+     * Setter on Application Controller bean.
+     * @param controller The Application Controller bean.
+     */
+    @Autowired
+    public void setApplicationController(final ApplicationController controller) {
+        this.applicationController = controller;
     }
 
     /**
@@ -51,7 +56,7 @@ public class TaskunApplication extends WebApplication {
      */
     @Override
     public Session newSession(final Request request, final Response response) {
-        return new UserSession(request, controller, createMenuItems());
+        return new UserSession(request, applicationController, createMenuItems());
     }
 
     /**

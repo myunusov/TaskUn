@@ -6,7 +6,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.view.components.EmployeeForm;
 import org.maxur.taskun.view.components.EmployeesView;
-import org.maxur.taskun.view.state.UserSession;
+import org.maxur.taskun.view.model.UserSession;
 
 /**
  * The Home Page Controller.
@@ -22,14 +22,8 @@ public class HomePage extends BasePage {
     private static final long serialVersionUID = 1773451707947074585L;
 
     /**
-     * Get The User Session.
-     *
-     * @return The User Session.
+     *  Constructs HomePage instance.
      */
-    public final UserSession getUserSession() {
-        return (UserSession) getSession();
-    }
-
     public HomePage() {
         super();
         add(new FeedbackPanel("feedback"));
@@ -38,6 +32,16 @@ public class HomePage extends BasePage {
         final ListView<Employee> listView = new EmployeesView("employees", getUserSession().getAllEmployee());
         add(new Label("current_user", "Кто Вы ?"));
         add(listView);
+    }
+
+
+    /**
+     * Get The User Session.
+     *
+     * @return The User Session.
+     */
+    public final UserSession getUserSession() {
+        return (UserSession) getSession();
     }
 
 }

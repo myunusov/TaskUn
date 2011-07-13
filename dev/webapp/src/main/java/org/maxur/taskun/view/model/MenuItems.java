@@ -21,9 +21,7 @@ public class MenuItems extends ArrayList<MenuItem> {
     /**
      * Constructs an empty list with the specified initial capacity.
      *
-     * @param   initialCapacity   the initial capacity of the list
-     * @exception IllegalArgumentException if the specified initial capacity
-     *            is negative
+     * @param   initialCapacity   the initial capacity of the list.
      */
     public MenuItems(final int initialCapacity) {
         super(initialCapacity);
@@ -32,6 +30,7 @@ public class MenuItems extends ArrayList<MenuItem> {
 
     /**
      * Calls on select one of meu items. Deselects all other menu items.
+     *
      * @param menuItem The selected menu items.
      */
     void setActiveItem(final MenuItem menuItem) {

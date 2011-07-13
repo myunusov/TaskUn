@@ -20,12 +20,12 @@ public final class MenuItem implements Serializable {
     /**
      * The Menu Items container.
      */
-    private final MenuItems items;
+    private final MenuItems owner;
 
     /**
      * The title of Menu Item.
      */
-    private final String value;
+    private final String title;
 
     /**
      * It's true if menu item in selected state.
@@ -41,23 +41,27 @@ public final class MenuItem implements Serializable {
      * Constructs Menu Item.
      * @param items The Menu Items container. This bidirectional link.
      * @param value The title of Menu Item.
-     * @param targetPage The target page. This page will be loaded on select this menu item.
+     * @param page The target page. This page will be loaded on select this menu item.
      */
-    private MenuItem(final MenuItems items, final String value, Class<? extends Page> targetPage) {
-        this.items = items;
-        this.value = value;
-        this.targetPage = targetPage;
+    private MenuItem(
+            final MenuItems items,
+            final String value,
+            final Class<? extends Page> page
+    ) {
+        this.owner = items;
+        this.title = value;
+        this.targetPage = page;
         this.active = false;
     }
 
     /**
      * Set Menu Item active and if it's true than deactivate all other Menu Items from container.
-     * @param active It's true if menu item in selected state.
+     * @param value It's true if menu item in selected state.
      */
-    public void setActive(final boolean active) {
-        this.active = active;
-        if (active) {
-            items.setActiveItem(this);
+    public void setActive(final boolean value) {
+        this.active = value;
+        if (value) {
+            owner.setActiveItem(this);
         }
     }
 
@@ -65,8 +69,8 @@ public final class MenuItem implements Serializable {
      * Getter for value field.
      * @return The value of value field. It's the title of Menu Item.
      */
-    public String getValue() {
-        return value;
+    public String getTitle() {
+        return title;
     }
 
     /**

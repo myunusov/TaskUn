@@ -1,11 +1,9 @@
-package org.maxur.taskun.view.state;
+package org.maxur.taskun.view.model;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.protocol.http.WebSession;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.model.MenuItem;
-import org.maxur.taskun.view.model.MenuItems;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +14,10 @@ import java.util.List;
  */
 public class UserSession extends WebSession {
 
-    private final transient ApplicationController controller;
+    /**
+     * The ApplicationController bean.
+     */
+    private final transient ApplicationController applicationController;
 
     /**
      * Serial Version UID.
@@ -32,6 +33,7 @@ public class UserSession extends WebSession {
      * The Constructor of UserSession class.
      *
      * @param request   The Base class for page request.
+     * @param controller The ApplicationController bean.
      * @param menuItems The menu items
      */
     public UserSession(
@@ -40,7 +42,7 @@ public class UserSession extends WebSession {
             final MenuItems menuItems
     ) {
         super(request);
-        this.controller = controller;
+        this.applicationController = controller;
         this.items = menuItems;
     }
 
@@ -53,12 +55,19 @@ public class UserSession extends WebSession {
         return Collections.unmodifiableList(items);
     }
 
-
+    /**
+     * Returns all employee from repository.
+     * @return  The employees List from repository
+     */
     public List<Employee> getAllEmployee() {
-        return controller.getAllEmployee();
+        return applicationController.getAllEmployee();
     }
 
+    /**
+     * Save employee into repository.
+     * @param employee The saving employee.
+     */
     public void saveEmployee(final Employee employee) {
-        controller.saveEmployee(employee);
+        applicationController.saveEmployee(employee);
     }
 }

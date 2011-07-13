@@ -8,7 +8,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.maxur.taskun.datasource.hibernate.EmployeeImpl;
 import org.maxur.taskun.domain.Employee;
-import org.maxur.taskun.view.state.UserSession;
+import org.maxur.taskun.view.model.UserSession;
 
 /**
 * @author Maxim Yunusov
@@ -16,15 +16,36 @@ import org.maxur.taskun.view.state.UserSession;
 */
 public class EmployeeForm extends Form<Employee> {
 
+     /**
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 816388810515322983L;
 
-    private final UserSession session;
-    private Class<? extends WebPage> page;
+    /**
+     *  The User Session.
+     */
+    private final UserSession webSession;
 
-    public EmployeeForm(final String id, final UserSession session, final Class<? extends WebPage> page) {
+    /**
+     * The Response Page.
+     */
+    private Class<? extends WebPage> responsePage;
+
+    /**
+     * Constructs EmployeeForm instance.
+     * @param id  Employee Form identifier.
+     * @param session  The User Session.
+     * @param page The Response Page.
+     */
+    public EmployeeForm(
+            final String id,
+            final UserSession session,
+            final Class<? extends WebPage> page
+    ) {
+        //TODO MY All String constants should be excluded to resources
         super(id, new CompoundPropertyModel<Employee>(new EmployeeImpl()));
-        this.session = session;
-        this.page = page;
+        this.webSession = session;
+        this.responsePage = page;
         add(new Label("first_name", "Имя"));
         add(createTextField("firstName", true));
         add(new Label("last_name", "Фамилия"));
@@ -33,16 +54,29 @@ public class EmployeeForm extends Form<Employee> {
         add(createTextField("middleName", false));
     }
 
-    private TextField<String> createTextField(final String expression, final boolean isRequired) {
+    /**
+     * Factory method for TextField instance.
+     * @param expression The non-null id of this component.
+     * @param isRequired  It's true if value of field is required.
+     *
+     * @return The instance of TextField<String>.
+     */
+    private TextField<String> createTextField(
+            final String expression,
+            final boolean isRequired
+    ) {
         TextField<String> field = new TextField<String>(expression);
         field.add(StringValidator.lengthBetween(1, Employee.MAX_EMPLOYEE_NAME_LENGTH));
         field.setRequired(isRequired);
         return field;
     }
 
+    /**
+     * This method is called on Form Submit.
+     */
     @Override
-    protected void onSubmit() {
-        session.saveEmployee(getModelObject());
-        setResponsePage(page);
+    protected final void onSubmit() {
+        webSession.saveEmployee(getModelObject());
+        setResponsePage(responsePage);
     }
 }

@@ -52,7 +52,7 @@ public class MenuItemsTest {
     public void testAddConcreteValue() throws Exception {
         items.add("1", BasePage.class, false);
         for (MenuItem item : items) {
-            Assert.assertEquals("1", item.getValue());
+            Assert.assertEquals("1", item.getTitle());
         }
     }
 

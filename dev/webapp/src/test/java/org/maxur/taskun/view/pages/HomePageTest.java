@@ -21,7 +21,7 @@ import org.maxur.taskun.view.TaskunApplication;
 import org.maxur.taskun.view.components.EmployeeForm;
 import org.maxur.taskun.view.components.EmployeesView;
 import org.maxur.taskun.view.model.MenuItems;
-import org.maxur.taskun.view.state.UserSession;
+import org.maxur.taskun.view.model.UserSession;
 
 import java.util.Collections;
 
