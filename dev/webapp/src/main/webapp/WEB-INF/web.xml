@@ -5,6 +5,7 @@
             http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
     <display-name>TaskUN Web Application</display-name>
+
     <description>The System of maintain and monitoring office's tasks</description>
 
     <context-param>
@@ -22,7 +23,7 @@
     </filter>
 
     <filter>
-        <filter-name>wicket-spring-hibernate</filter-name>
+        <filter-name>wicket.filter</filter-name>
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationFactoryClassName</param-name>
@@ -41,7 +42,7 @@
     </filter-mapping>
 
     <filter-mapping>
-        <filter-name>wicket-spring-hibernate</filter-name>
+        <filter-name>wicket.filter</filter-name>
         <url-pattern>/taskun/*</url-pattern>
     </filter-mapping>
 

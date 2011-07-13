@@ -15,7 +15,8 @@ public class TaskunApplicationTest {
     @Test
     public void testGetHomePage() throws Exception {
         final TaskunApplication application = new TaskunApplication();
+        application.setHomePage(HomePage.class);
         final Class<? extends Page> homePage = application.getHomePage();
-        Assert.assertTrue(homePage.equals(HomePage.class));
+        Assert.assertTrue(HomePage.class.equals(homePage));
     }
 }

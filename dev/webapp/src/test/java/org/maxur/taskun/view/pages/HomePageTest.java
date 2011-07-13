@@ -5,6 +5,8 @@ import org.apache.wicket.Response;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.WicketTester;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -39,32 +41,19 @@ public class HomePageTest {
 
     private ApplicationController controller;
 
-    static private Employee dummy = new Employee() {};
+    static private Employee dummy = new Employee() {
+    };
 
     @Before
     public void setUp() {
         context = new JUnit4Mockery() {{
             setImposteriser(ClassImposteriser.INSTANCE);
         }};
-        tester = new WicketTester(new TaskunApplication() {
-
-            {
-                controller = context.mock(ApplicationController.class);
-            }
-
-            @Override
-            public Session newSession(final Request request, final Response response) {
-                return new UserSession(request, controller, createMenuItems());
-            }
-
-            private MenuItems createMenuItems() {
-                final MenuItems result = new MenuItems(3);
-                result.add("Главная", HomePage.class, true);
-                result.add("Блог", ExamplePage.class);
-                result.add("О программе", ExamplePage.class);
-                return result;
-            }
-        });
+        tester = new WicketTester(new StubWebApplication());
+        AnnotApplicationContextMock mockContext =
+                ((StubWebApplication) tester.getApplication()).getMockContext();
+        controller = context.mock(ApplicationController.class);
+        mockContext.putBean("applicationController", controller);
     }
 
     @Test
@@ -91,7 +80,8 @@ public class HomePageTest {
 
     @Test
     public void testBasePageBasicRenderWithEmployeeMale() {
-        final Employee male = new Employee() {};
+        final Employee male = new Employee() {
+        };
         male.setGender(Gender.MALE);
         context.checking(new Expectations() {{
             oneOf(controller).getAllEmployee();
@@ -104,7 +94,8 @@ public class HomePageTest {
 
     @Test
     public void testBasePageBasicRenderWithEmployeeFemale() {
-        final Employee female = new Employee() {};
+        final Employee female = new Employee() {
+        };
         female.setGender(Gender.FEMALE);
         context.checking(new Expectations() {{
             oneOf(controller).getAllEmployee();
@@ -137,4 +128,31 @@ public class HomePageTest {
     }
 
 
+    private class StubWebApplication extends TaskunApplication {
+
+        private AnnotApplicationContextMock mockContext;
+
+        @Override
+        protected void springInjection() {
+            mockContext = new AnnotApplicationContextMock();
+            addComponentInstantiationListener(new SpringComponentInjector(this, mockContext, false));
+        }
+
+        public AnnotApplicationContextMock getMockContext() {
+            return mockContext;
+        }
+
+        @Override
+        public Session newSession(final Request request, final Response response) {
+            return new UserSession(request, createMenuItems());
+        }
+
+        private MenuItems createMenuItems() {
+            final MenuItems result = new MenuItems(3);
+            result.add("Главная", HomePage.class, true);
+            result.add("Блог", ExamplePage.class);
+            result.add("О программе", ExamplePage.class);
+            return result;
+        }
+    }
 }

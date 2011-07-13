@@ -16,7 +16,11 @@ public class BasePageTest {
 
     @Before
     public void setUp() {
-        tester = new WicketTester(new TaskunApplication());
+        tester = new WicketTester(new TaskunApplication() {
+            @Override
+            protected void springInjection() {
+            }
+        });
         tester.startPage(BasePage.class);
     }
 

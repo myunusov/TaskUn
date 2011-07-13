@@ -5,10 +5,11 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.maxur.taskun.datasource.hibernate.EmployeeImpl;
 import org.maxur.taskun.domain.Employee;
-import org.maxur.taskun.view.model.UserSession;
+import org.maxur.taskun.services.ApplicationController;
 
 /**
 * @author Maxim Yunusov
@@ -22,29 +23,28 @@ public class EmployeeForm extends Form<Employee> {
     private static final long serialVersionUID = 816388810515322983L;
 
     /**
-     *  The User Session.
-     */
-    private final UserSession webSession;
-
-    /**
      * The Response Page.
      */
     private Class<? extends WebPage> responsePage;
 
+
+    @SpringBean
+    private ApplicationController controller;
+
+
+    public void setController(final ApplicationController controller) {
+        this.controller = controller;
+    }
+
     /**
      * Constructs EmployeeForm instance.
      * @param id  Employee Form identifier.
-     * @param session  The User Session.
      * @param page The Response Page.
+     *
+     * @todo MY All String constants should be excluded to resources
      */
-    public EmployeeForm(
-            final String id,
-            final UserSession session,
-            final Class<? extends WebPage> page
-    ) {
-        //TODO MY All String constants should be excluded to resources
+    public EmployeeForm(final String id, final Class<? extends WebPage> page) {
         super(id, new CompoundPropertyModel<Employee>(new EmployeeImpl()));
-        this.webSession = session;
         this.responsePage = page;
         add(new Label("first_name", "Имя"));
         add(createTextField("firstName", true));
@@ -76,7 +76,7 @@ public class EmployeeForm extends Form<Employee> {
      */
     @Override
     protected final void onSubmit() {
-        webSession.saveEmployee(getModelObject());
+        controller.saveEmployee(getModelObject());
         setResponsePage(responsePage);
     }
 }
