@@ -69,7 +69,6 @@ public class EmployeeRepositoryImplTest {
         }});
         final Collection<Employee> all = repository.getAll();
         all.add(dummy);
-        context.assertIsSatisfied();
     }
 
     @Test

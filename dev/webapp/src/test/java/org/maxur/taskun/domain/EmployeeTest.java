@@ -215,5 +215,42 @@ public class EmployeeTest {
         Assert.assertEquals("Valid employee is not validated", 1, constraintViolations.size());
     }
 
+    @Test
+    public void testAutoDetectEmployeeGenderAsMale() throws Exception {
+        //Arrange
+        EmployeeFactory factory = new EmployeeFactoryImpl();
+        final Employee employee = factory.create();
+        //Act
+        employee.setFirstName("Иван");
+        employee.setLastName("Иванов");
+        employee.setMiddleName("Иванович");
+        //Assert
+        Assert.assertEquals("Employees genfer is invalid", Gender.MALE, employee.getGender());
+    }
+
+    @Test
+    public void testAutoDetectEmployeeGenderAsFemale() throws Exception {
+        //Arrange
+        EmployeeFactory factory = new EmployeeFactoryImpl();
+        final Employee employee = factory.create();
+        //Act
+        employee.setFirstName("Иван");
+        employee.setLastName("Иванов");
+        employee.setMiddleName("Ивановна");
+        //Assert
+        Assert.assertEquals("Employees genfer is invalid", Gender.FEMALE, employee.getGender());
+    }
+
+    @Test
+    public void testAutoDetectEmployeeGenderAsUnknown() throws Exception {
+        //Arrange
+        EmployeeFactory factory = new EmployeeFactoryImpl();
+        final Employee employee = factory.create();
+        //Act
+        employee.setFirstName("Иван");
+        employee.setLastName("Иванов");
+        //Assert
+        Assert.assertEquals("Employees genfer is invalid", Gender.UNKNOWN, employee.getGender());
+    }
 
 }

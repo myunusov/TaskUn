@@ -1,19 +1,17 @@
 package org.maxur.taskun.datasource.hibernate;
 
-import com.sun.istack.Nullable;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.Gender;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * The Employee persistence class (hibernate implementation).
@@ -24,7 +22,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "EMPLOYEE")
 @Component
-public class EmployeeImpl extends Employee implements Serializable {
+public class EmployeeImpl extends Employee {
 
     /**
      * Serial Version UID.
@@ -41,7 +39,7 @@ public class EmployeeImpl extends Employee implements Serializable {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "EMPLOYEE_ID")
     @Override
-    public final String getIdentifier() {
+    public String getIdentifier() {
         return super.getIdentifier();
     }
 
@@ -60,7 +58,7 @@ public class EmployeeImpl extends Employee implements Serializable {
      */
     @Column(name = "FIRST_NAME", nullable = false)
     @Override
-    public final String getFirstName() {
+    public String getFirstName() {
         return super.getFirstName();
     }
 
@@ -70,7 +68,7 @@ public class EmployeeImpl extends Employee implements Serializable {
      */
     @Column(name = "LAST_NAME", nullable = false)
     @Override
-    public final String getLastName() {
+    public String getLastName() {
         return super.getLastName();
     }
 
@@ -80,7 +78,7 @@ public class EmployeeImpl extends Employee implements Serializable {
      */
     @Column(name = "MIDDLE_NAME")
     @Override
-    public final String getMiddleName() {
+    public String getMiddleName() {
         return super.getMiddleName();
     }
 
@@ -89,38 +87,10 @@ public class EmployeeImpl extends Employee implements Serializable {
      * @return The Employee's Gender.
      */
     @Column(name = "GENDER")
-    @Type(type = "org.maxur.taskun.datasource.hibernate.EnumUserType",
-            parameters = @Parameter(name = "type", value = "org.maxur.taskun.domain.Gender"))
     @Override
+    @Enumerated(value = EnumType.STRING)
     public Gender getGender() {
         return super.getGender();
-    }
-
-    /**
-     * @see org.maxur.taskun.domain.Employee#setFirstName(String)
-     * @param value The Employee's First Name
-     */
-    @Override
-    public final void setFirstName(final String value) {
-        super.setFirstName(value);
-    }
-
-    /**
-     * @see org.maxur.taskun.domain.Employee#setLastName(String)
-     * @param value The Employee's Last Name
-     */
-    @Override
-    public final void setLastName(final String value) {
-        super.setLastName(value);
-    }
-
-    /**
-     * @see org.maxur.taskun.domain.Employee#setMiddleName(String)
-     * @param value The Employee's Middle Name
-     */
-    @Override
-    public final void setMiddleName(@Nullable final String value) {
-        super.setMiddleName(value);
     }
 
 }
