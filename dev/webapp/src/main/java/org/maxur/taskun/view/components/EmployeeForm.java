@@ -35,7 +35,7 @@ public class EmployeeForm extends Form<Employee> {
 
     private TextField<String> createTextField(final String expression, final boolean isRequired) {
         TextField<String> field = new TextField<String>(expression);
-        field.add(StringValidator.lengthBetween(1, 50));
+        field.add(StringValidator.lengthBetween(1, Employee.MAX_EMPLOYEE_NAME_LENGTH));
         field.setRequired(isRequired);
         return field;
     }

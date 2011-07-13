@@ -30,6 +30,19 @@ public class ApplicationController {
      */
     private EmployeeRepository repository;
 
+    //TODO MY exclude after set aop dynamic proxy
+    public ApplicationController() {
+    }
+
+    @Autowired
+    public ApplicationController(
+            final EmployeeFactory factory,
+            final EmployeeRepository repository
+    ) {
+        this.factory = factory;
+        this.repository = repository;
+    }
+
     /**
      * This Method creates new instance of Employee.
      * @return New instance of Employee.

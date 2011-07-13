@@ -17,26 +17,32 @@ import java.io.Serializable;
  */
 public abstract class Employee extends Entity implements Serializable {
 
+    /**
+     * Max length of employee names.
+     */
+    public static final int MAX_EMPLOYEE_NAME_LENGTH = 50;
+
      /**
      * The Serial Version UID.
      */
     private static final long serialVersionUID = -4499503762661672297L;
+
     /**
      * The Employee's First Name.
      */
     @NotEmpty
-    @Length(max = 50)
+    @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
     private String firstName;
     /**
      * The Employee's Last Name.
      */
     @NotEmpty
-    @Length(max = 50)
+    @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
     private String lastName;
     /**
      * The Employee's Middle Name.
      */
-    @Length(max = 50)
+    @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
     private String middleName;
     /**
      * The Employee's Gender.

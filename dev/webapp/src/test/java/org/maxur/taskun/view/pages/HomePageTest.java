@@ -54,10 +54,7 @@ public class HomePageTest {
 
             @Override
             public Session newSession(final Request request, final Response response) {
-                UserSession session;
-                session = new UserSession(request, createMenuItems());
-                session.setController(controller);
-                return session;
+                return new UserSession(request, controller, createMenuItems());
             }
 
             private MenuItems createMenuItems() {

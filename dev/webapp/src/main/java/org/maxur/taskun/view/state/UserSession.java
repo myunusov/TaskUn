@@ -16,11 +16,7 @@ import java.util.List;
  */
 public class UserSession extends WebSession {
 
-    private transient ApplicationController controller;
-
-    public void setController(final ApplicationController controller) {
-        this.controller = controller;
-    }
+    private final transient ApplicationController controller;
 
     /**
      * Serial Version UID.
@@ -35,11 +31,16 @@ public class UserSession extends WebSession {
     /**
      * The Constructor of UserSession class.
      *
-     * @param request The Base class for page request.
+     * @param request   The Base class for page request.
      * @param menuItems The menu items
      */
-    public UserSession(final Request request, final MenuItems menuItems) {
+    public UserSession(
+            final Request request,
+            final ApplicationController controller,
+            final MenuItems menuItems
+    ) {
         super(request);
+        this.controller = controller;
         this.items = menuItems;
     }
 
@@ -58,6 +59,6 @@ public class UserSession extends WebSession {
     }
 
     public void saveEmployee(final Employee employee) {
-       controller.saveEmployee(employee);
+        controller.saveEmployee(employee);
     }
 }

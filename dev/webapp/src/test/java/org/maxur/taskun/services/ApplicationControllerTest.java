@@ -31,13 +31,12 @@ public class ApplicationControllerTest {
     @Before
     public void setUp() throws Exception {
         context = new JUnit4Mockery();
-        controller = new ApplicationController();
     }
 
     @Test
     public void testCreateEmployee() throws Exception {
         final EmployeeFactory factory = context.mock(EmployeeFactory.class);
-        controller.setFactory(factory);
+        controller = new ApplicationController(factory, null);
         context.checking(new Expectations() {{
             oneOf(factory).create();
             will(returnValue(dummy));
@@ -49,7 +48,7 @@ public class ApplicationControllerTest {
     @Test
     public void testGetAllEmployee() throws Exception {
         final EmployeeRepository repository = context.mock(EmployeeRepository.class);
-        controller.setRepository(repository);
+        controller = new ApplicationController(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).getAll();
             will(returnValue(Collections.nCopies(3, dummy)));
@@ -61,7 +60,7 @@ public class ApplicationControllerTest {
     @Test
     public void testGetEmployee() throws Exception {
         final EmployeeRepository repository = context.mock(EmployeeRepository.class);
-        controller.setRepository(repository);
+        controller = new ApplicationController(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).get("1");
             will(returnValue(dummy));
@@ -73,7 +72,7 @@ public class ApplicationControllerTest {
     @Test
     public void testSaveEmployee() throws Exception {
         final EmployeeRepository repository = context.mock(EmployeeRepository.class);
-        controller.setRepository(repository);
+        controller = new ApplicationController(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).save(dummy);
         }});
@@ -84,7 +83,7 @@ public class ApplicationControllerTest {
     @Test
     public void testDeleteEmployee() throws Exception {
         final EmployeeRepository repository = context.mock(EmployeeRepository.class);
-        controller.setRepository(repository);
+        controller = new ApplicationController(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).delete(dummy);
         }});

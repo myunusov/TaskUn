@@ -26,6 +26,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
      */
     private HibernateTemplate hibernateTemplate;
 
+     //TODO MY exclude after set aop dynamic proxy
+    public EmployeeRepositoryImpl() {
+    }
+
+    @Autowired
+    public EmployeeRepositoryImpl(final HibernateTemplate template) {
+        this.hibernateTemplate = template;
+    }
+
     /**
      * Setter for the SessionFactory.
      * @param template The SessionFactory

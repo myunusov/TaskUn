@@ -51,9 +51,7 @@ public class TaskunApplication extends WebApplication {
      */
     @Override
     public Session newSession(final Request request, final Response response) {
-        final UserSession session = new UserSession(request, createMenuItems());
-        session.setController(controller);
-        return session;
+        return new UserSession(request, controller, createMenuItems());
     }
 
     /**
