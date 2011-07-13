@@ -1,6 +1,7 @@
 package org.maxur.taskun.it;
 
-import org.hibernate.SessionFactory;
+import javax.annotation.Nullable;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,10 +38,6 @@ public class EmployeeTransactionIT {
     @Autowired
     private EmployeeRepository repository;
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    private Employee employee;
 
     @BeforeTransaction
     public void verifyInitialDatabaseState() {
@@ -50,18 +47,12 @@ public class EmployeeTransactionIT {
 
     @Before
     public void setUpTestDataWithinTransaction() {
-        employee = factory.create();
-		employee.setFirstName("Иван");
-        employee.setLastName("Иванов");
-        employee.setMiddleName("Иванович");
     }
 
     @Test
-    // overrides the class-level defaultRollback setting
     @Rollback(true)
     public void saveEmployee() {
-        repository.save(employee);
-        sessionFactory.getCurrentSession().flush();
+        repository.save(createEmployee("Иван", "Иванов", "Иванович"));
         final Collection<Employee> employees = repository.getAll();
         Assert.assertEquals(1, employees.size());
     }
@@ -69,12 +60,32 @@ public class EmployeeTransactionIT {
     @Test
     @Rollback(true)
     public void deleteEmployee() {
+        final Employee employee = createEmployee("Иван", "Иванов", "Иванович");
         repository.save(employee);
-        sessionFactory.getCurrentSession().flush();
         repository.delete(employee);
-        sessionFactory.getCurrentSession().flush();
         final Collection<Employee> employees = repository.getAll();
         Assert.assertEquals(0, employees.size());
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    @Rollback(true)
+    public void saveDuplicateEmployee() {
+        repository.save(createEmployee("Иван", "Иванов", "Иванович"));
+        repository.save(createEmployee("Иван", "Иванов", "Иванович"));
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    @Rollback(true)
+    public void saveDuplicateEmployeeWithNulltMiddleName() {
+        repository.save(createEmployee("Иван", "Иванов", null));
+        repository.save(createEmployee("Иван", "Иванов", null));
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    @Rollback(true)
+    public void saveDuplicateEmployeeWithoutMiddleName() {
+        repository.save(createEmployee("Иван", "Иванов"));
+        repository.save(createEmployee("Иван", "Иванов"));
     }
 
     @After
@@ -88,5 +99,17 @@ public class EmployeeTransactionIT {
         Assert.assertEquals(0, employees.size());
     }
 
+    private Employee createEmployee(final String firstName, final String lastName, @Nullable final String middleName) {
+        Employee result = createEmployee(firstName, lastName);
+        result.setMiddleName(middleName);
+        return result;
+    }
+
+    private Employee createEmployee(final String firstName, final String lastName) {
+        Employee result = factory.create();
+        result.setFirstName(firstName);
+        result.setLastName(lastName);
+        return result;
+    }
 
 }

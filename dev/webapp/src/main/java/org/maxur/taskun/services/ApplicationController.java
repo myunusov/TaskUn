@@ -1,5 +1,10 @@
 package org.maxur.taskun.services;
 
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.GenericJDBCException;
+import org.hibernate.exception.JDBCConnectionException;
+import org.hibernate.exception.LockAcquisitionException;
+import org.hibernate.exception.SQLGrammarException;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.EmployeeFactory;
 import org.maxur.taskun.domain.EmployeeRepository;
@@ -66,11 +71,25 @@ public class ApplicationController {
     /**
      * Save the Employee.
      * @param employee The Employee to saveEmployee.
+     * @throws TaskunServiceException Raise on any error.
      */
     @Trace
     @Transactional(readOnly = false)
-    public void saveEmployee(final Employee employee) {
-        employeeRepository.save(employee);
+    public void saveEmployee(final Employee employee) throws TaskunServiceException {
+        try {
+            // TODO MY needs proactive reaction on duplicate
+            employeeRepository.save(employee);
+        } catch (JDBCConnectionException e) {
+            throw new TaskunServiceException(e);
+        } catch (SQLGrammarException e) {
+            throw new TaskunServiceException(e);
+        } catch (ConstraintViolationException e) {
+            throw new TaskunServiceException(e);
+        } catch (LockAcquisitionException e) {
+            throw new TaskunServiceException(e);
+        } catch (GenericJDBCException e) {
+            throw new TaskunServiceException(e);
+        }
     }
 
     /**

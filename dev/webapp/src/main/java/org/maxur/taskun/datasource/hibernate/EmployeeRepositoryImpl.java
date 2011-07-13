@@ -1,5 +1,6 @@
 package org.maxur.taskun.datasource.hibernate;
 
+import org.hibernate.SessionFactory;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.utils.Benchmark;
@@ -28,6 +29,23 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     private HibernateTemplate hibernateTemplate;
 
     /**
+     * The Hibernate Session Factory.
+     */
+    private SessionFactory sessionFactory;
+
+
+    @Autowired
+    /**
+     * Setter.
+     * @param sessionFactory The Hibernate Session Factory.
+     */
+    public void setSessionFactory(final SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+    }
+
+
+    /**
      * Constructs the instance of EmployeeRepository class.
      * It Needs for CGLIB Proxy.
      */
@@ -38,19 +56,19 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     /**
      * Constructs the instance of EmployeeRepository class.
-     * @param template The Hibernate Template bean.
+     * @param sessionFactory The Hibernate Session Factory.
      */
     @Autowired
-    public EmployeeRepositoryImpl(final HibernateTemplate template) {
-        this.hibernateTemplate = template;
+    public EmployeeRepositoryImpl(final SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 
     /**
-     * Setter for the SessionFactory.
+     * Setter for the SessionFactory. Unit Testing needs.
      *
      * @param template The SessionFactory
      */
-    @Autowired
     public void setHibernateTemplate(final HibernateTemplate template) {
         this.hibernateTemplate = template;
     }
@@ -63,6 +81,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Benchmark
     public void save(final Employee employee) {
         hibernateTemplate.saveOrUpdate(employee);
+        // TODO for constraints detected
+        sessionFactory.getCurrentSession().flush();
     }
 
     /**

@@ -5,9 +5,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.services.ApplicationController;
+import org.maxur.taskun.services.TaskunServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
@@ -21,7 +24,7 @@ import java.util.Collection;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/spring/applicationContext-test.xml"})
+@ContextConfiguration(locations = {"/spring/applicationContext-test.xml"})
 public class EmployeeServiceIT {
 
     @Autowired
@@ -33,12 +36,9 @@ public class EmployeeServiceIT {
         Assert.assertNotNull("New Employee is null", employee);
     }
 
-	@Test
-	public void testSaveEmployee() {
-		Employee employee = controller.createEmployee();
-		employee.setFirstName("Иван");
-        employee.setLastName("Иванов");
-        employee.setMiddleName("Иванович");
+    @Test
+    public void testSaveEmployee() throws Exception {
+        Employee employee = createEmployee("Иван", "Иванов", "Иванович");
         controller.saveEmployee(employee);
         final Collection<Employee> employees = controller.getAllEmployee();
         Assert.assertEquals(1, employees.size());
@@ -54,6 +54,25 @@ public class EmployeeServiceIT {
         controller.deleteEmployee(employee3);
         final Collection<Employee> employees2 = controller.getAllEmployee();
         Assert.assertEquals(0, employees2.size());
-	}
+    }
+
+    //TODO flush is make result not clean
+    @Test (expected = TaskunServiceException.class)
+    @Transactional
+    @Rollback(true)
+    public void testSaveDuplicateEmployee() throws Exception  {
+        controller.saveEmployee(createEmployee("Иван", "Иванов", "Иванович"));
+        controller.saveEmployee(createEmployee("Иван", "Иванов", "Иванович"));
+    }
+
+    private Employee createEmployee(final String иван, final String иванов, final String иванович) {
+        Employee employee;
+        employee = controller.createEmployee();
+        employee.setFirstName(иван);
+        employee.setLastName(иванов);
+        employee.setMiddleName(иванович);
+        return employee;
+    }
+
 
 }

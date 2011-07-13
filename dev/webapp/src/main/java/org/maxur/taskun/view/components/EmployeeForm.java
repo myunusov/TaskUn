@@ -10,6 +10,7 @@ import org.apache.wicket.validation.validator.StringValidator;
 import org.maxur.taskun.datasource.hibernate.EmployeeImpl;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.services.ApplicationController;
+import org.maxur.taskun.services.TaskunServiceException;
 
 /**
 * @author Maxim Yunusov
@@ -76,7 +77,11 @@ public class EmployeeForm extends Form<Employee> {
      */
     @Override
     protected final void onSubmit() {
-        controller.saveEmployee(getModelObject());
+        try {
+            controller.saveEmployee(getModelObject());
+        } catch (TaskunServiceException e) {
+            //todo MY it must be processed
+        }
         setResponsePage(responsePage);
     }
 }

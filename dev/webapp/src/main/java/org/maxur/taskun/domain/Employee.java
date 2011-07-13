@@ -1,9 +1,9 @@
 package org.maxur.taskun.domain;
 
-import com.sun.istack.Nullable;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.annotation.Nullable;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -22,28 +22,30 @@ public abstract class Employee extends Entity implements Serializable {
      */
     public static final int MAX_EMPLOYEE_NAME_LENGTH = 50;
 
-     /**
+    /**
      * The Serial Version UID.
      */
     private static final long serialVersionUID = -4499503762661672297L;
+
+    private static final String EMPTY_STRING = "";
 
     /**
      * The Employee's First Name.
      */
     @NotEmpty
     @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
-    private String firstName;
+    private String firstName = EMPTY_STRING;
     /**
      * The Employee's Last Name.
      */
     @NotEmpty
     @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
-    private String lastName;
+    private String lastName = EMPTY_STRING;
     /**
      * The Employee's Middle Name.
      */
     @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
-    private String middleName;
+    private String middleName = EMPTY_STRING;
     /**
      * The Employee's Gender.
      */
@@ -53,6 +55,7 @@ public abstract class Employee extends Entity implements Serializable {
 
     /**
      * Getter for First Name.
+     *
      * @return The Employee's First Name.
      */
     public String getFirstName() {
@@ -61,6 +64,7 @@ public abstract class Employee extends Entity implements Serializable {
 
     /**
      * Getter for Last Name.
+     *
      * @return The Employee's Last Name.
      */
     public String getLastName() {
@@ -69,6 +73,7 @@ public abstract class Employee extends Entity implements Serializable {
 
     /**
      * Getter for Middle Name.
+     *
      * @return The Employee's Middle Name.
      */
     public String getMiddleName() {
@@ -77,6 +82,7 @@ public abstract class Employee extends Entity implements Serializable {
 
     /**
      * Getter for Gender.
+     *
      * @return The Employee's Gender.
      */
     public Gender getGender() {
@@ -85,6 +91,7 @@ public abstract class Employee extends Entity implements Serializable {
 
     /**
      * Setter for First Name.
+     *
      * @param value The Employee's First Name
      */
     public void setFirstName(final String value) {
@@ -93,6 +100,7 @@ public abstract class Employee extends Entity implements Serializable {
 
     /**
      * Setter for Last Name.
+     *
      * @param value The Employee's Last Name
      */
     public void setLastName(final String value) {
@@ -101,6 +109,7 @@ public abstract class Employee extends Entity implements Serializable {
 
     /**
      * Setter for Middle Name.
+     *
      * @param value The Employee's Middle Name
      */
     public void setMiddleName(@Nullable final String value) {
@@ -111,12 +120,13 @@ public abstract class Employee extends Entity implements Serializable {
                 gender = Gender.FEMALE;
             }
         }
-        this.middleName = value;
+        this.middleName = value == null ? EMPTY_STRING : value;
     }
 
 
     /**
      * Setter for Gender.
+     *
      * @param value The Employee's Gender
      */
     public void setGender(final Gender value) {
@@ -125,6 +135,7 @@ public abstract class Employee extends Entity implements Serializable {
 
     /**
      * Getter for Employee's Title.
+     *
      * @return The Title of Employee.
      */
     @Transient
@@ -136,8 +147,8 @@ public abstract class Employee extends Entity implements Serializable {
 
 
     /**
+     * @return a string representation of the object.
      * @see Object#toString()
-     * @return  a string representation of the object.
      */
     @Override
     public final String toString() {

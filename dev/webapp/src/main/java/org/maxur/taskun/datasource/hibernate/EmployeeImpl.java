@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * The Employee persistence class (hibernate implementation).
@@ -19,9 +20,10 @@ import javax.persistence.Table;
  * @author Maxim Yunusov
  * @version 1.0 7/3/11
  */
-@Entity
-@Table(name = "EMPLOYEE")
 @Component
+@Entity
+@Table(name = "EMPLOYEE",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"FIRST_NAME", "LAST_NAME", "MIDDLE_NAME"})})
 public class EmployeeImpl extends Employee {
 
     /**
@@ -31,8 +33,8 @@ public class EmployeeImpl extends Employee {
 
 
     /**
-     * @see Employee#getIdentifier()
      * @return The Identifier.
+     * @see Employee#getIdentifier()
      */
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -45,6 +47,7 @@ public class EmployeeImpl extends Employee {
 
     /**
      * Setter for Identifier.
+     *
      * @param value The Identifier.
      */
     public final void setIdentifier(final String value) {
@@ -53,8 +56,8 @@ public class EmployeeImpl extends Employee {
 
 
     /**
-     * @see org.maxur.taskun.domain.Employee#getFirstName()
      * @return The Employee's First Name
+     * @see org.maxur.taskun.domain.Employee#getFirstName()
      */
     @Column(name = "FIRST_NAME", nullable = false)
     @Override
@@ -63,8 +66,8 @@ public class EmployeeImpl extends Employee {
     }
 
     /**
-     * @see org.maxur.taskun.domain.Employee#getLastName()
      * @return The Employee's Last Name
+     * @see org.maxur.taskun.domain.Employee#getLastName()
      */
     @Column(name = "LAST_NAME", nullable = false)
     @Override
@@ -73,8 +76,8 @@ public class EmployeeImpl extends Employee {
     }
 
     /**
-     * @see org.maxur.taskun.domain.Employee#getMiddleName()
      * @return The Employee's Middle Name
+     * @see org.maxur.taskun.domain.Employee#getMiddleName()
      */
     @Column(name = "MIDDLE_NAME")
     @Override
@@ -83,8 +86,8 @@ public class EmployeeImpl extends Employee {
     }
 
     /**
-     * @see org.maxur.taskun.domain.Employee#getGender()
      * @return The Employee's Gender.
+     * @see org.maxur.taskun.domain.Employee#getGender()
      */
     @Column(name = "GENDER")
     @Override
