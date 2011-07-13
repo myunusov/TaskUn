@@ -2,6 +2,7 @@ package org.maxur.taskun.datasource;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.maxur.taskun.datasource.hibernate.EmployeeImplTest;
 import org.maxur.taskun.datasource.hibernate.EmployeeRepositoryImplTest;
 
 /**
@@ -11,7 +12,8 @@ import org.maxur.taskun.datasource.hibernate.EmployeeRepositoryImplTest;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        EmployeeRepositoryImplTest.class
+        EmployeeRepositoryImplTest.class,
+        EmployeeImplTest.class
 })
 public class DatasourceTests {
 }

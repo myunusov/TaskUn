@@ -1,7 +1,9 @@
-package org.maxur.taskun.it;
+package org.maxur.taskun;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.maxur.taskun.it.EmployeeServiceIT;
+import org.maxur.taskun.it.EmployeeTransactionIT;
 
 /**
  * @author Maxim Yunusov
@@ -12,5 +14,5 @@ import org.junit.runners.Suite;
         EmployeeServiceIT.class,
         EmployeeTransactionIT.class
 })
-public class IntegrationTests {
+public class AllIntegrationTests {
 }

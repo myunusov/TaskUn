@@ -6,6 +6,7 @@ import org.maxur.taskun.view.model.MenuItemsTest;
 import org.maxur.taskun.view.pages.BasePageTest;
 import org.maxur.taskun.view.pages.FooterPanelTest;
 import org.maxur.taskun.view.pages.HeaderPanelTest;
+import org.maxur.taskun.view.pages.HomePageTest;
 
 /**
  * @author Maxim Yunusov
@@ -17,7 +18,8 @@ import org.maxur.taskun.view.pages.HeaderPanelTest;
         MenuItemsTest.class,
         BasePageTest.class,
         HeaderPanelTest.class,
-        FooterPanelTest.class
+        FooterPanelTest.class,
+        HomePageTest.class
 })
 public class ViewTests {
 }
