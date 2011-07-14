@@ -1,5 +1,7 @@
 package org.maxur.taskun.datasource.hibernate;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -39,10 +41,15 @@ public class EmployeeRepositoryImplTest {
 
     @Test
     public void testSave() throws Exception {
+        final Session session = context.mock(Session.class);
+        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
+        repository.setSessionFactory(sessionFactory);
         final HibernateTemplate template = context.mock(HibernateTemplate.class);
         repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
+            oneOf(sessionFactory).getCurrentSession(); will(returnValue(session));
             oneOf(template).saveOrUpdate(dummy);
+            ignoring(session);
         }});
         repository.save(dummy);
         context.assertIsSatisfied();

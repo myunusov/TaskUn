@@ -79,7 +79,7 @@ public class EmployeeImpl extends Employee {
      * @return The Employee's Middle Name
      * @see org.maxur.taskun.domain.Employee#getMiddleName()
      */
-    @Column(name = "MIDDLE_NAME")
+    @Column(name = "MIDDLE_NAME", nullable=false)
     @Override
     public String getMiddleName() {
         return super.getMiddleName();
