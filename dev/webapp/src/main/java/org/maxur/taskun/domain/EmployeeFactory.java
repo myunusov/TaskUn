@@ -13,6 +13,6 @@ public interface EmployeeFactory {
      * The Employee Factory Method. It creates new instance of Employee.
      * @return The Employee implementation.
      */
-    Employee create();
+    AbstractEmployee create();
 
 }

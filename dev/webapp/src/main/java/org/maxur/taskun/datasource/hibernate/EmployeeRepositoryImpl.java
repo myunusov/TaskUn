@@ -1,7 +1,7 @@
 package org.maxur.taskun.datasource.hibernate;
 
 import org.hibernate.SessionFactory;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.utils.Benchmark;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,28 +31,17 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     /**
      * The Hibernate Session Factory.
      */
-    private SessionFactory sessionFactory;
-
-
-    @Autowired
-    /**
-     * Setter.
-     * @param sessionFactory The Hibernate Session Factory.
-     */
-    public void setSessionFactory(final SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
-    }
+    private final SessionFactory factory;
 
 
     /**
-     * Constructs the instance of EmployeeRepository class.
-     * It Needs for CGLIB Proxy.
+     * Setter for the HibernateTemplate. Unit Testing needs.
+     *
+     * @param template The SessionFactory
      */
-    public EmployeeRepositoryImpl() {
-        //TODO MY exclude after set aop dynamic proxy
+    public final void setHibernateTemplate(final HibernateTemplate template) {
+        this.hibernateTemplate = template;
     }
-
 
     /**
      * Constructs the instance of EmployeeRepository class.
@@ -60,29 +49,21 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
      */
     @Autowired
     public EmployeeRepositoryImpl(final SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        this.factory = sessionFactory;
         this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 
-    /**
-     * Setter for the SessionFactory. Unit Testing needs.
-     *
-     * @param template The SessionFactory
-     */
-    public void setHibernateTemplate(final HibernateTemplate template) {
-        this.hibernateTemplate = template;
-    }
 
     /**
      * @param employee The Employee for saving.
-     * @see org.maxur.taskun.domain.EmployeeRepository#save(Employee)
+     * @see org.maxur.taskun.domain.EmployeeRepository#save(org.maxur.taskun.domain.AbstractEmployee)
      */
     @Override
     @Benchmark
-    public void save(final Employee employee) {
+    public final void save(final AbstractEmployee employee) {
         hibernateTemplate.saveOrUpdate(employee);
         // TODO for constraints detected
-        sessionFactory.getCurrentSession().flush();
+        factory.getCurrentSession().flush();
     }
 
     /**
@@ -92,8 +73,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     @Benchmark
     @SuppressWarnings("unchecked")
-    public List<Employee> getAll() {
-        return (List<Employee>) Collections.unmodifiableList(hibernateTemplate.find(
+    public final List<AbstractEmployee> getAll() {
+        return (List<AbstractEmployee>) Collections.unmodifiableList(hibernateTemplate.find(
                 "from org.maxur.taskun.datasource.hibernate.EmployeeImpl"
         ));
 
@@ -106,17 +87,17 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
      */
     @Override
     @Benchmark
-    public Employee get(final String id) {
+    public final AbstractEmployee get(final String id) {
         return hibernateTemplate.get(EmployeeImpl.class, id);
     }
 
     /**
      * @param employee The deleted Employee.
-     * @see org.maxur.taskun.domain.EmployeeRepository#delete(org.maxur.taskun.domain.Employee)
+     * @see org.maxur.taskun.domain.EmployeeRepository#delete(org.maxur.taskun.domain.AbstractEmployee)
      */
     @Override
     @Benchmark
-    public void delete(final Employee employee) {
+    public final void delete(final AbstractEmployee employee) {
         hibernateTemplate.delete(employee);
     }
 }

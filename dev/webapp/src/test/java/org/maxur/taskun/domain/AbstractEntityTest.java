@@ -8,20 +8,20 @@ import org.junit.Test;
  * @author Maxim Yunusov
  * @version 1.0 7/9/11
  */
-public class EntityTest {
+public class AbstractEntityTest {
 
-    private Entity entity;
+    private AbstractEntity entity;
 
     @Before
     public void setUp() {
-        entity = new Entity() {
+        entity = new AbstractEntity() {
         };
     }
 
     @Test
     public void testEquals() throws Exception {
         entity.setIdentifier("1");
-        Entity entity2 = new Entity() {
+        AbstractEntity entity2 = new AbstractEntity() {
         };
         entity2.setIdentifier("1");
         Assert.assertEquals(entity, entity2);

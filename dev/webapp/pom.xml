@@ -309,6 +309,11 @@
             <artifactId>org.springframework.instrument</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-instrument-tomcat</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         <!-- javax -->
         <dependency>
             <groupId>net.sourceforge.findbugs</groupId>
@@ -406,6 +411,11 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <forkMode>pertest</forkMode>
+                    <argLine>-javaagent:tools/org.springframework.instrument-3.0.4.RELEASE.jar</argLine>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

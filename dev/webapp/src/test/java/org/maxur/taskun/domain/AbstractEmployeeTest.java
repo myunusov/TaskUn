@@ -16,7 +16,7 @@ import java.util.Set;
  * @author Maxim Yunusov
  * @version 1.0 7/3/11
  */
-public class EmployeeTest {
+public class AbstractEmployeeTest {
 
     private Validator validator;
 
@@ -31,7 +31,7 @@ public class EmployeeTest {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
         //Act
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Assert
         Assert.assertNotNull("A employee was not be created", employee);
     }
@@ -41,7 +41,7 @@ public class EmployeeTest {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
         //Act
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");
         employee.setMiddleName("Иванович");
@@ -54,7 +54,7 @@ public class EmployeeTest {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
         //Act
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");
         //Assert
@@ -66,7 +66,7 @@ public class EmployeeTest {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
         //Act
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");
         employee.setGender(Gender.MALE);
@@ -79,7 +79,7 @@ public class EmployeeTest {
     public void testEmployeeEquals() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         Assert.assertTrue(employee.equals(employee));
     }
@@ -88,13 +88,13 @@ public class EmployeeTest {
     public void testValidEmployee() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");
         employee.setMiddleName("Иванович");
         //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+        final Set<ConstraintViolation<AbstractEmployee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
     }
 
@@ -102,12 +102,12 @@ public class EmployeeTest {
     public void testValidEmployeeWithoutMiddleName() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");
         //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+        final Set<ConstraintViolation<AbstractEmployee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
     }
 
@@ -115,11 +115,11 @@ public class EmployeeTest {
     public void testInvalidEmployeeWithoutFirstName() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setLastName("Иванов");
         //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+        final Set<ConstraintViolation<AbstractEmployee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 1, constraintViolations.size());
     }
 
@@ -127,11 +127,11 @@ public class EmployeeTest {
     public void testInvalidEmployeeWithoutLastName() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
         //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+        final Set<ConstraintViolation<AbstractEmployee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 1, constraintViolations.size());
     }
 
@@ -139,12 +139,12 @@ public class EmployeeTest {
     public void testValidEmployeeWithLongFirstName() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("12345678901234567890123456789012345678901234567890");
         employee.setLastName("Иванов");
         //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+        final Set<ConstraintViolation<AbstractEmployee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
     }
 
@@ -152,12 +152,12 @@ public class EmployeeTest {
     public void testInvalidEmployeeWithLongFirstName() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("123456789012345678901234567890123456789012345678901");
         employee.setLastName("Иванов");
         //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+        final Set<ConstraintViolation<AbstractEmployee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 1, constraintViolations.size());
     }
 
@@ -165,12 +165,12 @@ public class EmployeeTest {
     public void testValidEmployeeWithLongLastName() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
         employee.setLastName("12345678901234567890123456789012345678901234567890");
         //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+        final Set<ConstraintViolation<AbstractEmployee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
     }
 
@@ -178,12 +178,12 @@ public class EmployeeTest {
     public void testInvalidEmployeeWithLongLastName() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
         employee.setLastName("123456789012345678901234567890123456789012345678901");
         //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+        final Set<ConstraintViolation<AbstractEmployee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 1, constraintViolations.size());
     }
 
@@ -191,13 +191,13 @@ public class EmployeeTest {
     public void testValidEmployeeWithLongMiddleName() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");
         employee.setMiddleName("12345678901234567890123456789012345678901234567890");
         //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+        final Set<ConstraintViolation<AbstractEmployee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
     }
 
@@ -205,13 +205,13 @@ public class EmployeeTest {
     public void testInvalidEmployeeWithLongMiddleName() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");
         employee.setMiddleName("123456789012345678901234567890123456789012345678901");
         //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+        final Set<ConstraintViolation<AbstractEmployee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 1, constraintViolations.size());
     }
 
@@ -219,7 +219,7 @@ public class EmployeeTest {
     public void testAutoDetectEmployeeGenderAsMale() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");
@@ -232,7 +232,7 @@ public class EmployeeTest {
     public void testAutoDetectEmployeeGenderAsFemale() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");
@@ -245,7 +245,7 @@ public class EmployeeTest {
     public void testAutoDetectEmployeeGenderAsUnknown() throws Exception {
         //Arrange
         EmployeeFactory factory = new EmployeeFactoryImpl();
-        final Employee employee = factory.create();
+        final AbstractEmployee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");

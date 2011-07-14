@@ -13,10 +13,12 @@
         <param-value>classpath*:spring/applicationContext.xml</param-value>
     </context-param>
 
+<!-- TODO idea don't resolve maven's filter
     <context-param>
         <param-name>configuration</param-name>
         <param-value>${wicket.configuration}</param-value>
     </context-param>
+-->
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

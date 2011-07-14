@@ -9,8 +9,8 @@ import org.junit.runners.Suite;
  * @since <pre>08.07.11</pre>
  */
 @RunWith(Suite.class)@Suite.SuiteClasses({
-        EmployeeTest.class,
-        EntityTest.class
+        AbstractEmployeeTest.class,
+        AbstractEntityTest.class
 })
 public class DomainTests {
 }

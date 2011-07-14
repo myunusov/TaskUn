@@ -8,7 +8,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.maxur.taskun.datasource.hibernate.EmployeeImpl;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.services.TaskunServiceException;
 
@@ -16,36 +16,34 @@ import org.maxur.taskun.services.TaskunServiceException;
 * @author Maxim Yunusov
 * @version 1.0 7/10/11
 */
-public class EmployeeForm extends Form<Employee> {
+public class EmployeeForm extends Form<AbstractEmployee> {
 
      /**
      * Serial Version UID.
      */
-    private static final long serialVersionUID = 816388810515322983L;
+     private static final long serialVersionUID = 816388810515322983L;
 
     /**
      * The Response Page.
      */
-    private Class<? extends WebPage> responsePage;
+    private final Class<? extends WebPage> responsePage;
 
 
+    /**
+     * The ApplicationController bean. It's injected by Wicket IoC.
+     */
     @SpringBean
     private ApplicationController controller;
 
-
-    public void setController(final ApplicationController controller) {
-        this.controller = controller;
-    }
 
     /**
      * Constructs EmployeeForm instance.
      * @param id  Employee Form identifier.
      * @param page The Response Page.
-     *
-     * @todo MY All String constants should be excluded to resources
      */
     public EmployeeForm(final String id, final Class<? extends WebPage> page) {
-        super(id, new CompoundPropertyModel<Employee>(new EmployeeImpl()));
+       //todo MY All String constants should be excluded to resources
+        super(id, new CompoundPropertyModel<AbstractEmployee>(new EmployeeImpl()));
         this.responsePage = page;
         add(new Label("first_name", "Имя"));
         add(createTextField("firstName", true));
@@ -66,8 +64,11 @@ public class EmployeeForm extends Form<Employee> {
             final String expression,
             final boolean isRequired
     ) {
-        TextField<String> field = new TextField<String>(expression);
-        field.add(StringValidator.lengthBetween(1, Employee.MAX_EMPLOYEE_NAME_LENGTH));
+        final TextField<String> field = new TextField<String>(expression);
+        field.add(StringValidator.lengthBetween(
+                AbstractEmployee.MIN_EMPLOYEE_NAME_LENGTH,
+                AbstractEmployee.MAX_EMPLOYEE_NAME_LENGTH)
+        );
         field.setRequired(isRequired);
         return field;
     }

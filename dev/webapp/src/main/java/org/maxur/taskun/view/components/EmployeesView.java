@@ -5,7 +5,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.AbstractEmployee;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @author Maxim Yunusov
  * @version 1.0 7/10/11
  */
-public class EmployeesView extends ListView<Employee> {
+public class EmployeesView extends ListView<AbstractEmployee> {
 
     /**
      * Serial Version UID.
@@ -28,7 +28,7 @@ public class EmployeesView extends ListView<Employee> {
      * @param id        The View's identifier.
      * @param employees The Employees List for represent on web.
      */
-    public EmployeesView(final String id, final List<Employee> employees) {
+    public EmployeesView(final String id, final List<AbstractEmployee> employees) {
         super(id, employees);
     }
 
@@ -40,8 +40,8 @@ public class EmployeesView extends ListView<Employee> {
      * @param listItem The item to populate
      */
     @Override
-    protected void populateItem(final ListItem<Employee> listItem) {
-        Employee item = listItem.getModelObject();
+    protected void populateItem(final ListItem<AbstractEmployee> listItem) {
+        AbstractEmployee item = listItem.getModelObject();
         final Label title = new Label("employee_title", item.getTitle());
         listItem.add(title);
         // TODO rewrite to resource reference use

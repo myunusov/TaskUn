@@ -15,19 +15,30 @@ import java.io.Serializable;
  * @version 1.0
  * @since <pre>06.07.11</pre>
  */
-public abstract class Employee extends Entity implements Serializable {
-
-    /**
-     * Max length of employee names.
-     */
-    public static final int MAX_EMPLOYEE_NAME_LENGTH = 50;
+public abstract class AbstractEmployee extends AbstractEntity implements Serializable {
 
     /**
      * The Serial Version UID.
      */
     private static final long serialVersionUID = -4499503762661672297L;
 
+    /**
+     * Min length of employee names.
+     */
+    public static final int MIN_EMPLOYEE_NAME_LENGTH = 1;
+
+    /**
+     * Max length of employee names.
+     */
+    public static final int MAX_EMPLOYEE_NAME_LENGTH = 50;
+
+
+    /**
+     * Empty String Constant.
+     */
     private static final String EMPTY_STRING = "";
+
+
 
     /**
      * The Employee's First Name.
@@ -139,7 +150,7 @@ public abstract class Employee extends Entity implements Serializable {
      * @return The Title of Employee.
      */
     @Transient
-    public String getTitle() {
+    public final String getTitle() {
         return EMPTY_STRING.equals(getMiddleName())
                 ? String.format("%s %s", getFirstName(), getLastName())
                 : String.format("%s %s %s", getFirstName(), getMiddleName(), getLastName());

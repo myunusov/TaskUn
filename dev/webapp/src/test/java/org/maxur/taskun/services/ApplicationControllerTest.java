@@ -8,7 +8,7 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.domain.EmployeeFactory;
 import org.maxur.taskun.domain.EmployeeRepository;
 
@@ -26,7 +26,7 @@ public class ApplicationControllerTest {
 
     private Mockery context;
 
-    static private Employee dummy = new Employee() {};
+    static private AbstractEmployee dummy = new AbstractEmployee() {};
 
     @Before
     public void setUp() throws Exception {
@@ -36,43 +36,43 @@ public class ApplicationControllerTest {
     @Test
     public void testCreateEmployee() throws Exception {
         final EmployeeFactory factory = context.mock(EmployeeFactory.class);
-        controller = new ApplicationController(factory, null);
+        controller = new ApplicationControllerImpl(factory, null);
         context.checking(new Expectations() {{
             oneOf(factory).create();
             will(returnValue(dummy));
         }});
-        final Employee employee = controller.createEmployee();
+        final AbstractEmployee employee = controller.createEmployee();
         Assert.assertNotNull(employee);
     }
 
     @Test
     public void testGetAllEmployee() throws Exception {
         final EmployeeRepository repository = context.mock(EmployeeRepository.class);
-        controller = new ApplicationController(null, repository);
+        controller = new ApplicationControllerImpl(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).getAll();
             will(returnValue(Collections.nCopies(3, dummy)));
         }});
-        final Collection<Employee> employees = controller.getAllEmployee();
+        final Collection<AbstractEmployee> employees = controller.getAllEmployee();
         Assert.assertEquals(3, employees.size());
     }
 
     @Test
     public void testGetEmployee() throws Exception {
         final EmployeeRepository repository = context.mock(EmployeeRepository.class);
-        controller = new ApplicationController(null, repository);
+        controller = new ApplicationControllerImpl(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).get("1");
             will(returnValue(dummy));
         }});
-        final Employee employee = controller.getEmployee("1");
+        final AbstractEmployee employee = controller.getEmployee("1");
         Assert.assertNotNull(employee);
     }
 
     @Test
     public void testSaveEmployee() throws Exception {
         final EmployeeRepository repository = context.mock(EmployeeRepository.class);
-        controller = new ApplicationController(null, repository);
+        controller = new ApplicationControllerImpl(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).save(dummy);
         }});
@@ -83,7 +83,7 @@ public class ApplicationControllerTest {
     @Test
     public void testDeleteEmployee() throws Exception {
         final EmployeeRepository repository = context.mock(EmployeeRepository.class);
-        controller = new ApplicationController(null, repository);
+        controller = new ApplicationControllerImpl(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).delete(dummy);
         }});

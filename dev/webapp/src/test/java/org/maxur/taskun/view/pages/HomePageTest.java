@@ -16,7 +16,7 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.TaskunApplication;
@@ -41,7 +41,8 @@ public class HomePageTest {
 
     private ApplicationController controller;
 
-    static private Employee dummy = new Employee() {
+    static private AbstractEmployee dummy = new AbstractEmployee() {
+        private static final long serialVersionUID = 3908424889025108375L;
     };
 
     @Before
@@ -80,7 +81,7 @@ public class HomePageTest {
 
     @Test
     public void testBasePageBasicRenderWithEmployeeMale() {
-        final Employee male = new Employee() {
+        final AbstractEmployee male = new AbstractEmployee() {
         };
         male.setGender(Gender.MALE);
         context.checking(new Expectations() {{
@@ -94,7 +95,7 @@ public class HomePageTest {
 
     @Test
     public void testBasePageBasicRenderWithEmployeeFemale() {
-        final Employee female = new Employee() {
+        final AbstractEmployee female = new AbstractEmployee() {
         };
         female.setGender(Gender.FEMALE);
         context.checking(new Expectations() {{

@@ -1,7 +1,7 @@
 package org.maxur.taskun.datasource.hibernate;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.domain.Gender;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +22,13 @@ import javax.persistence.UniqueConstraint;
  */
 @Component
 @Entity
-@Table(name = "EMPLOYEE",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"FIRST_NAME", "LAST_NAME", "MIDDLE_NAME"})})
-public class EmployeeImpl extends Employee {
+@Table(
+        name = "EMPLOYEE",
+        uniqueConstraints =
+                {@UniqueConstraint(columnNames =
+                        { "FIRST_NAME", "LAST_NAME", "MIDDLE_NAME" })
+                })
+public class EmployeeImpl extends AbstractEmployee {
 
     /**
      * Serial Version UID.
@@ -34,7 +38,7 @@ public class EmployeeImpl extends Employee {
 
     /**
      * @return The Identifier.
-     * @see Employee#getIdentifier()
+     * @see org.maxur.taskun.domain.AbstractEmployee#getIdentifier()
      */
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -57,7 +61,7 @@ public class EmployeeImpl extends Employee {
 
     /**
      * @return The Employee's First Name
-     * @see org.maxur.taskun.domain.Employee#getFirstName()
+     * @see org.maxur.taskun.domain.AbstractEmployee#getFirstName()
      */
     @Column(name = "FIRST_NAME", nullable = false)
     @Override
@@ -67,7 +71,7 @@ public class EmployeeImpl extends Employee {
 
     /**
      * @return The Employee's Last Name
-     * @see org.maxur.taskun.domain.Employee#getLastName()
+     * @see org.maxur.taskun.domain.AbstractEmployee#getLastName()
      */
     @Column(name = "LAST_NAME", nullable = false)
     @Override
@@ -77,9 +81,9 @@ public class EmployeeImpl extends Employee {
 
     /**
      * @return The Employee's Middle Name
-     * @see org.maxur.taskun.domain.Employee#getMiddleName()
+     * @see org.maxur.taskun.domain.AbstractEmployee#getMiddleName()
      */
-    @Column(name = "MIDDLE_NAME", nullable=false)
+    @Column(name = "MIDDLE_NAME", nullable = false)
     @Override
     public String getMiddleName() {
         return super.getMiddleName();
@@ -87,7 +91,7 @@ public class EmployeeImpl extends Employee {
 
     /**
      * @return The Employee's Gender.
-     * @see org.maxur.taskun.domain.Employee#getGender()
+     * @see org.maxur.taskun.domain.AbstractEmployee#getGender()
      */
     @Column(name = "GENDER")
     @Override

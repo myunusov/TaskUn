@@ -7,7 +7,7 @@ package org.maxur.taskun.domain;
  * @version 1.0
  * @since <pre>06.07.11</pre>
  */
-public abstract class Entity {
+public abstract class AbstractEntity {
 
     /**
      * The Employee's Id.
@@ -36,10 +36,10 @@ public abstract class Entity {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Entity)) {
+        if (!(obj instanceof AbstractEntity)) {
             return false;
         }
-        final Entity entity = (Entity) obj;
+        final AbstractEntity entity = (AbstractEntity) obj;
         return !(identifier != null
                 ? !identifier.equals(entity.identifier)
                 : entity.identifier != null);

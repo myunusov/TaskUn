@@ -20,8 +20,12 @@ public class HomePage extends BasePage {
      */
     private static final long serialVersionUID = 1773451707947074585L;
 
+    /**
+     * The ApplicationController bean. It's injected by Wicket IoC.
+     */
     @SpringBean
     private ApplicationController controller;
+
 
     /**
      *  Constructs HomePage instance.

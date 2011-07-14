@@ -24,14 +24,28 @@ import org.springframework.stereotype.Component;
 @Component(value = "wicketApplication")
 public class TaskunApplication extends WebApplication {
 
+    /**
+     *  It is default encoding for markup files.
+     */
     private static final String DEFAULT_ENCODING = "UTF-8";
 
+    /**
+     * @see org.springframework.context.ApplicationContext
+     *
+     */
     @Autowired
     private ApplicationContext applicationContext;
 
+    /**
+     * Home page class for this application.
+     */
     private Class<? extends WebPage> homePage;
 
 
+    /**
+     * Static getter for get the TaskunApplication singleton instance.
+     * @return the TaskunApplication singleton instance.
+     */
     public static TaskunApplication get() {
         return (TaskunApplication) WebApplication.get();
     }
@@ -40,17 +54,24 @@ public class TaskunApplication extends WebApplication {
      * @see org.apache.wicket.protocol.http.WebApplication#init()
      */
     @Override
-    protected void init() {
+    protected final void init() {
         super.init();
         springInjection();
     }
 
+    /**
+     * Init listener for spring inject. This method exclude by Unit Test needs.
+     */
     protected void springInjection() {
             addComponentInstantiationListener(
                     new SpringComponentInjector(this, applicationContext, true)
             );
     }
 
+    /**
+     * Internal initialization. This method is not part of Wicket API.
+     * It's workaround for directly call init in spring context.
+     */
     @Override
     protected void internalInit() {
         super.internalInit();
@@ -65,35 +86,31 @@ public class TaskunApplication extends WebApplication {
     }
 
     /**
-     * @return Configuration Type
-     * @see org.apache.wicket.protocol.http.WebApplication#getConfigurationType()
-     */
-    @Override
-    public String getConfigurationType() {
-        return super.getConfigurationType();
-        //return WebApplication.DEVELOPMENT;
-    }
-
-    /**
+     * Getter for get Home Page class.
+     *
      * @return Home page class for this application
      * @see org.apache.wicket.Application#getHomePage()
      */
     @Override
-    public Class<? extends Page> getHomePage() {
+    public final Class<? extends Page> getHomePage() {
         return homePage;
     }
 
     /**
      * Setter which set the Home Page.
-     * @param homePage The Home Page.
+     *
+     * @param page The Home Page.
      */
     @Autowired
-    public void setHomePage(final Class<? extends WebPage> homePage) {
-        mountBookmarkablePage("/home", homePage);
-        this.homePage = homePage;
+    public final void setHomePage(final Class<? extends WebPage> page) {
+        mountBookmarkablePage("/home", page);
+        this.homePage = page;
     }
 
     /**
+     * @see org.apache.wicket.Application#newSession(org.apache.wicket.Request,
+     *      org.apache.wicket.Response)
+     *
      * @param request  Represents http request.
      * @param response Represents http response.
      * @return new UserSession for represented request.

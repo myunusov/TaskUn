@@ -1,0 +1,16 @@
+<!DOCTYPE aspectj PUBLIC
+        "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+
+    <weaver options="-XnoInline -verbose -showWeaveInfo -Xlint:ignore -Xset:weaveJavaxPackages=true">
+        <include within="javax.*"/>
+        <include within="org.aspectj.*"/>
+        <include within="org.maxur.taskun..*"/>
+    </weaver>
+
+    <aspects>
+        <aspect name="org.maxur.taskun.services.advice.BenchmarkAdvice"/>
+        <aspect name="org.maxur.taskun.services.advice.TraceAdvice"/>
+    </aspects>
+
+</aspectj>

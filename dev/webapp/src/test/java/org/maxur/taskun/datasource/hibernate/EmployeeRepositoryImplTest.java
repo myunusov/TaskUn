@@ -11,7 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.AbstractEmployee;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import java.util.Collection;
@@ -26,9 +26,8 @@ public class EmployeeRepositoryImplTest {
 
     private Mockery context;
 
-    private EmployeeRepositoryImpl repository;
-
-    static private Employee dummy = new Employee() {
+    static private AbstractEmployee dummy = new AbstractEmployee() {
+        private static final long serialVersionUID = -3552630573530150686L;
     };
 
     @Before
@@ -36,14 +35,14 @@ public class EmployeeRepositoryImplTest {
         context = new JUnit4Mockery() {{
         setImposteriser(ClassImposteriser.INSTANCE);
         }};
-        repository = new EmployeeRepositoryImpl();
+
     }
 
     @Test
     public void testSave() throws Exception {
         final Session session = context.mock(Session.class);
         final SessionFactory sessionFactory = context.mock(SessionFactory.class);
-        repository.setSessionFactory(sessionFactory);
+        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
         final HibernateTemplate template = context.mock(HibernateTemplate.class);
         repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
@@ -57,6 +56,8 @@ public class EmployeeRepositoryImplTest {
 
     @Test
     public void testGetAll() throws Exception {
+        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
+        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
         final HibernateTemplate template = context.mock(HibernateTemplate.class);
         repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
@@ -68,31 +69,37 @@ public class EmployeeRepositoryImplTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void testGetAllCheckUnmodifiableResult() throws Exception {
+        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
+        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
         final HibernateTemplate template = context.mock(HibernateTemplate.class);
         repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
             oneOf(template).find(with(any(String.class)));
             will(returnValue(Collections.nCopies(3, dummy)));
         }});
-        final Collection<Employee> all = repository.getAll();
+        final Collection<AbstractEmployee> all = repository.getAll();
         all.add(dummy);
     }
 
     @Test
     public void testGet() throws Exception {
+        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
+        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
         final HibernateTemplate template = context.mock(HibernateTemplate.class);
         repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
             oneOf(template).get(EmployeeImpl.class, "1");
             will(returnValue(dummy));
         }});
-        Employee result = repository.get("1");
+        AbstractEmployee result = repository.get("1");
         context.assertIsSatisfied();
         Assert.assertEquals(dummy, result);
     }
 
     @Test
     public void testDelete() throws Exception {
+        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
+        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
         final HibernateTemplate template = context.mock(HibernateTemplate.class);
         repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
