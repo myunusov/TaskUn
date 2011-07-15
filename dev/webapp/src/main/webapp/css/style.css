@@ -312,15 +312,23 @@ html>body #content {
 /** Employee view style */
 
 .avatar {
-}
-
-.avatar em {
     width: 64px;
     display: block;
     overflow: hidden;
     height: 64px;
     background-position: 0 0;
 }
+
+.employee {
+    background: none;
+    color: #F5F5F5;
+}
+
+.employee_selected {
+    background: none;
+    color: #474848;
+}
+
 
 /* Sidebar Common Style */
 

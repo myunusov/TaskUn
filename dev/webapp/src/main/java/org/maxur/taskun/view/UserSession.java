@@ -1,7 +1,9 @@
-package org.maxur.taskun.view.model;
+package org.maxur.taskun.view;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.protocol.http.WebSession;
+import org.maxur.taskun.view.model.MenuItem;
+import org.maxur.taskun.view.model.MenuItems;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,10 +19,12 @@ public class UserSession extends WebSession {
      */
     private static final long serialVersionUID = -1839738545816232994L;
 
+
     /**
      * Menu items List as MenuItems class.
      */
     private final MenuItems items;
+
 
     /**
      * The Constructor of UserSession class.
@@ -37,7 +41,7 @@ public class UserSession extends WebSession {
     }
 
     /**
-     * Get Menu Items.
+     * Gets Menu Items.
      *
      * @return The Menu Items List.
      */

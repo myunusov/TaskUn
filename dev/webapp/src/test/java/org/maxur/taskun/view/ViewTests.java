@@ -2,6 +2,7 @@ package org.maxur.taskun.view;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.maxur.taskun.view.model.EmployeesGroupTest;
 import org.maxur.taskun.view.model.MenuItemsTest;
 import org.maxur.taskun.view.pages.BasePageTest;
 import org.maxur.taskun.view.pages.FooterPanelTest;
@@ -19,7 +20,8 @@ import org.maxur.taskun.view.pages.HomePageTest;
         BasePageTest.class,
         HeaderPanelTest.class,
         FooterPanelTest.class,
-        HomePageTest.class
+        HomePageTest.class,
+        EmployeesGroupTest.class
 })
 public class ViewTests {
 }

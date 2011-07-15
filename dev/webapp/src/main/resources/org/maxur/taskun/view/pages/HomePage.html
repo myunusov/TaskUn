@@ -11,8 +11,10 @@
             <div class="entry">
                 <div class="bigpix" style="vertical-align: baseline; display: block;">
                     <div class="gridimage" wicket:id="employees" style="width: 64px; height: 100px">
-                        <img src="/images/User_male.png" alt="" width="64" height="64" wicket:id="employee_img" />
-                        <p class="caption" wicket:id="employee_title">Неизвестный</p>
+                        <a wicket:id="select" class="employee">
+                            <img src="/images/User_male.png" alt="" class="avatar" wicket:id="employee_img"/>
+                        </a>
+                        <p class="caption" wicket:id="employee_title">[EMPLOYEE NAME]</p>
                     </div>
                 </div>
             </div>
@@ -23,14 +25,10 @@
     <div id="sidebar1" class="sidebar">
         <ul>
             <li>
-                <h2>Recent Posts</h2>
+                <h2><span wicket:id="resume_title">[Resume]</span></h2>
                 <ul>
-                    <li><a href="#">Aliquam libero</a></li>
-                    <li><a href="#">Consectetuer adipiscing elit</a></li>
-                    <li><a href="#">Metus aliquam pellentesque</a></li>
-                    <li><a href="#">Suspendisse iaculis mauris</a></li>
-                    <li><a href="#">Urnanet non molestie semper</a></li>
-                    <li><a href="#">Proin gravida orci porttitor</a></li>
+                    <li><span wicket:id="total">[Total]</span></li>
+                    <li><span wicket:id="selected">[Selected]</span></li>
                 </ul>
             </li>
         </ul>

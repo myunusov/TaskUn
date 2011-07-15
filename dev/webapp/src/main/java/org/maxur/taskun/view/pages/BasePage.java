@@ -2,6 +2,7 @@ package org.maxur.taskun.view.pages;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.maxur.taskun.view.UserSession;
 
 /**
  * The Base Page Controller.
@@ -26,4 +27,15 @@ public class BasePage extends WebPage {
         add(new HeaderPanel("header"));
         add(new FooterPanel("footer"));
     }
+
+    /**
+     * Get The User Session.
+     *
+     * @return The User Session.
+     */
+    public UserSession getUserSession() {
+        return (UserSession) getSession();
+    }
+
+
 }

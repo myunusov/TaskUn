@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.maxur.taskun.view.model.MenuItems;
-import org.maxur.taskun.view.model.UserSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -118,6 +117,14 @@ public class TaskunApplication extends WebApplication {
     @Autowired
     public final void setMenuItems(final MenuItems items) {
         this.menuItems =  items;
+    }
+
+    /**
+     * Setter for set  applicationContext without Spring inject.
+     * @param applicationContext The ApplicationContext.
+     */
+    public void setApplicationContext(final ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
 
     /**

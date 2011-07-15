@@ -111,9 +111,15 @@ public class HomePageTest {
         tester.assertComponent("menu", MenuPanel.class);
         tester.assertComponent("footer", FooterPanel.class);
         tester.assertComponent("header", HeaderPanel.class);
+
         tester.assertComponent("feedback", FeedbackPanel.class);
         tester.assertComponent("employees_title", Label.class);
         tester.assertComponent("employees_form", EmployeeForm.class);
+
+        tester.assertComponent("resume_title", Label.class);
+        tester.assertComponent("total", Label.class);
+        tester.assertComponent("selected", Label.class);
+
         tester.assertComponent("employees", EmployeesView.class);
         tester.assertComponent("current_user", Label.class);
 
