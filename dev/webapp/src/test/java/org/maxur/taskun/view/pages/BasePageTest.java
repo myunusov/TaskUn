@@ -1,9 +1,12 @@
 package org.maxur.taskun.view.pages;
 
+import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.WicketTester;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.taskun.view.TaskunApplication;
 
 /**
  * @author Maxim Yunusov
@@ -14,15 +17,19 @@ public class BasePageTest {
 
     private WicketTester tester;
 
-    @Before
+    private Mockery context;
+
+     @Before
     public void setUp() {
-        tester = new WicketTester(new TaskunApplication() {
-            @Override
-            protected void springInjection() {
-            }
-        });
+        context = new JUnit4Mockery() {{
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }};
+        tester = new WicketTester(new StubWebApplication());
+        AnnotApplicationContextMock mockContext =
+                ((StubWebApplication) tester.getApplication()).getMockContext();
         tester.startPage(BasePage.class);
     }
+
 
     @Test
     public void testBasePageBasicRender() {

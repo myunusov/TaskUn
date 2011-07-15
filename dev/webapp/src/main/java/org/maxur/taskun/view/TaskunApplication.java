@@ -9,8 +9,6 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.maxur.taskun.view.model.MenuItems;
 import org.maxur.taskun.view.model.UserSession;
-import org.maxur.taskun.view.pages.ExamplePage;
-import org.maxur.taskun.view.pages.HomePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -40,6 +38,11 @@ public class TaskunApplication extends WebApplication {
      * Home page class for this application.
      */
     private Class<? extends WebPage> homePage;
+
+    /**
+     * Main menu items.
+     */
+    private MenuItems menuItems;
 
 
     /**
@@ -97,7 +100,7 @@ public class TaskunApplication extends WebApplication {
     }
 
     /**
-     * Setter which set the Home Page.
+     * Setter for set the Home Page.
      *
      * @param page The Home Page.
      */
@@ -105,6 +108,16 @@ public class TaskunApplication extends WebApplication {
     public final void setHomePage(final Class<? extends WebPage> page) {
         mountBookmarkablePage("/home", page);
         this.homePage = page;
+    }
+
+    /**
+     * Setter for set Main Menu items.
+     *
+     * @param items Main Menu items.
+     */
+    @Autowired
+    public final void setMenuItems(final MenuItems items) {
+        this.menuItems =  items;
     }
 
     /**
@@ -119,21 +132,7 @@ public class TaskunApplication extends WebApplication {
      */
     @Override
     public Session newSession(final Request request, final Response response) {
-        return new UserSession(request, createMenuItems());
-    }
-
-    /**
-     * Create Menu Items.
-     *
-     * @return List of Menu Items as MenuItems class.
-     */
-    //TODO MY must be exclude string constants
-    private MenuItems createMenuItems() {
-        final MenuItems result = new MenuItems(3);
-        result.add("Главная", HomePage.class, true);
-        result.add("Блог", ExamplePage.class);
-        result.add("О программе", ExamplePage.class);
-        return result;
+        return new UserSession(request, menuItems);
     }
 
 }

@@ -1,11 +1,7 @@
 package org.maxur.taskun.view.pages;
 
-import org.apache.wicket.Request;
-import org.apache.wicket.Response;
-import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.WicketTester;
 import org.jmock.Expectations;
@@ -19,11 +15,8 @@ import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.TaskunApplication;
 import org.maxur.taskun.view.components.EmployeeForm;
 import org.maxur.taskun.view.components.EmployeesView;
-import org.maxur.taskun.view.model.MenuItems;
-import org.maxur.taskun.view.model.UserSession;
 
 import java.util.Collections;
 
@@ -129,31 +122,4 @@ public class HomePageTest {
     }
 
 
-    private class StubWebApplication extends TaskunApplication {
-
-        private AnnotApplicationContextMock mockContext;
-
-        @Override
-        protected void springInjection() {
-            mockContext = new AnnotApplicationContextMock();
-            addComponentInstantiationListener(new SpringComponentInjector(this, mockContext, false));
-        }
-
-        public AnnotApplicationContextMock getMockContext() {
-            return mockContext;
-        }
-
-        @Override
-        public Session newSession(final Request request, final Response response) {
-            return new UserSession(request, createMenuItems());
-        }
-
-        private MenuItems createMenuItems() {
-            final MenuItems result = new MenuItems(3);
-            result.add("Главная", HomePage.class, true);
-            result.add("Блог", ExamplePage.class);
-            result.add("О программе", ExamplePage.class);
-            return result;
-        }
-    }
 }
