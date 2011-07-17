@@ -13,7 +13,7 @@ import org.maxur.taskun.view.model.MenuItems;
 * @author Maxim Yunusov
 * @version 1.0 7/15/11
 */
-class StubWebApplication extends TaskunApplication {
+public class StubWebApplication extends TaskunApplication {
 
     private AnnotApplicationContextMock mockContext;
 

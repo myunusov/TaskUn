@@ -1,9 +1,14 @@
 package org.maxur.taskun.view.model;
 
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.services.ApplicationController;
 
 import java.util.Collections;
 
@@ -17,7 +22,15 @@ public class EmployeesGroupTest {
 
     @Before
     public void setUp() throws Exception {
-        group = new EmployeesGroup(Collections.<AbstractEmployee>nCopies(5, null));
+        Mockery context = new JUnit4Mockery() {{
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }};
+        final ApplicationController controller = context.mock(ApplicationController.class);
+        context.checking(new Expectations() {{
+            oneOf(controller).getAllEmployee();
+            will(returnValue(Collections.<AbstractEmployee>nCopies(5, null)));
+        }});
+        group = new EmployeesGroup(controller);
     }
 
     @Test
@@ -35,7 +48,7 @@ public class EmployeesGroupTest {
         Assert.assertEquals(new Integer(0), group.getSelectedCount());
     }
 
-    @Test (expected = UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testModifyEmployeeList() throws Exception {
         group.getAll().add(null);
     }

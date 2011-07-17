@@ -220,6 +220,9 @@ html>body #content {
 /* Post */
 
 .post {
+    float: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .post .bigpix {
@@ -321,7 +324,7 @@ html>body #content {
 
 .employee {
     background: none;
-    color: #F5F5F5;
+    color: #F0F0F0;
 }
 
 .employee_selected {

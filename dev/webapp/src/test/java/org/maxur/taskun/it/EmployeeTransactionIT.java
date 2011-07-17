@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.EmployeeFactory;
 import org.maxur.taskun.domain.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
 
     @BeforeTransaction
     public void verifyInitialDatabaseState() {
-        final Collection<AbstractEmployee> employees = repository.getAll();
+        final Collection<Employee> employees = repository.getAll();
         Assert.assertEquals(0, employees.size());
     }
 
@@ -49,17 +49,17 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
     @Rollback(true)
     public void saveEmployee() {
         repository.save(createEmployee("Иван", "Иванов", "Иванович"));
-        final Collection<AbstractEmployee> employees = repository.getAll();
+        final Collection<Employee> employees = repository.getAll();
         Assert.assertEquals(1, employees.size());
     }
 
     @Test
     @Rollback(true)
     public void deleteEmployee() {
-        final AbstractEmployee employee = createEmployee("Иван", "Иванов", "Иванович");
+        final Employee employee = createEmployee("Иван", "Иванов", "Иванович");
         repository.save(employee);
         repository.delete(employee);
-        final Collection<AbstractEmployee> employees = repository.getAll();
+        final Collection<Employee> employees = repository.getAll();
         Assert.assertEquals(0, employees.size());
     }
 
@@ -91,18 +91,18 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
 
     @AfterTransaction
     public void verifyFinalDatabaseState() {
-        final Collection<AbstractEmployee> employees = repository.getAll();
+        final Collection<Employee> employees = repository.getAll();
         Assert.assertEquals(0, employees.size());
     }
 
-    private AbstractEmployee createEmployee(final String firstName, final String lastName, @Nullable final String middleName) {
-        AbstractEmployee result = createEmployee(firstName, lastName);
+    private Employee createEmployee(final String firstName, final String lastName, @Nullable final String middleName) {
+        Employee result = createEmployee(firstName, lastName);
         result.setMiddleName(middleName);
         return result;
     }
 
-    private AbstractEmployee createEmployee(final String firstName, final String lastName) {
-        AbstractEmployee result = factory.create();
+    private Employee createEmployee(final String firstName, final String lastName) {
+        Employee result = factory.create();
         result.setFirstName(firstName);
         result.setLastName(lastName);
         return result;

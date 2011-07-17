@@ -9,7 +9,7 @@ import org.apache.wicket.markup.html.link.Link;
  * @author Maxim Yunusov
  * @version 1.0 7/9/11
  */
-final class Mark<E> extends Link<E> {
+public final class Mark<E> extends Link<E> {
 
     /**
      * Serial Version UID.

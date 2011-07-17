@@ -5,6 +5,8 @@ import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
+ * Panel for displaying the contents of a application footer.
+ *
  * @author Maxim Yunusov
  * @version 1.0
  * @since <pre>08.07.11</pre>

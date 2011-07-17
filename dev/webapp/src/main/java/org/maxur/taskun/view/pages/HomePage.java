@@ -1,12 +1,10 @@
 package org.maxur.taskun.view.pages;
 
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.components.EmployeeForm;
-import org.maxur.taskun.view.components.EmployeesView;
+import org.maxur.taskun.view.model.EmployeeBean;
 import org.maxur.taskun.view.model.EmployeesGroup;
+import org.maxur.taskun.view.model.UserBean;
 
 /**
  * The Home Page Controller.
@@ -29,24 +27,22 @@ public class HomePage extends BasePage {
 
 
     /**
-     *  Constructs HomePage instance.
-     *
+     * Constructs HomePage instance.
      */
     public HomePage() {
-        //todo MY All strings may be excluded.
+        final EmployeesGroup group = new EmployeesGroup(controller);
+        final EmployeeBean employee = new EmployeeBean(controller);
 
-        final EmployeesGroup group = new EmployeesGroup(controller.getAllEmployee());
+        add(new EmployeePanel("employee_panel", employee, HomePage.class));
+        add(new EmployeeListPanel("employee_list_panel", group));
+        add(new TaskListPanel("task_list_panel"));
 
-        add(new FeedbackPanel("feedback"));
-        add(new Label("current_user", "Кто Вы ?"));
-        add(new EmployeeForm("employees_form", HomePage.class));
+        add(new GroupPanel("group_panel", group));
 
-        add(new Label("resume_title", "Резуме"));
-        add(new Label("total", String.format("Всего:\t(%s)", group.getTotal())));
-        add(new Label("selected", String.format("Выбрано:\t(%s)", group.getSelectedCount())));
+        add(new CurrentUserPanel("current_user_panel", new UserBean()));
 
-        add(new Label("employees_title", "Коллеги"));
-        add(new EmployeesView("employees", group));
+
+
+
     }
-
 }

@@ -1,6 +1,7 @@
 package org.maxur.taskun.view.model;
 
-import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.services.ApplicationController;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,21 +21,22 @@ public class EmployeesGroup implements Serializable {
      */
     private static final long serialVersionUID = 5290886153582258354L;
 
+
     /**
      * Employees from this group.
      */
     private final List<EmployeeBean> employees;
 
-
     /**
      * Constructs group from employees.
      *
-     * @param list The Employees List.
+     * @param controller The Application controller.
      */
-    public EmployeesGroup(final List<AbstractEmployee> list) {
-        List<EmployeeBean> result = new ArrayList<EmployeeBean>(list.size());
-        for (AbstractEmployee employee : list) {
-            result.add(new EmployeeBean(employee));
+    public EmployeesGroup(final ApplicationController controller) {
+        final List<Employee> list = controller.getAllEmployee();
+        List<EmployeeBean> result = new ArrayList<EmployeeBean>();
+        for (Employee employee : list) {
+            result.add(new EmployeeBean(controller, employee));
         }
         this.employees = Collections.unmodifiableList(result);
     }
@@ -63,5 +65,17 @@ public class EmployeesGroup implements Serializable {
             result += employee.isSelected() ? 1 : 0;
         }
         return result;
+    }
+
+    public void removeSelected() {
+        for (EmployeeBean employee : employees) {
+            if (employee.isSelected()) {
+                employee.remove();
+            }
+        }
+    }
+
+    public boolean isEmpty() {
+        return employees.isEmpty();
     }
 }

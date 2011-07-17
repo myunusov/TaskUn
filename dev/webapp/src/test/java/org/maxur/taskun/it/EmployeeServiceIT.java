@@ -3,7 +3,7 @@ package org.maxur.taskun.it;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.services.TaskunServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,27 +32,27 @@ public class EmployeeServiceIT {
 
     @Test
     public void testNewEmployeeNotNull() {
-        AbstractEmployee employee = controller.createEmployee();
+        Employee employee = controller.createEmployee();
         Assert.assertNotNull("New Employee is null", employee);
     }
 
     @Test
     public void testSaveEmployee() throws Exception {
-        AbstractEmployee employee = createEmployee("Иван", "Иванов", "Иванович");
+        Employee employee = createEmployee("Иван", "Иванов", "Иванович");
         controller.saveEmployee(employee);
-        final Collection<AbstractEmployee> employees = controller.getAllEmployee();
+        final Collection<Employee> employees = controller.getAllEmployee();
         Assert.assertEquals(1, employees.size());
-        final AbstractEmployee employee1 = employees.iterator().next();
+        final Employee employee1 = employees.iterator().next();
         Assert.assertEquals(employee, employee1);
-        final AbstractEmployee employee2 = controller.getEmployee(employee1.getIdentifier());
+        final Employee employee2 = controller.getEmployee(employee1.getIdentifier());
         Assert.assertEquals(employee, employee2);
         employee2.setMiddleName("Петрович");
         controller.saveEmployee(employee2);
-        final AbstractEmployee employee3 = controller.getEmployee(employee1.getIdentifier());
+        final Employee employee3 = controller.getEmployee(employee1.getIdentifier());
         Assert.assertEquals(employee, employee3);
         Assert.assertEquals("Петрович", employee3.getMiddleName());
         controller.deleteEmployee(employee3);
-        final Collection<AbstractEmployee> employees2 = controller.getAllEmployee();
+        final Collection<Employee> employees2 = controller.getAllEmployee();
         Assert.assertEquals(0, employees2.size());
     }
 
@@ -65,8 +65,8 @@ public class EmployeeServiceIT {
         controller.saveEmployee(createEmployee("Иван", "Иванов", "Иванович"));
     }
 
-    private AbstractEmployee createEmployee(final String иван, final String иванов, final String иванович) {
-        AbstractEmployee employee;
+    private Employee createEmployee(final String иван, final String иванов, final String иванович) {
+        Employee employee;
         employee = controller.createEmployee();
         employee.setFirstName(иван);
         employee.setLastName(иванов);

@@ -5,7 +5,11 @@ import org.junit.runners.Suite;
 import org.maxur.taskun.view.model.EmployeesGroupTest;
 import org.maxur.taskun.view.model.MenuItemsTest;
 import org.maxur.taskun.view.pages.BasePageTest;
+import org.maxur.taskun.view.pages.CurrentUserPanelTest;
+import org.maxur.taskun.view.pages.EmployeeListPanelTest;
+import org.maxur.taskun.view.pages.EmployeePanelTest;
 import org.maxur.taskun.view.pages.FooterPanelTest;
+import org.maxur.taskun.view.pages.GroupPanelTest;
 import org.maxur.taskun.view.pages.HeaderPanelTest;
 import org.maxur.taskun.view.pages.HomePageTest;
 
@@ -20,8 +24,12 @@ import org.maxur.taskun.view.pages.HomePageTest;
         BasePageTest.class,
         HeaderPanelTest.class,
         FooterPanelTest.class,
+        EmployeePanelTest.class,
         HomePageTest.class,
-        EmployeesGroupTest.class
+        EmployeesGroupTest.class,
+        EmployeeListPanelTest.class,
+        CurrentUserPanelTest.class,
+        GroupPanelTest.class
 })
 public class ViewTests {
 }

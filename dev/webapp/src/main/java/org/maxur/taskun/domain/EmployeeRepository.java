@@ -15,25 +15,25 @@ public interface EmployeeRepository {
      * Save the Employee.
      * @param employee The Employee to saveEmployee.
      */
-    void save(AbstractEmployee employee);
+    void save(Employee employee);
 
     /**
      * Get all employees.
      * @return The List of Employees.
      */
-    List<AbstractEmployee> getAll();
+    List<Employee> getAll();
 
     /**
      * Get employees by it's identifier.
      * @param id The Employees identifier.
      * @return The selected Employee.
      */
-    AbstractEmployee get(String id);
+    Employee get(String id);
 
     /**
      * Delete the employee.
      * @param employee The Employee to delete.
      */
-    void delete(AbstractEmployee employee);
+    void delete(Employee employee);
 
 }

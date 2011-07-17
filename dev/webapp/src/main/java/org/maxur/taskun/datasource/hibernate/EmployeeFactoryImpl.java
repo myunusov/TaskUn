@@ -1,6 +1,6 @@
 package org.maxur.taskun.datasource.hibernate;
 
-import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.EmployeeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class EmployeeFactoryImpl implements EmployeeFactory {
      *
      */
     @Override
-    public final AbstractEmployee create() {
+    public final Employee create() {
         LOGGER.debug("New Employee was created ");
         return new EmployeeImpl();
     }

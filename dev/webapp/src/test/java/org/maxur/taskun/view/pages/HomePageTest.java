@@ -1,7 +1,5 @@
 package org.maxur.taskun.view.pages;
 
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.WicketTester;
 import org.jmock.Expectations;
@@ -13,10 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.components.EmployeeForm;
-import org.maxur.taskun.view.components.EmployeesView;
 
 import java.util.Collections;
 
@@ -34,7 +31,7 @@ public class HomePageTest {
 
     private ApplicationController controller;
 
-    static private AbstractEmployee dummy = new AbstractEmployee() {
+    static private Employee dummy = new AbstractEmployee() {
         private static final long serialVersionUID = 3908424889025108375L;
     };
 
@@ -53,6 +50,7 @@ public class HomePageTest {
     @Test
     public void testBasePageBasicRender() {
         context.checking(new Expectations() {{
+            oneOf(controller).createEmployee(); will(returnValue(dummy));
             oneOf(controller).getAllEmployee();
             will(returnValue(Collections.nCopies(0, dummy)));
         }});
@@ -64,6 +62,7 @@ public class HomePageTest {
     @Test
     public void testBasePageBasicRenderWithEmployee() {
         context.checking(new Expectations() {{
+            oneOf(controller).createEmployee(); will(returnValue(dummy));
             oneOf(controller).getAllEmployee();
             will(returnValue(Collections.nCopies(1, dummy)));
         }});
@@ -74,10 +73,11 @@ public class HomePageTest {
 
     @Test
     public void testBasePageBasicRenderWithEmployeeMale() {
-        final AbstractEmployee male = new AbstractEmployee() {
+        final Employee male = new AbstractEmployee() {
         };
         male.setGender(Gender.MALE);
         context.checking(new Expectations() {{
+            oneOf(controller).createEmployee(); will(returnValue(dummy));
             oneOf(controller).getAllEmployee();
             will(returnValue(Collections.nCopies(1, male)));
         }});
@@ -88,10 +88,11 @@ public class HomePageTest {
 
     @Test
     public void testBasePageBasicRenderWithEmployeeFemale() {
-        final AbstractEmployee female = new AbstractEmployee() {
+        final Employee female = new AbstractEmployee() {
         };
         female.setGender(Gender.FEMALE);
         context.checking(new Expectations() {{
+            oneOf(controller).createEmployee(); will(returnValue(dummy));
             oneOf(controller).getAllEmployee();
             will(returnValue(Collections.nCopies(1, female)));
         }});
@@ -103,6 +104,7 @@ public class HomePageTest {
     @Test
     public void testBasePageComponents() {
         context.checking(new Expectations() {{
+            oneOf(controller).createEmployee(); will(returnValue(dummy));
             oneOf(controller).getAllEmployee();
             will(returnValue(Collections.nCopies(0, null)));
         }});
@@ -112,16 +114,6 @@ public class HomePageTest {
         tester.assertComponent("footer", FooterPanel.class);
         tester.assertComponent("header", HeaderPanel.class);
 
-        tester.assertComponent("feedback", FeedbackPanel.class);
-        tester.assertComponent("employees_title", Label.class);
-        tester.assertComponent("employees_form", EmployeeForm.class);
-
-        tester.assertComponent("resume_title", Label.class);
-        tester.assertComponent("total", Label.class);
-        tester.assertComponent("selected", Label.class);
-
-        tester.assertComponent("employees", EmployeesView.class);
-        tester.assertComponent("current_user", Label.class);
 
         // assert rendered label components
         tester.assertLabel("title", "ТаскУН: Управление задачами");

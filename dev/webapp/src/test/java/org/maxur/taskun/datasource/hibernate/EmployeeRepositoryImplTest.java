@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Employee;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import java.util.Collection;
@@ -26,7 +27,7 @@ public class EmployeeRepositoryImplTest {
 
     private Mockery context;
 
-    static private AbstractEmployee dummy = new AbstractEmployee() {
+    static private Employee dummy = new AbstractEmployee() {
         private static final long serialVersionUID = -3552630573530150686L;
     };
 
@@ -77,7 +78,7 @@ public class EmployeeRepositoryImplTest {
             oneOf(template).find(with(any(String.class)));
             will(returnValue(Collections.nCopies(3, dummy)));
         }});
-        final Collection<AbstractEmployee> all = repository.getAll();
+        final Collection<Employee> all = repository.getAll();
         all.add(dummy);
     }
 
@@ -91,7 +92,7 @@ public class EmployeeRepositoryImplTest {
             oneOf(template).get(EmployeeImpl.class, "1");
             will(returnValue(dummy));
         }});
-        AbstractEmployee result = repository.get("1");
+        Employee result = repository.get("1");
         context.assertIsSatisfied();
         Assert.assertEquals(dummy, result);
     }

@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.annotation.Nullable;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * The Employee domain class.
@@ -15,7 +14,7 @@ import java.io.Serializable;
  * @version 1.0
  * @since <pre>06.07.11</pre>
  */
-public abstract class AbstractEmployee extends AbstractEntity implements Serializable {
+public abstract class AbstractEmployee extends AbstractEntity implements Employee {
 
     /**
      * The Serial Version UID.
@@ -23,22 +22,9 @@ public abstract class AbstractEmployee extends AbstractEntity implements Seriali
     private static final long serialVersionUID = -4499503762661672297L;
 
     /**
-     * Min length of employee names.
-     */
-    public static final int MIN_EMPLOYEE_NAME_LENGTH = 1;
-
-    /**
-     * Max length of employee names.
-     */
-    public static final int MAX_EMPLOYEE_NAME_LENGTH = 50;
-
-
-    /**
      * Empty String Constant.
      */
     private static final String EMPTY_STRING = "";
-
-
 
     /**
      * The Employee's First Name.
@@ -46,29 +32,32 @@ public abstract class AbstractEmployee extends AbstractEntity implements Seriali
     @NotEmpty
     @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
     private String firstName = EMPTY_STRING;
+
     /**
      * The Employee's Last Name.
      */
     @NotEmpty
     @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
     private String lastName = EMPTY_STRING;
+
     /**
      * The Employee's Middle Name.
      */
     @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
     private String middleName = EMPTY_STRING;
+
     /**
      * The Employee's Gender.
      */
     @NotNull
     private Gender gender = Gender.UNKNOWN;
 
-
     /**
      * Getter for First Name.
      *
      * @return The Employee's First Name.
      */
+    @Override
     public String getFirstName() {
         return firstName;
     }
@@ -78,6 +67,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Seriali
      *
      * @return The Employee's Last Name.
      */
+    @Override
     public String getLastName() {
         return lastName;
     }
@@ -87,6 +77,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Seriali
      *
      * @return The Employee's Middle Name.
      */
+    @Override
     public String getMiddleName() {
         return middleName;
     }
@@ -96,6 +87,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Seriali
      *
      * @return The Employee's Gender.
      */
+    @Override
     public Gender getGender() {
         return gender;
     }
@@ -105,6 +97,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Seriali
      *
      * @param value The Employee's First Name
      */
+    @Override
     public void setFirstName(final String value) {
         this.firstName = value;
     }
@@ -114,6 +107,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Seriali
      *
      * @param value The Employee's Last Name
      */
+    @Override
     public void setLastName(final String value) {
         this.lastName = value;
     }
@@ -123,6 +117,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Seriali
      *
      * @param value The Employee's Middle Name
      */
+    @Override
     public void setMiddleName(@Nullable final String value) {
         if (null != value && gender == Gender.UNKNOWN) {
             if (value.endsWith("вич")) {
@@ -134,12 +129,12 @@ public abstract class AbstractEmployee extends AbstractEntity implements Seriali
         this.middleName = value == null ? EMPTY_STRING : value;
     }
 
-
     /**
      * Setter for Gender.
      *
      * @param value The Employee's Gender
      */
+    @Override
     public void setGender(final Gender value) {
         this.gender = value;
     }
@@ -149,13 +144,13 @@ public abstract class AbstractEmployee extends AbstractEntity implements Seriali
      *
      * @return The Title of Employee.
      */
+    @Override
     @Transient
     public final String getTitle() {
         return EMPTY_STRING.equals(getMiddleName())
                 ? String.format("%s %s", getFirstName(), getLastName())
                 : String.format("%s %s %s", getFirstName(), getMiddleName(), getLastName());
     }
-
 
     /**
      * @return a string representation of the object.

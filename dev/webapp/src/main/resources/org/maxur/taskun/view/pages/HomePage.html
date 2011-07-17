@@ -5,81 +5,20 @@
 <wicket:extend>
     <!-- start content -->
     <div id="content">
-        <div class="post">
-            <h1 class="title" wicket:id="employees_title">[EMPLOYEES]</h1>
-
-            <div class="entry">
-                <div class="bigpix" style="vertical-align: baseline; display: block;">
-                    <div class="gridimage" wicket:id="employees" style="width: 64px; height: 100px">
-                        <a wicket:id="select" class="employee">
-                            <img src="/images/User_male.png" alt="" class="avatar" wicket:id="employee_img"/>
-                        </a>
-                        <p class="caption" wicket:id="employee_title">[EMPLOYEE NAME]</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div wicket:id="employee_panel"></div>
+        <div wicket:id="employee_list_panel"></div>
+        <div wicket:id="task_list_panel"></div>
     </div>
+
     <!-- end content -->
     <!-- start sidebar one -->
-    <div id="sidebar1" class="sidebar">
-        <ul>
-            <li>
-                <h2><span wicket:id="resume_title">[Resume]</span></h2>
-                <ul>
-                    <li><span wicket:id="total">[Total]</span></li>
-                    <li><span wicket:id="selected">[Selected]</span></li>
-                </ul>
-            </li>
-        </ul>
+    <div id="sidebar1">
+        <div wicket:id="group_panel"></div>
     </div>
     <!-- end sidebar one -->
     <!-- start sidebar two -->
-    <div id="sidebar2" class="sidebar">
-        <div class="bigpix">
-            <div class="gridimage">
-                <img src="/images/User_black.png" alt="" width="64" height="64"/>
-            </div>
-            <p class="caption">Неизвестный</p>
-        </div>
-        <ul>
-            <li>
-                <h2 wicket:id="current_user">[Current User]</h2>
-            </li>
-        </ul>
-        <div>
-            <div wicket:id="feedback" class="feedback"></div>
-            <form wicket:id="employees_form">
-                <table>
-                    <tr>
-                        <td wicket:id="last_name">[lastName]</td>
-                    </tr>
-                    <tr>
-                        <td><label>
-                            <input type="text" wicket:id="lastName"/>
-                        </label></td>
-                    </tr>
-                    <tr>
-                        <td wicket:id="first_name">[firstName]</td>
-                    </tr>
-                    <tr>
-                        <td><label>
-                            <input type="text" wicket:id="firstName"/>
-                        </label></td>
-                    </tr>
-                    <tr>
-                        <td wicket:id="middle_name">[middleName]</td>
-                    </tr>
-                    <tr>
-                        <td><label>
-                            <input type="text" wicket:id="middleName"/>
-                        </label></td>
-                    </tr>
-                </table>
-                <br/>
-                <input type="submit" value="Регистрация"/>
-            </form>
-        </div>
+    <div id="sidebar2">
+        <div wicket:id="current_user_panel"></div>
     </div>
     <!-- end sidebar two -->
 </wicket:extend>

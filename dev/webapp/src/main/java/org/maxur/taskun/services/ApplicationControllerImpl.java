@@ -5,7 +5,7 @@ import org.hibernate.exception.GenericJDBCException;
 import org.hibernate.exception.JDBCConnectionException;
 import org.hibernate.exception.LockAcquisitionException;
 import org.hibernate.exception.SQLGrammarException;
-import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.EmployeeFactory;
 import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.utils.Trace;
@@ -57,7 +57,7 @@ public class ApplicationControllerImpl implements ApplicationController {
      */
     @Override
     @Trace
-    public final AbstractEmployee createEmployee() {
+    public final Employee createEmployee() {
         return employeeFactory.create();
     }
 
@@ -69,7 +69,7 @@ public class ApplicationControllerImpl implements ApplicationController {
     @Override
     @Trace
     @Transactional(readOnly = false)
-    public final void saveEmployee(final AbstractEmployee employee) throws TaskunServiceException {
+    public final void saveEmployee(final Employee employee) throws TaskunServiceException {
         try {
             // TODO MY needs proactive reaction on duplicate
             employeeRepository.save(employee);
@@ -93,7 +93,7 @@ public class ApplicationControllerImpl implements ApplicationController {
     @Override
     @Trace
     @Transactional
-    public final List<AbstractEmployee> getAllEmployee() {
+    public final List<Employee> getAllEmployee() {
         return employeeRepository.getAll();
     }
 
@@ -105,7 +105,7 @@ public class ApplicationControllerImpl implements ApplicationController {
     @Override
     @Trace
     @Transactional
-    public final AbstractEmployee getEmployee(final String id) {
+    public final Employee getEmployee(final String id) {
         return employeeRepository.get(id);
     }
 
@@ -116,7 +116,7 @@ public class ApplicationControllerImpl implements ApplicationController {
     @Override
     @Trace
     @Transactional(readOnly = false)
-    public final void deleteEmployee(final AbstractEmployee employee) {
+    public final void deleteEmployee(final Employee employee) {
         employeeRepository.delete(employee);
     }
 

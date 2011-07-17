@@ -1,7 +1,7 @@
 package org.maxur.taskun.datasource.hibernate;
 
 import org.hibernate.SessionFactory;
-import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.EmployeeRepository;
 import org.maxur.taskun.utils.Benchmark;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,11 +56,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     /**
      * @param employee The Employee for saving.
-     * @see org.maxur.taskun.domain.EmployeeRepository#save(org.maxur.taskun.domain.AbstractEmployee)
+     * @see org.maxur.taskun.domain.EmployeeRepository#save(org.maxur.taskun.domain.Employee)
      */
     @Override
     @Benchmark
-    public final void save(final AbstractEmployee employee) {
+    public final void save(final Employee employee) {
         hibernateTemplate.saveOrUpdate(employee);
         // TODO for constraints detected
         factory.getCurrentSession().flush();
@@ -73,8 +73,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     @Benchmark
     @SuppressWarnings("unchecked")
-    public final List<AbstractEmployee> getAll() {
-        return (List<AbstractEmployee>) Collections.unmodifiableList(hibernateTemplate.find(
+    public final List<Employee> getAll() {
+        return (List<Employee>) Collections.unmodifiableList(hibernateTemplate.find(
                 "from org.maxur.taskun.datasource.hibernate.EmployeeImpl"
         ));
 
@@ -87,17 +87,17 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
      */
     @Override
     @Benchmark
-    public final AbstractEmployee get(final String id) {
+    public final Employee get(final String id) {
         return hibernateTemplate.get(EmployeeImpl.class, id);
     }
 
     /**
      * @param employee The deleted Employee.
-     * @see org.maxur.taskun.domain.EmployeeRepository#delete(org.maxur.taskun.domain.AbstractEmployee)
+     * @see org.maxur.taskun.domain.EmployeeRepository#delete(org.maxur.taskun.domain.Employee)
      */
     @Override
     @Benchmark
-    public final void delete(final AbstractEmployee employee) {
+    public final void delete(final Employee employee) {
         hibernateTemplate.delete(employee);
     }
 }

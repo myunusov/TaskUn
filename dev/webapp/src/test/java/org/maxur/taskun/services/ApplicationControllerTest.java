@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.EmployeeFactory;
 import org.maxur.taskun.domain.EmployeeRepository;
 
@@ -26,7 +27,7 @@ public class ApplicationControllerTest {
 
     private Mockery context;
 
-    static private AbstractEmployee dummy = new AbstractEmployee() {};
+    static private Employee dummy = new AbstractEmployee() {};
 
     @Before
     public void setUp() throws Exception {
@@ -41,7 +42,7 @@ public class ApplicationControllerTest {
             oneOf(factory).create();
             will(returnValue(dummy));
         }});
-        final AbstractEmployee employee = controller.createEmployee();
+        final Employee employee = controller.createEmployee();
         Assert.assertNotNull(employee);
     }
 
@@ -53,7 +54,7 @@ public class ApplicationControllerTest {
             oneOf(repository).getAll();
             will(returnValue(Collections.nCopies(3, dummy)));
         }});
-        final Collection<AbstractEmployee> employees = controller.getAllEmployee();
+        final Collection<Employee> employees = controller.getAllEmployee();
         Assert.assertEquals(3, employees.size());
     }
 
@@ -65,7 +66,7 @@ public class ApplicationControllerTest {
             oneOf(repository).get("1");
             will(returnValue(dummy));
         }});
-        final AbstractEmployee employee = controller.getEmployee("1");
+        final Employee employee = controller.getEmployee("1");
         Assert.assertNotNull(employee);
     }
 
