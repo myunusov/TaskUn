@@ -5,22 +5,24 @@
 <wicket:panel>
     <div class="post" style="width: 630px; float: none;">
         <h1 class="title" wicket:id="employee_list_title">[EMPLOYEES]</h1>
+        <div wicket:id="employee_list_link">
+            <div class="entry">
+                <div class="bigpix" style="vertical-align: baseline; display: block;">
+                    <div class="gridimage" wicket:id="employees" style="width: 64px; height: 100px">
+                        <a wicket:id="select" class="employee">
+                            <img src="/images/User_male.png" alt="" class="avatar" wicket:id="employee_img"/>
+                        </a>
 
-        <div class="entry">
-            <div class="bigpix" style="vertical-align: baseline; display: block;">
-                <div class="gridimage" wicket:id="employees" style="width: 64px; height: 100px">
-                    <a wicket:id="select" class="employee">
-                        <img src="/images/User_male.png" alt="" class="avatar" wicket:id="employee_img"/>
-                    </a>
-
-                    <p class="caption" wicket:id="employee_title">[EMPLOYEE NAME]</p>
+                        <p class="caption" wicket:id="employee_title">[EMPLOYEE NAME]</p>
+                    </div>
                 </div>
             </div>
+            <div class="post" style="width: 630px; float: none;">
+                <br/>
+
+                <div wicket:id="navigator" style="float: none;"></div>
+            </div>
         </div>
-    </div>
-    <div class="post" style="width: 630px; float: none;">
-        <br/>
-        <div wicket:id="navigator" style="float: none;"></div>
     </div>
 </wicket:panel>
 </body>

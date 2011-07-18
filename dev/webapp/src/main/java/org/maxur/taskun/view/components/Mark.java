@@ -1,6 +1,9 @@
 package org.maxur.taskun.view.components;
 
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.Model;
+
+import java.io.Serializable;
 
 /**
  * Dummy Link without behavior.
@@ -9,7 +12,7 @@ import org.apache.wicket.markup.html.link.Link;
  * @author Maxim Yunusov
  * @version 1.0 7/9/11
  */
-public final class Mark<E> extends Link<E> {
+public final class Mark<E extends Serializable> extends Link<E> {
 
     /**
      * Serial Version UID.
@@ -18,9 +21,14 @@ public final class Mark<E> extends Link<E> {
 
     /**
      * Construct instance of Mark.
+     * @param id The Mark id
      */
-    public Mark() {
-        super("menu_item_link");
+    public Mark(final String id) {
+        super(id);
+    }
+
+    public Mark(String id, E object) {
+        super(id, new Model<E>(object));
     }
 
     /**

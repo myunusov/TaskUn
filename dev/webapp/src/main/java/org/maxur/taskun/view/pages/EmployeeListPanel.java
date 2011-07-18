@@ -1,14 +1,16 @@
 package org.maxur.taskun.view.pages;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
+import org.maxur.taskun.view.components.Mark;
 import org.maxur.taskun.view.model.EmployeeBean;
 import org.maxur.taskun.view.model.EmployeesGroup;
 
@@ -26,23 +28,41 @@ public class EmployeeListPanel extends Panel {
     private static final long serialVersionUID = 2704484818965768549L;
 
     /**
+     * Number of rows to show on a page
+     */
+    private static final int ROWS_PER_PAGE = 5;
+
+    /**
      * The Employee panel's constructor.
      *
-     * @param id The Employee List Panel identifier.
-     * @param group The displaying group.
+     * @param id       The Employee List Panel identifier.
+     * @param model    The displaying group model.
+     * @param observer The Group panel.
      */
-    public EmployeeListPanel(final String id, final EmployeesGroup group) {
+    public EmployeeListPanel(
+            final String id,
+            final IModel<EmployeesGroup> model,
+            final AjaxObserver observer
+    ) {
         super(id);
-            //TODO MY must be exclude string constants
+        final EmployeesGroup group = model.getObject();
+        //TODO MY must be exclude string constants
         add(new Label("employee_list_title", "Коллеги"));
-        final EmployeesView employees = new EmployeesView("employees", group);
-        add(employees);
-        add(new HiddenPagingNavigator("navigator", employees));
+        final Mark<EmployeesGroup> mark = new Mark<EmployeesGroup>("employee_list_link", group);
+        add(mark);
+        observer.addComponent(mark);
+        final EmployeesView employees =
+                new EmployeesView("employees", group, observer, ROWS_PER_PAGE);
+
+        employees.setReuseItems(false);
+        mark.add(employees);
+        mark.add(new HiddenPagingNavigator("navigator", employees));
     }
+
+
 
     /**
      * The class is Wicket View of Employees.
-     *
      */
     public static class EmployeesView extends PageableListView<EmployeeBean> {
 
@@ -51,19 +71,29 @@ public class EmployeeListPanel extends Panel {
          */
         private static final long serialVersionUID = -1086603569385693092L;
 
-        private static final int ROWS_PER_PAGE = 5;
+        private final EmployeesGroup group;
+        /**
+         * The Group panel.
+         */
+        private final AjaxObserver groupObserver;
 
         /**
          * Constructs new EmployeesView instance.
          *
-         * @param id        The View's identifier.
-         * @param employees The Employees List for represent on web.
+         * @param id          The View's identifier.
+         * @param group       The Employees Group.
+         * @param observer    The Group panel.
+         * @param rowsPerPage Number of rows to show on a page
          */
         public EmployeesView(
                 final String id,
-                final EmployeesGroup employees
+                final EmployeesGroup group,
+                final AjaxObserver observer,
+                final int rowsPerPage
         ) {
-            super(id, employees.getAll(), ROWS_PER_PAGE);
+            super(id, group.getAll(), rowsPerPage);
+            this.group = group;
+            this.groupObserver = observer;
         }
 
         /**
@@ -80,7 +110,7 @@ public class EmployeeListPanel extends Panel {
             listItem.add(new Label("employee_title", item.getTitle()));
         }
 
-        private class EmployeeLink extends Link<EmployeeBean> {
+        private class EmployeeLink extends AjaxFallbackLink<EmployeeBean> {
 
             /**
              * Serial Version UID.
@@ -110,9 +140,10 @@ public class EmployeeListPanel extends Panel {
             }
 
             @Override
-            public void onClick() {
+            public void onClick(AjaxRequestTarget target) {
                 EmployeeBean selected = getModelObject();
                 selected.select();
+                groupObserver.update(target);
             }
         }
     }

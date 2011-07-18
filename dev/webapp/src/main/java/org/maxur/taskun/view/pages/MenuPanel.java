@@ -88,7 +88,7 @@ public class MenuPanel extends Panel {
             MenuItem item = listItem.getModelObject();
             final Link<MenuItem> link = new MenuItemLink(item);
             listItem.add(link);
-            final Mark<?> mark = new Mark<Object>();
+            final Mark<?> mark = new Mark<Object>("menu_item_link");
             link.add(mark);
             mark.add(new Label("menu_item_name", item.getTitle()));
         }

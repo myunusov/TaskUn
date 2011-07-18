@@ -36,7 +36,7 @@ public class EmployeesGroup implements Serializable {
         final List<Employee> list = controller.getAllEmployee();
         List<EmployeeBean> result = new ArrayList<EmployeeBean>();
         for (Employee employee : list) {
-            result.add(new EmployeeBean(controller, employee));
+            result.add(0, new EmployeeBean(controller, employee));
         }
         this.employees = Collections.unmodifiableList(result);
     }

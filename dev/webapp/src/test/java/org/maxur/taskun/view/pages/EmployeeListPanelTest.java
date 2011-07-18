@@ -2,6 +2,8 @@ package org.maxur.taskun.view.pages;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.ITestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
@@ -48,7 +50,9 @@ public class EmployeeListPanelTest {
         tester.startPanel(new ITestPanelSource() {
             @Override
             public Panel getTestPanel(String panelId) {
-                return new EmployeeListPanel(panelId, new EmployeesGroup(controller));
+
+                IModel<EmployeesGroup> model = new Model<EmployeesGroup>(new EmployeesGroup(controller));
+                return new EmployeeListPanel(panelId, model, null);
             }
         });
     }

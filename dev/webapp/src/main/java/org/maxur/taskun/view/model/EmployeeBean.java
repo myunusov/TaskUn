@@ -36,6 +36,11 @@ public class EmployeeBean implements Employee {
     private boolean selected;
 
     /**
+     * True if it is new employee.
+     */
+    private boolean isNew = false;
+
+    /**
      * Wraps  employee with Employee Bean instance.
      * @param controller The Application Controller.
      * @param employee The wrapped employee.
@@ -55,6 +60,7 @@ public class EmployeeBean implements Employee {
      */
     public EmployeeBean(final ApplicationController controller) {
         this(controller, controller.createEmployee());
+        this.isNew = true;
     }
 
 
@@ -119,6 +125,14 @@ public class EmployeeBean implements Employee {
     }
 
     /**
+     * Getter for isNew state.
+     * @return True if it is new employee.
+     */
+    public boolean isNew() {
+        return isNew;
+    }
+
+    /**
      * Setter for the Employee's First Name.
      * @param value The Employee's First Name.
      */
@@ -171,4 +185,6 @@ public class EmployeeBean implements Employee {
     public void save() throws TaskunServiceException {
         controller.saveEmployee(employee);
     }
+
+
 }

@@ -3,6 +3,8 @@ package org.maxur.taskun.view.pages;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.ITestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
@@ -54,7 +56,9 @@ public class GroupPanelTest {
         tester.startPanel(new ITestPanelSource() {
             @Override
             public Panel getTestPanel(String panelId) {
-                return new GroupPanel(panelId, new EmployeesGroup(controller));
+                final EmployeesGroup group = new EmployeesGroup(controller);
+                IModel<EmployeesGroup> model = new Model<EmployeesGroup>(group);
+                return new GroupPanel(panelId, model, null);
             }
         });
     }
