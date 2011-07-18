@@ -1,8 +1,9 @@
-package org.maxur.taskun.view.pages;
+package org.maxur.taskun.view.components;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -10,7 +11,9 @@ import java.util.Collection;
  * @author Maxim Yunusov
  * @version 1.0 7/17/11
  */
-public class AjaxObserver {
+public class AjaxObserver implements Serializable {
+
+    private static final long serialVersionUID = 7353171996030881918L;
 
     private Collection<Component> components = new ArrayList<Component>();
 

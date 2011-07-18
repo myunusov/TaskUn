@@ -1,14 +1,15 @@
 package org.maxur.taskun.view.pages;
 
 import org.apache.wicket.behavior.SimpleAttributeModifier;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.ResourceModel;
 import org.maxur.taskun.view.UserSession;
-import org.maxur.taskun.view.components.Mark;
 import org.maxur.taskun.view.model.MenuItem;
 
 import java.util.List;
@@ -88,9 +89,6 @@ public class MenuPanel extends Panel {
             MenuItem item = listItem.getModelObject();
             final Link<MenuItem> link = new MenuItemLink(item);
             listItem.add(link);
-            final Mark<?> mark = new Mark<Object>("menu_item_link");
-            link.add(mark);
-            mark.add(new Label("menu_item_name", item.getTitle()));
         }
 
         /**
@@ -112,6 +110,9 @@ public class MenuPanel extends Panel {
                 if (item.isActive()) {
                     add(new SimpleAttributeModifier("class", "current_page_item"));
                 }
+                final WebMarkupContainer mark = new WebMarkupContainer("menu_item_link");
+                add(mark);
+                mark.add(new Label("menu_item_name", new ResourceModel(item.getTitle())));
             }
 
             @Override

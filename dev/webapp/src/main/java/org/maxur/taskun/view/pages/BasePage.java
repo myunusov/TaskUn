@@ -2,6 +2,7 @@ package org.maxur.taskun.view.pages;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.ResourceModel;
 import org.maxur.taskun.view.UserSession;
 
 /**
@@ -20,11 +21,11 @@ public class BasePage extends WebPage {
     /**
      * The constructor of the Base Page Controller.
      */
-        //TODO MY must be exclude string constants
     public BasePage() {
-        add(new Label("title", "ТаскУН: Управление задачами"));
+        final HeaderPanel header = new HeaderPanel("header");
+        add(new Label("title", new ResourceModel("application.title")));
         add(new MenuPanel("menu"));
-        add(new HeaderPanel("header"));
+        add(header);
         add(new FooterPanel("footer"));
     }
 
@@ -36,6 +37,5 @@ public class BasePage extends WebPage {
     public UserSession getUserSession() {
         return (UserSession) getSession();
     }
-
 
 }

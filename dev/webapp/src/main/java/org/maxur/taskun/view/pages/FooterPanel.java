@@ -3,6 +3,7 @@ package org.maxur.taskun.view.pages;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.ResourceModel;
 
 /**
  * Panel for displaying the contents of a application footer.
@@ -22,11 +23,10 @@ public class FooterPanel extends Panel {
      * The panel's constructor.
      * @param id The panel's identifier.
      */
-    //TODO MY must be exclude string constants
     public FooterPanel(final String id) {
         super(id);
-        ExternalLink link = new ExternalLink("author_url", "http://www.maxur.org/");
-        link.add(new Label("author_name", "Maxim Yunusov"));
+        ExternalLink link = new ExternalLink("author_url", new ResourceModel("author.url"));
+        link.add(new Label("author_name", new ResourceModel("author.name")));
         add(link);
     }
 }

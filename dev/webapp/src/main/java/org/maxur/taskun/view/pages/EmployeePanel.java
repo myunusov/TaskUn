@@ -2,14 +2,15 @@ package org.maxur.taskun.view.pages;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.maxur.taskun.domain.Employee;
-import org.maxur.taskun.services.TaskunServiceException;
 import org.maxur.taskun.view.model.EmployeeBean;
 
 /**
@@ -69,15 +70,15 @@ public class EmployeePanel extends Panel {
                 final EmployeeBean employee,
                 final Class<? extends WebPage> page
         ) {
-            //todo MY All String constants should be excluded to resources
             super(id, new CompoundPropertyModel<EmployeeBean>(employee));
             this.responsePage = page;
-            add(new Label("first_name", "Имя"));
+            add(new Label("first_name", new ResourceModel("edit.employee.first.name")));
             add(createTextField("firstName", true));
-            add(new Label("last_name", "Фамилия"));
+            add(new Label("last_name", new ResourceModel("edit.employee.last.name")));
             add(createTextField("lastName", true));
-            add(new Label("middle_name", "Отчество"));
+            add(new Label("middle_name", new ResourceModel("edit.employee.middle.name")));
             add(createTextField("middleName", false));
+            add(new Button("submit", new ResourceModel("edit.employee.submit")));
         }
 
         /**
@@ -105,9 +106,11 @@ public class EmployeePanel extends Panel {
          */
         @Override
         protected final void onSubmit() {
+            //todo MY it must be ajax
             try {
                 getModelObject().save();
-            } catch (TaskunServiceException e) {
+            } catch (Exception e) {
+                info((new ResourceModel("error.system")).getObject());
                 //todo MY it must be processed
             }
             setResponsePage(responsePage);

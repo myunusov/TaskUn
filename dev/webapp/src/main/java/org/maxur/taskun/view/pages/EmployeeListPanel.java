@@ -3,14 +3,16 @@ package org.maxur.taskun.view.pages;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.ResourceModel;
+import org.maxur.taskun.view.components.AjaxObserver;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
-import org.maxur.taskun.view.components.Mark;
 import org.maxur.taskun.view.model.EmployeeBean;
 import org.maxur.taskun.view.model.EmployeesGroup;
 
@@ -30,7 +32,7 @@ public class EmployeeListPanel extends Panel {
     /**
      * Number of rows to show on a page
      */
-    private static final int ROWS_PER_PAGE = 5;
+    private static final int ROWS_PER_PAGE = 15;    //TODO Must be configurable
 
     /**
      * The Employee panel's constructor.
@@ -46,20 +48,16 @@ public class EmployeeListPanel extends Panel {
     ) {
         super(id);
         final EmployeesGroup group = model.getObject();
-        //TODO MY must be exclude string constants
-        add(new Label("employee_list_title", "Коллеги"));
-        final Mark<EmployeesGroup> mark = new Mark<EmployeesGroup>("employee_list_link", group);
+        add(new Label("employee_list_title", new ResourceModel("list.employee.title")));
+
+        final WebMarkupContainer mark = new WebMarkupContainer("employee_list", model);
         add(mark);
         observer.addComponent(mark);
         final EmployeesView employees =
                 new EmployeesView("employees", group, observer, ROWS_PER_PAGE);
-
-        employees.setReuseItems(false);
         mark.add(employees);
         mark.add(new HiddenPagingNavigator("navigator", employees));
     }
-
-
 
     /**
      * The class is Wicket View of Employees.

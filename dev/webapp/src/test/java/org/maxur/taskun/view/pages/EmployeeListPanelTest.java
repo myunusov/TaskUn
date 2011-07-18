@@ -1,5 +1,6 @@
 package org.maxur.taskun.view.pages;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
@@ -15,7 +16,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.services.ApplicationController;
+import org.maxur.taskun.view.components.AjaxObserver;
+import org.maxur.taskun.view.components.HiddenPagingNavigator;
 import org.maxur.taskun.view.model.EmployeesGroup;
 
 import java.util.Collections;
@@ -43,24 +47,63 @@ public class EmployeeListPanelTest {
                 ((StubWebApplication) tester.getApplication()).getMockContext();
         controller = context.mock(ApplicationController.class);
         mockContext.putBean("applicationController", controller);
+    }
+
+    private void startPanel(final int numberOfItems) {
         context.checking(new Expectations() {{
             oneOf(controller).getAllEmployee();
-            will(returnValue(Collections.nCopies(0, null)));
+            will(returnValue(Collections.nCopies(numberOfItems, new DummyEmployee())));
         }});
         tester.startPanel(new ITestPanelSource() {
             @Override
             public Panel getTestPanel(String panelId) {
 
                 IModel<EmployeesGroup> model = new Model<EmployeesGroup>(new EmployeesGroup(controller));
-                return new EmployeeListPanel(panelId, model, null);
+                return new EmployeeListPanel(panelId, model, new AjaxObserver());
             }
         });
     }
 
+
     @Test
-    public void testPanelBasicRender() {
-        tester.assertComponent("panel:employees", EmployeeListPanel.EmployeesView.class);
+    public void testPanelTitleLabel() {
+        startPanel(0);
         tester.assertComponent("panel:employee_list_title", Label.class);
     }
 
+    @Test
+    public void testEmployeesList() {
+        startPanel(0);
+        tester.assertComponent("panel:employee_list", WebMarkupContainer.class);
+    }
+
+    @Test
+    public void testEmployees() {
+        startPanel(0);
+        tester.assertComponent("panel:employee_list:employees", EmployeeListPanel.EmployeesView.class);
+    }
+
+    @Test
+    public void testInvisibleNavigator() {
+        startPanel(1);
+        tester.assertInvisible("panel:employee_list:navigator");
+    }
+
+    @Test
+    public void testNavigator() {
+        startPanel(100);
+        tester.assertComponent("panel:employee_list:navigator", HiddenPagingNavigator.class);
+    }
+
+
+
+    @Test
+    public void testWicketPanel() throws Exception {
+        startPanel(0);
+        tester.assertNoErrorMessage();
+        tester.assertNoInfoMessage();
+    }
+
+    private static class DummyEmployee extends AbstractEmployee {
+    }
 }

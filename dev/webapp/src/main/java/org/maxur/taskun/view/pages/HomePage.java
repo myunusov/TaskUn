@@ -4,6 +4,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.maxur.taskun.services.ApplicationController;
+import org.maxur.taskun.view.components.AjaxObserver;
 import org.maxur.taskun.view.model.EmployeeBean;
 import org.maxur.taskun.view.model.EmployeesGroup;
 import org.maxur.taskun.view.model.UserBean;
@@ -35,25 +36,23 @@ public class HomePage extends BasePage {
         final EmployeesGroup group = new EmployeesGroup(controller);
         final EmployeeBean employee = new EmployeeBean(controller);
 
-/*        IModel<EmployeesGroup> groupIModel = new LoadableDetachableModel<EmployeesGroup>() {
-
-            private static final long serialVersionUID = -3408353937500586584L;
-
-            @Override
-            protected EmployeesGroup load() {
-                return new EmployeesGroup(controller);
-            }
-        };*/
-
         AjaxObserver groupObserver = new AjaxObserver();
 
-        IModel<EmployeesGroup> groupModel = new Model<EmployeesGroup>(group);
+        IModel<EmployeesGroup> groupModel = new Model<EmployeesGroup>() {
+
+            private static final long serialVersionUID = 938407854341582573L;
+
+            @Override
+            public EmployeesGroup getObject() {
+                return group;
+            }
+        };
 
         final GroupPanel groupPanel = new GroupPanel("group_panel", groupModel, groupObserver);
         groupPanel.setOutputMarkupId(true);
         add(groupPanel);
-        final EmployeeListPanel employeeListPanel
-                = new EmployeeListPanel("employee_list_panel", groupModel, groupObserver);
+        final EmployeeListPanel employeeListPanel =
+                new EmployeeListPanel("employee_list_panel", groupModel, groupObserver);
         employeeListPanel.setOutputMarkupId(true);
         add(employeeListPanel);
 

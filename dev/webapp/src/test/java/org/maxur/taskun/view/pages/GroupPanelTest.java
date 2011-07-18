@@ -1,7 +1,8 @@
 package org.maxur.taskun.view.pages;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -19,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.services.ApplicationController;
+import org.maxur.taskun.view.components.AjaxObserver;
 import org.maxur.taskun.view.model.EmployeesGroup;
 
 import java.util.Collections;
@@ -58,7 +60,7 @@ public class GroupPanelTest {
             public Panel getTestPanel(String panelId) {
                 final EmployeesGroup group = new EmployeesGroup(controller);
                 IModel<EmployeesGroup> model = new Model<EmployeesGroup>(group);
-                return new GroupPanel(panelId, model, null);
+                return new GroupPanel(panelId, model, new AjaxObserver());
             }
         });
     }
@@ -93,7 +95,10 @@ public class GroupPanelTest {
             will(returnValue(Collections.nCopies(1, dummy)));
         }});
         startPanel();
-        tester.assertComponent("panel:remove", Link.class);
+        final Component panel = tester.getComponentFromLastRenderedPage("panel");
+        final EmployeesGroup  object = (EmployeesGroup) panel.getDefaultModelObject();
+        object.getAll().get(0).select();
+        tester.assertComponent("panel:remove", AjaxFallbackLink.class);
     }
 
 

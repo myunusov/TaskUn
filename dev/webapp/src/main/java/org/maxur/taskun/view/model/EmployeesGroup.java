@@ -6,6 +6,7 @@ import org.maxur.taskun.services.ApplicationController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -34,11 +35,10 @@ public class EmployeesGroup implements Serializable {
      */
     public EmployeesGroup(final ApplicationController controller) {
         final List<Employee> list = controller.getAllEmployee();
-        List<EmployeeBean> result = new ArrayList<EmployeeBean>();
+        this.employees = new ArrayList<EmployeeBean>();
         for (Employee employee : list) {
-            result.add(0, new EmployeeBean(controller, employee));
+            this.employees.add(0, new EmployeeBean(controller, employee));
         }
-        this.employees = Collections.unmodifiableList(result);
     }
 
     /**
@@ -56,7 +56,7 @@ public class EmployeesGroup implements Serializable {
      * @return All employees from this group as list.
      */
     public List<EmployeeBean> getAll() {
-        return employees;
+        return Collections.unmodifiableList(employees);
     }
 
     public Integer getSelectedCount() {
@@ -68,9 +68,11 @@ public class EmployeesGroup implements Serializable {
     }
 
     public void removeSelected() {
-        for (EmployeeBean employee : employees) {
+        for (Iterator<EmployeeBean> iterator = employees.iterator(); iterator.hasNext(); ) {
+            EmployeeBean employee = iterator.next();
             if (employee.isSelected()) {
                 employee.remove();
+                iterator.remove();
             }
         }
     }

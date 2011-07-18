@@ -3,17 +3,22 @@
       xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <body>
 <wicket:panel>
-    <div id="current_user" class="sidebar">
+    <div id="current_user" class="sidebar" style="float: left; width:175px">
         <ul>
             <li>
                 <h2 wicket:id="current_user">[Current User]</h2>
             </li>
         </ul>
         <div class="bigpix">
-            <div class="gridimage">
+            <div class="gridimage" style="float: left;">
                 <img src="/images/User_black.png" alt="" width="64" height="64"/>
             </div>
-            <p class="caption">Неизвестный</p>
+            <div style="float: right;">
+                <p class="caption" wicket:id="unknown">[Unknown]</p>
+                <form wicket:id="current_user_form">
+                    <input type="button" value="[LogOff]" wicket:id="logoff" />
+                </form>
+            </div>
         </div>
     </div>
 </wicket:panel>

@@ -31,11 +31,10 @@ public class ViewConfigurator {
      */
     @Bean
     public MenuItems menuItems() {
-        //TODO MY must be exclude string constants
         final MenuItems result = new MenuItems(3);
-        result.add("Главная", HomePage.class, true);
-        result.add("Блог", ExamplePage.class);
-        result.add("О программе", ExamplePage.class);
+        result.add("menu.item.main", HomePage.class, true);
+        result.add("menu.item.task", ExamplePage.class);
+        result.add("menu.item.self", ExamplePage.class);
         return result;
     }
 }

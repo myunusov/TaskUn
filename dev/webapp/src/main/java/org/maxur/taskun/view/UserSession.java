@@ -19,25 +19,24 @@ public class UserSession extends WebSession {
      */
     private static final long serialVersionUID = -1839738545816232994L;
 
-
     /**
      * Menu items List as MenuItems class.
      */
-    private final MenuItems items;
-
+    private final MenuItems menuItems;
 
     /**
      * The Constructor of UserSession class.
      *
      * @param request   The Base class for page request.
-     * @param menuItems The menu items
+     * @param items The menu items
      */
     public UserSession(
             final Request request,
-            final MenuItems menuItems
+            final MenuItems items
     ) {
         super(request);
-        this.items = menuItems;
+        this.menuItems = items;
+
     }
 
     /**
@@ -46,7 +45,7 @@ public class UserSession extends WebSession {
      * @return The Menu Items List.
      */
     public List<MenuItem> getMenuItems() {
-        return Collections.unmodifiableList(items);
+        return Collections.unmodifiableList(menuItems);
     }
 
 }

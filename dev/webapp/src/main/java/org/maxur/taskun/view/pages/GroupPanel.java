@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.maxur.taskun.view.components.AjaxObserver;
 import org.maxur.taskun.view.model.EmployeesGroup;
 
 /**
@@ -19,7 +20,11 @@ public class GroupPanel extends Panel {
     private AjaxObserver groupObserver;
 
 
-    public GroupPanel(final String id, final IModel<EmployeesGroup> model, AjaxObserver observer) {
+    public GroupPanel(
+            final String id,
+            final IModel<EmployeesGroup> model,
+            final AjaxObserver observer
+    ) {
         //todo MY All strings may be excluded.
         super(id, model);
         this.groupObserver = observer;
@@ -60,8 +65,8 @@ public class GroupPanel extends Panel {
         public void onClick(AjaxRequestTarget target) {
             final EmployeesGroup group = getModelObject();
             group.removeSelected();
-            //groupObserver.update(target);  TODO  Ajax is not working
-            setResponsePage(HomePage.class);
+            groupObserver.update(target);  //TODO  Ajax is not working
+            //setResponsePage(HomePage.class);
         }
 
         @Override

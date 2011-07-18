@@ -10,29 +10,29 @@
 
         <img src="/images/User_new.png" alt="" class="avatar" style="float: left; padding: 5px" />
 
-        <form wicket:id="employee_form" style="float: left">
+        <form wicket:id="employee_form" style="float: left; padding: 5px">
             <table>
                 <tr>
-                    <td wicket:id="last_name">[lastName]</td>
+                    <td wicket:id="last_name" align="right">[lastName]</td>
                     <td><label>
                         <input type="text" wicket:id="lastName"/>
                     </label></td>
                 </tr>
                 <tr>
-                    <td wicket:id="first_name">[firstName]</td>
+                    <td wicket:id="first_name" align="right">[firstName]</td>
                     <td><label>
                         <input type="text" wicket:id="firstName"/>
                     </label></td>
                 </tr>
                 <tr>
-                    <td wicket:id="middle_name">[middleName]</td>
+                    <td wicket:id="middle_name" align="right">[middleName]</td>
                     <td><label>
                         <input type="text" wicket:id="middleName"/>
                     </label></td>
                 </tr>
             </table>
             <br/>
-            <input type="submit" value="Применить"/>
+            <input type="submit" wicket:id="submit" />
         </form>
     </div>
 </wicket:panel>

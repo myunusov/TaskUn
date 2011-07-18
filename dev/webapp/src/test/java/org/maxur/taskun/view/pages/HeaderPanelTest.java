@@ -41,5 +41,4 @@ public class HeaderPanelTest {
         tester.assertNoInfoMessage();
     }
 
-
 }

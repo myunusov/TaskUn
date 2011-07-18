@@ -1,5 +1,6 @@
 package org.maxur.taskun.view.pages;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -57,6 +58,28 @@ public class EmployeePanelTest {
     public void testPanelBasicRender() {
         tester.assertComponent("panel:feedback", FeedbackPanel.class);
         tester.assertComponent("panel:employee_form", Form.class);
+    }
+
+
+    @Test
+    public void testFirstNameLabel() throws Exception {
+        tester.assertComponent("panel:employee_form:first_name", Label.class);
+    }
+
+    @Test
+    public void testLastNameLabel() throws Exception {
+        tester.assertComponent("panel:employee_form:last_name", Label.class);
+    }
+
+    @Test
+    public void testMiddleNameLabel() throws Exception {
+        tester.assertComponent("panel:employee_form:middle_name", Label.class);
+    }
+
+    @Test
+    public void testWicketPanel() throws Exception {
+        tester.assertNoErrorMessage();
+        tester.assertNoInfoMessage();
     }
 
 }
