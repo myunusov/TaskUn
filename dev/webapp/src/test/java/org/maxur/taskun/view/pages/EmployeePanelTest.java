@@ -49,7 +49,7 @@ public class EmployeePanelTest {
         tester.startPanel(new ITestPanelSource() {
             @Override
             public Panel getTestPanel(String panelId) {
-                return new EmployeePanel(panelId, new EmployeeBean(controller, dummy), HomePage.class);
+                return new EmployeePanel(panelId, new EmployeeBean(controller, dummy), null);
             }
         });
     }

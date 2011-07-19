@@ -3,14 +3,13 @@
       xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <body>
 <wicket:panel>
-    <div id="employee_panel" class="post" style="width: 630px; float: none;">
-        <h1 class="title">[Добавление сотрудника]</h1>
+    <div id="employee_panel" class="post">
 
         <div wicket:id="feedback" class="feedback"></div>
 
-        <img src="/images/User_new.png" alt="" class="avatar" style="float: left; padding: 5px" />
+        <img src="/images/User_new.png" alt="" class="avatar" style="float: left; padding: 5px"/>
 
-        <form wicket:id="employee_form" style="float: left; padding: 5px">
+        <form wicket:id="employee_form" style="padding: 5px">
             <table>
                 <tr>
                     <td wicket:id="last_name" align="right">[lastName]</td>
@@ -32,8 +31,12 @@
                 </tr>
             </table>
             <br/>
-            <input type="submit" wicket:id="submit" />
         </form>
+        <div class="operations">
+            <form wicket:id="fake_form"></form>
+            <input type="button" style="float: left;" wicket:id="cancel"/>
+            <input type="button" wicket:id="submit"/>
+        </div>
     </div>
 </wicket:panel>
 </body>

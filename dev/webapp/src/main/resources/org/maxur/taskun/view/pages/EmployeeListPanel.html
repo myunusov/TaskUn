@@ -8,18 +8,18 @@
         <div wicket:id="employee_list">
             <div class="entry">
                 <div class="bigpix" style="vertical-align: baseline; display: block;">
-                    <div class="gridimage" wicket:id="employees" style="width: 64px; height: 100px">
-                        <a wicket:id="select" class="employee">
+                    <div class="employees" wicket:id="employees">
+                        <a class="employee" wicket:id="employee_select">
                             <img src="/images/User_male.png" alt="" class="avatar" wicket:id="employee_img"/>
                         </a>
-
-                        <p class="caption" wicket:id="employee_title">[EMPLOYEE NAME]</p>
+                        <a wicket:id="employee_edit">
+                            <span class="caption" style="padding:0; margin:0" wicket:id="employee_title">[EMPLOYEE NAME]</span>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="post" style="width: 630px; float: none;">
                 <br/>
-
                 <div wicket:id="navigator" style="float: none;"></div>
             </div>
         </div>

@@ -4,8 +4,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.components.AjaxObserver;
-import org.maxur.taskun.view.model.EmployeeBean;
+import org.maxur.taskun.view.components.AjaxChangeManager;
 import org.maxur.taskun.view.model.EmployeesGroup;
 import org.maxur.taskun.view.model.UserBean;
 
@@ -33,39 +32,21 @@ public class HomePage extends BasePage {
      * Constructs HomePage instance.
      */
     public HomePage() {
+        final AjaxChangeManager groupChangeManager = new AjaxChangeManager();
         final EmployeesGroup group = new EmployeesGroup(controller);
-        final EmployeeBean employee = new EmployeeBean(controller);
-
-        AjaxObserver groupObserver = new AjaxObserver();
-
-        IModel<EmployeesGroup> groupModel = new Model<EmployeesGroup>() {
-
-            private static final long serialVersionUID = 938407854341582573L;
-
+        final IModel<EmployeesGroup> groupModel = new Model<EmployeesGroup>() {
             @Override
             public EmployeesGroup getObject() {
                 return group;
             }
         };
+        EmployeeWindow employeeWindow = new EmployeeWindow("create_dialog", group, groupChangeManager);
+        add(employeeWindow);
 
-        final GroupPanel groupPanel = new GroupPanel("group_panel", groupModel, groupObserver);
-        groupPanel.setOutputMarkupId(true);
-        add(groupPanel);
-        final EmployeeListPanel employeeListPanel =
-                new EmployeeListPanel("employee_list_panel", groupModel, groupObserver);
-        employeeListPanel.setOutputMarkupId(true);
-        add(employeeListPanel);
-
-       // groupObserver.addComponents(employeeListPanel);
-
-
-        add(new EmployeePanel("employee_panel", employee, HomePage.class));
-
+        add(new GroupPanel("group_panel", groupModel, employeeWindow, groupChangeManager));
+        add(new EmployeeListPanel("employee_list_panel", groupModel, employeeWindow, groupChangeManager));
         add(new TaskListPanel("task_list_panel"));
-
-
-
         add(new CurrentUserPanel("current_user_panel", new UserBean()));
-    }
 
+    }
 }

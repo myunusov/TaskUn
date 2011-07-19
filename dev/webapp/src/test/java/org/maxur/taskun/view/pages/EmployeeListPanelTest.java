@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.components.AjaxObserver;
+import org.maxur.taskun.view.components.AjaxChangeManager;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
 import org.maxur.taskun.view.model.EmployeesGroup;
 
@@ -59,7 +59,7 @@ public class EmployeeListPanelTest {
             public Panel getTestPanel(String panelId) {
 
                 IModel<EmployeesGroup> model = new Model<EmployeesGroup>(new EmployeesGroup(controller));
-                return new EmployeeListPanel(panelId, model, new AjaxObserver());
+                return new EmployeeListPanel(panelId, model, null, new AjaxChangeManager());
             }
         });
     }

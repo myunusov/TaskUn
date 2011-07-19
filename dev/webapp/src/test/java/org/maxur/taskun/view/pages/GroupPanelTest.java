@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.components.AjaxObserver;
+import org.maxur.taskun.view.components.AjaxChangeManager;
 import org.maxur.taskun.view.model.EmployeesGroup;
 
 import java.util.Collections;
@@ -60,7 +60,7 @@ public class GroupPanelTest {
             public Panel getTestPanel(String panelId) {
                 final EmployeesGroup group = new EmployeesGroup(controller);
                 IModel<EmployeesGroup> model = new Model<EmployeesGroup>(group);
-                return new GroupPanel(panelId, model, new AjaxObserver());
+                return new GroupPanel(panelId, model, null, new AjaxChangeManager());
             }
         });
     }

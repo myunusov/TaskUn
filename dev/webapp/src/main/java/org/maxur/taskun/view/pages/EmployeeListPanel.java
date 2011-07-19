@@ -3,18 +3,21 @@ package org.maxur.taskun.view.pages;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
-import org.maxur.taskun.view.components.AjaxObserver;
+import org.maxur.taskun.view.components.AjaxChangeManager;
+import org.maxur.taskun.view.components.AjaxMarkupContainer;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
 import org.maxur.taskun.view.model.EmployeeBean;
 import org.maxur.taskun.view.model.EmployeesGroup;
+
+import java.io.Serializable;
 
 /**
  * Panel for displaying the employees list.
@@ -37,24 +40,26 @@ public class EmployeeListPanel extends Panel {
     /**
      * The Employee panel's constructor.
      *
-     * @param id       The Employee List Panel identifier.
-     * @param model    The displaying group model.
-     * @param observer The Group panel.
+     * @param id             The Employee List Panel identifier.
+     * @param model          The displaying group model.
+     * @param employeeWindow
+     * @param changeManager  The Group panel.
      */
     public EmployeeListPanel(
             final String id,
             final IModel<EmployeesGroup> model,
-            final AjaxObserver observer
+            final EmployeeWindow employeeWindow,
+            final AjaxChangeManager changeManager
     ) {
         super(id);
         final EmployeesGroup group = model.getObject();
         add(new Label("employee_list_title", new ResourceModel("list.employee.title")));
 
-        final WebMarkupContainer mark = new WebMarkupContainer("employee_list", model);
+        final AjaxMarkupContainer mark = new AjaxMarkupContainer("employee_list", model);
         add(mark);
-        observer.addComponent(mark);
+        changeManager.addComponent(mark);
         final EmployeesView employees =
-                new EmployeesView("employees", group, observer, ROWS_PER_PAGE);
+                new EmployeesView("employees", group, changeManager, employeeWindow, ROWS_PER_PAGE);
         mark.add(employees);
         mark.add(new HiddenPagingNavigator("navigator", employees));
     }
@@ -73,25 +78,30 @@ public class EmployeeListPanel extends Panel {
         /**
          * The Group panel.
          */
-        private final AjaxObserver groupObserver;
+        private final AjaxChangeManager groupChangeManager;
+
+        private final EmployeeWindow editDialog;
 
         /**
          * Constructs new EmployeesView instance.
          *
-         * @param id          The View's identifier.
-         * @param group       The Employees Group.
-         * @param observer    The Group panel.
-         * @param rowsPerPage Number of rows to show on a page
+         * @param id            The View's identifier.
+         * @param group         The Employees Group.
+         * @param changeManager The Group panel.
+         * @param editDialog
+         * @param rowsPerPage   Number of rows to show on a page
          */
         public EmployeesView(
                 final String id,
                 final EmployeesGroup group,
-                final AjaxObserver observer,
+                final AjaxChangeManager changeManager,
+                final EmployeeWindow editDialog,
                 final int rowsPerPage
         ) {
-            super(id, group.getAll(), rowsPerPage);
+            super(id, new EmployeeListModel(group), rowsPerPage);
             this.group = group;
-            this.groupObserver = observer;
+            this.groupChangeManager = changeManager;
+            this.editDialog = editDialog;
         }
 
         /**
@@ -103,9 +113,52 @@ public class EmployeeListPanel extends Panel {
          */
         @Override
         protected void populateItem(final ListItem<EmployeeBean> listItem) {
-            listItem.add(new EmployeeLink(listItem.getModel()));
+            listItem.add(new EmployeeLink("employee_select", listItem.getModel()));
             final EmployeeBean item = listItem.getModelObject();
-            listItem.add(new Label("employee_title", item.getTitle()));
+            final EmployeeEditLink link =
+                    new EmployeeEditLink("employee_edit", listItem.getModel(), editDialog);
+            listItem.add(link);
+            link.add(new Label("employee_title", item.getTitle()));
+        }
+
+        private static class EmployeeListModel extends Model {
+
+            private static final long serialVersionUID = -808007446522845261L;
+
+            private final EmployeesGroup group;
+
+            public EmployeeListModel(final EmployeesGroup group) {
+                this.group = group;
+            }
+
+            @Override
+            public Serializable getObject() {
+                return (Serializable) group.getAll();
+            }
+        }
+
+        private static class EmployeeEditLink extends AjaxFallbackLink<EmployeeBean> {
+
+            /**
+             * Serial Version UID.
+             */
+            private static final long serialVersionUID = -8095364080994940288L;
+
+            private final EmployeeWindow editDialog;
+
+            public EmployeeEditLink(
+                    final String id,
+                    final IModel<EmployeeBean> model,
+                    EmployeeWindow editDialog
+            ) {
+                super(id, model);
+                this.editDialog = editDialog;
+            }
+
+            @Override
+            public void onClick(final AjaxRequestTarget target) {
+                editDialog.show(target, getModelObject());
+            }
         }
 
         private class EmployeeLink extends AjaxFallbackLink<EmployeeBean> {
@@ -115,8 +168,8 @@ public class EmployeeListPanel extends Panel {
              */
             private static final long serialVersionUID = -2095950426753867925L;
 
-            public EmployeeLink(IModel<EmployeeBean> model) {
-                super("select", model);
+            public EmployeeLink(final String id, final IModel<EmployeeBean> model) {
+                super(id, model);
                 final EmployeeBean item = getModelObject();
                 if (item.isSelected()) {
                     add(new SimpleAttributeModifier("class", "employee_selected"));
@@ -141,8 +194,10 @@ public class EmployeeListPanel extends Panel {
             public void onClick(AjaxRequestTarget target) {
                 EmployeeBean selected = getModelObject();
                 selected.select();
-                groupObserver.update(target);
+                groupChangeManager.update(target);
             }
+
+
         }
     }
 }

@@ -26,7 +26,9 @@ public class EmployeesGroup implements Serializable {
     /**
      * Employees from this group.
      */
-    private final List<EmployeeBean> employees;
+    private List<EmployeeBean> employees;
+
+    private final ApplicationController controller;
 
     /**
      * Constructs group from employees.
@@ -34,6 +36,11 @@ public class EmployeesGroup implements Serializable {
      * @param controller The Application controller.
      */
     public EmployeesGroup(final ApplicationController controller) {
+        this.controller = controller;
+        refresh();
+    }
+
+    public void refresh() {
         final List<Employee> list = controller.getAllEmployee();
         this.employees = new ArrayList<EmployeeBean>();
         for (Employee employee : list) {
@@ -75,9 +82,5 @@ public class EmployeesGroup implements Serializable {
                 iterator.remove();
             }
         }
-    }
-
-    public boolean isEmpty() {
-        return employees.isEmpty();
     }
 }

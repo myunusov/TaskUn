@@ -50,7 +50,6 @@ public class HomePageTest {
     @Test
     public void testBasePageBasicRender() {
         context.checking(new Expectations() {{
-            oneOf(controller).createEmployee(); will(returnValue(dummy));
             oneOf(controller).getAllEmployee();
             will(returnValue(Collections.nCopies(0, dummy)));
         }});
@@ -62,7 +61,6 @@ public class HomePageTest {
     @Test
     public void testBasePageBasicRenderWithEmployee() {
         context.checking(new Expectations() {{
-            oneOf(controller).createEmployee(); will(returnValue(dummy));
             oneOf(controller).getAllEmployee();
             will(returnValue(Collections.nCopies(1, dummy)));
         }});
@@ -77,7 +75,6 @@ public class HomePageTest {
         };
         male.setGender(Gender.MALE);
         context.checking(new Expectations() {{
-            oneOf(controller).createEmployee(); will(returnValue(dummy));
             oneOf(controller).getAllEmployee();
             will(returnValue(Collections.nCopies(1, male)));
         }});
@@ -92,7 +89,6 @@ public class HomePageTest {
         };
         female.setGender(Gender.FEMALE);
         context.checking(new Expectations() {{
-            oneOf(controller).createEmployee(); will(returnValue(dummy));
             oneOf(controller).getAllEmployee();
             will(returnValue(Collections.nCopies(1, female)));
         }});
@@ -104,7 +100,6 @@ public class HomePageTest {
     @Test
     public void testBasePageComponents() {
         context.checking(new Expectations() {{
-            oneOf(controller).createEmployee(); will(returnValue(dummy));
             oneOf(controller).getAllEmployee();
             will(returnValue(Collections.nCopies(0, null)));
         }});
