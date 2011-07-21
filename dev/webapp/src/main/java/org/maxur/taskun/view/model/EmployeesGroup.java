@@ -1,9 +1,10 @@
 package org.maxur.taskun.view.model;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.services.ApplicationController;
+import org.maxur.taskun.services.TaskunServiceException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -15,7 +16,7 @@ import java.util.List;
  * @author Maxim Yunusov
  * @version 1.0 7/15/11
  */
-public class EmployeesGroup implements Serializable {
+public class EmployeesGroup extends Bean {
 
     /**
      * Serial Version UID.
@@ -33,18 +34,24 @@ public class EmployeesGroup implements Serializable {
     /**
      * Constructs group from employees.
      *
-     * @param controller The Application controller.
+     * @param controller         The Application controller.
      */
-    public EmployeesGroup(final ApplicationController controller) {
+    public EmployeesGroup(ApplicationController controller) {
+        super();
         this.controller = controller;
         refresh();
     }
 
-    public void refresh() {
+    public void refresh(final AjaxRequestTarget target) {
+        refresh();
+        update(target);
+    }
+
+    private void refresh() {
         final List<Employee> list = controller.getAllEmployee();
         this.employees = new ArrayList<EmployeeBean>();
         for (Employee employee : list) {
-            this.employees.add(0, new EmployeeBean(controller, employee));
+            this.employees.add(0, new EmployeeBean(this, employee));
         }
     }
 
@@ -74,13 +81,24 @@ public class EmployeesGroup implements Serializable {
         return result;
     }
 
-    public void removeSelected() {
+    public void removeSelected(final AjaxRequestTarget target) {
         for (Iterator<EmployeeBean> iterator = employees.iterator(); iterator.hasNext(); ) {
-            EmployeeBean employee = iterator.next();
-            if (employee.isSelected()) {
-                employee.remove();
+            EmployeeBean bean = iterator.next();
+            if (bean.isSelected()) {
+                controller.deleteEmployee(bean.getObject());
                 iterator.remove();
             }
         }
+        update(target);
     }
+
+    public void saveEmployee(final Employee employee) throws TaskunServiceException {
+        controller.saveEmployee(employee);
+        //TODO May be add to group for new item
+    }
+
+    public EmployeeBean createEmployee() {
+        return new EmployeeBean(this, controller.createEmployee());
+    }
+
 }

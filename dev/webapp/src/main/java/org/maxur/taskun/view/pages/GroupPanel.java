@@ -8,7 +8,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
-import org.maxur.taskun.view.components.AjaxChangeManager;
+import org.maxur.taskun.view.components.AjaxMarkupContainer;
 import org.maxur.taskun.view.components.AjaxObserver;
 import org.maxur.taskun.view.components.HighlightLabel;
 import org.maxur.taskun.view.model.EmployeesGroup;
@@ -23,31 +23,30 @@ public class GroupPanel extends Panel {
 
     private final EmployeeWindow createDialog;
 
-    private AjaxChangeManager groupChangeManager;
-
-
     public GroupPanel(
             final String id,
             final IModel<EmployeesGroup> model,
-            EmployeeWindow employeeWindow,
-            final AjaxChangeManager changeManager
+            EmployeeWindow employeeWindow
     ) {
         super(id, model);
         this.createDialog = employeeWindow;
-        this.groupChangeManager = changeManager;
         final EmployeesGroup group = model.getObject();
         add(new Label("resume_title", new ResourceModel("info.group.title")));
-        final HighlightLabel total = new HighlightLabel("total", new Model<String>("info.group.number %s") {     //todo Stub
+
+        add(new Label("total_title", new ResourceModel("info.group.number")));
+        final HighlightLabel total = new HighlightLabel("total", new Model<String>() {
             @Override
             public String getObject() {
-                return String.format(super.getObject(), group.getTotal());
+                return group.getTotal().toString();
             }
         });
         add(total);
-        final HighlightLabel selected = new HighlightLabel("selected", new Model<String>("info.group.select %s") {    //todo Stub
+
+        add(new Label("selected_title", new ResourceModel("info.group.select")));
+        final HighlightLabel selected = new HighlightLabel("selected", new Model<String>() {
             @Override
             public String getObject() {
-                return String.format(super.getObject(), group.getSelectedCount());
+                return group.getSelectedCount().toString();
             }
         });
         add(selected);
@@ -55,10 +54,19 @@ public class GroupPanel extends Panel {
         add(new Label("opp_title", new ResourceModel("edit.group.title")));
         final CreateLink create = new CreateLink("create", model);
         add(create);
-        final RemoveLink remove = new RemoveLink("remove", model);
-        add(remove);
 
-        changeManager.addComponents(total, selected, remove);
+        final AjaxMarkupContainer removeItem = new AjaxMarkupContainer("remove_item", model) {
+            @Override
+            public boolean isVisible() {
+                return group.getSelectedCount() > 0;
+            }
+        };
+        add(removeItem);
+
+        final RemoveLink remove = new RemoveLink("remove", model);
+        removeItem.add(remove);
+
+        group.addObservers(total, selected, removeItem);
     }
 
 
@@ -72,10 +80,9 @@ public class GroupPanel extends Panel {
         }
 
         @Override
-        public void onClick(AjaxRequestTarget target) {
+        public void onClick(final AjaxRequestTarget target) {
             final EmployeesGroup group = getModelObject();
-            group.removeSelected();
-            groupChangeManager.update(target);
+            group.removeSelected(target);
         }
 
         @Override

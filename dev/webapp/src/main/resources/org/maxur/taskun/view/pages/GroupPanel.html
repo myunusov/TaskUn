@@ -8,13 +8,19 @@
             <li>
                 <h2><span wicket:id="resume_title">[Resume]</span></h2>
                 <ul>
-                    <li><span wicket:id="total">[Total]</span></li>
-                    <li><span wicket:id="selected">[Selected]</span></li>
+                    <li>
+                        <span wicket:id="total_title">[Total]</span>
+                        <span wicket:id="total" style="float: right;">[Total]</span>
+                    </li>
+                    <li>
+                        <span wicket:id="selected_title">[Total]</span>
+                        <span wicket:id="selected" style="float: right;">[Selected]</span>
+                    </li>
                 </ul>
                 <h2><span wicket:id="opp_title">[Resume]</span></h2>
                 <ul>
                     <li><a wicket:id="create"><span wicket:id="create_title">[CREATE]</span></a></li>
-                    <li><a wicket:id="remove"><span wicket:id="remove_title">[REMOVE]</span></a></li>
+                    <li wicket:id="remove_item"><a wicket:id="remove"><span wicket:id="remove_title">[REMOVE]</span></a></li>
                 </ul>
             </li>
         </ul>

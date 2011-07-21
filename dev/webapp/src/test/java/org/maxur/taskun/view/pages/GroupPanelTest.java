@@ -20,7 +20,6 @@ import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.AbstractEmployee;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.components.AjaxChangeManager;
 import org.maxur.taskun.view.model.EmployeesGroup;
 
 import java.util.Collections;
@@ -60,7 +59,7 @@ public class GroupPanelTest {
             public Panel getTestPanel(String panelId) {
                 final EmployeesGroup group = new EmployeesGroup(controller);
                 IModel<EmployeesGroup> model = new Model<EmployeesGroup>(group);
-                return new GroupPanel(panelId, model, null, new AjaxChangeManager());
+                return new GroupPanel(panelId, model, null);
             }
         });
     }
@@ -97,7 +96,7 @@ public class GroupPanelTest {
         startPanel();
         final Component panel = tester.getComponentFromLastRenderedPage("panel");
         final EmployeesGroup  object = (EmployeesGroup) panel.getDefaultModelObject();
-        object.getAll().get(0).select();
+        object.getAll().get(0).select(null);
         tester.assertComponent("panel:remove", AjaxFallbackLink.class);
     }
 

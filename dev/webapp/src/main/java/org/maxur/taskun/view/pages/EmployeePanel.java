@@ -48,7 +48,7 @@ public class EmployeePanel extends Panel {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 try {
-                    employee.save();
+                    employee.save(target);
                     modalWindow.close(target);
                 } catch (TaskunServiceException e) {
                 }

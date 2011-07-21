@@ -11,9 +11,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
-import org.maxur.taskun.view.components.AjaxChangeManager;
 import org.maxur.taskun.view.components.AjaxMarkupContainer;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
+import org.maxur.taskun.view.components.HighlightLabel;
 import org.maxur.taskun.view.model.EmployeeBean;
 import org.maxur.taskun.view.model.EmployeesGroup;
 
@@ -43,13 +43,11 @@ public class EmployeeListPanel extends Panel {
      * @param id             The Employee List Panel identifier.
      * @param model          The displaying group model.
      * @param employeeWindow
-     * @param changeManager  The Group panel.
      */
     public EmployeeListPanel(
             final String id,
             final IModel<EmployeesGroup> model,
-            final EmployeeWindow employeeWindow,
-            final AjaxChangeManager changeManager
+            final EmployeeWindow employeeWindow
     ) {
         super(id);
         final EmployeesGroup group = model.getObject();
@@ -57,9 +55,9 @@ public class EmployeeListPanel extends Panel {
 
         final AjaxMarkupContainer mark = new AjaxMarkupContainer("employee_list", model);
         add(mark);
-        changeManager.addComponent(mark);
+        group.addObserver(mark);
         final EmployeesView employees =
-                new EmployeesView("employees", group, changeManager, employeeWindow, ROWS_PER_PAGE);
+                new EmployeesView("employees", group, employeeWindow, ROWS_PER_PAGE);
         mark.add(employees);
         mark.add(new HiddenPagingNavigator("navigator", employees));
     }
@@ -75,10 +73,6 @@ public class EmployeeListPanel extends Panel {
         private static final long serialVersionUID = -1086603569385693092L;
 
         private final EmployeesGroup group;
-        /**
-         * The Group panel.
-         */
-        private final AjaxChangeManager groupChangeManager;
 
         private final EmployeeWindow editDialog;
 
@@ -87,20 +81,17 @@ public class EmployeeListPanel extends Panel {
          *
          * @param id            The View's identifier.
          * @param group         The Employees Group.
-         * @param changeManager The Group panel.
          * @param editDialog
          * @param rowsPerPage   Number of rows to show on a page
          */
         public EmployeesView(
                 final String id,
                 final EmployeesGroup group,
-                final AjaxChangeManager changeManager,
                 final EmployeeWindow editDialog,
                 final int rowsPerPage
         ) {
             super(id, new EmployeeListModel(group), rowsPerPage);
             this.group = group;
-            this.groupChangeManager = changeManager;
             this.editDialog = editDialog;
         }
 
@@ -118,7 +109,14 @@ public class EmployeeListPanel extends Panel {
             final EmployeeEditLink link =
                     new EmployeeEditLink("employee_edit", listItem.getModel(), editDialog);
             listItem.add(link);
-            link.add(new Label("employee_title", item.getTitle()));
+            final HighlightLabel title = new HighlightLabel("employee_title", new Model<String>() {
+                @Override
+                public String getObject() {
+                    return item.getTitle();
+                }
+            });
+            link.add(title);
+            item.addObserver(title);
         }
 
         private static class EmployeeListModel extends Model {
@@ -191,13 +189,10 @@ public class EmployeeListPanel extends Panel {
             }
 
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            public void onClick(final AjaxRequestTarget target) {
                 EmployeeBean selected = getModelObject();
-                selected.select();
-                groupChangeManager.update(target);
+                selected.select(target);
             }
-
-
         }
     }
 }

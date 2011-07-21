@@ -4,7 +4,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.components.AjaxChangeManager;
 import org.maxur.taskun.view.model.EmployeesGroup;
 import org.maxur.taskun.view.model.UserBean;
 
@@ -32,19 +31,20 @@ public class HomePage extends BasePage {
      * Constructs HomePage instance.
      */
     public HomePage() {
-        final AjaxChangeManager groupChangeManager = new AjaxChangeManager();
+
         final EmployeesGroup group = new EmployeesGroup(controller);
+
         final IModel<EmployeesGroup> groupModel = new Model<EmployeesGroup>() {
             @Override
             public EmployeesGroup getObject() {
                 return group;
             }
         };
-        EmployeeWindow employeeWindow = new EmployeeWindow("create_dialog", group, groupChangeManager);
+        EmployeeWindow employeeWindow = new EmployeeWindow("create_dialog", group);
         add(employeeWindow);
 
-        add(new GroupPanel("group_panel", groupModel, employeeWindow, groupChangeManager));
-        add(new EmployeeListPanel("employee_list_panel", groupModel, employeeWindow, groupChangeManager));
+        add(new GroupPanel("group_panel", groupModel, employeeWindow));
+        add(new EmployeeListPanel("employee_list_panel", groupModel, employeeWindow));
         add(new TaskListPanel("task_list_panel"));
         add(new CurrentUserPanel("current_user_panel", new UserBean()));
 
