@@ -87,7 +87,7 @@ public class MenuPanel extends Panel {
         @Override
         protected void populateItem(final ListItem<MenuItem> listItem) {
             MenuItem item = listItem.getModelObject();
-            final Link<MenuItem> link = new MenuItemLink(item);
+            final Link<MenuItem> link = new MenuItemLink("menu_item", item);
             listItem.add(link);
         }
 
@@ -103,10 +103,11 @@ public class MenuPanel extends Panel {
 
             /**
              * Constructs the MenuItemLink instance.
+             * @param id The link identifier
              * @param item The Menu Item descriptor.
              */
-            public MenuItemLink(final MenuItem item) {
-                super("menu_item", new Model<MenuItem>(item));
+            public MenuItemLink(final String id, final MenuItem item) {
+                super(id, new Model<MenuItem>(item));
                 if (item.isActive()) {
                     add(new SimpleAttributeModifier("class", "current_page_item"));
                 }

@@ -1,8 +1,10 @@
 package org.maxur.taskun.view.model;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.domain.Gender;
+import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.services.TaskunServiceException;
 
 import javax.annotation.Nullable;
@@ -32,13 +34,18 @@ public class EmployeeBean extends Bean implements Employee {
      */
     private boolean selected;
 
+    /**
+     * The ApplicationController bean. It's injected by Wicket IoC.
+     */
+    @SpringBean
+    private ApplicationController controller;
 
 
     /**
      * Wraps  employee with Employee Bean instance.
      *
-     * @param group      The owner group
-     * @param employee   The wrapped employee.
+     * @param group    The owner group
+     * @param employee The wrapped employee.
      */
     protected EmployeeBean(final EmployeesGroup group, final Employee employee) {
         super();
@@ -106,7 +113,24 @@ public class EmployeeBean extends Bean implements Employee {
     }
 
     /**
+     * Getter for the Employee's avatar image.
+     *
+     * @return The Employee's avatar image.
+     */
+    public String getImageName() {
+        switch (getGender()) {
+            case MALE:
+                return "User_male.png";
+            case FEMALE:
+                return "User_female.png";
+            default:
+                return "User_black.png";
+        }
+    }
+
+    /**
      * Getter for isNew state.
+     *
      * @return True if it is new employee.
      */
     public boolean isNew() {
@@ -171,15 +195,23 @@ public class EmployeeBean extends Bean implements Employee {
     /**
      * Save employee.
      *
+     * @param target A request target that produces ajax response.
      * @throws TaskunServiceException Throws on any exceptions.
-     * @param target
      */
     public void save(final AjaxRequestTarget target) throws TaskunServiceException {
-        owner.saveEmployee(employee);
+        final boolean aNew = isNew();
+        controller.saveEmployee(employee);
+        if (aNew) {
+            owner.addEmployee(target, this);
+        }
         update(target);
     }
 
-    Employee getObject() {
-        return employee;
+    /**
+     * Delete employee.
+     */
+    void delete() {
+        controller.deleteEmployee(employee);
     }
+
 }

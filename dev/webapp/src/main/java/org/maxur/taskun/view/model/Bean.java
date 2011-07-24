@@ -1,8 +1,7 @@
 package org.maxur.taskun.view.model;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.maxur.taskun.view.components.AjaxChangeManager;
-import org.maxur.taskun.view.components.AjaxObserver;
+import org.apache.wicket.injection.web.InjectorHolder;
 
 import java.io.Serializable;
 
@@ -17,6 +16,7 @@ public abstract class Bean implements Serializable {
     protected final AjaxChangeManager changeManager;
 
     protected Bean() {
+        InjectorHolder.getInjector().inject(this);
         changeManager = new AjaxChangeManager();
     }
 

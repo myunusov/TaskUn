@@ -8,7 +8,6 @@ import org.apache.wicket.util.tester.ITestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.taskun.view.model.UserBean;
 
 /**
  * @author Maxim Yunusov
@@ -24,7 +23,7 @@ public class CurrentUserPanelTest {
         tester.startPanel(new ITestPanelSource() {
             @Override
             public Panel getTestPanel(String panelId) {
-                return new CurrentUserPanel(panelId, new UserBean());
+                return new CurrentUserPanel(panelId);
             }
         });
     }

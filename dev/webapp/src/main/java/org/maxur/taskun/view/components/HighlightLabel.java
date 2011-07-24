@@ -4,6 +4,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
+import org.maxur.taskun.view.model.AjaxObserver;
 
 /**
 * @author Maxim Yunusov
@@ -11,6 +12,9 @@ import org.apache.wicket.model.IModel;
 */
 public class HighlightLabel extends Label implements AjaxObserver {
 
+     /**
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 4750097658321689822L;
 
     private String value = "";

@@ -62,7 +62,7 @@ public class TaskunApplication extends WebApplication {
     }
 
     /**
-     * Init listener for spring inject. This method exclude by Unit Test needs.
+     * Init listener for spring inject. This method exclude from init() by Unit Test needs.
      */
     protected void springInjection() {
             addComponentInstantiationListener(

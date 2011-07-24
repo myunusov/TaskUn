@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<body>
+<wicket:panel>
+    <div id="employee_panel" class="post">
+
+        <div wicket:id="employee_feedback" class="feedback"></div>
+
+        <img src="/images/User_new.png" alt="" class="avatar" style="float: left; padding: 5px"/>
+
+        <form wicket:id="employee_form" style="padding: 5px">
+            <table>
+                <tr>
+                    <td wicket:id="last_name" align="right">[lastName]</td>
+                    <td><label>
+                        <input type="text" wicket:id="lastName"/>
+                    </label></td>
+                </tr>
+                <tr>
+                    <td wicket:id="first_name" align="right">[firstName]</td>
+                    <td><label>
+                        <input type="text" wicket:id="firstName"/>
+                    </label></td>
+                </tr>
+                <tr>
+                    <td wicket:id="middle_name" align="right">[middleName]</td>
+                    <td><label>
+                        <input type="text" wicket:id="middleName"/>
+                    </label></td>
+                </tr>
+            </table>
+            <br/>
+        </form>
+        <div class="operations">
+            <form wicket:id="fake_form"></form>
+            <input type="button" style="float: left;" wicket:id="edit_employee_cancel"/>
+            <input type="button" wicket:id="edit_employee_submit"/>
+        </div>
+    </div>
+</wicket:panel>
+</body>
+</html>

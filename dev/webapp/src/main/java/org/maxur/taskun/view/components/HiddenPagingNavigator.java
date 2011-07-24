@@ -11,6 +11,9 @@ import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
  */
 public class HiddenPagingNavigator extends PagingNavigator {
 
+    /**
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = -6591732872536950367L;
 
     private final IPageable pageable;

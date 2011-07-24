@@ -8,6 +8,7 @@ import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock
 import org.maxur.taskun.view.TaskunApplication;
 import org.maxur.taskun.view.UserSession;
 import org.maxur.taskun.view.model.MenuItems;
+import org.maxur.taskun.view.pages.employee.HomePage;
 
 /**
 * @author Maxim Yunusov

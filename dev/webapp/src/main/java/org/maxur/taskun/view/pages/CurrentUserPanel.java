@@ -5,7 +5,6 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ResourceModel;
-import org.maxur.taskun.view.model.UserBean;
 
 /**
  * Panel for displaying the current user.
@@ -24,10 +23,10 @@ public class CurrentUserPanel extends Panel {
      * The Current User panel's constructor.
      *
      * @param id The Current User Panel identifier.
-     * @param user The Current User bean.
+     *
      */
-    public CurrentUserPanel(final String id, UserBean user) {
-        super(id);
+    public CurrentUserPanel(final String id) {
+        super(id);        // CurerentUser is geted from session
         add(new Label("current_user", new ResourceModel("current.user.title")));
         add(new Label("unknown", new ResourceModel("current.user.unknown")));
         final Form form = new LogOffForm("current_user_form");

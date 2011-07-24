@@ -1,9 +1,9 @@
 package org.maxur.taskun.view.model;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.maxur.taskun.domain.Employee;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.services.TaskunServiceException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,16 +29,18 @@ public class EmployeesGroup extends Bean {
      */
     private List<EmployeeBean> employees;
 
-    private final ApplicationController controller;
+    /**
+     * The ApplicationController bean. It's injected by Wicket IoC.
+     */
+    @SpringBean
+    private ApplicationController controller;
 
     /**
      * Constructs group from employees.
      *
-     * @param controller         The Application controller.
      */
-    public EmployeesGroup(ApplicationController controller) {
+    public EmployeesGroup() {
         super();
-        this.controller = controller;
         refresh();
     }
 
@@ -85,20 +87,19 @@ public class EmployeesGroup extends Bean {
         for (Iterator<EmployeeBean> iterator = employees.iterator(); iterator.hasNext(); ) {
             EmployeeBean bean = iterator.next();
             if (bean.isSelected()) {
-                controller.deleteEmployee(bean.getObject());
+                bean.delete();
                 iterator.remove();
             }
         }
         update(target);
     }
 
-    public void saveEmployee(final Employee employee) throws TaskunServiceException {
-        controller.saveEmployee(employee);
-        //TODO May be add to group for new item
-    }
-
     public EmployeeBean createEmployee() {
         return new EmployeeBean(this, controller.createEmployee());
     }
 
+    public void addEmployee(AjaxRequestTarget target, final EmployeeBean newEmployee) {
+        //TODO May be add to group for new item
+        refresh(target);
+    }
 }

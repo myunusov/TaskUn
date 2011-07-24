@@ -4,6 +4,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.ResourceModel;
 import org.maxur.taskun.view.UserSession;
+import org.maxur.taskun.view.model.CommandRepository;
 
 /**
  * The Base Page Controller.
@@ -19,6 +20,11 @@ public class BasePage extends WebPage {
     private static final long serialVersionUID = -7735630739445684538L;
 
     /**
+     * The commands repository
+     */
+    private CommandRepository commands;
+
+    /**
      * The constructor of the Base Page Controller.
      */
     public BasePage() {
@@ -27,6 +33,7 @@ public class BasePage extends WebPage {
         add(new MenuPanel("menu"));
         add(header);
         add(new FooterPanel("footer"));
+        commands = new CommandRepository();
     }
 
     /**
@@ -38,4 +45,11 @@ public class BasePage extends WebPage {
         return (UserSession) getSession();
     }
 
+    /**
+     * Fet the Commands repository.
+     * @return the Commands repository.
+     */
+    public CommandRepository getCommands() {
+        return commands;
+    }
 }

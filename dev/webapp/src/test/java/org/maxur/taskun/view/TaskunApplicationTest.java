@@ -3,7 +3,7 @@ package org.maxur.taskun.view;
 import org.apache.wicket.Page;
 import org.junit.Assert;
 import org.junit.Test;
-import org.maxur.taskun.view.pages.HomePage;
+import org.maxur.taskun.view.pages.employee.HomePage;
 
 /**
  * @author Maxim Yunusov
