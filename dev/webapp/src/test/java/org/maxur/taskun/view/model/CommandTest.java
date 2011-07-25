@@ -1,7 +1,6 @@
 package org.maxur.taskun.view.model;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.model.IModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,7 @@ public class CommandTest {
     public void setUp() throws Exception {
         command = new Command() {
             @Override
-            public void execute(AjaxRequestTarget target, IModel iModel) {
+            public void execute(AjaxRequestTarget target, Bean model) {
             }
         };
     }

@@ -5,9 +5,10 @@ import org.hibernate.exception.GenericJDBCException;
 import org.hibernate.exception.JDBCConnectionException;
 import org.hibernate.exception.LockAcquisitionException;
 import org.hibernate.exception.SQLGrammarException;
-import org.maxur.taskun.domain.Employee;
-import org.maxur.taskun.domain.EmployeeFactory;
-import org.maxur.taskun.domain.EmployeeRepository;
+import org.maxur.taskun.domain.Factory;
+import org.maxur.taskun.domain.Repository;
+import org.maxur.taskun.domain.Specification;
+import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.utils.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,27 +26,29 @@ import java.util.List;
 @Service
 public class ApplicationControllerImpl implements ApplicationController {
 
-    /**
-     * @see EmployeeFactory
-     */
-    private final EmployeeFactory employeeFactory;
+    private static final long serialVersionUID = -1805613937773652086L;
 
     /**
-     * @see EmployeeRepository
+     * @see org.maxur.taskun.domain.Factory
      */
-    private final EmployeeRepository employeeRepository;
+    private final Factory<Employee> employeeFactory;
+
+    /**
+     * @see org.maxur.taskun.domain.Repository
+     */
+    private final Repository<Employee> employeeRepository;
 
 
     /**
      * Constructs the instance of ApplicationController class.
      *
-     * @param factory The Employee Factory bean.
+     * @param factory    The Employee Factory bean.
      * @param repository The Employee Repository bean.
      */
     @Autowired
     public ApplicationControllerImpl(
-            final EmployeeFactory factory,
-            final EmployeeRepository repository
+            final Factory<Employee> factory,
+            final Repository<Employee> repository
     ) {
         this.employeeFactory = factory;
         this.employeeRepository = repository;
@@ -53,6 +56,7 @@ public class ApplicationControllerImpl implements ApplicationController {
 
     /**
      * This Method creates new instance of Employee.
+     *
      * @return New instance of Employee.
      */
     @Override
@@ -63,6 +67,7 @@ public class ApplicationControllerImpl implements ApplicationController {
 
     /**
      * Save the Employee.
+     *
      * @param employee The Employee to saveEmployee.
      * @throws TaskunServiceException Raise on any error.
      */
@@ -88,6 +93,7 @@ public class ApplicationControllerImpl implements ApplicationController {
 
     /**
      * Get all employees.
+     *
      * @return The List of Employees.
      */
     @Override
@@ -98,7 +104,19 @@ public class ApplicationControllerImpl implements ApplicationController {
     }
 
     /**
+     * Get all employees by specification.
+     *
+     * @param specification Some condition for select Employees.
+     * @return The List of Employees.
+     */
+    @Override
+    public List<Employee> getAllEmployee(Specification<Employee> specification) {
+        return employeeRepository.getAll(specification);
+    }
+
+    /**
      * Get employees by it's identifier.
+     *
      * @param id The Employees identifier.
      * @return The selected Employee.
      */
@@ -111,6 +129,7 @@ public class ApplicationControllerImpl implements ApplicationController {
 
     /**
      * Delete the employee.
+     *
      * @param employee The Employee to delete.
      */
     @Override

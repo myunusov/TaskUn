@@ -1,7 +1,7 @@
 package org.maxur.taskun.datasource.hibernate;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.employee.AbstractEmployee;
 import org.maxur.taskun.domain.Gender;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +38,7 @@ public class EmployeeImpl extends AbstractEmployee {
 
     /**
      * @return The Identifier.
-     * @see org.maxur.taskun.domain.AbstractEmployee#getIdentifier()
+     * @see org.maxur.taskun.domain.employee.AbstractEmployee#getIdentifier()
      */
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -61,7 +61,7 @@ public class EmployeeImpl extends AbstractEmployee {
 
     /**
      * @return The Employee's First Name
-     * @see org.maxur.taskun.domain.AbstractEmployee#getFirstName()
+     * @see org.maxur.taskun.domain.employee.AbstractEmployee#getFirstName()
      */
     @Column(name = "FIRST_NAME", nullable = false)
     @Override
@@ -71,7 +71,7 @@ public class EmployeeImpl extends AbstractEmployee {
 
     /**
      * @return The Employee's Last Name
-     * @see org.maxur.taskun.domain.AbstractEmployee#getLastName()
+     * @see org.maxur.taskun.domain.employee.AbstractEmployee#getLastName()
      */
     @Column(name = "LAST_NAME", nullable = false)
     @Override
@@ -81,7 +81,7 @@ public class EmployeeImpl extends AbstractEmployee {
 
     /**
      * @return The Employee's Middle Name
-     * @see org.maxur.taskun.domain.AbstractEmployee#getMiddleName()
+     * @see org.maxur.taskun.domain.employee.AbstractEmployee#getMiddleName()
      */
     @Column(name = "MIDDLE_NAME", nullable = false)
     @Override
@@ -91,7 +91,7 @@ public class EmployeeImpl extends AbstractEmployee {
 
     /**
      * @return The Employee's Gender.
-     * @see org.maxur.taskun.domain.AbstractEmployee#getGender()
+     * @see org.maxur.taskun.domain.employee.AbstractEmployee#getGender()
      */
     @Column(name = "GENDER")
     @Override

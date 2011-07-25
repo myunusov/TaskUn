@@ -1,14 +1,15 @@
 package org.maxur.taskun.domain;
 
 /**
- * The Entity is base class of domain layer.
+ * The AbstractEntity is base class of domain layer.
  *
  * @author Maxim Yunusov
  * @version 1.0
  * @since <pre>06.07.11</pre>
  */
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Entity {
 
+    private static final long serialVersionUID = 2853087286450189484L;
     /**
      * The Employee's Id.
      */
@@ -18,6 +19,7 @@ public abstract class AbstractEntity {
      * Getter for Entity's Identifier.
      * @return The Entity's Identifier.
      */
+    @Override
     public String getIdentifier() {
         return identifier;
     }
@@ -40,9 +42,9 @@ public abstract class AbstractEntity {
             return false;
         }
         final AbstractEntity entity = (AbstractEntity) obj;
-        return !(identifier != null
-                ? !identifier.equals(entity.identifier)
-                : entity.identifier != null);
+        return (identifier != null
+                ? identifier.equals(entity.identifier)
+                : false);
     }
 
     /**
@@ -53,6 +55,5 @@ public abstract class AbstractEntity {
     public final int hashCode() {
         return identifier != null ? identifier.hashCode() : 0;
     }
-
 
 }

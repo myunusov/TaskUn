@@ -1,7 +1,6 @@
 package org.maxur.taskun.view.commands;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.model.Model;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -11,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.view.components.BeanWindow;
-import org.maxur.taskun.view.model.EmployeeBean;
+import org.maxur.taskun.view.model.employee.EmployeeBean;
 
 /**
  * @author Maxim Yunusov
@@ -24,7 +23,7 @@ public class ShowModalWindowCommandTest {
 
     private AjaxRequestTarget target;
 
-    private Model<EmployeeBean> mockModel;
+    private EmployeeBean mockModel;
 
     private BeanWindow bean;
 
@@ -34,7 +33,7 @@ public class ShowModalWindowCommandTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }};
         target = context.mock(AjaxRequestTarget.class);
-        mockModel = context.mock(Model.class, "mockModel");
+        mockModel = context.mock(EmployeeBean.class, "mockModel");
         bean = context.mock(BeanWindow.class);
     }
 
@@ -42,7 +41,7 @@ public class ShowModalWindowCommandTest {
     public void testExecute() throws Exception {
         final ShowModalWindowCommand command = new ShowModalWindowCommand(bean);
         context.checking(new Expectations() {{
-            oneOf(bean).show(with(any(AjaxRequestTarget.class)), with(any(Model.class)));
+            oneOf(bean).show(with(any(AjaxRequestTarget.class)), with(any(EmployeeBean.class)));
         }});
         command.execute(target, mockModel);
         context.assertIsSatisfied();

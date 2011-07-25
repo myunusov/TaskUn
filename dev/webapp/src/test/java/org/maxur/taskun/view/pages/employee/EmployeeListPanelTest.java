@@ -3,8 +3,6 @@ package org.maxur.taskun.view.pages.employee;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.ITestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
@@ -16,11 +14,13 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Specification;
+import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
 import org.maxur.taskun.view.model.CommandRepository;
-import org.maxur.taskun.view.model.EmployeesGroup;
+import org.maxur.taskun.view.model.employee.EmployeesGroup;
 import org.maxur.taskun.view.pages.StubWebApplication;
 
 import java.util.Collections;
@@ -52,15 +52,13 @@ public class EmployeeListPanelTest {
 
     private void startPanel(final int numberOfItems) {
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee();
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(numberOfItems, new DummyEmployee())));
         }});
         tester.startPanel(new ITestPanelSource() {
             @Override
             public Panel getTestPanel(String panelId) {
-
-                IModel<EmployeesGroup> model = new Model<EmployeesGroup>(new EmployeesGroup());
-                return new EmployeeListPanel(panelId, model, new CommandRepository());
+                return new EmployeeListPanel(panelId, new EmployeesGroup(), new CommandRepository());
             }
         });
     }

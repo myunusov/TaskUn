@@ -14,7 +14,8 @@ import org.junit.runners.Suite;
         MenuItemsTest.class,
         AjaxChangeManagerTest.class,
         BatchCommandTest.class,
-        CommandTest.class
+        CommandTest.class,
+        ModelListTest.class
 })
 public class ModelSuite {
 }

@@ -11,12 +11,15 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.AbstractEmployee;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.AllSpecification;
+import org.maxur.taskun.domain.Specification;
+import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.Employee;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Maxim Yunusov
@@ -67,6 +70,42 @@ public class EmployeeRepositoryImplTest {
         repository.getAll();
         context.assertIsSatisfied();
     }
+
+    @Test
+    public void testGetAllByAllSpecification() throws Exception {
+        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
+        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
+        final HibernateTemplate template = context.mock(HibernateTemplate.class);
+        repository.setHibernateTemplate(template);
+        context.checking(new Expectations() {{
+            oneOf(template).find("from org.maxur.taskun.datasource.hibernate.EmployeeImpl");
+            will(returnValue((Object) Collections.nCopies(5, dummy)));
+        }});
+        final List<Employee> all = repository.getAll(new AllSpecification<Employee>());
+        context.assertIsSatisfied();
+        Assert.assertEquals(5, all.size());
+    }
+
+    @Test
+    public void testGetAllByNoneSpecification() throws Exception {
+        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
+        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
+        final HibernateTemplate template = context.mock(HibernateTemplate.class);
+        repository.setHibernateTemplate(template);
+        context.checking(new Expectations() {{
+            oneOf(template).find("from org.maxur.taskun.datasource.hibernate.EmployeeImpl");
+            will(returnValue((Object) Collections.nCopies(5, dummy)));
+        }});
+        final List<Employee> all = repository.getAll(new Specification<Employee>() {
+            @Override
+            public boolean isSatisfiedBy(Employee entity) {
+                return false;
+            }
+        });
+        context.assertIsSatisfied();
+        Assert.assertEquals(0, all.size());
+    }
+
 
     @Test(expected = UnsupportedOperationException.class)
     public void testGetAllCheckUnmodifiableResult() throws Exception {

@@ -2,7 +2,7 @@ package org.maxur.taskun.view.components;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
-import org.apache.wicket.model.IModel;
+import org.maxur.taskun.view.model.Bean;
 import org.maxur.taskun.view.model.Command;
 import org.maxur.taskun.view.model.CommandRepository;
 
@@ -10,7 +10,7 @@ import org.maxur.taskun.view.model.CommandRepository;
  * @author Maxim Yunusov
  * @version 1.0 7/22/11
  */
-public class CommandLink<T> extends AjaxFallbackLink<T> {
+public class CommandLink<T extends Bean> extends AjaxFallbackLink {
 
     /**
      * Serial Version UID.
@@ -23,7 +23,7 @@ public class CommandLink<T> extends AjaxFallbackLink<T> {
 
     public CommandLink(
             final String id,
-            final IModel<T> model,
+            final T model,
             final CommandRepository commands,
             final String commandId
     ) {
@@ -32,9 +32,10 @@ public class CommandLink<T> extends AjaxFallbackLink<T> {
         this.commandId = commandId;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void onClick(final AjaxRequestTarget target) {
         final Command<T> command = commands.get(commandId);
-        command.execute(target, getModel());
+        command.execute(target, (T) getModel());
     }
 }

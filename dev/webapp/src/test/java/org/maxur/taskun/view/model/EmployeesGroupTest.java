@@ -9,8 +9,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.taskun.domain.AbstractEmployee;
+import org.maxur.taskun.domain.Specification;
+import org.maxur.taskun.domain.employee.AbstractEmployee;
 import org.maxur.taskun.services.ApplicationController;
+import org.maxur.taskun.view.model.employee.EmployeesGroup;
 import org.maxur.taskun.view.pages.StubWebApplication;
 
 import java.util.Collections;
@@ -34,7 +36,7 @@ public class EmployeesGroupTest {
                 ((StubWebApplication) tester.getApplication()).getMockContext();
         mockContext.putBean("applicationController", controller);
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee();
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.<AbstractEmployee>nCopies(5, null)));
         }});
         group = new EmployeesGroup();
@@ -42,12 +44,12 @@ public class EmployeesGroupTest {
 
     @Test
     public void testGetTotal() throws Exception {
-        Assert.assertEquals(new Integer(5), group.getTotal());
+        Assert.assertEquals(5, group.size());
     }
 
     @Test
     public void testGetAll() throws Exception {
-        Assert.assertEquals(5, group.getAll().size());
+        Assert.assertEquals(5, group.getObject().size());
     }
 
     @Test
@@ -57,7 +59,7 @@ public class EmployeesGroupTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void testModifyEmployeeList() throws Exception {
-        group.getAll().add(null);
+        group.getObject().add(null);
     }
 
 

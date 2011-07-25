@@ -8,10 +8,10 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.AbstractEmployee;
-import org.maxur.taskun.domain.Employee;
-import org.maxur.taskun.domain.EmployeeFactory;
-import org.maxur.taskun.domain.EmployeeRepository;
+import org.maxur.taskun.domain.Factory;
+import org.maxur.taskun.domain.Repository;
+import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.Employee;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -36,7 +36,7 @@ public class ApplicationControllerTest {
 
     @Test
     public void testCreateEmployee() throws Exception {
-        final EmployeeFactory factory = context.mock(EmployeeFactory.class);
+        final Factory<Employee> factory = context.mock(Factory.class, "factory");
         controller = new ApplicationControllerImpl(factory, null);
         context.checking(new Expectations() {{
             oneOf(factory).create();
@@ -48,7 +48,7 @@ public class ApplicationControllerTest {
 
     @Test
     public void testGetAllEmployee() throws Exception {
-        final EmployeeRepository repository = context.mock(EmployeeRepository.class);
+        final Repository<Employee> repository = context.mock(Repository.class, "repository");
         controller = new ApplicationControllerImpl(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).getAll();
@@ -60,7 +60,7 @@ public class ApplicationControllerTest {
 
     @Test
     public void testGetEmployee() throws Exception {
-        final EmployeeRepository repository = context.mock(EmployeeRepository.class);
+        final Repository<Employee> repository = context.mock(Repository.class, "repository");
         controller = new ApplicationControllerImpl(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).get("1");
@@ -72,7 +72,7 @@ public class ApplicationControllerTest {
 
     @Test
     public void testSaveEmployee() throws Exception {
-        final EmployeeRepository repository = context.mock(EmployeeRepository.class);
+        final Repository<Employee> repository = context.mock(Repository.class, "repository");
         controller = new ApplicationControllerImpl(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).save(dummy);
@@ -83,7 +83,7 @@ public class ApplicationControllerTest {
 
     @Test
     public void testDeleteEmployee() throws Exception {
-        final EmployeeRepository repository = context.mock(EmployeeRepository.class);
+        final Repository<Employee> repository = context.mock(Repository.class, "repository");
         controller = new ApplicationControllerImpl(null, repository);
         context.checking(new Expectations() {{
             oneOf(repository).delete(dummy);

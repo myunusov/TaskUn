@@ -1,7 +1,6 @@
 package org.maxur.taskun.view.model;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.model.IModel;
 
 /**
  * The composite of commands class instances.
@@ -10,7 +9,7 @@ import org.apache.wicket.model.IModel;
  * @author Maxim Yunusov
  * @version 1.0 7/22/11
  */
-public class BatchCommand<T> extends Command<T> {
+public class BatchCommand<E extends Bean> extends Command<E> {
 
     /**
      * Serial Version UID.
@@ -20,26 +19,29 @@ public class BatchCommand<T> extends Command<T> {
     /**
      * The commands Repository.
      */
-    private final Command<T>[] commands;
+    private final Command<E>[] commands;
 
     /**
      * Constructs batch command from commands list.
+     *
      * @param commands The commands list.
      */
-    public BatchCommand(Command<T>... commands) {
+    public BatchCommand(Command<E>... commands) {
         this.commands = commands;
     }
 
     /**
      * Executes batch command. So all commands from this batch will be executed.
+     *
      * @param target
      * @param model
+     * @see org.maxur.taskun.view.model.Command#execute(org.apache.wicket.ajax.AjaxRequestTarget,
+     *      org.maxur.taskun.view.model.Bean)
      */
     @Override
-    public void execute(final AjaxRequestTarget target, final IModel<T> model) {
-        for (Command<T> command : commands) {
+    public void execute(AjaxRequestTarget target, E model) {
+        for (Command<E> command : commands) {
             command.execute(target, model);
         }
     }
-
 }

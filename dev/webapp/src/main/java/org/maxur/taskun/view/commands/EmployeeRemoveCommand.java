@@ -1,9 +1,8 @@
 package org.maxur.taskun.view.commands;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.model.IModel;
 import org.maxur.taskun.view.model.Command;
-import org.maxur.taskun.view.model.EmployeesGroup;
+import org.maxur.taskun.view.model.employee.EmployeesGroup;
 
 /**
  * The command for removing employee.
@@ -22,13 +21,13 @@ public class EmployeeRemoveCommand extends Command<EmployeesGroup> {
     /**
      * @see org.maxur.taskun.view.model.Command#execute(
      *      org.apache.wicket.ajax.AjaxRequestTarget,
-     *      org.apache.wicket.model.IModel)
+     *      org.maxur.taskun.view.model.Bean)
      *
      * @param target A request target that produces ajax response.
      * @param model The EmployeesGroup Model.
      */
     @Override
-    public void execute(final AjaxRequestTarget target, final IModel<EmployeesGroup> model) {
-        model.getObject().removeSelected(target);
+    public void execute(final AjaxRequestTarget target, final EmployeesGroup model) {
+        model.removeSelected(target);
     }
 }

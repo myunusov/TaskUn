@@ -10,8 +10,9 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.AbstractEmployee;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.Specification;
+import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.pages.FooterPanel;
@@ -54,7 +55,7 @@ public class HomePageTest {
     @Test
     public void testBasePageBasicRender() {
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee();
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(0, dummy)));
         }});
         tester.startPage(HomePage.class);
@@ -65,7 +66,7 @@ public class HomePageTest {
     @Test
     public void testBasePageBasicRenderWithEmployee() {
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee();
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(1, dummy)));
         }});
         tester.startPage(HomePage.class);
@@ -79,7 +80,7 @@ public class HomePageTest {
         };
         male.setGender(Gender.MALE);
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee();
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(1, male)));
         }});
         tester.startPage(HomePage.class);
@@ -93,7 +94,7 @@ public class HomePageTest {
         };
         female.setGender(Gender.FEMALE);
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee();
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(1, female)));
         }});
         tester.startPage(HomePage.class);
@@ -104,7 +105,7 @@ public class HomePageTest {
     @Test
     public void testBasePageComponents() {
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee();
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(0, null)));
         }});
         tester.startPage(HomePage.class);

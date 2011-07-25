@@ -466,3 +466,21 @@ html>body #content {
     font-size: .8em;
     font-weight: bold;
 }
+
+.invalid {
+    margin-left: 10px;
+    font: bold 13px Arial, Helvetica, sans-serif;
+    background-color: #FFCCCC;
+}
+
+.valid {
+    margin-left: 10px;
+    font: bold 13px Arial, Helvetica, sans-serif;
+    background-color: #F0F0F0;
+}
+
+.empty {
+    margin-left: 10px;
+    font: bold 13px Arial, Helvetica, sans-serif;
+    background-color: #FFFFCC;
+}

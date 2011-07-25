@@ -24,7 +24,7 @@ public class BatchCommandTest {
     private AjaxRequestTarget target;
     private Command command1;
     private Command command2;
-    private Model mockModel;
+    private Bean mockModel;
 
     @Before
     public void setUp() throws Exception {
@@ -33,7 +33,7 @@ public class BatchCommandTest {
         }};
         command1 = context.mock(Command.class, "command1");
         command2 = context.mock(Command.class, "command2");
-        mockModel = context.mock(Model.class, "mockModel");
+        mockModel = context.mock(Bean.class, "mockModel");
         target = context.mock(AjaxRequestTarget.class);
     }
 

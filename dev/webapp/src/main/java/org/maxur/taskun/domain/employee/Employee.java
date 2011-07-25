@@ -1,8 +1,10 @@
-package org.maxur.taskun.domain;
+package org.maxur.taskun.domain.employee;
+
+import org.maxur.taskun.domain.Entity;
+import org.maxur.taskun.domain.Gender;
 
 import javax.annotation.Nullable;
 import javax.persistence.Transient;
-import java.io.Serializable;
 
 /**
  * The Employee Interface.
@@ -10,7 +12,7 @@ import java.io.Serializable;
  * @author Maxim Yunusov
  * @version 1.0 7/17/11
  */
-public interface Employee extends Serializable {
+public interface Employee extends Entity {
     /**
      * Min length of employee names.
      */

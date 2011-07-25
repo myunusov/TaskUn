@@ -3,8 +3,6 @@ package org.maxur.taskun.view.pages.employee;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.ITestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
@@ -16,11 +14,12 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.AbstractEmployee;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.Specification;
+import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.components.AjaxMarkupContainer;
-import org.maxur.taskun.view.model.EmployeesGroup;
+import org.maxur.taskun.view.model.employee.EmployeesGroup;
 import org.maxur.taskun.view.pages.StubWebApplication;
 
 import java.util.Collections;
@@ -58,9 +57,7 @@ public class GroupPanelTest {
         tester.startPanel(new ITestPanelSource() {
             @Override
             public Panel getTestPanel(String panelId) {
-                final EmployeesGroup group = new EmployeesGroup();
-                IModel<EmployeesGroup> model = new Model<EmployeesGroup>(group);
-                return new GroupPanel(panelId, model, null);
+                return new GroupPanel(panelId, new EmployeesGroup(), null);
             }
         });
     }
@@ -68,7 +65,7 @@ public class GroupPanelTest {
     @Test
     public void testAppNameLabel() throws Exception {
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee();
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(0, null)));
         }});
         startPanel();
@@ -81,7 +78,7 @@ public class GroupPanelTest {
     @Test
     public void testRemoveOnEmployeesIsEmpty() {
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee();
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(0, null)));
         }});
         startPanel();
@@ -91,13 +88,13 @@ public class GroupPanelTest {
     @Test
     public void testRemoveOnEmployeesIsNotEmpty() {
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee();
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(1, dummy)));
         }});
         startPanel();
         final Component panel = tester.getComponentFromLastRenderedPage("panel");
-        final EmployeesGroup  object = (EmployeesGroup) panel.getDefaultModelObject();
-        object.getAll().get(0).select(null);
+        final EmployeesGroup model = (EmployeesGroup) panel.getDefaultModel();
+        model.getObject().get(0).select(null);
         tester.assertComponent("panel:remove_item", AjaxMarkupContainer.class);
     }
 

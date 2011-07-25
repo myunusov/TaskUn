@@ -3,10 +3,10 @@ package org.maxur.taskun.view.pages.employee;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
+import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 import org.maxur.taskun.view.components.AjaxMarkupContainer;
@@ -14,11 +14,9 @@ import org.maxur.taskun.view.components.CommandLink;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
 import org.maxur.taskun.view.components.HighlightLabel;
 import org.maxur.taskun.view.model.CommandRepository;
-import org.maxur.taskun.view.model.EmployeeBean;
-import org.maxur.taskun.view.model.EmployeesGroup;
-
-import java.io.Serializable;
-import java.util.List;
+import org.maxur.taskun.view.model.employee.EmployeeBean;
+import org.maxur.taskun.view.model.employee.EmployeesGroup;
+import org.maxur.taskun.view.model.ModelList;
 
 /**
  * Panel for displaying the employees list.
@@ -41,51 +39,32 @@ public class EmployeeListPanel extends Panel {
     /**
      * The Employee panel's constructor.
      *
-     * @param id             The Employee List Panel identifier.
-     * @param model          The displaying group model.
-     * @param commands       The Commands repository
+     * @param id       The Employee List Panel identifier.
+     * @param model    The displaying group model.
+     * @param commands The Commands repository
      */
     public EmployeeListPanel(
             final String id,
-            final IModel<EmployeesGroup> model,
+            final EmployeesGroup model,
             final CommandRepository commands
     ) {
         super(id);
-        final EmployeesGroup group = model.getObject();
         add(new Label("employee_list_title", new ResourceModel("list.employee.title")));
 
-        final AjaxMarkupContainer<EmployeesGroup> mark =
-                new AjaxMarkupContainer<EmployeesGroup>("employee_list", model);
+        final AjaxMarkupContainer<ModelList<EmployeeBean>> mark =
+                new AjaxMarkupContainer<ModelList<EmployeeBean>>("employee_list", model);
         add(mark);
-        group.addObserver(mark);
+        model.addObserver(mark);
         final EmployeesView employees =
-                new EmployeesView("employees", new EmployeeListModel(group), commands, ROWS_PER_PAGE);
+                new EmployeesView("employees", model, commands, ROWS_PER_PAGE);
         mark.add(employees);
         mark.add(new HiddenPagingNavigator("navigator", employees));
     }
 
-
-    private static class EmployeeListModel extends Model {
-
-        private static final long serialVersionUID = -808007446522845261L;
-
-        private final EmployeesGroup group;
-
-        public EmployeeListModel(final EmployeesGroup group) {
-            this.group = group;
-        }
-
-        @Override
-        public Serializable getObject() {
-            return (Serializable) group.getAll();
-        }
-    }
-
-
     /**
      * The class is Wicket View of Employees.
      */
-    public static class EmployeesView extends PageableListView<EmployeeBean> {
+    public static class EmployeesView extends DataView<EmployeeBean> {
 
         /**
          * Serial Version UID.
@@ -108,7 +87,7 @@ public class EmployeeListPanel extends Panel {
          */
         public EmployeesView(
                 final String id,
-                final IModel<? extends List<? extends EmployeeBean>> model,
+                final IDataProvider<EmployeeBean> model,
                 final CommandRepository commands,
                 final int rowsPerPage
         ) {
@@ -124,12 +103,12 @@ public class EmployeeListPanel extends Panel {
          *org.apache.wicket.markup.html.list.ListItem)
          */
         @Override
-        protected void populateItem(final ListItem<EmployeeBean> listItem) {
+        protected void populateItem(Item<EmployeeBean> listItem) {
             final EmployeeBean employee = listItem.getModelObject();
 
-            final CommandLink select = new CommandLink<EmployeeBean>(
+            final CommandLink<EmployeeBean> select = new CommandLink<EmployeeBean>(
                     "employee_select",
-                    listItem.getModel(),
+                    employee,
                     commands,
                     "employee.select"
             );
@@ -143,9 +122,9 @@ public class EmployeeListPanel extends Panel {
             image.add(new SimpleAttributeModifier("src", "/images/" + employee.getImageName()));
             select.add(image);
 
-            final CommandLink edit = new CommandLink<EmployeeBean>(
+            final CommandLink<EmployeeBean> edit = new CommandLink<EmployeeBean>(
                     "employee_edit",
-                    listItem.getModel(),
+                    employee,
                     commands,
                     "employee.edit"
             );

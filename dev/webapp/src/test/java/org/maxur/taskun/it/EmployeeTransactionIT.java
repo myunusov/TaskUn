@@ -5,9 +5,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.taskun.domain.Employee;
-import org.maxur.taskun.domain.EmployeeFactory;
-import org.maxur.taskun.domain.EmployeeRepository;
+import org.maxur.taskun.domain.Factory;
+import org.maxur.taskun.domain.Repository;
+import org.maxur.taskun.domain.employee.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,10 +29,10 @@ import java.util.Collection;
 public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
-    private EmployeeFactory factory;
+    private Factory<Employee> factory;
 
     @Autowired
-    private EmployeeRepository repository;
+    private Repository<Employee> repository;
 
 
     @BeforeTransaction

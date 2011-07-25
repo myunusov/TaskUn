@@ -2,18 +2,18 @@ package org.maxur.taskun.view.pages.employee;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
-import org.apache.wicket.model.IModel;
 import org.maxur.taskun.view.components.BeanWindow;
 import org.maxur.taskun.view.model.BatchCommand;
+import org.maxur.taskun.view.model.Bean;
 import org.maxur.taskun.view.model.Command;
 import org.maxur.taskun.view.model.CommandRepository;
-import org.maxur.taskun.view.model.EmployeeBean;
+import org.maxur.taskun.view.model.employee.EmployeeBean;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0 7/21/11
  */
-class EmployeeWindow extends ModalWindow implements BeanWindow<EmployeeBean> {
+class EmployeeWindow extends ModalWindow implements BeanWindow<Bean<EmployeeBean>> {
 
     /**
      * Serial Version UID.
@@ -44,14 +44,14 @@ class EmployeeWindow extends ModalWindow implements BeanWindow<EmployeeBean> {
         throw new UnsupportedOperationException("Method show(AjaxRequestTarget,EmployeeBean) must be used");
     }
 
-    public void show(final AjaxRequestTarget target, final IModel<EmployeeBean> model) {
+    public void show(final AjaxRequestTarget target, final Bean<EmployeeBean> model) {
         final EmployeeBean employee = model.getObject();
 
         setTitle(getTitle(employee));
 
         final Command<EmployeeBean> close = new Command<EmployeeBean>() {
             @Override
-            public void execute(final AjaxRequestTarget target, final IModel<EmployeeBean> model) {
+            public void execute(final AjaxRequestTarget target, final EmployeeBean model) {
                 close(target);
             }
         };

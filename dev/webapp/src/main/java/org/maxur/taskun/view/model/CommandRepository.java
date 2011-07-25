@@ -12,13 +12,15 @@ public class CommandRepository implements Serializable {
 
     private static final long serialVersionUID = 3397130411188839360L;
 
-    private Map<String, Command> commands = new HashMap<String, Command>();
+    @SuppressWarnings("rawtypes")
+	private Map<String, Command> commands = new HashMap<String, Command>();
 
-    public void persist(final String id, final Command command) {
+    public void persist(final String id, final Command<? extends Bean> command) {
         commands.put(id, command);
     }
 
-    public <T> Command<T> get(final String id) {
+    @SuppressWarnings("unchecked")
+	public <T extends Bean> Command<T> get(final String id) {
         final Command<T> result;
         try {
             result = (Command<T>) commands.get(id);

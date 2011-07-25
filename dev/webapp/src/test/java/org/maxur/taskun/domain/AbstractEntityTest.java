@@ -3,6 +3,7 @@ package org.maxur.taskun.domain;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.maxur.taskun.domain.employee.AbstractEmployee;
 
 /**
  * @author Maxim Yunusov
@@ -25,6 +26,32 @@ public class AbstractEntityTest {
         };
         entity2.setIdentifier("1");
         Assert.assertEquals(entity, entity2);
+    }
+
+
+    @Test
+    public void testEqualsWithNullIdentifier() throws Exception {
+        entity.setIdentifier(null);
+        AbstractEntity entity2 = new AbstractEntity() {
+        };
+        entity2.setIdentifier(null);
+         Assert.assertFalse(entity.equals(entity2));
+    }
+
+    @Test
+    public void testEqualsWithOtherClassInstance() throws Exception {
+        entity.setIdentifier("1");
+        AbstractEntity entity2 = new AbstractEmployee() {
+        };
+        entity2.setIdentifier("1");
+        Assert.assertEquals(entity, entity2);
+    }
+
+    @Test
+    public void testEqualsWithOtherHierarchicInstance() throws Exception {
+        entity.setIdentifier("1");
+        Object entity2 = new Object();
+        Assert.assertFalse(entity.equals(entity2));
     }
 
     @Test

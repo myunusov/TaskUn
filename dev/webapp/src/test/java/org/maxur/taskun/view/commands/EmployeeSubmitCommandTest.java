@@ -1,7 +1,6 @@
 package org.maxur.taskun.view.commands;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.model.Model;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -10,7 +9,7 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.view.model.EmployeeBean;
+import org.maxur.taskun.view.model.employee.EmployeeBean;
 
 /**
  * @author Maxim Yunusov
@@ -23,9 +22,8 @@ public class EmployeeSubmitCommandTest {
 
     private AjaxRequestTarget target;
 
-    private Model<EmployeeBean> mockModel;
+    private EmployeeBean mockModel;
 
-    private EmployeeBean bean;
 
     @Before
     public void setUp() throws Exception {
@@ -33,16 +31,14 @@ public class EmployeeSubmitCommandTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }};
         target = context.mock(AjaxRequestTarget.class);
-        mockModel = context.mock(Model.class, "mockModel");
-        bean = context.mock(EmployeeBean.class);
+        mockModel = context.mock(EmployeeBean.class, "mockModel");
     }
 
     @Test
     public void testExecute() throws Exception {
         final EmployeeSubmitCommand command = new EmployeeSubmitCommand();
         context.checking(new Expectations() {{
-            oneOf(mockModel).getObject(); will(returnValue(bean));
-            oneOf(bean).save(with(any(AjaxRequestTarget.class)));
+            oneOf(mockModel).save(with(any(AjaxRequestTarget.class)));
         }});
         command.execute(target, mockModel);
         context.assertIsSatisfied();

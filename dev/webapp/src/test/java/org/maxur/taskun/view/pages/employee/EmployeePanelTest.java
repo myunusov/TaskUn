@@ -14,10 +14,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.AbstractEmployee;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.model.EmployeeBean;
+import org.maxur.taskun.view.model.employee.EmployeeBean;
 import org.maxur.taskun.view.pages.StubWebApplication;
 
 /**

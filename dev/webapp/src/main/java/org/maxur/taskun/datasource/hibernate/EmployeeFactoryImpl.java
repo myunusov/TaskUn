@@ -1,7 +1,7 @@
 package org.maxur.taskun.datasource.hibernate;
 
-import org.maxur.taskun.domain.Employee;
-import org.maxur.taskun.domain.EmployeeFactory;
+import org.maxur.taskun.domain.Factory;
+import org.maxur.taskun.domain.employee.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 
 /**
  * The employee factory implementation (for hibernate data source).
- * @see org.maxur.taskun.domain.EmployeeFactory
+ * @see org.maxur.taskun.domain.Factory
  *
  * @author Maxim Yunusov
  * @version 1.0 7/3/11
  */
 @Service
-public class EmployeeFactoryImpl implements EmployeeFactory {
+public class EmployeeFactoryImpl implements Factory<Employee> {
 
     /**
      * The logger.
@@ -24,7 +24,8 @@ public class EmployeeFactoryImpl implements EmployeeFactory {
             = LoggerFactory.getLogger(EmployeeFactoryImpl.class);
 
     /**
-     * @see org.maxur.taskun.domain.EmployeeFactory#create()
+     * @see org.maxur.taskun.domain.Factory#create()
+     *
      * @return The Employee implementation.
      *
      */

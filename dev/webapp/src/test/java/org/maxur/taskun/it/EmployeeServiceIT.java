@@ -3,7 +3,7 @@ package org.maxur.taskun.it;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.Employee;
+import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.services.TaskunServiceException;
 import org.springframework.beans.factory.annotation.Autowired;

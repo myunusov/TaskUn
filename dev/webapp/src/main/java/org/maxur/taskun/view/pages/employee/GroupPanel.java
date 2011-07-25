@@ -2,15 +2,16 @@ package org.maxur.taskun.view.pages.employee;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 import org.maxur.taskun.view.components.AjaxMarkupContainer;
 import org.maxur.taskun.view.components.CommandLink;
 import org.maxur.taskun.view.components.HighlightLabel;
 import org.maxur.taskun.view.model.CommandRepository;
-import org.maxur.taskun.view.model.EmployeeBean;
-import org.maxur.taskun.view.model.EmployeesGroup;
+import org.maxur.taskun.view.model.employee.EmployeeBean;
+import org.maxur.taskun.view.model.employee.EmployeeBeanFactory;
+import org.maxur.taskun.view.model.employee.EmployeesGroup;
+import org.maxur.taskun.view.model.ModelList;
 
 /**
  * @author Maxim Yunusov
@@ -23,18 +24,17 @@ public class GroupPanel extends Panel {
 
     public GroupPanel(
             final String id,
-            final IModel<EmployeesGroup> model,
+            final EmployeesGroup group,
             final CommandRepository commands
     ) {
-        super(id, model);
-        final EmployeesGroup group = model.getObject();
+        super(id, group);
         add(new Label("resume_title", new ResourceModel("info.group.title")));
 
         add(new Label("total_title", new ResourceModel("info.group.number")));
         final HighlightLabel total = new HighlightLabel("total", new Model<String>() {
             @Override
             public String getObject() {
-                return group.getTotal().toString();
+                return Integer.toString(group.size());
             }
         });
         add(total);
@@ -50,14 +50,9 @@ public class GroupPanel extends Panel {
 
         add(new Label("opp_title", new ResourceModel("edit.group.title")));
 
-        final CommandLink create = new CommandLink<EmployeeBean>(
+        final CommandLink<EmployeeBeanFactory> create = new CommandLink<EmployeeBeanFactory>(
                 "employee_create",
-                new Model<EmployeeBean>() {
-                    @Override
-                    public EmployeeBean getObject() {
-                        return model.getObject().createEmployee();
-                    }
-                },
+                new EmployeeBeanFactory(group),
                 commands,
                 "employee.edit"
         );
@@ -65,8 +60,8 @@ public class GroupPanel extends Panel {
         create.add(new Label("create_title", new ResourceModel("edit.group.create")));
         add(create);
 
-        final AjaxMarkupContainer<EmployeesGroup> removeItem =
-                new AjaxMarkupContainer<EmployeesGroup>("remove_item", model) {
+        final AjaxMarkupContainer<ModelList<EmployeeBean>> removeItem =
+                new AjaxMarkupContainer<ModelList<EmployeeBean>>("remove_item", group) {
                     @Override
                     public boolean isVisible() {
                         return group.getSelectedCount() > 0;
@@ -76,7 +71,7 @@ public class GroupPanel extends Panel {
 
         final CommandLink remove = new CommandLink<EmployeesGroup>(
                 "employee_remove",
-                model,
+                group,
                 commands,
                 "employee.remove"
         );

@@ -2,6 +2,7 @@ package org.maxur.taskun.domain;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.maxur.taskun.domain.employee.AbstractEmployeeTest;
 
 /**
  * @author Maxim Yunusov
@@ -10,7 +11,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)@Suite.SuiteClasses({
         AbstractEmployeeTest.class,
-        AbstractEntityTest.class
+        AbstractEntityTest.class,
+        AllSpecificationTest.class
 })
 public class DomainSuite {
 }

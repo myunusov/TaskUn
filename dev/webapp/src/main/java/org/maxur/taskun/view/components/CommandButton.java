@@ -4,25 +4,26 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
+import org.maxur.taskun.view.model.Bean;
 import org.maxur.taskun.view.model.Command;
 
 /**
 * @author Maxim Yunusov
 * @version 1.0 7/22/11
 */
-public class CommandButton<T> extends AjaxButton {
+public class CommandButton<T extends Bean> extends AjaxButton {
 
     private static final long serialVersionUID = -381155212869784274L;
 
     private final Command<T> command;
 
-    private final IModel<T> model;
+    private final T model;
 
     public CommandButton(
             final String id,
             final Form<?> form,
             final Command<T> command,
-            final IModel<T> model,
+            final T model,
             final IModel<String> value
     ) {
         super(id, value, form);
