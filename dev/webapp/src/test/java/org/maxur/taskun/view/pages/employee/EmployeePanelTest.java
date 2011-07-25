@@ -57,7 +57,6 @@ public class EmployeePanelTest {
 
     @Test
     public void testPanelBasicRender() {
-        tester.assertComponent("panel:employee_feedback", FeedbackPanel.class);
         tester.assertComponent("panel:employee_form", Form.class);
     }
 
