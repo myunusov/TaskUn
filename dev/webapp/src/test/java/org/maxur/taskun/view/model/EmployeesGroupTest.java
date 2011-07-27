@@ -37,7 +37,7 @@ public class EmployeesGroupTest {
         mockContext.putBean("applicationController", controller);
         context.checking(new Expectations() {{
             oneOf(controller).getAllEmployee(with(any(Specification.class)));
-            will(returnValue(Collections.<AbstractEmployee>nCopies(5, null)));
+            will(returnValue(Collections.<AbstractEmployee>nCopies(5, new AbstractEmployee(){})));
         }});
         group = new EmployeesGroup();
     }

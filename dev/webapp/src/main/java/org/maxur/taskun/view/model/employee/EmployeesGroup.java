@@ -65,7 +65,9 @@ public class EmployeesGroup extends Bean<ModelList<EmployeeBean>> implements IDa
     private void refresh() {
         Set<String> identifiers = new HashSet<String>();
         this.employees = new ArrayList<EmployeeBean>();
-        for (final Employee employee : controller.getAllEmployee(specification)) {
+        final List<Employee> list = controller.getAllEmployee(specification);
+        assert(!list.contains(null)) : "Employee List has null" ;
+        for (final Employee employee : list) {
             this.employees.add(0, new EmployeeBean(this, employee));
             identifiers.add(employee.getIdentifier());
         }
