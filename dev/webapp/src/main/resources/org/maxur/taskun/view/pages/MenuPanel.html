@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:wicket="http://wicket.apache.org/"
+        xml:lang="en"
+        lang="en">
+<wicket:head>
+    <wicket:remove>
+        <head>
+            <link rel="stylesheet" type="text/css" href="../../../../../css/style.css"/>
+        </head>
+    </wicket:remove>
+</wicket:head>
 <body>
 <wicket:panel>
     <!-- start menu -->
     <div id="menu">
         <ul>
             <li wicket:id="menu_items"><span wicket:id="menu_item">
-                <a href="#" wicket:id="menu_item_link"><span wicket:id="menu_item_name">[Menu Item]
+                <a href="#" wicket:id="menu_item_link"><span wicket:id="menu_item_name">[Menu Item 1]
                 </span></a>
             </span></li>
+            <wicket:remove>
+                <li><span>
+                    <a href="#" class="current_page_item"><span>[Menu Item 2]
+                    </span></a>
+                </span></li>
+            </wicket:remove>
         </ul>
     </div>
     <!-- end menu -->

@@ -16,6 +16,7 @@ public class CommandTest {
     @Before
     public void setUp() throws Exception {
         command = new Command() {
+
             @Override
             public void execute(AjaxRequestTarget target, Bean model) {
             }

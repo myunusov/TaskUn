@@ -19,6 +19,8 @@ import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
 import org.maxur.taskun.view.pages.StubWebApplication;
 
+import javax.validation.Validator;
+
 /**
  * @author Maxim Yunusov
  * @version 1.0 7/17/11
@@ -46,6 +48,7 @@ public class EmployeePanelTest {
                 ((StubWebApplication) tester.getApplication()).getMockContext();
         controller = context.mock(ApplicationController.class);
         mockContext.putBean("applicationController", controller);
+        mockContext.putBean("validator", context.mock(Validator.class));
         tester.startPanel(new ITestPanelSource() {
             @Override
             public Panel getTestPanel(String panelId) {

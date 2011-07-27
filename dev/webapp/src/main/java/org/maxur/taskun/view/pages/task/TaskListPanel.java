@@ -1,4 +1,4 @@
-package org.maxur.taskun.view.pages;
+package org.maxur.taskun.view.pages.task;
 
 import org.apache.wicket.markup.html.panel.Panel;
 

@@ -1,16 +1,21 @@
 package org.maxur.taskun.view;
 
+import images.ImagesScope;
 import org.apache.wicket.Page;
 import org.apache.wicket.Request;
+import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Response;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.apache.wicket.util.lang.PackageName;
 import org.maxur.taskun.view.model.MenuItems;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
 
 /**
  * This class represents Taskun Application and it's context.
@@ -85,7 +90,23 @@ public class TaskunApplication extends WebApplication {
             getMarkupSettings().setStripComments(true);
             getMarkupSettings().setCompressWhitespace(true);
         }
+
+        mountResources(ImagesScope.class, "images");
     }
+
+    private void mountResources(final Class clazz, final String directory) {
+        java.net.URL url = clazz.getResource(clazz.getSimpleName() + ".class");
+        File[] files = new File(url.getPath()).getParentFile().listFiles();
+
+        for (File file : files) {
+            String fileName = file.getName();
+            if (!fileName.endsWith("class")) {
+                mountSharedResource("/" + directory + "/" + fileName,
+                        new ResourceReference(clazz, fileName).getSharedResourceKey());
+            }
+        }
+    }
+
 
     /**
      * Getter for get Home Page class.

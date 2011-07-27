@@ -14,6 +14,10 @@ public abstract class Command<E extends Bean> implements Serializable, Cloneable
 
     public abstract void execute(AjaxRequestTarget target, E model);
 
+    public void execute(AjaxRequestTarget target, BeanFactory<E> factory) {
+        throw new UnsupportedOperationException();
+    }
+
     @SuppressWarnings("unchecked")
 	@Override
     public Command<E> clone() throws CloneNotSupportedException {

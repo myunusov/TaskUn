@@ -8,10 +8,10 @@ import org.maxur.taskun.view.components.AjaxMarkupContainer;
 import org.maxur.taskun.view.components.CommandLink;
 import org.maxur.taskun.view.components.HighlightLabel;
 import org.maxur.taskun.view.model.CommandRepository;
+import org.maxur.taskun.view.model.ModelList;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
 import org.maxur.taskun.view.model.employee.EmployeeBeanFactory;
 import org.maxur.taskun.view.model.employee.EmployeesGroup;
-import org.maxur.taskun.view.model.ModelList;
 
 /**
  * @author Maxim Yunusov
@@ -50,7 +50,7 @@ public class GroupPanel extends Panel {
 
         add(new Label("opp_title", new ResourceModel("edit.group.title")));
 
-        final CommandLink<EmployeeBeanFactory> create = new CommandLink<EmployeeBeanFactory>(
+        final CommandLink<EmployeeBean> create = new CommandLink<EmployeeBean>(
                 "employee_create",
                 new EmployeeBeanFactory(group),
                 commands,

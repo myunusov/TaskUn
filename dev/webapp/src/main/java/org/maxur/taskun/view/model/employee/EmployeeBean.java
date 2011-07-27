@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
  * @author Maxim Yunusov
  * @version 1.0 7/15/11
  */
-public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
+public class EmployeeBean extends Bean<Employee> implements Employee {
 
     /**
      * Serial Version UID.
@@ -24,16 +24,16 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
     private static final long serialVersionUID = 3908424889025108375L;
 
 
-    private final EmployeesGroup owner;
     /**
-     * The wrapped employee.
+     * Thew group of employees.
+     */
+    private final EmployeesGroup owner;
+
+    /**
+     * The wrapped cached employee.
      */
     private final Employee employee;
 
-    /**
-     * The employee's selected state.
-     */
-    private boolean selected;
 
     /**
      * The ApplicationController bean. It's injected by Wicket IoC.
@@ -45,13 +45,24 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
     /**
      * Wraps  employee with Employee Bean instance.
      *
-     * @param group    The owner group
+     * @param group The owner group
+     */
+    public EmployeeBean(EmployeesGroup group) {
+        super();
+        this.owner = group;
+        this.employee = controller.createEmployee();
+    }
+
+
+    /**
+     * Wraps  employee with Employee Bean instance.
+     *
+     * @param group  The owner group
      * @param entity The wrapped employee.
      */
     protected EmployeeBean(final EmployeesGroup group, final Employee entity) {
         this.owner = group;
         this.employee = entity;
-        this.selected = false;
     }
 
     /**
@@ -61,7 +72,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     @Override
     public final String getIdentifier() {
-        return this.employee.getIdentifier();
+        return getObject().getIdentifier();
     }
 
     /**
@@ -71,7 +82,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     @Override
     public final String getFirstName() {
-        return this.employee.getFirstName();
+        return getObject().getFirstName();
     }
 
     /**
@@ -81,7 +92,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     @Override
     public final String getLastName() {
-        return this.employee.getLastName();
+        return getObject().getLastName();
     }
 
     /**
@@ -91,7 +102,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     @Override
     public final String getMiddleName() {
-        return this.employee.getMiddleName();
+        return getObject().getMiddleName();
     }
 
     /**
@@ -101,7 +112,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     @Override
     public final String getTitle() {
-        return this.employee.getTitle();
+        return getObject().getTitle();
     }
 
     /**
@@ -111,7 +122,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     @Override
     public final Gender getGender() {
-        return this.employee.getGender();
+        return getObject().getGender();
     }
 
     /**
@@ -121,15 +132,19 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     public final String getImageName() {
         String result = "";
-        switch (getGender()) {
-            case MALE:
-                result = "User_male.png";
-                break;
-            case FEMALE:
-                result = "User_female.png";
-                break;
-            case UNKNOWN:
-                result = "User_black.png";
+        if (isNew()) {
+            result = "User_new.png";
+        } else {
+            switch (getGender()) {
+                case MALE:
+                    result = "User_male.png";
+                    break;
+                case FEMALE:
+                    result = "User_female.png";
+                    break;
+                case UNKNOWN:
+                    result = "User_black.png";
+            }
         }
         return result;
     }
@@ -150,7 +165,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      * @return True if Employee is selected.
      */
     public boolean isSelected() {
-        return selected;
+        return owner.isSelected(this);
     }
 
     /**
@@ -160,12 +175,12 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     @Override
     public final void setFirstName(final String value) {
-        this.employee.setFirstName(value);
+        getObject().setFirstName(value);
     }
 
     @Override
     public final void setLastName(final String value) {
-        this.employee.setLastName(value);
+        getObject().setLastName(value);
     }
 
     /**
@@ -175,7 +190,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     @Override
     public final void setMiddleName(@Nullable final String value) {
-        this.employee.setMiddleName(value);
+        getObject().setMiddleName(value);
     }
 
     /**
@@ -185,7 +200,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     @Override
     public final void setGender(final Gender value) {
-        this.employee.setGender(value);
+        getObject().setGender(value);
     }
 
     /**
@@ -194,8 +209,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      * @param target A request target that produces ajax response.
      */
     public void select(final AjaxRequestTarget target) {
-        this.selected = !this.selected;
-        this.owner.update(target);
+        owner.select(target, this);
     }
 
     /**
@@ -206,7 +220,7 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      */
     public void save(final AjaxRequestTarget target) throws TaskunServiceException {
         final boolean aNew = isNew();
-        this.controller.saveEmployee(this.employee);
+        this.controller.saveEmployee(getObject());
         if (aNew) {
             this.owner.addEmployee(target, this);
         }
@@ -217,12 +231,16 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
      * Delete employee.
      */
     final void delete() {
-        this.controller.deleteEmployee(this.employee);
+        this.controller.deleteEmployee(getObject());
     }
 
     @Override
-    public final EmployeeBean getObject() {
-        return this;
+    public final Employee getObject() {
+        return this.employee;
+    }
+
+    @Override
+    public void detach() {
     }
 
     @Override
@@ -239,10 +257,8 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
 
         final EmployeeBean that = (EmployeeBean) obj;
 
-        if (null != this.employee ? !this.employee.equals(that.employee) : null != that.employee) {
-            return false;
-        }
-        return !(null != this.owner ? !this.owner.equals(that.owner) : null != that.owner);
+        return !(null != getObject() ? !getObject().equals(that.getObject()) : null != that.getObject())
+                && !(null != this.owner ? !this.owner.equals(that.owner) : null != that.owner);
 
     }
 
@@ -250,12 +266,13 @@ public class EmployeeBean extends Bean<EmployeeBean> implements Employee {
     public final int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (null != this.owner ? this.owner.hashCode() : 0);
-        result = 31 * result + (null != this.employee ? this.employee.hashCode() : 0);
+        result = 31 * result + (null != getObject() ? getObject().hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "EmployeeBean{" +  "employee=" + this.employee + '}';
+        return "EmployeeBean{" + "employee=" + this.getObject() + '}';
     }
+
 }

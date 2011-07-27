@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.maxur.taskun.datasource.hibernate.EmployeeImplTest;
 import org.maxur.taskun.datasource.hibernate.EmployeeRepositoryImplTest;
+import org.maxur.taskun.datasource.hibernate.EntityRepositoryImplTest;
 
 /**
  * @author Maxim Yunusov
@@ -13,7 +14,8 @@ import org.maxur.taskun.datasource.hibernate.EmployeeRepositoryImplTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         EmployeeRepositoryImplTest.class,
-        EmployeeImplTest.class
+        EmployeeImplTest.class,
+        EntityRepositoryImplTest.class
 })
 public class DatasourceSuite {
 }

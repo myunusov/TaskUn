@@ -1,5 +1,7 @@
 package org.maxur.taskun.view.model;
 
+import org.apache.wicket.model.Model;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;

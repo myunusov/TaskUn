@@ -4,7 +4,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.maxur.taskun.view.components.BeanWindow;
 import org.maxur.taskun.view.model.BatchCommand;
-import org.maxur.taskun.view.model.Bean;
+import org.maxur.taskun.view.model.BeanFactory;
 import org.maxur.taskun.view.model.Command;
 import org.maxur.taskun.view.model.CommandRepository;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
@@ -13,7 +13,7 @@ import org.maxur.taskun.view.model.employee.EmployeeBean;
  * @author Maxim Yunusov
  * @version 1.0 7/21/11
  */
-class EmployeeWindow extends ModalWindow implements BeanWindow<Bean<EmployeeBean>> {
+class EmployeeWindow extends ModalWindow implements BeanWindow<EmployeeBean> {
 
     /**
      * Serial Version UID.
@@ -41,14 +41,21 @@ class EmployeeWindow extends ModalWindow implements BeanWindow<Bean<EmployeeBean
 
     @Override
     public void show(final AjaxRequestTarget target) {
-        throw new UnsupportedOperationException("Method show(AjaxRequestTarget,EmployeeBean) must be used");
+        throw new UnsupportedOperationException("Method show(AjaxRequestTarget, EmployeeBean) must be used");
     }
 
-    public void show(final AjaxRequestTarget target, final Bean<EmployeeBean> model) {
-        final EmployeeBean employee = model.getObject();
+    public void show(final AjaxRequestTarget target, final EmployeeBean model) {
+        setTitle("Редактируем данные по сотруднику " + model.getTitle());   //TODO exclude strings constant
+        doShow(target, model);
+    }
 
-        setTitle(getTitle(employee));
+    @Override
+    public void show(AjaxRequestTarget target, BeanFactory<EmployeeBean> factory) {
+        setTitle("Вводим нового сотрудника");   //TODO exclude strings constant
+        doShow(target, factory.getObject());
+    }
 
+    private void doShow(AjaxRequestTarget target, EmployeeBean model) {
         final Command<EmployeeBean> close = new Command<EmployeeBean>() {
             @Override
             public void execute(final AjaxRequestTarget target, final EmployeeBean model) {
@@ -59,18 +66,8 @@ class EmployeeWindow extends ModalWindow implements BeanWindow<Bean<EmployeeBean
         final Command<EmployeeBean> submit
                 = new BatchCommand<EmployeeBean>(commands.<EmployeeBean>get("employee.submit"), close);
 
-        setContent(new EmployeePanel(getContentId(), employee, submit, close));
+        setContent(new EmployeePanel(getContentId(), model, submit, close));
         super.show(target);
     }
 
-    private String getTitle(final EmployeeBean employee) {
-        //TODO exclude strings constant
-        String result;
-        if (employee.isNew()) {
-            result = "Вводим нового сотрудника";
-        } else {
-            result = "Редактируем данные по сотруднику " + employee.getTitle();
-        }
-        return result;
-    }
 }

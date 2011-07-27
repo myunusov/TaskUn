@@ -122,7 +122,7 @@ public class AbstractEmployeeTest {
         employee.setLastName("Иванов");
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
-        Assert.assertEquals("Valid employee is not validated", 1, constraintViolations.size());
+        Assert.assertEquals("Invalid employee is validated", 2, constraintViolations.size());
     }
 
     @Test
@@ -134,7 +134,7 @@ public class AbstractEmployeeTest {
         employee.setFirstName("Иван");
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
-        Assert.assertEquals("Valid employee is not validated", 1, constraintViolations.size());
+        Assert.assertEquals("Invalid employee is validated", 2, constraintViolations.size());
     }
 
     @Test
@@ -160,7 +160,7 @@ public class AbstractEmployeeTest {
         employee.setLastName("Иванов");
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
-        Assert.assertEquals("Valid employee is not validated", 1, constraintViolations.size());
+        Assert.assertEquals("Invalid employee is validated", 1, constraintViolations.size());
     }
 
     @Test
@@ -186,7 +186,7 @@ public class AbstractEmployeeTest {
         employee.setLastName("123456789012345678901234567890123456789012345678901");
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
-        Assert.assertEquals("Valid employee is not validated", 1, constraintViolations.size());
+        Assert.assertEquals("Invalid employee is validated", 1, constraintViolations.size());
     }
 
     @Test
@@ -242,7 +242,7 @@ public class AbstractEmployeeTest {
         employee.setLastName("Иванов");
         employee.setMiddleName("Иванович");
         //Assert
-        Assert.assertEquals("Employees genfer is invalid", Gender.MALE, employee.getGender());
+        Assert.assertEquals("Employees gender is invalid", Gender.MALE, employee.getGender());
     }
 
     @Test
@@ -255,7 +255,7 @@ public class AbstractEmployeeTest {
         employee.setLastName("Иванов");
         employee.setMiddleName("Ивановна");
         //Assert
-        Assert.assertEquals("Employees genfer is invalid", Gender.FEMALE, employee.getGender());
+        Assert.assertEquals("Employees gender is invalid", Gender.FEMALE, employee.getGender());
     }
 
     @Test
@@ -267,7 +267,7 @@ public class AbstractEmployeeTest {
         employee.setFirstName("Иван");
         employee.setLastName("Иванов");
         //Assert
-        Assert.assertEquals("Employees genfer is invalid", Gender.UNKNOWN, employee.getGender());
+        Assert.assertEquals("Employees gender is invalid", Gender.UNKNOWN, employee.getGender());
     }
 
 }

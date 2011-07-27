@@ -1,31 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:wicket="http://wicket.apache.org/"
+        xml:lang="en"
+        lang="en">
+<wicket:head>
+    <wicket:remove>
+        <head>
+            <link rel="stylesheet" type="text/css" href="../../../../../../css/style.css"/>
+        </head>
+    </wicket:remove>
+</wicket:head>
 <body>
 <wicket:panel>
+    <div style="height: 30px; width:90%; margin:0 10px 0 10px; padding: 0 10px 0 10px; ">
+        <span wicket:id="feedback" style="color:red">Error</span>
+    </div>
+
     <div id="employee_panel" class="post">
+        <img src="../../../../../../images/User_male.png" alt="" class="avatar" wicket:id="employee_img"
+             style="float: left; padding: 5px"/>
 
         <form wicket:id="employee_form" style="padding: 5px">
-
-            <img src="/images/User_new.png" alt="" class="avatar" style="float: left; padding: 5px"/>
-
             <table>
                 <tr>
                     <td wicket:id="last_name" align="right">[lastName]</td>
                     <td><label>
-                        <input type="text" title="" class="valid" wicket:id="lastName"/>
+                        <input type="text" title="" class="valid" wicket:id="lastName" value="Иванов"/>
                     </label></td>
                 </tr>
                 <tr>
                     <td wicket:id="first_name" align="right">[firstName]</td>
                     <td><label>
-                        <input type="text" title="" class="valid" wicket:id="firstName"/>
+                        <input type="text" title="" class="valid" wicket:id="firstName" value="Иванов"/>
                     </label></td>
                 </tr>
                 <tr>
                     <td wicket:id="middle_name" align="right">[middleName]</td>
                     <td><label>
-                        <input type="text" title="" class="valid" wicket:id="middleName"/>
+                        <input type="text" title="" class="valid" wicket:id="middleName" value="Иванов"/>
+                    </label></td>
+                </tr>
+                <tr>
+                    <td wicket:id="gender_label" align="right">[middleName]</td>
+                    <td><label>
+                        <select wicket:id="gender" class="valid">
+                            <option>[Мужской]</option>
+                            <option>[Неизвестный]</option>
+                        </select>
                     </label></td>
                 </tr>
             </table>

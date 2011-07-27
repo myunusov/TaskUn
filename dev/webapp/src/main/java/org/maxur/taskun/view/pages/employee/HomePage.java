@@ -4,12 +4,11 @@ import org.maxur.taskun.view.commands.EmployeeRemoveCommand;
 import org.maxur.taskun.view.commands.EmployeeSelectCommand;
 import org.maxur.taskun.view.commands.EmployeeSubmitCommand;
 import org.maxur.taskun.view.commands.ShowModalWindowCommand;
-import org.maxur.taskun.view.model.Bean;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
 import org.maxur.taskun.view.model.employee.EmployeesGroup;
 import org.maxur.taskun.view.pages.BasePage;
 import org.maxur.taskun.view.pages.CurrentUserPanel;
-import org.maxur.taskun.view.pages.TaskListPanel;
+import org.maxur.taskun.view.pages.task.TaskListPanel;
 
 /**
  * The Home Page Controller.
@@ -40,7 +39,7 @@ public class HomePage extends BasePage {
         add(new TaskListPanel("task_list_panel"));
         add(new CurrentUserPanel("current_user_panel"));
 
-        getCommands().persist("employee.edit", new ShowModalWindowCommand<Bean<EmployeeBean>>(employeeWindow));
+        getCommands().persist("employee.edit", new ShowModalWindowCommand<EmployeeBean>(employeeWindow));
         getCommands().persist("employee.select", new EmployeeSelectCommand());
         getCommands().persist("employee.submit", new EmployeeSubmitCommand());
         getCommands().persist("employee.remove", new EmployeeRemoveCommand());

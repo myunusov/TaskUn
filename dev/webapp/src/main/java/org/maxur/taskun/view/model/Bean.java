@@ -45,4 +45,5 @@ public abstract class Bean<T extends Serializable> extends Model<T> {
     @Override
     public void detach() {
     }
+
 }

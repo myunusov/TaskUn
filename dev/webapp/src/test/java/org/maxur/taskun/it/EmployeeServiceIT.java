@@ -50,7 +50,7 @@ public class EmployeeServiceIT {
         controller.saveEmployee(employee2);
         final Employee employee3 = controller.getEmployee(employee1.getIdentifier());
         Assert.assertEquals(employee, employee3);
-        Assert.assertEquals("Петрович", employee3.getMiddleName());
+        Assert.assertEquals("ПЕТРОВИЧ", employee3.getMiddleName());
         controller.deleteEmployee(employee3);
         final Collection<Employee> employees2 = controller.getAllEmployee();
         Assert.assertEquals(0, employees2.size());

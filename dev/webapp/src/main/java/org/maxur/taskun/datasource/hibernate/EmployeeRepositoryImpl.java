@@ -5,7 +5,6 @@ import org.maxur.taskun.domain.Specification;
 import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.utils.Benchmark;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -19,30 +18,9 @@ import java.util.List;
  * @version 1.0
  * @since <pre>04.07.11</pre>
  */
-@Repository("employeeDao")
-public class EmployeeRepositoryImpl implements org.maxur.taskun.domain.Repository<Employee> {
+@Repository("employeeRepository")
+public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.taskun.domain.Repository<Employee> {
 
-    /**
-     * Instance of Helper class that simplifies Hibernate data access code.
-     *
-     * @see HibernateTemplate
-     */
-    private HibernateTemplate hibernateTemplate;
-
-    /**
-     * The Hibernate Session Factory.
-     */
-    private final SessionFactory factory;
-
-
-    /**
-     * Setter for the HibernateTemplate. Unit Testing needs.
-     *
-     * @param template The SessionFactory
-     */
-    protected final void setHibernateTemplate(final HibernateTemplate template) {
-        this.hibernateTemplate = template;
-    }
 
     /**
      * Constructs the instance of EmployeeRepository class.
@@ -51,8 +29,7 @@ public class EmployeeRepositoryImpl implements org.maxur.taskun.domain.Repositor
      */
     @Autowired
     public EmployeeRepositoryImpl(final SessionFactory sessionFactory) {
-        this.factory = sessionFactory;
-        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+        super(sessionFactory);
     }
 
 
@@ -63,9 +40,9 @@ public class EmployeeRepositoryImpl implements org.maxur.taskun.domain.Repositor
     @Override
     @Benchmark
     public final void save(final Employee entity) {
-        this.hibernateTemplate.saveOrUpdate(entity);
+        this.getHibernateTemplate().saveOrUpdate(entity);
         // TODO for constraints detected
-        this.factory.getCurrentSession().flush();
+        this.getFactory().getCurrentSession().flush();
     }
 
     /**
@@ -76,7 +53,7 @@ public class EmployeeRepositoryImpl implements org.maxur.taskun.domain.Repositor
     @Benchmark
     @SuppressWarnings("unchecked")
     public final List<Employee> getAll() {
-        return (List<Employee>) this.hibernateTemplate.find(
+        return (List<Employee>) this.getHibernateTemplate().find(
                 "from org.maxur.taskun.datasource.hibernate.EmployeeImpl"
         );
 
@@ -109,7 +86,7 @@ public class EmployeeRepositoryImpl implements org.maxur.taskun.domain.Repositor
     @Override
     @Benchmark
     public final Employee get(final String id) {
-        return this.hibernateTemplate.get(EmployeeImpl.class, id);
+        return this.getHibernateTemplate().get(EmployeeImpl.class, id);
     }
 
     /**
@@ -119,6 +96,7 @@ public class EmployeeRepositoryImpl implements org.maxur.taskun.domain.Repositor
     @Override
     @Benchmark
     public final void delete(final Employee entity) {
-        this.hibernateTemplate.delete(entity);
+        this.getHibernateTemplate().delete(entity);
     }
+
 }

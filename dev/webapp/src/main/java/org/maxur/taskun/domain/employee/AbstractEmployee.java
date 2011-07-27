@@ -1,13 +1,13 @@
 package org.maxur.taskun.domain.employee;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.apache.commons.lang3.StringUtils;
 import org.maxur.taskun.domain.AbstractEntity;
 import org.maxur.taskun.domain.Gender;
 
 import javax.annotation.Nullable;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 /**
  * The Employee domain class.
@@ -23,35 +23,25 @@ public abstract class AbstractEmployee extends AbstractEntity implements Employe
      */
     private static final long serialVersionUID = -4499503762661672297L;
 
-    /**
-     * Empty String Constant.
-     */
-    private static final String EMPTY_STRING = "";
 
     /**
      * The Employee's First Name.
      */
-    @NotEmpty
-    @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
-    private String firstName = EMPTY_STRING;
+    private String firstName = EMPTY;
 
     /**
      * The Employee's Last Name.
      */
-    @NotEmpty
-    @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
-    private String lastName = EMPTY_STRING;
+    private String lastName = EMPTY;
 
     /**
      * The Employee's Middle Name.
      */
-    @Length(max = MAX_EMPLOYEE_NAME_LENGTH)
-    private String middleName = EMPTY_STRING;
+    private String middleName = EMPTY;
 
     /**
      * The Employee's Gender.
      */
-    @NotNull
     private Gender gender = Gender.UNKNOWN;
 
     /**
@@ -101,7 +91,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Employe
      */
     @Override
     public void setFirstName(final String value) {
-        this.firstName = value;
+        this.firstName = value.toUpperCase();
     }
 
     /**
@@ -111,7 +101,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Employe
      */
     @Override
     public void setLastName(final String value) {
-        this.lastName = value;
+        this.lastName = value.toUpperCase();
     }
 
     /**
@@ -128,7 +118,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Employe
                 gender = Gender.FEMALE;
             }
         }
-        this.middleName = value == null ? EMPTY_STRING : value;
+        this.middleName = value == null ? EMPTY : value.toUpperCase();
     }
 
     /**
@@ -149,9 +139,17 @@ public abstract class AbstractEmployee extends AbstractEntity implements Employe
     @Override
     @Transient
     public final String getTitle() {
-        return EMPTY_STRING.equals(getMiddleName())
-                ? String.format("%s %s", getFirstName(), getLastName())
-                : String.format("%s %s %s", getFirstName(), getMiddleName(), getLastName());
+        return EMPTY.equals(getMiddleName())
+                ? String.format("%s %s", toName(getFirstName()), toName(getLastName()))
+                : String.format("%s %s %s",
+                    toName(getFirstName()),
+                    toName(getMiddleName()),
+                    toName(getLastName())
+        );
+    }
+
+    private String toName(final String name) {
+        return StringUtils.capitalize(name.toLowerCase());
     }
 
     /**

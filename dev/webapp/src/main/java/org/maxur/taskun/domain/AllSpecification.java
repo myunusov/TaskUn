@@ -8,6 +8,8 @@ package org.maxur.taskun.domain;
  */
 public class AllSpecification<T extends Entity> implements Specification<T> {
 
+    private static final long serialVersionUID = -8515355127662214682L;
+
     @Override
     public boolean isSatisfiedBy(T entity) {
         return true;

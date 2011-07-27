@@ -2,7 +2,6 @@ package org.maxur.taskun.view.pages.employee;
 
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
@@ -13,10 +12,11 @@ import org.maxur.taskun.view.components.AjaxMarkupContainer;
 import org.maxur.taskun.view.components.CommandLink;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
 import org.maxur.taskun.view.components.HighlightLabel;
+import org.maxur.taskun.view.components.UpdatedImage;
 import org.maxur.taskun.view.model.CommandRepository;
+import org.maxur.taskun.view.model.ModelList;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
 import org.maxur.taskun.view.model.employee.EmployeesGroup;
-import org.maxur.taskun.view.model.ModelList;
 
 /**
  * Panel for displaying the employees list.
@@ -118,8 +118,13 @@ public class EmployeeListPanel extends Panel {
                 select.add(new SimpleAttributeModifier("class", "employee_selected"));
             }
             // TODO rewrite to resource reference use
-            final Image image = new Image("employee_img");
-            image.add(new SimpleAttributeModifier("src", "/images/" + employee.getImageName()));
+            final UpdatedImage image = new UpdatedImage("employee_img", new Model<String>() {
+                @Override
+                public String getObject() {
+                    return employee.getImageName();
+                }
+            });
+
             select.add(image);
 
             final CommandLink<EmployeeBean> edit = new CommandLink<EmployeeBean>(
@@ -137,7 +142,9 @@ public class EmployeeListPanel extends Panel {
                 }
             });
             edit.add(title);
-            employee.addObserver(title);
+            employee.addObservers(title, image);
         }
+
     }
+
 }

@@ -9,6 +9,7 @@ import org.maxur.taskun.domain.Factory;
 import org.maxur.taskun.domain.Repository;
 import org.maxur.taskun.domain.employee.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
@@ -31,7 +32,8 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
     @Autowired
     private Factory<Employee> factory;
 
-    @Autowired
+    @Autowired()
+    @Qualifier(value = "employeeRepository")
     private Repository<Employee> repository;
 
 

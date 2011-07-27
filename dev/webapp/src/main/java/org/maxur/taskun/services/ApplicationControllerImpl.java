@@ -11,6 +11,7 @@ import org.maxur.taskun.domain.Specification;
 import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.utils.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,12 +32,12 @@ public class ApplicationControllerImpl implements ApplicationController {
     /**
      * @see org.maxur.taskun.domain.Factory
      */
-    private final Factory<Employee> employeeFactory;
+    private Factory<Employee> employeeFactory;
 
     /**
      * @see org.maxur.taskun.domain.Repository
      */
-    private final Repository<Employee> employeeRepository;
+    private  Repository<Employee> employeeRepository;
 
 
     /**
@@ -48,7 +49,7 @@ public class ApplicationControllerImpl implements ApplicationController {
     @Autowired
     public ApplicationControllerImpl(
             final Factory<Employee> factory,
-            final Repository<Employee> repository
+            @Qualifier(value = "employeeRepository") final Repository<Employee> repository
     ) {
         this.employeeFactory = factory;
         this.employeeRepository = repository;

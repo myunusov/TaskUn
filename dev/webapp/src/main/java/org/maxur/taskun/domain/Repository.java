@@ -44,5 +44,4 @@ public interface Repository<T extends Entity> {
      */
     void delete(T entity);
 
-
 }

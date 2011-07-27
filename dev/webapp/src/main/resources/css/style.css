@@ -340,17 +340,6 @@ html>body #content {
     color: #474848;
 }
 
-/** Operations Style */
-
-.operations {
-    border-top: 1px solid #F0F0F0;
-}
-
-.operations input {
-    float:  right;
-    width:  90px;
-    margin: 10px 5px 5px 5px;
-}
 
 /* Sidebar Common Style */
 
@@ -467,20 +456,45 @@ html>body #content {
     font-weight: bold;
 }
 
+/** Operations Style */
+
+.operations {
+    width: 400px;
+    float: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border-top: 1px solid #C0C0C0;
+}
+
+.operations input {
+    float:  right;
+    width:  90px;
+    margin: 10px 5px 5px 5px;
+}
+
 .invalid {
+    width:  200px;
+    height: 25px;
     margin-left: 10px;
+    margin-bottom: 2px;
     font: bold 13px Arial, Helvetica, sans-serif;
     background-color: #FFCCCC;
 }
 
 .valid {
+    width:  200px;
+    height: 25px;
     margin-left: 10px;
+    margin-bottom: 2px;
     font: bold 13px Arial, Helvetica, sans-serif;
     background-color: #F0F0F0;
 }
 
 .empty {
+    width:  200px;
+    height: 25px;
     margin-left: 10px;
+    margin-bottom: 2px;
     font: bold 13px Arial, Helvetica, sans-serif;
     background-color: #FFFFCC;
 }

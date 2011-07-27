@@ -13,6 +13,9 @@ import org.maxur.taskun.view.model.Command;
 */
 public class CommandButton<T extends Bean> extends AjaxButton {
 
+    /**
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = -381155212869784274L;
 
     private final Command<T> command;

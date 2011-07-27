@@ -3,6 +3,7 @@ package org.maxur.taskun.view.model.employee;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.maxur.taskun.domain.AllSpecification;
 import org.maxur.taskun.domain.Specification;
@@ -12,8 +13,10 @@ import org.maxur.taskun.view.model.Bean;
 import org.maxur.taskun.view.model.ModelList;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The selected group of employees.
@@ -34,8 +37,9 @@ public class EmployeesGroup extends Bean<ModelList<EmployeeBean>> implements IDa
      */
     private List<EmployeeBean> employees;
 
-
     private Specification<Employee> specification;
+
+    private final Set<String> selected = new HashSet<String>();
 
 
     /**
@@ -46,7 +50,6 @@ public class EmployeesGroup extends Bean<ModelList<EmployeeBean>> implements IDa
 
     /**
      * Constructs group from employees.
-     *
      */
     public EmployeesGroup() {
         super();
@@ -60,10 +63,17 @@ public class EmployeesGroup extends Bean<ModelList<EmployeeBean>> implements IDa
     }
 
     private void refresh() {
-        final List<Employee> list = controller.getAllEmployee(specification);
+        Set<String> identifiers = new HashSet<String>();
         this.employees = new ArrayList<EmployeeBean>();
-        for (Employee employee : list) {
+        for (final Employee employee : controller.getAllEmployee(specification)) {
             this.employees.add(0, new EmployeeBean(this, employee));
+            identifiers.add(employee.getIdentifier());
+        }
+
+        for (final String id : selected) {
+            if (!identifiers.contains(id)) {
+                selected.remove(id);
+            }
         }
     }
 
@@ -73,15 +83,11 @@ public class EmployeesGroup extends Bean<ModelList<EmployeeBean>> implements IDa
      * @return The total number of  Employees from this group.
      */
     public final int size() {
-        return employees.size();
+        return getObject().size();
     }
 
     public Integer getSelectedCount() {
-        Integer result = 0;
-        for (EmployeeBean employee : employees) {
-            result += employee.isSelected() ? 1 : 0;
-        }
-        return result;
+        return selected.size();
     }
 
     @Override
@@ -91,7 +97,7 @@ public class EmployeesGroup extends Bean<ModelList<EmployeeBean>> implements IDa
 
     @Override
     public IModel<EmployeeBean> model(final EmployeeBean object) {
-         return object;
+        return new Model<EmployeeBean>(object);
     }
 
     /**
@@ -106,7 +112,7 @@ public class EmployeesGroup extends Bean<ModelList<EmployeeBean>> implements IDa
 
 
     public void removeSelected(final AjaxRequestTarget target) {
-        for (Iterator<EmployeeBean> iterator = employees.iterator(); iterator.hasNext(); ) {
+        for (Iterator<EmployeeBean> iterator = getObject().iterator(); iterator.hasNext(); ) {
             EmployeeBean bean = iterator.next();
             if (bean.isSelected()) {
                 bean.delete();
@@ -122,4 +128,17 @@ public class EmployeesGroup extends Bean<ModelList<EmployeeBean>> implements IDa
         refresh(target);
     }
 
+    public void select(final AjaxRequestTarget target, final EmployeeBean bean) {
+        final String identifier = bean.getIdentifier();
+        if (selected.contains(identifier)) {
+            selected.remove(identifier);
+        } else {
+            selected.add(identifier);
+        }
+        update(target);
+    }
+
+    public boolean isSelected(EmployeeBean bean) {
+        return selected.contains(bean.getIdentifier());
+    }
 }
