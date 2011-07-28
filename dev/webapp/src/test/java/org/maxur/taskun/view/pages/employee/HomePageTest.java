@@ -10,14 +10,11 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.domain.Specification;
 import org.maxur.taskun.domain.employee.AbstractEmployee;
 import org.maxur.taskun.domain.employee.Employee;
-import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.pages.FooterPanel;
-import org.maxur.taskun.view.pages.HeaderPanel;
-import org.maxur.taskun.view.pages.MenuPanel;
 import org.maxur.taskun.view.pages.StubWebApplication;
 
 import java.util.Collections;
@@ -53,7 +50,7 @@ public class HomePageTest {
     }
 
     @Test
-    public void testBasePageBasicRender() {
+    public void testHomePageBasicRender() {
         context.checking(new Expectations() {{
             oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(0, dummy)));
@@ -64,7 +61,7 @@ public class HomePageTest {
     }
 
     @Test
-    public void testBasePageBasicRenderWithEmployee() {
+    public void testHomePageBasicRenderWithEmployee() {
         context.checking(new Expectations() {{
             oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(1, dummy)));
@@ -75,7 +72,7 @@ public class HomePageTest {
     }
 
     @Test
-    public void testBasePageBasicRenderWithEmployeeMale() {
+    public void testHomePageBasicRenderWithEmployeeMale() {
         final Employee male = new AbstractEmployee() {
         };
         male.setGender(Gender.MALE);
@@ -89,7 +86,7 @@ public class HomePageTest {
     }
 
     @Test
-    public void testBasePageBasicRenderWithEmployeeFemale() {
+    public void testHomePageBasicRenderWithEmployeeFemale() {
         final Employee female = new AbstractEmployee() {
         };
         female.setGender(Gender.FEMALE);
@@ -100,23 +97,6 @@ public class HomePageTest {
         tester.startPage(HomePage.class);
         tester.assertRenderedPage(HomePage.class);
         context.assertIsSatisfied();
-    }
-
-    @Test
-    public void testBasePageComponents() {
-        context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee(with(any(Specification.class)));
-            will(returnValue(Collections.nCopies(0, null)));
-        }});
-        tester.startPage(HomePage.class);
-        // assert rendered field components
-        tester.assertComponent("menu", MenuPanel.class);
-        tester.assertComponent("footer", FooterPanel.class);
-        tester.assertComponent("header", HeaderPanel.class);
-
-
-        // assert rendered label components
-        tester.assertLabel("title", "ТаскУН: Управление задачами");
     }
 
 

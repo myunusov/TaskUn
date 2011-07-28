@@ -28,11 +28,6 @@ public class FooterPanelTest {
     }
 
     @Test
-    public void testAppNameLabel() throws Exception {
-        tester.assertLabel("panel:author_url:author_name", "Максим Юнусов");
-    }
-
-    @Test
     public void testAppURLLink() throws Exception {
         tester.assertComponent("panel:author_url", ExternalLink.class);
     }

@@ -5,7 +5,6 @@ import org.apache.wicket.ajax.form.AjaxFormValidatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
@@ -14,19 +13,16 @@ import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.util.time.Duration;
 import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.view.components.CommandButton;
+import org.maxur.taskun.view.components.StringBasedChoiceRenderer;
 import org.maxur.taskun.view.components.TaskunForm;
 import org.maxur.taskun.view.model.Command;
-import org.maxur.taskun.view.model.MapRenderer;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Panel for displaying the contents of employee form.
@@ -70,38 +66,25 @@ public class EmployeePanel extends Panel {
         add(feedback.setOutputMarkupId(true));
 
         // attach an ajax validation behavior to all form component's onkeydown
-        // event and throttle it down to once per second
+        // event and throttle it down to once per second  //TODO don't work
         AjaxFormValidatingBehavior.addToAllFormComponents(form, "onkeyup", Duration.ONE_SECOND);
-
-        form.add(new Label("last_name", new ResourceModel("edit.employee.last.name")));
 
         final TextField<String> lastName = new TextField<String>("lastName");
         form.add(lastName);
 
-        form.add(new Label("first_name", new ResourceModel("edit.employee.first.name")));
-
         final TextField<String> firstName = new TextField<String>("firstName");
         form.add(firstName);
-
-        form.add(new Label("middle_name", new ResourceModel("edit.employee.middle.name")));
 
         final TextField<String> middleName = new TextField<String>("middleName");
         form.add(middleName);
 
-        form.add(new Label("gender_label", new ResourceModel("edit.employee.gender")));
-
-
-        Map<Gender, String> map = new HashMap<Gender, String>();
-        map.put(Gender.UNKNOWN, "Неизвестен");
-        map.put(Gender.MALE,    "Мужской");
-        map.put(Gender.FEMALE,  "Женский");
-        IChoiceRenderer<Gender> renderer = new MapRenderer<Gender>(map);
+        IChoiceRenderer<Gender> renderer = new StringBasedChoiceRenderer<Gender>("gender.option", this);
         final DropDownChoice<Gender> gender =
                 new DropDownChoice<Gender>("gender", Arrays.asList(Gender.values()), renderer);
         form.add(gender);
 
         final AjaxButton submit = new CommandButton<EmployeeBean>(
-                "edit_employee_submit", form, onSubmit, bean, new ResourceModel("edit.employee.submit")
+                "edit_employee_submit", form, onSubmit, bean
         ) {
             @Override
             protected void onError(final AjaxRequestTarget target, final Form<?> form) {
@@ -117,7 +100,7 @@ public class EmployeePanel extends Panel {
         final Form fakeForm = new Form("fake_form");
         add(fakeForm);
         final AjaxButton cancel = new CommandButton<EmployeeBean>(
-                "edit_employee_cancel", fakeForm, onClose, bean, new ResourceModel("edit.employee.cancel")
+                "edit_employee_cancel", fakeForm, onClose, bean
         );
         cancel.setDefaultFormProcessing(false);
         add(cancel);

@@ -32,7 +32,6 @@ public class BasePage extends WebPage {
      */
     public BasePage() {
         final HeaderPanel header = new HeaderPanel("header");
-        add(new Label("title", new ResourceModel("application.title")));
 
         final CompressedResourceReference style =
                 new CompressedResourceReference(getClass(), "/css/style.css");
@@ -50,6 +49,7 @@ public class BasePage extends WebPage {
                 new CompressedResourceReference(getClass(), "/js/effects.js");
         add(JavascriptPackageResource.getHeaderContribution(effects));
 
+        add(new Label("title.application" ,new ResourceModel("title.application")));
         add(new MenuPanel("menu"));
         add(header);
         add(new FooterPanel("footer"));

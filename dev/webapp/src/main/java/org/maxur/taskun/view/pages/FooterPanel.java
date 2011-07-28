@@ -1,6 +1,5 @@
 package org.maxur.taskun.view.pages;
 
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ResourceModel;
@@ -25,8 +24,6 @@ public class FooterPanel extends Panel {
      */
     public FooterPanel(final String id) {
         super(id);
-        ExternalLink link = new ExternalLink("author_url", new ResourceModel("author.url"));
-        link.add(new Label("author_name", new ResourceModel("author.name")));
-        add(link);
+        add(new ExternalLink("author_url", new ResourceModel("url.author")));
     }
 }

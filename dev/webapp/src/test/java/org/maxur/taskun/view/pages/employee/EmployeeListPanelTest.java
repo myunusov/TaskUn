@@ -1,7 +1,6 @@
 package org.maxur.taskun.view.pages.employee;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.ITestPanelSource;
@@ -16,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.Specification;
 import org.maxur.taskun.domain.employee.AbstractEmployee;
-import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
 import org.maxur.taskun.view.model.CommandRepository;
@@ -63,12 +61,6 @@ public class EmployeeListPanelTest {
         });
     }
 
-
-    @Test
-    public void testPanelTitleLabel() {
-        startPanel(0);
-        tester.assertComponent("panel:employee_list_title", Label.class);
-    }
 
     @Test
     public void testEmployeesList() {

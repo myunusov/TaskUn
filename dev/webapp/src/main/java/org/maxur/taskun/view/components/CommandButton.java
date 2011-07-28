@@ -34,6 +34,18 @@ public class CommandButton<T extends Bean> extends AjaxButton {
         this.model = model;
     }
 
+    public CommandButton(
+            final String id,
+            final Form<?> form,
+            final Command<T> command,
+            final T model
+    ) {
+        super(id,form);
+        this.command = command;
+        this.model = model;
+    }
+
+
     @Override
     protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
         command.execute(target, model);

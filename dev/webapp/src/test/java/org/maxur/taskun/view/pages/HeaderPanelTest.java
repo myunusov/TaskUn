@@ -26,16 +26,6 @@ public class HeaderPanelTest {
     }
 
     @Test
-    public void testAppNameLabel() throws Exception {
-        tester.assertLabel("panel:app_name", "ТаскУН");
-    }
-
-    @Test
-    public void testAppDescriptionLabel() throws Exception {
-        tester.assertLabel("panel:app_desc", "простое управление задачами");
-    }
-
-    @Test
     public void testWicketPanel() throws Exception {
         tester.assertNoErrorMessage();
         tester.assertNoInfoMessage();

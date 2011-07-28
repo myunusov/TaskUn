@@ -1,5 +1,6 @@
 package org.maxur.taskun.view.pages;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.WicketTester;
 import org.jmock.Mockery;
@@ -42,9 +43,9 @@ public class BasePageTest {
         tester.assertComponent("menu", MenuPanel.class);
         tester.assertComponent("footer", FooterPanel.class);
         tester.assertComponent("header", HeaderPanel.class);
-
+        tester.assertComponent("title.application", Label.class);
         // assert rendered label components
-        tester.assertLabel("title", "ТаскУН: Управление задачами");
+        //tester.assertLabel("title", "ТаскУН: Управление задачами");
     }
 
 /*    @Test

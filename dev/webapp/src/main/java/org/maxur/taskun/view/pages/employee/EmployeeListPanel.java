@@ -1,13 +1,11 @@
 package org.maxur.taskun.view.pages.employee;
 
 import org.apache.wicket.behavior.SimpleAttributeModifier;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.ResourceModel;
 import org.maxur.taskun.view.components.AjaxMarkupContainer;
 import org.maxur.taskun.view.components.CommandLink;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
@@ -49,8 +47,6 @@ public class EmployeeListPanel extends Panel {
             final CommandRepository commands
     ) {
         super(id);
-        add(new Label("employee_list_title", new ResourceModel("list.employee.title")));
-
         final AjaxMarkupContainer<ModelList<EmployeeBean>> mark =
                 new AjaxMarkupContainer<ModelList<EmployeeBean>>("employee_list", model);
         add(mark);

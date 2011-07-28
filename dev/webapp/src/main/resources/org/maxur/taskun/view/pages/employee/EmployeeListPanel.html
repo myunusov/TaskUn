@@ -14,23 +14,24 @@
 <body>
 <wicket:panel>
     <div class="post" style="width: 500px; float: none;">
-        <h1 class="title" wicket:id="employee_list_title">[EMPLOYEES]</h1>
+        <h1 class="title"><wicket:message key="title.employees">Employees</wicket:message></h1>
         <div wicket:id="employee_list">
             <div class="entry">
                 <div class="bigpix" style="vertical-align: baseline; display: block;">
-        <wicket:remove>
-            <div class="employees">
-                <a class="employee">
-                    <img src="../../../../../../images/User_female.png" alt="" class="avatar"/>
-                </a>
-                <a href="#">
-                    <span class="caption" style="padding:0; margin:0" >[Иванов Иван Иванович]</span>
-                </a>
-            </div>
-        </wicket:remove>
+                    <wicket:remove>
+                        <div class="employees">
+                            <a class="employee">
+                                <img src="../../../../../../images/User_female.png" alt="" class="avatar"/>
+                            </a>
+                            <a href="#">
+                                <span class="caption" style="padding:0; margin:0">Иванов Иван Иванович</span>
+                            </a>
+                        </div>
+                    </wicket:remove>
                     <div class="employees" wicket:id="employees">
                         <a class="employee" wicket:id="employee_select">
-                            <img src="../../../../../../images/User_male.png" alt="" class="avatar" wicket:id="employee_img"/>
+                            <img src="../../../../../../images/User_male.png" alt="" class="avatar"
+                                 wicket:id="employee_img"/>
                         </a>
                         <a wicket:id="employee_edit">
                             <span class="caption" style="padding:0; margin:0"
@@ -41,7 +42,6 @@
             </div>
             <div class="post" style="width: 630px; float: none;">
                 <br/>
-
                 <div wicket:id="navigator" style="float: none;"></div>
             </div>
         </div>

@@ -1,7 +1,6 @@
 package org.maxur.taskun.view.pages.employee;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.ITestPanelSource;
@@ -62,18 +61,6 @@ public class GroupPanelTest {
         });
     }
 
-    @Test
-    public void testAppNameLabel() throws Exception {
-        context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee(with(any(Specification.class)));
-            will(returnValue(Collections.nCopies(0, null)));
-        }});
-        startPanel();
-        tester.assertComponent("panel:resume_title", Label.class);
-        tester.assertComponent("panel:total", Label.class);
-        tester.assertComponent("panel:selected", Label.class);
-        tester.assertComponent("panel:opp_title", Label.class);
-    }
 
     @Test
     public void testRemoveOnEmployeesIsEmpty() {

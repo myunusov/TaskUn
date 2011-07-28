@@ -24,29 +24,29 @@
         <form wicket:id="employee_form" style="padding: 5px">
             <table>
                 <tr>
-                    <td wicket:id="last_name" align="right">[lastName]</td>
+                    <td align="right"><wicket:message key="label.lastName">Last Name</wicket:message></td>
                     <td><label>
                         <input type="text" title="" class="valid" wicket:id="lastName" value="Иванов"/>
                     </label></td>
                 </tr>
                 <tr>
-                    <td wicket:id="first_name" align="right">[firstName]</td>
+                    <td align="right"><wicket:message key="label.firstName">First Name</wicket:message></td>
                     <td><label>
-                        <input type="text" title="" class="valid" wicket:id="firstName" value="Иванов"/>
+                        <input type="text" title="" class="valid" wicket:id="firstName" value="Иван"/>
                     </label></td>
                 </tr>
                 <tr>
-                    <td wicket:id="middle_name" align="right">[middleName]</td>
+                    <td align="right"><wicket:message key="label.middleName">Middle Name</wicket:message></td>
                     <td><label>
-                        <input type="text" title="" class="valid" wicket:id="middleName" value="Иванов"/>
+                        <input type="text" title="" class="valid" wicket:id="middleName" value="Иванович"/>
                     </label></td>
                 </tr>
                 <tr>
-                    <td wicket:id="gender_label" align="right">[middleName]</td>
+                    <td align="right"><wicket:message key="label.gender">Gender</wicket:message></td>
                     <td><label>
                         <select wicket:id="gender" class="valid">
-                            <option>[Мужской]</option>
-                            <option>[Неизвестный]</option>
+                            <option>Мужской</option>
+                            <option>Неизвестный</option>
                         </select>
                     </label></td>
                 </tr>
@@ -56,8 +56,8 @@
         <br/>
 
         <div class="operations">
-            <input type="button" style="float: left;" wicket:id="edit_employee_cancel"/>
-            <input type="submit" wicket:id="edit_employee_submit"/>
+            <input type="button" style="float: left;" wicket:message="value:button.cancel" wicket:id="edit_employee_cancel"/>
+            <input type="submit" wicket:message="value:button.submit" wicket:id="edit_employee_submit"/>
         </div>
     </div>
 

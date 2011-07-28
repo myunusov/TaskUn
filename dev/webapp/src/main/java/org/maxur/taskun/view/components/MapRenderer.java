@@ -1,4 +1,4 @@
-package org.maxur.taskun.view.model;
+package org.maxur.taskun.view.components;
 
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 

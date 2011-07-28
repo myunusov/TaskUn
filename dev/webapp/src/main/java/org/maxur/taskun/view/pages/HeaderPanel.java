@@ -1,8 +1,6 @@
 package org.maxur.taskun.view.pages;
 
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.ResourceModel;
 
 /*
  * Panel for displaying the contents of a application header.
@@ -25,7 +23,5 @@ public class HeaderPanel extends Panel {
      */
     public HeaderPanel(final String id) {
         super(id);
-        add(new Label("app_name", new ResourceModel("application.name")));
-        add(new Label("app_desc", new ResourceModel("application.desc")));
     }
 }

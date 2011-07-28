@@ -2,6 +2,9 @@ package org.maxur.taskun.view.pages.employee;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.model.IComponentAssignedModel;
+import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.maxur.taskun.view.components.BeanWindow;
 import org.maxur.taskun.view.model.BatchCommand;
 import org.maxur.taskun.view.model.BeanFactory;
@@ -45,17 +48,17 @@ class EmployeeWindow extends ModalWindow implements BeanWindow<EmployeeBean> {
     }
 
     public void show(final AjaxRequestTarget target, final EmployeeBean model) {
-        setTitle("Редактируем данные по сотруднику " + model.getTitle());   //TODO exclude strings constant
-        doShow(target, model);
+    //    setTitle(String.format(new ResourceModel("title.edit").getObject(), model.getTitle()));
+        final StringResourceModel title = new StringResourceModel("title.edit", model);
+        doShow(target, model, title);
     }
 
     @Override
     public void show(AjaxRequestTarget target, BeanFactory<EmployeeBean> factory) {
-        setTitle("Вводим нового сотрудника");   //TODO exclude strings constant
-        doShow(target, factory.getObject());
+        doShow(target, factory.getObject(), new ResourceModel("title.create"));
     }
 
-    private void doShow(AjaxRequestTarget target, EmployeeBean model) {
+    private void doShow(AjaxRequestTarget target, EmployeeBean model, IComponentAssignedModel<String> title) {
         final Command<EmployeeBean> close = new Command<EmployeeBean>() {
             @Override
             public void execute(final AjaxRequestTarget target, final EmployeeBean model) {
@@ -66,7 +69,10 @@ class EmployeeWindow extends ModalWindow implements BeanWindow<EmployeeBean> {
         final Command<EmployeeBean> submit
                 = new BatchCommand<EmployeeBean>(commands.<EmployeeBean>get("employee.submit"), close);
 
-        setContent(new EmployeePanel(getContentId(), model, submit, close));
+        final EmployeePanel panel = new EmployeePanel(getContentId(), model, submit, close);
+        setContent(panel);
+        title.wrapOnAssignment(panel);
+        setTitle(title);
         super.show(target);
     }
 
