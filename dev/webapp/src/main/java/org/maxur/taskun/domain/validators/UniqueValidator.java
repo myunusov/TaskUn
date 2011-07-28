@@ -1,6 +1,5 @@
 package org.maxur.taskun.domain.validators;
 
-import org.maxur.taskun.datasource.UnexpectedResultException;
 import org.maxur.taskun.domain.Entity;
 import org.maxur.taskun.domain.EntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +23,12 @@ public class UniqueValidator implements ConstraintValidator<Unique, Entity> {
     @Qualifier(value = "entityRepository")
     private EntityRepository repository;
 
-    public void initialize(Unique annotation) {
+    public void initialize(final Unique annotation) {
         this.fields = annotation.properties();
     }
 
     @Override
-    public boolean isValid(Entity value, ConstraintValidatorContext context) {
-        try {
-            return null == repository  || !repository.isExist(value, fields);
-        } catch (UnexpectedResultException e) {
-            throw new RuntimeException(e);  //TODO
-        }
+    public boolean isValid(final Entity value, final ConstraintValidatorContext context) {
+        return null == repository  || !repository.isExist(value, fields);
     }
 }

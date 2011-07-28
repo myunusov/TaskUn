@@ -42,7 +42,7 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
     public final void save(final Employee entity) {
         this.getHibernateTemplate().saveOrUpdate(entity);
         // TODO for constraints detected
-        this.getFactory().getCurrentSession().flush();
+       // this.getFactory().getCurrentSession().flush();
     }
 
     /**

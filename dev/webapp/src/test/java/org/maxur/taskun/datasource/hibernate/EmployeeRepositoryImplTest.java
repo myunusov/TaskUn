@@ -50,7 +50,6 @@ public class EmployeeRepositoryImplTest {
         final HibernateTemplate template = context.mock(HibernateTemplate.class);
         repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
-            oneOf(sessionFactory).getCurrentSession(); will(returnValue(session));
             oneOf(template).saveOrUpdate(dummy);
             ignoring(session);
         }});

@@ -22,10 +22,11 @@ public interface ApplicationController extends Serializable {
     /**
      * Save the Employee.
      *
+     *
      * @param employee The Employee to saveEmployee.
      * @throws TaskunServiceException Raise on any error.
      */
-    void saveEmployee(Employee employee) throws TaskunServiceException;
+    void saveEmployee(Employee employee);
 
     /**
      * Get all employees.

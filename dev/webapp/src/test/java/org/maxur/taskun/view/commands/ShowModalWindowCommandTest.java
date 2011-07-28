@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.view.components.BeanWindow;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
+import org.maxur.taskun.view.model.employee.EmployeeBeanFactory;
 
 /**
  * @author Maxim Yunusov
@@ -46,4 +47,16 @@ public class ShowModalWindowCommandTest {
         command.execute(target, mockModel);
         context.assertIsSatisfied();
     }
+
+    @Test
+    public void testExecuteWithFactory() throws Exception {
+        final ShowModalWindowCommand command = new ShowModalWindowCommand(bean);
+        context.checking(new Expectations() {{
+            oneOf(bean).show(with(any(AjaxRequestTarget.class)), with(any(EmployeeBeanFactory.class)));
+        }});
+        command.execute(target, new EmployeeBeanFactory(null));
+        context.assertIsSatisfied();
+    }
+
+
 }

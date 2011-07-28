@@ -10,6 +10,6 @@ import org.maxur.taskun.utils.Benchmark;
 public interface EntityRepository {
 
     @Benchmark
-    boolean isExist(Entity entity, String[] fields) throws UnexpectedResultException;
+    boolean isExist(Entity entity, String[] fields);
 
 }

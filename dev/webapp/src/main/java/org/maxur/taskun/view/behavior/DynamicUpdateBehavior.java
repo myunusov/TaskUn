@@ -1,6 +1,5 @@
-package org.maxur.taskun.view.components;
+package org.maxur.taskun.view.behavior;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.html.form.Button;
@@ -48,7 +47,7 @@ public class DynamicUpdateBehavior extends AjaxFormComponentUpdatingBehavior {
             @Override
             protected Object doAdd(FormComponent fc) {
                 fc.add(new DynamicUpdateBehavior(fc));
-                return Component.IVisitor.CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
+                return CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
             }
         });
     }

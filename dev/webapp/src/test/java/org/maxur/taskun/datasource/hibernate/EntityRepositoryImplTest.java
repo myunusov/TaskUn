@@ -9,7 +9,6 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.taskun.datasource.UnexpectedResultException;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import java.util.Collections;
@@ -89,7 +88,7 @@ public class EntityRepositoryImplTest {
         Assert.assertEquals(true, result);
     }
 
-    @Test(expected = UnexpectedResultException.class)
+    @Test(expected = AssertionError.class)
     public void testIsExistIfCountIsZero() throws Exception {
         context.checking(new Expectations() {{
             oneOf(sessionFactory).getClassMetadata(with(Expectations.<Class>anything()));
@@ -99,7 +98,7 @@ public class EntityRepositoryImplTest {
         repository.isExist(dummy, new String[]{"firstName", "lastName"});
     }
 
-    @Test(expected = UnexpectedResultException.class)
+    @Test(expected = AssertionError.class)
     public void testIsExistIfCountMoreThan1() throws Exception {
         context.checking(new Expectations() {{
             oneOf(sessionFactory).getClassMetadata(with(Expectations.<Class>anything()));

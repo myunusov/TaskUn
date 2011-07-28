@@ -8,7 +8,7 @@ public class DatasourceException extends Exception {
 
     private static final long serialVersionUID = 1944035679554163280L;
 
-    public DatasourceException(String message) {
+    public DatasourceException(final String message) {
         super(message);
     }
 }

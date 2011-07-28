@@ -1,7 +1,5 @@
 package org.maxur.taskun.view.model;
 
-import org.apache.wicket.model.Model;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +25,7 @@ public class CommandRepository implements Serializable {
         try {
             result = (Command<T>) commands.get(id);
         } catch (ClassCastException e) {
-            throw new IllegalArgumentException(String.format("Command '%s' has invalid type", id), e);
+            throw new AssertionError(String.format("Command '%s' has invalid type", id));
         }
         if (result == null) {
             throw new IllegalArgumentException(String.format("Command '%s' is not registered", id));
@@ -35,7 +33,7 @@ public class CommandRepository implements Serializable {
         try {
             return result.clone();
         } catch (CloneNotSupportedException e) {
-            throw new IllegalArgumentException(String.format("Command '%s' is not cloneable", id), e);
+            throw new AssertionError(String.format("Command '%s' is not cloneable", id));
         }
     }
 

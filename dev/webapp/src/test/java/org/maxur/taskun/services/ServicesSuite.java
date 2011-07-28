@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
  * @since <pre>08.07.11</pre>
  */
 @RunWith(Suite.class)@Suite.SuiteClasses({
-        ApplicationControllerTest.class
+        ApplicationControllerImplTest.class
 })
 public class ServicesSuite {
 }

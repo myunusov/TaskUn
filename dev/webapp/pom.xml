@@ -83,6 +83,9 @@
         </profile>
         <profile>
             <id>clover</id>
+            <properties>
+                <maven.clover.context.block.names>assert</maven.clover.context.block.names>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -422,7 +425,7 @@
                 </executions>
                 <configuration>
                     <forkMode>pertest</forkMode>
-                    <argLine>-javaagent:tools/org.springframework.instrument-3.0.4.RELEASE.jar</argLine>
+                    <argLine>-javaagent:tools/org.springframework.instrument-3.0.4.RELEASE.jar -ea</argLine>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>

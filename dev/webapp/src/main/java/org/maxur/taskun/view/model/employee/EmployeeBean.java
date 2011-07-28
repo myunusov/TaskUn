@@ -5,7 +5,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.services.TaskunServiceException;
 import org.maxur.taskun.view.model.Bean;
 
 import javax.annotation.Nullable;
@@ -216,9 +215,8 @@ public class EmployeeBean extends Bean<Employee> implements Employee {
      * Save employee.
      *
      * @param target A request target that produces ajax response.
-     * @throws TaskunServiceException Throws on any exceptions.
      */
-    public void save(final AjaxRequestTarget target) throws TaskunServiceException {
+    public void save(final AjaxRequestTarget target) {
         final boolean aNew = isNew();
         this.controller.saveEmployee(getObject());
         if (aNew) {

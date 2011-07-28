@@ -1,5 +1,6 @@
 package org.maxur.taskun.it;
 
+import org.hibernate.SessionFactory;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.After;
 import org.junit.Assert;
@@ -36,6 +37,9 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
     @Qualifier(value = "employeeRepository")
     private Repository<Employee> repository;
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
 
     @BeforeTransaction
     public void verifyInitialDatabaseState() {
@@ -70,6 +74,8 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
     public void saveDuplicateEmployee() {
         repository.save(createEmployee("Иван", "Иванов", "Иванович"));
         repository.save(createEmployee("Иван", "Иванов", "Иванович"));
+        sessionFactory.getCurrentSession().flush();
+
     }
 
     @Test(expected = ConstraintViolationException.class)
@@ -77,6 +83,7 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
     public void saveDuplicateEmployeeWithNulltMiddleName() {
         repository.save(createEmployee("Иван", "Иванов", null));
         repository.save(createEmployee("Иван", "Иванов", null));
+        sessionFactory.getCurrentSession().flush();
     }
 
     @Test(expected = ConstraintViolationException.class)
@@ -84,6 +91,7 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
     public void saveDuplicateEmployeeWithoutMiddleName() {
         repository.save(createEmployee("Иван", "Иванов"));
         repository.save(createEmployee("Иван", "Иванов"));
+        sessionFactory.getCurrentSession().flush();
     }
 
     @After

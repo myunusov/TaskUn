@@ -13,7 +13,8 @@ import org.junit.runners.Suite;
         EmployeeListPanelTest.class,
         EmployeePanelTest.class,
         GroupPanelTest.class,
-        HomePageTest.class
+        HomePageTest.class,
+        EmployeeWindowTest.class
 })
 public class EmployeePagesSuite {
 }

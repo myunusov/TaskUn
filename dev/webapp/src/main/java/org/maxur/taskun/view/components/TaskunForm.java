@@ -2,6 +2,10 @@ package org.maxur.taskun.view.components;
 
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
+import org.maxur.taskun.view.behavior.DefaultFocusBehavior;
+import org.maxur.taskun.view.behavior.DynamicUpdateBehavior;
+import org.maxur.taskun.view.behavior.ErrorHighlightBehavior;
+import org.maxur.taskun.view.behavior.Jsr303FormValidator;
 
 /**
  * @author Maxim Yunusov

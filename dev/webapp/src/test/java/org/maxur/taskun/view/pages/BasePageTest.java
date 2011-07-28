@@ -39,23 +39,13 @@ public class BasePageTest {
 
     @Test
     public void testBasePageComponents() {
-        // assert rendered field components
         tester.assertComponent("menu", MenuPanel.class);
         tester.assertComponent("footer", FooterPanel.class);
         tester.assertComponent("header", HeaderPanel.class);
         tester.assertComponent("title.application", Label.class);
-        // assert rendered label components
-        //tester.assertLabel("title", "ТаскУН: Управление задачами");
     }
 
-/*    @Test
-//TODO MY Make test on click
-    public void testOnClickAction() {
-        // click link and render
-        tester.clickLink("menu:menu_items:menu_item");
-        tester.assertRenderedPage(ExamplePage.class);
-        tester.assertLabel("nextPageMessage", "Hello!");
-    }*/
+
 
 
 /*

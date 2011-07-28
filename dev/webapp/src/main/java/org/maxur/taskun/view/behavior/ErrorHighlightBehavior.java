@@ -1,4 +1,4 @@
-package org.maxur.taskun.view.components;
+package org.maxur.taskun.view.behavior;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.Session;
@@ -46,7 +46,7 @@ public class ErrorHighlightBehavior extends AbstractBehavior {
             @Override
             protected Object doAdd(final FormComponent fc) {
                 fc.add(new ErrorHighlightBehavior());
-                return Component.IVisitor.CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
+                return CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
             }
         });
     }

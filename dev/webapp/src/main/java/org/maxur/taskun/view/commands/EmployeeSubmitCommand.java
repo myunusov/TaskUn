@@ -27,10 +27,6 @@ public class EmployeeSubmitCommand extends Command<EmployeeBean> {
      */
     @Override
     public void execute(AjaxRequestTarget target, EmployeeBean model) {
-        try {
-            model.save(target);
-        } catch (TaskunServiceException e) {
-            //TODO May be processed
-        }
+        model.save(target);
     }
 }

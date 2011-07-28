@@ -2,6 +2,8 @@ package org.maxur.taskun.view.model;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.maxur.taskun.view.model.employee.EmployeeBeanFactoryTest;
+import org.maxur.taskun.view.model.employee.EmployeeBeanTest;
 
 /**
  * @author Maxim Yunusov
@@ -15,7 +17,9 @@ import org.junit.runners.Suite;
         AjaxChangeManagerTest.class,
         BatchCommandTest.class,
         CommandTest.class,
-        ModelListTest.class
+        ModelListTest.class,
+        EmployeeBeanTest.class,
+        EmployeeBeanFactoryTest.class
 })
 public class ModelSuite {
 }

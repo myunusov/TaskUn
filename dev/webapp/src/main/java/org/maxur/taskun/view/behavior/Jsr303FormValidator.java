@@ -1,6 +1,5 @@
-package org.maxur.taskun.view.components;
+package org.maxur.taskun.view.behavior;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.injection.web.InjectorHolder;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -68,7 +67,7 @@ public class Jsr303FormValidator implements IFormValidator {
                 visited.add(fc);
                 fc.setRequired(false);
                 fc.add(new Jsr303PropertyValidator<T, Object>(clazz, fc.getId()));
-                return Component.IVisitor.CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
+                return CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
             }
         });
         final FormComponent[] formComponents = new FormComponent[visited.size()];

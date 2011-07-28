@@ -2,56 +2,26 @@ package org.maxur.taskun.view.pages.employee;
 
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.ITestPanelSource;
-import org.apache.wicket.util.tester.WicketTester;
-import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.employee.AbstractEmployee;
-import org.maxur.taskun.domain.employee.Employee;
-import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
-import org.maxur.taskun.view.pages.StubWebApplication;
-
-import javax.validation.Validator;
+import org.maxur.taskun.view.pages.AbstractPanelTest;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0 7/17/11
  */
 @RunWith(JMock.class)
-public class EmployeePanelTest {
+public class EmployeePanelTest extends AbstractPanelTest {
 
-    private WicketTester tester;
-
-    private Mockery context;
-
-    private ApplicationController controller;
-
-    static private Employee dummy = new AbstractEmployee() {
-        private static final long serialVersionUID = 3908424889025108375L;
-    };
-
-    @Before
-    public void setUp() {
-        context = new JUnit4Mockery() {{
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }};
-        tester = new WicketTester(new StubWebApplication());
-        AnnotApplicationContextMock mockContext =
-                ((StubWebApplication) tester.getApplication()).getMockContext();
-        controller = context.mock(ApplicationController.class);
-        mockContext.putBean("applicationController", controller);
-        mockContext.putBean("validator", context.mock(Validator.class));
+    @Override
+    protected void startPanel() {
         tester.startPanel(new ITestPanelSource() {
             @Override
             public Panel getTestPanel(String panelId) {
-                return new EmployeePanel(panelId, new EmployeeBean(null, dummy){}, null, null);
+                return new EmployeePanel(panelId, new EmployeeBean(null, dummyEmployee){}, null, null);
             }
         });
     }

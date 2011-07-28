@@ -1,4 +1,4 @@
-package org.maxur.taskun.view.components;
+package org.maxur.taskun.view.behavior;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.FormComponent;

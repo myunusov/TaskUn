@@ -8,8 +8,10 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.maxur.taskun.domain.AllSpecification;
 import org.maxur.taskun.domain.Factory;
 import org.maxur.taskun.domain.Repository;
+import org.maxur.taskun.domain.Specification;
 import org.maxur.taskun.domain.employee.AbstractEmployee;
 import org.maxur.taskun.domain.employee.Employee;
 
@@ -21,7 +23,7 @@ import java.util.Collections;
  * @version 1.0 7/9/11
  */
 @RunWith(JMock.class)
-public class ApplicationControllerTest {
+public class ApplicationControllerImplTest {
 
     private ApplicationController controller;
 
@@ -55,6 +57,18 @@ public class ApplicationControllerTest {
             will(returnValue(Collections.nCopies(3, dummy)));
         }});
         final Collection<Employee> employees = controller.getAllEmployee();
+        Assert.assertEquals(3, employees.size());
+    }
+
+    @Test
+    public void testGetAllByAllSpecificationEmployee() throws Exception {
+        final Repository<Employee> repository = context.mock(Repository.class, "repository");
+        controller = new ApplicationControllerImpl(null, repository);
+        context.checking(new Expectations() {{
+            oneOf(repository).getAll(with(any(Specification.class)));
+            will(returnValue(Collections.nCopies(3, dummy)));
+        }});
+        final Collection<Employee> employees = controller.getAllEmployee(new AllSpecification<Employee>());
         Assert.assertEquals(3, employees.size());
     }
 

@@ -270,4 +270,16 @@ public class AbstractEmployeeTest {
         Assert.assertEquals("Employees gender is invalid", Gender.UNKNOWN, employee.getGender());
     }
 
+    @Test
+    public void testAbstractEmployeetString() throws Exception {
+        //Arrange
+        Factory<Employee> factory = new EmployeeFactoryImpl();
+        final Employee employee = factory.create();
+        //Act
+        final String s = employee.toString();
+        //Assert
+        Assert.assertNotNull("Employees toString returns null", s);
+    }
+
+
 }

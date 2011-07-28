@@ -6,7 +6,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
-import org.maxur.taskun.datasource.UnexpectedResultException;
 import org.maxur.taskun.domain.Entity;
 import org.maxur.taskun.domain.EntityRepository;
 import org.maxur.taskun.utils.Benchmark;
@@ -34,7 +33,7 @@ public class EntityRepositoryImpl extends RepositoryImpl implements EntityReposi
 
     @Override
     @Benchmark
-    public final boolean isExist(final Entity entity, String[] fields) throws UnexpectedResultException {
+    public final boolean isExist(final Entity entity, String[] fields) {
         ClassMetadata meta = getFactory().getClassMetadata(entity.getClass());
         String idName = meta.getIdentifierPropertyName();
 
@@ -48,9 +47,7 @@ public class EntityRepositoryImpl extends RepositoryImpl implements EntityReposi
         criteria.setProjection(Projections.rowCount());
 
         final List results = getHibernateTemplate().findByCriteria(criteria);
-        if (1 != results.size()) {
-            throw new UnexpectedResultException("SELECT COUNT(*) has return more (less) than at one record");
-        }
+        assert(1 == results.size()) : "SELECT COUNT(*) has return more (less) than at one record";
         final Number count = (Number) results.iterator().next();
         return count.intValue() != 0;
     }

@@ -11,7 +11,7 @@ public class UnexpectedResultException extends DatasourceException {
 
     private static final long serialVersionUID = -2318173749258043901L;
 
-    public UnexpectedResultException(String message) {
+    public UnexpectedResultException(final String message) {
         super(message);
     }
 }

@@ -48,7 +48,6 @@ class EmployeeWindow extends ModalWindow implements BeanWindow<EmployeeBean> {
     }
 
     public void show(final AjaxRequestTarget target, final EmployeeBean model) {
-    //    setTitle(String.format(new ResourceModel("title.edit").getObject(), model.getTitle()));
         final StringResourceModel title = new StringResourceModel("title.edit", model);
         doShow(target, model, title);
     }

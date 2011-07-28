@@ -1,4 +1,4 @@
-package org.maxur.taskun.view.components;
+package org.maxur.taskun.view.behavior;
 
 import org.apache.wicket.injection.web.InjectorHolder;
 import org.apache.wicket.spring.injection.annot.SpringBean;

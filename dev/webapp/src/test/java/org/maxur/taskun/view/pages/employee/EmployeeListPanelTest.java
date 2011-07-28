@@ -61,7 +61,6 @@ public class EmployeeListPanelTest {
         });
     }
 
-
     @Test
     public void testEmployeesList() {
         startPanel(0);
@@ -85,8 +84,6 @@ public class EmployeeListPanelTest {
         startPanel(100);
         tester.assertComponent("panel:employee_list:navigator", HiddenPagingNavigator.class);
     }
-
-
 
     @Test
     public void testWicketPanel() throws Exception {
