@@ -8,7 +8,7 @@ import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock
 import org.maxur.taskun.view.TaskunApplication;
 import org.maxur.taskun.view.UserSession;
 import org.maxur.taskun.view.model.MenuItems;
-import org.maxur.taskun.view.pages.employee.HomePage;
+import org.maxur.taskun.view.pages.employee.EmployeePage;
 
 /**
 * @author Maxim Yunusov
@@ -35,7 +35,7 @@ public class StubWebApplication extends TaskunApplication {
 
     private MenuItems createMenuItems() {
         final MenuItems result = new MenuItems(3);
-        result.add("menu.item.main", HomePage.class, true);
+        result.add("menu.item.main", EmployeePage.class, true);
         result.add("menu.item.task", ExamplePage.class);
         result.add("menu.item.self", ExamplePage.class);
         return result;

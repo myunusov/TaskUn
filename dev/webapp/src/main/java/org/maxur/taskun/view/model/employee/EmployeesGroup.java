@@ -114,7 +114,7 @@ public class EmployeesGroup extends Bean<ModelList<EmployeeBean>> implements IDa
 
 
     public void removeSelected(final AjaxRequestTarget target) {
-        for (Iterator<EmployeeBean> iterator = getObject().iterator(); iterator.hasNext(); ) {
+        for (Iterator<EmployeeBean> iterator = employees.iterator(); iterator.hasNext(); ) {
             EmployeeBean bean = iterator.next();
             if (bean.isSelected()) {
                 bean.delete();

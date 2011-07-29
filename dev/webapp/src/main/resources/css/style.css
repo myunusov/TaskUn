@@ -310,6 +310,64 @@ html>body #content {
     background: url(/images/img14.gif) no-repeat left center;
 }
 
+.post #current_task {
+    width: 420px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-right: 25px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.post .list {
+    width: 100%;
+    color: black;
+}
+
+.post .list .user_img {
+    width: 32px;
+    height: 32px;
+    background-image: url(/images/User_black.png);
+    background-repeat: no-repeat;
+    background-size: 32px, 32px;
+    -moz-background-size:  32px, 32px;
+}
+
+.post .list .mail_img {
+    width: 32px;
+    height: 32px;
+    background-image: url(/images/Mail.png);
+    background-repeat: no-repeat;
+    background-size: 32px, 32px;
+    -moz-background-size:  32px, 32px;
+}
+
+.post .list .task_img {
+    width: 32px;
+    height: 32px;
+    background-image: url(/images/Notepad.png);
+    background-repeat: no-repeat;
+    background-size:  32px, 32px;
+    -moz-background-size:  32px, 32px;
+}
+
+.post .list .header {
+    padding-left: 25px;
+    background-color: #f5f5dc;
+}
+
+.post .list .name {
+    padding-left: 5px;
+    background-color: #f5f5dc;
+}
+
+.post .list .login {
+    padding-left: 5px;
+    background-color: #f5f5dc;
+}
+
+
+
 /** Employee view style */
 
 .avatar {
@@ -339,7 +397,6 @@ html>body #content {
     background: none;
     color: #474848;
 }
-
 
 /* Sidebar Common Style */
 
@@ -467,13 +524,13 @@ html>body #content {
 }
 
 .operations input {
-    float:  right;
-    width:  90px;
+    float: right;
+    width: 90px;
     margin: 10px 5px 5px 5px;
 }
 
 .invalid {
-    width:  200px;
+    width: 200px;
     height: 25px;
     margin-left: 10px;
     margin-bottom: 2px;
@@ -482,7 +539,7 @@ html>body #content {
 }
 
 .valid {
-    width:  200px;
+    width: 200px;
     height: 25px;
     margin-left: 10px;
     margin-bottom: 2px;
@@ -491,10 +548,18 @@ html>body #content {
 }
 
 .empty {
-    width:  200px;
+    width: 200px;
     height: 25px;
     margin-left: 10px;
     margin-bottom: 2px;
     font: bold 13px Arial, Helvetica, sans-serif;
     background-color: #FFFFCC;
+}
+
+.feedback {
+    height: 30px;
+    width: 90%;
+    margin: 0 10px 0 10px;
+    padding: 0 10px 0 10px;
+    color: red;
 }

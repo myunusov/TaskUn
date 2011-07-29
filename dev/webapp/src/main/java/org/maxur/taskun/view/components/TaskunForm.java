@@ -17,10 +17,11 @@ public class TaskunForm<T> extends Form<T> {
      * Serial Version UID.
      */
     private static final long serialVersionUID = 570532221624657729L;
+
     private final Class<T> clazz;
 
-    public TaskunForm(final String id, final IModel<T> iModel, final Class<T> clazz) {
-        super(id, iModel);
+    public TaskunForm(final String id, final IModel<T> model, final Class<T> clazz) {
+        super(id, model);
         this.clazz = clazz;
     }
 

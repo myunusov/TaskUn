@@ -22,11 +22,11 @@ public class Jsr303PropertyValidator<T, Z> implements INullAcceptingValidator<Z>
     private static final long serialVersionUID = 5693091927064082562L;
 
     @SpringBean
-    protected Validator validator;
+    private transient Validator validator;
 
-    protected String propertyName;
+    private String propertyName;
 
-    protected Class<T> beanType;
+    private Class<T> beanType;
 
     public Jsr303PropertyValidator(final Class<T> clazz, final String propertyName) {
         this.propertyName = propertyName;

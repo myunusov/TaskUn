@@ -56,7 +56,6 @@ public class EmployeePanel extends Panel {
         final CompoundPropertyModel<Employee> model = new CompoundPropertyModel<Employee>(bean.getObject());
         final Image image = new Image("employee_img");
         image.add(new SimpleAttributeModifier("src", "/images/" + bean.getImageName()));
-
         add(image);
 
         final Form<Employee> form = new TaskunForm<Employee>("employee_form", model, Employee.class);

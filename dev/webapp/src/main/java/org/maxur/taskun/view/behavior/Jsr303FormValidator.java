@@ -24,7 +24,7 @@ public class Jsr303FormValidator implements IFormValidator {
     private static final long serialVersionUID = -8203929218331278043L;
 
     @SpringBean
-    private Validator validator;
+    private transient Validator validator;
 
     private final FormComponent<?>[] components;
 
@@ -39,7 +39,7 @@ public class Jsr303FormValidator implements IFormValidator {
 
     @Override
     public FormComponent<?>[] getDependentFormComponents() {
-        return this.components;
+        return this.components.clone();
     }
 
     @Override

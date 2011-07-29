@@ -45,12 +45,10 @@ public class GroupPanel extends Panel {
         });
         add(selected);
 
-
         final CommandLink<EmployeeBean> create = new CommandLink<EmployeeBean>(
                 "employee_create",
                 new EmployeeBeanFactory(group),
-                commands,
-                "employee.edit"
+                commands.<EmployeeBean>reserve("employee.edit")
         );
         add(create);
 
@@ -66,8 +64,7 @@ public class GroupPanel extends Panel {
         final CommandLink remove = new CommandLink<EmployeesGroup>(
                 "employee_remove",
                 group,
-                commands,
-                "employee.remove"
+                commands.<EmployeesGroup>reserve("employee.remove")
         );
 
         removeItem.add(remove);

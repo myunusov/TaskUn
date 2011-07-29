@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.maxur.taskun.domain.Specification;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.pages.employee.HomePage;
+import org.maxur.taskun.view.pages.employee.EmployeePage;
 
 /**
  * @author Maxim Yunusov
@@ -79,7 +79,7 @@ public class MenuPanelTest {
             oneOf(controller).getAllEmployee(with(any(Specification.class)));
         }});
         tester.clickLink("panel:menu_items:0:menu_item");
-        tester.assertRenderedPage(HomePage.class);
+        tester.assertRenderedPage(EmployeePage.class);
     }
 
 

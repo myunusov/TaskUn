@@ -16,8 +16,8 @@ import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.Specification;
 import org.maxur.taskun.domain.employee.AbstractEmployee;
 import org.maxur.taskun.services.ApplicationController;
+import org.maxur.taskun.view.commands.CommandRepositoryImpl;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
-import org.maxur.taskun.view.model.CommandRepository;
 import org.maxur.taskun.view.model.employee.EmployeesGroup;
 import org.maxur.taskun.view.pages.StubWebApplication;
 
@@ -56,7 +56,7 @@ public class EmployeeListPanelTest {
         tester.startPanel(new ITestPanelSource() {
             @Override
             public Panel getTestPanel(String panelId) {
-                return new EmployeeListPanel(panelId, new EmployeesGroup(), new CommandRepository());
+                return new EmployeeListPanel(panelId, new EmployeesGroup(), new CommandRepositoryImpl());
             }
         });
     }

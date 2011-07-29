@@ -25,7 +25,7 @@ import java.util.Collections;
  * @since <pre>08.07.11</pre>
  */
 @RunWith(JMock.class)
-public class HomePageTest {
+public class EmployeePageTest {
 
     private WicketTester tester;
 
@@ -55,8 +55,8 @@ public class HomePageTest {
             oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(0, dummy)));
         }});
-        tester.startPage(HomePage.class);
-        tester.assertRenderedPage(HomePage.class);
+        tester.startPage(EmployeePage.class);
+        tester.assertRenderedPage(EmployeePage.class);
         context.assertIsSatisfied();
     }
 
@@ -66,8 +66,8 @@ public class HomePageTest {
             oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(1, dummy)));
         }});
-        tester.startPage(HomePage.class);
-        tester.assertRenderedPage(HomePage.class);
+        tester.startPage(EmployeePage.class);
+        tester.assertRenderedPage(EmployeePage.class);
         context.assertIsSatisfied();
     }
 
@@ -80,8 +80,8 @@ public class HomePageTest {
             oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(1, male)));
         }});
-        tester.startPage(HomePage.class);
-        tester.assertRenderedPage(HomePage.class);
+        tester.startPage(EmployeePage.class);
+        tester.assertRenderedPage(EmployeePage.class);
         context.assertIsSatisfied();
     }
 
@@ -94,8 +94,8 @@ public class HomePageTest {
             oneOf(controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(1, female)));
         }});
-        tester.startPage(HomePage.class);
-        tester.assertRenderedPage(HomePage.class);
+        tester.startPage(EmployeePage.class);
+        tester.assertRenderedPage(EmployeePage.class);
         context.assertIsSatisfied();
     }
 

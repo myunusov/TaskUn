@@ -13,7 +13,8 @@ import org.junit.runners.Suite;
         EmployeeSelectCommandTest.class,
         EmployeeRemoveCommandTest.class,
         ShowModalWindowCommandTest.class,
-        EmployeeSubmitCommandTest.class
+        EmployeeSubmitCommandTest.class,
+        CommandRepositoryImplTest.class
 })
 public class CommandsSuite {
 }

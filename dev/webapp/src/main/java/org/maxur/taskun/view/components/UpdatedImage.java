@@ -1,8 +1,10 @@
 package org.maxur.taskun.view.components;
 
+import images.ImagesScope;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
+import org.apache.wicket.markup.html.PackageResource;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.model.Model;
 import org.maxur.taskun.view.model.AjaxObserver;
@@ -18,7 +20,7 @@ public class UpdatedImage extends Image implements AjaxObserver {
     private final Model<String> model;
 
     public UpdatedImage(final String id, final Model<String> model) {
-        super(id);
+        super(id, PackageResource.get(ImagesScope.class, model.getObject()));
         this.model = model;
         update();
     }
@@ -35,7 +37,9 @@ public class UpdatedImage extends Image implements AjaxObserver {
     }
 
     private void update() {
-        add(new SimpleAttributeModifier("src", "/images/" + this.model.getObject()));
+        final PackageResource resource = PackageResource.get(ImagesScope.class, model.getObject());
+        setImageResource(resource);
+        add(new SimpleAttributeModifier("src", resource.getAbsolutePath()));
     }
 
 

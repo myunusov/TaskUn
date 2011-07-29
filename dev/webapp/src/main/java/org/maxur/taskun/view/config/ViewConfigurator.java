@@ -4,7 +4,12 @@ import org.apache.wicket.markup.html.WebPage;
 import org.maxur.taskun.view.WicketSessionLocaleMessageInterpolator;
 import org.maxur.taskun.view.model.MenuItems;
 import org.maxur.taskun.view.pages.ExamplePage;
-import org.maxur.taskun.view.pages.employee.HomePage;
+import org.maxur.taskun.view.pages.home.HomePage;
+import org.maxur.taskun.view.pages.admin.AdminPage;
+import org.maxur.taskun.view.pages.archive.ArchivePage;
+import org.maxur.taskun.view.pages.employee.EmployeePage;
+import org.maxur.taskun.view.pages.self.SelfPage;
+import org.maxur.taskun.view.pages.task.TaskPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -39,9 +44,13 @@ public class ViewConfigurator {
     @Bean
     public MenuItems menuItems() {
         final MenuItems result = new MenuItems(3);
-        result.add("menu.item.main", HomePage.class, true);
-        result.add("menu.item.task", ExamplePage.class);
-        result.add("menu.item.self", ExamplePage.class);
+        result.add("menu.item.main",     HomePage.class, true);
+        result.add("menu.item.task",     TaskPage.class);
+        result.add("menu.item.employee", EmployeePage.class);
+        result.add("menu.item.archive",  ArchivePage.class);
+        result.add("menu.item.admin",    AdminPage.class);
+        result.add("menu.item.self",     SelfPage.class);
+        result.add("menu.item.example",  ExamplePage.class);
         return result;
     }
 

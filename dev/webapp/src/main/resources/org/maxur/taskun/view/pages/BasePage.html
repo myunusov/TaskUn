@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
- <html
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:wicket="http://wicket.apache.org/"
-      xml:lang="en"
-      lang="en">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:wicket="http://wicket.apache.org/"
+        xml:lang="en"
+        lang="en">
 
 <wicket:head>
     <title wicket:id="title.application">TaskUn</title>
@@ -32,6 +32,14 @@
         <div id="bgtop"></div>
         <div id="bgbottom">
             <wicket:child/>
+            <!-- start sidebar two -->
+            <div id="sidebar2" class="sidebar">
+                <ul>
+                    <li><div wicket:id="current_user_panel"></div></li>
+					<li><div wicket:id="calendar_panel"></div></li>
+                </ul>
+            </div>
+            <!-- end sidebar two -->
             <div style="clear: both;">&nbsp;</div>
         </div>
     </div>

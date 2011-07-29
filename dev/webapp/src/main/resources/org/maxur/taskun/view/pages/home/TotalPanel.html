@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:wicket="http://wicket.apache.org/"
+        xml:lang="en"
+        lang="en">
+<wicket:head>
+    <wicket:remove>
+        <head>
+            <link rel="stylesheet" type="text/css" href="../../../../../../css/style.css"/>
+        </head>
+    </wicket:remove>
+</wicket:head>
+<body>
+<wicket:panel>
+    <div id="total_panel" class="sidebar" style="width: 250px">
+        <h2>
+            <wicket:message key="title.resume">Resume</wicket:message>
+        </h2>
+        <ul>
+            <li>
+                <wicket:message key="label.today.data">Total</wicket:message>
+                <span wicket:id="today" style="float: right;">10</span>
+            </li>
+            <li>
+                <wicket:message key="label.planed.number">Selected</wicket:message>
+                <span wicket:id="planed" style="float: right;">2</span>
+            </li>
+            <li>
+                <wicket:message key="label.completed.number">Selected</wicket:message>
+                <span wicket:id="completed" style="float: right;">2</span>
+            </li>
+        </ul>
+    </div>
+</wicket:panel>
+</body>
+</html>

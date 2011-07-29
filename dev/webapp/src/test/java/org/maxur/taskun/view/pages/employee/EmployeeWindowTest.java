@@ -4,6 +4,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.jmock.Expectations;
 import org.junit.Test;
 import org.maxur.taskun.domain.employee.Employee;
+import org.maxur.taskun.view.commands.CommandRepositoryImpl;
 import org.maxur.taskun.view.model.CommandRepository;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
 import org.maxur.taskun.view.pages.AbstractPanelTest;
@@ -24,7 +25,7 @@ public class EmployeeWindowTest extends AbstractPanelTest {
     protected void startPanel() {
         bean = context.mock(EmployeeBean.class);
         final Employee employee = context.mock(Employee.class);
-        repository = context.mock(CommandRepository.class);
+        repository = context.mock(CommandRepositoryImpl.class);
         context.checking(new Expectations() {{
         }});
 /*        tester.startPanel(new ITestPanelSource() {

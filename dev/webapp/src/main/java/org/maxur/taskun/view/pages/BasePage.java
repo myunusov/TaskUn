@@ -7,7 +7,10 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.model.ResourceModel;
 import org.maxur.taskun.view.UserSession;
+import org.maxur.taskun.view.commands.CommandRepositoryImpl;
 import org.maxur.taskun.view.model.CommandRepository;
+import org.maxur.taskun.view.pages.calendar.CalendarPanel;
+import org.maxur.taskun.view.pages.user.CurrentUserPanel;
 
 /**
  * The Base Page Controller.
@@ -25,13 +28,12 @@ public class BasePage extends WebPage {
     /**
      * The commands repository
      */
-    private CommandRepository commands;
+    private final CommandRepository commands;
 
     /**
      * The constructor of the Base Page Controller.
      */
     public BasePage() {
-        final HeaderPanel header = new HeaderPanel("header");
 
         final CompressedResourceReference style =
                 new CompressedResourceReference(getClass(), "/css/style.css");
@@ -49,11 +51,14 @@ public class BasePage extends WebPage {
                 new CompressedResourceReference(getClass(), "/js/effects.js");
         add(JavascriptPackageResource.getHeaderContribution(effects));
 
+        this.commands = new CommandRepositoryImpl();
+
         add(new Label("title.application" ,new ResourceModel("title.application")));
         add(new MenuPanel("menu"));
-        add(header);
+        add(new HeaderPanel("header"));
         add(new FooterPanel("footer"));
-        commands = new CommandRepository();
+        add(new CurrentUserPanel("current_user_panel", getCommands()));
+        add(new CalendarPanel("calendar_panel", getCommands()));
     }
 
     /**

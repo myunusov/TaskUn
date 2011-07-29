@@ -10,7 +10,7 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.taskun.view.pages.employee.HomePage;
+import org.maxur.taskun.view.pages.employee.EmployeePage;
 
 import java.util.Locale;
 
@@ -36,9 +36,9 @@ public class TaskunApplicationTest {
 
     @Test
     public void testGetHomePage() throws Exception {
-        application.setHomePage(HomePage.class);
+        application.setHomePage(EmployeePage.class);
         final Class<? extends Page> homePage = application.getHomePage();
-        Assert.assertTrue(HomePage.class.equals(homePage));
+        Assert.assertTrue(EmployeePage.class.equals(homePage));
     }
 
     @Test

@@ -1,40 +1,17 @@
 package org.maxur.taskun.view.model;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Maxim Yunusov
- * @version 1.0 7/22/11
+ * @version 1.0 7/28/11
  */
-public class CommandRepository implements Serializable {
+public interface CommandRepository extends Serializable {
 
-    private static final long serialVersionUID = 3397130411188839360L;
+    void persist(String id, Command command);
 
-    @SuppressWarnings("rawtypes")
-	private Map<String, Command> commands = new HashMap<String, Command>();
+    <T extends Bean> Command<T> get(String id);
 
-    public void persist(final String id, final Command<? extends Bean> command) {
-        commands.put(id, command);
-    }
-
-    @SuppressWarnings("unchecked")
-	public <T extends Bean> Command<T> get(final String id) {
-        final Command<T> result;
-        try {
-            result = (Command<T>) commands.get(id);
-        } catch (ClassCastException e) {
-            throw new AssertionError(String.format("Command '%s' has invalid type", id));
-        }
-        if (result == null) {
-            throw new IllegalArgumentException(String.format("Command '%s' is not registered", id));
-        }
-        try {
-            return result.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError(String.format("Command '%s' is not cloneable", id));
-        }
-    }
+    <T extends Bean> Command<T> reserve(String id);
 
 }

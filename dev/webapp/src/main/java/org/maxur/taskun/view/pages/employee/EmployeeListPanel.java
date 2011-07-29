@@ -105,8 +105,7 @@ public class EmployeeListPanel extends Panel {
             final CommandLink<EmployeeBean> select = new CommandLink<EmployeeBean>(
                     "employee_select",
                     employee,
-                    commands,
-                    "employee.select"
+                    commands.<EmployeeBean>reserve("employee.select")
             );
             listItem.add(select);
 
@@ -126,8 +125,7 @@ public class EmployeeListPanel extends Panel {
             final CommandLink<EmployeeBean> edit = new CommandLink<EmployeeBean>(
                     "employee_edit",
                     employee,
-                    commands,
-                    "employee.edit"
+                    commands.<EmployeeBean>reserve("employee.edit")
             );
             listItem.add(edit);
 

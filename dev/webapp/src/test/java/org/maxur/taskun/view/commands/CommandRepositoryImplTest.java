@@ -1,4 +1,4 @@
-package org.maxur.taskun.view.model;
+package org.maxur.taskun.view.commands;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.jmock.Expectations;
@@ -7,12 +7,15 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.maxur.taskun.view.model.Bean;
+import org.maxur.taskun.view.model.Command;
+import org.maxur.taskun.view.model.CommandRepository;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0 7/28/11
  */
-public class CommandRepositoryTest {
+public class CommandRepositoryImplTest {
 
     private JUnit4Mockery context;
 
@@ -25,7 +28,7 @@ public class CommandRepositoryTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }};
         command = (Command<Bean>) context.mock(Command.class, "command");
-        repository = new CommandRepository();
+        repository = new CommandRepositoryImpl();
 
     }
 

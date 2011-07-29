@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:wicket="http://wicket.apache.org/"
+        xml:lang="en"
+        lang="en">
+<wicket:head>
+    <wicket:remove>
+        <head>
+            <link rel="stylesheet" type="text/css" href="../../../../../../css/style.css"/>
+        </head>
+    </wicket:remove>
+</wicket:head>
+<body>
+<wicket:panel>
+    <div style="height: 30px; width:90%; margin:0 10px 0 10px; padding: 0 10px 0 10px; ">
+        <span wicket:id="feedback" style="color:red">Error</span>
+    </div>
+    <div id="employee_panel" class="post">
+        <img src="../../../../../../images/Key.png" alt="" class="avatar" wicket:id="key_img"
+             style="float: left; padding: 5px"/>
+
+        <form wicket:id="user_form" style="padding: 5px">
+            <table>
+                <tr>
+                    <td align="right"><wicket:message key="label.userName">Login</wicket:message></td>
+                    <td><label>
+                        <input type="text" title="" class="valid" wicket:id="userName" value="IIIvanov"/>
+                    </label></td>
+                </tr>
+                <tr>
+                    <td align="right"><wicket:message key="label.password">Login</wicket:message></td>
+                    <td><label>
+                        <input type="password" title="" class="valid" wicket:id="password" value="IIIvanov"/>
+                    </label></td>
+                </tr>
+            </table>
+        </form>
+        <form wicket:id="fake_form"></form>
+        <br/>
+
+        <div class="operations">
+            <input type="button" style="float: left;" wicket:message="value:button.cancel" wicket:id="user_cancel"/>
+            <input type="submit" wicket:message="value:button.login" wicket:id="user_submit"/>
+        </div>
+    </div>
+
+</wicket:panel>
+</body>
+</html>

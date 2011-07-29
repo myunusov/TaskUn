@@ -4,6 +4,7 @@ import org.apache.wicket.Request;
 import org.apache.wicket.protocol.http.WebSession;
 import org.maxur.taskun.view.model.MenuItem;
 import org.maxur.taskun.view.model.MenuItems;
+import org.maxur.taskun.view.model.UserBean;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @author Maxim Yunusov
  * @version 1.0 7/9/11
  */
-public class UserSession extends WebSession {
+public final class UserSession extends WebSession {
 
     /**
      * Serial Version UID.
@@ -23,6 +24,12 @@ public class UserSession extends WebSession {
      * Menu items List as MenuItems class.
      */
     private final MenuItems menuItems;
+
+
+    /**
+     * The System User.
+     */
+    private UserBean user;
 
     /**
      * The Constructor of UserSession class.
@@ -48,4 +55,19 @@ public class UserSession extends WebSession {
         return Collections.unmodifiableList(menuItems);
     }
 
+    /**
+     * Gets Current User.
+     * @return The current User.
+     */
+    public UserBean getUser() {
+        return user;
+    }
+
+    /**
+     * Set Current User.
+     * @param user The current User
+     */
+    public void setUser(final UserBean user) {
+        this.user = user;
+    }
 }

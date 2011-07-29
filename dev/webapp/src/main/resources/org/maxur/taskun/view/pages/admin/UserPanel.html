@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:wicket="http://wicket.apache.org/"
+        xml:lang="en"
+        lang="en">
+<wicket:head>
+    <wicket:remove>
+        <head>
+            <link rel="stylesheet" type="text/css" href="../../../../../../css/style.css"/>
+        </head>
+    </wicket:remove>
+</wicket:head>
+<body>
+<wicket:panel>
+    <div class="post">
+        <h1 class="title">
+            <wicket:message key="title.users.control">System's Users</wicket:message>
+        </h1>
+         <br/>
+        <table class="list">
+            <tr>
+                <td colspan="3">
+                    <h2>
+                        <wicket:message key="title.admin">Administrators</wicket:message>
+                    </h2>
+                </td>
+            </tr>
+            <tr>
+                <td class="user_img" width="32"></td>
+                <td class="name">Иванов Иван Иванович</td>
+                <td class="login">admin</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <h2>
+                        <wicket:message key="title.users">Users</wicket:message>
+                    </h2>
+                </td>
+            </tr>
+            <tr>
+                <td class="user_img"></td>
+                <td class="name">Петров Иван Иванович</td>
+                <td class="login">pivan</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <h2>
+                        <wicket:message key="title.candidates">Candidates</wicket:message>
+                    </h2>
+                </td>
+            </tr>
+            <wicket:remove>
+                <tr>
+                    <td class="user_img"></td>
+                    <td class="name">Сидоров Иван Иванович</td>
+                    <td class="login">[логин]</td>
+                </tr>
+            </wicket:remove>
+            <tr wicket:id="employees">
+                <td class="user_img" wicket:id="employee_img" style="background-image: url(/images/User_black.png)"></td>
+                <td class="name" wicket:id="employee_title">Сидоров Иван Иванович</td>
+                <td class="login">[логин]</td>
+            </tr>
+        </table>
+        <div class="post" style="width: 630px; float: none;">
+            <br/>
+            <div wicket:id="navigator" style="float: none;"></div>
+        </div>
+    </div>
+</wicket:panel>
+</body>
+</html>

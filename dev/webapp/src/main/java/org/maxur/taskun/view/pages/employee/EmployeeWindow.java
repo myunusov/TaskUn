@@ -53,11 +53,12 @@ class EmployeeWindow extends ModalWindow implements BeanWindow<EmployeeBean> {
     }
 
     @Override
-    public void show(AjaxRequestTarget target, BeanFactory<EmployeeBean> factory) {
+    public void show(final AjaxRequestTarget target, final BeanFactory<EmployeeBean> factory) {
         doShow(target, factory.getObject(), new ResourceModel("title.create"));
     }
 
-    private void doShow(AjaxRequestTarget target, EmployeeBean model, IComponentAssignedModel<String> title) {
+    private void doShow(
+            final AjaxRequestTarget target, final EmployeeBean model, final IComponentAssignedModel<String> title) {
         final Command<EmployeeBean> close = new Command<EmployeeBean>() {
             @Override
             public void execute(final AjaxRequestTarget target, final EmployeeBean model) {
@@ -66,7 +67,7 @@ class EmployeeWindow extends ModalWindow implements BeanWindow<EmployeeBean> {
         };
 
         final Command<EmployeeBean> submit
-                = new BatchCommand<EmployeeBean>(commands.<EmployeeBean>get("employee.submit"), close);
+                = new BatchCommand<EmployeeBean>(commands.<EmployeeBean>reserve("employee.submit"), close);
 
         final EmployeePanel panel = new EmployeePanel(getContentId(), model, submit, close);
         setContent(panel);
