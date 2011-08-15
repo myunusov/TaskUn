@@ -1,21 +1,13 @@
 package org.maxur.taskun.view.pages.employee;
 
-import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
-import org.apache.wicket.util.tester.WicketTester;
+import org.apache.wicket.markup.html.WebPage;
 import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.domain.Specification;
 import org.maxur.taskun.domain.employee.AbstractEmployee;
 import org.maxur.taskun.domain.employee.Employee;
-import org.maxur.taskun.services.ApplicationController;
-import org.maxur.taskun.view.pages.StubWebApplication;
+import org.maxur.taskun.view.pages.AbstractPageTest;
 
 import java.util.Collections;
 
@@ -24,49 +16,47 @@ import java.util.Collections;
  * @version 1.0
  * @since <pre>08.07.11</pre>
  */
-@RunWith(JMock.class)
-public class EmployeePageTest {
 
-    private WicketTester tester;
-
-    private Mockery context;
-
-    private ApplicationController controller;
+public class EmployeePageTest extends AbstractPageTest {
 
     static private Employee dummy = new AbstractEmployee() {
         private static final long serialVersionUID = 3908424889025108375L;
     };
 
-    @Before
-    public void setUp() {
-        context = new JUnit4Mockery() {{
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }};
-        tester = new WicketTester(new StubWebApplication());
-        AnnotApplicationContextMock mockContext =
-                ((StubWebApplication) tester.getApplication()).getMockContext();
-        controller = context.mock(ApplicationController.class);
-        mockContext.putBean("applicationController", controller);
+    @Override
+    protected Class<? extends WebPage> getPageClass() {
+        return EmployeePage.class;
+    }
+
+    @Override
+    protected void start() {
+    }
+
+    private void startPage(final int numberOfItems, final Employee employee) {
+        context.checking(new Expectations() {{
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
+            will(returnValue(Collections.nCopies(numberOfItems, employee)));
+        }});
+        super.start();
     }
 
     @Test
+    public void testPageBasicRender() {
+       startPage(0, dummy);
+       super.testPageBasicRender();
+    }
+
+
+    @Test
     public void testHomePageBasicRender() {
-        context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee(with(any(Specification.class)));
-            will(returnValue(Collections.nCopies(0, dummy)));
-        }});
-        tester.startPage(EmployeePage.class);
+        startPage(0, dummy);
         tester.assertRenderedPage(EmployeePage.class);
         context.assertIsSatisfied();
     }
 
     @Test
     public void testHomePageBasicRenderWithEmployee() {
-        context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee(with(any(Specification.class)));
-            will(returnValue(Collections.nCopies(1, dummy)));
-        }});
-        tester.startPage(EmployeePage.class);
+        startPage(1, dummy);
         tester.assertRenderedPage(EmployeePage.class);
         context.assertIsSatisfied();
     }
@@ -76,11 +66,7 @@ public class EmployeePageTest {
         final Employee male = new AbstractEmployee() {
         };
         male.setGender(Gender.MALE);
-        context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee(with(any(Specification.class)));
-            will(returnValue(Collections.nCopies(1, male)));
-        }});
-        tester.startPage(EmployeePage.class);
+        startPage(1, male);
         tester.assertRenderedPage(EmployeePage.class);
         context.assertIsSatisfied();
     }
@@ -90,11 +76,7 @@ public class EmployeePageTest {
         final Employee female = new AbstractEmployee() {
         };
         female.setGender(Gender.FEMALE);
-        context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee(with(any(Specification.class)));
-            will(returnValue(Collections.nCopies(1, female)));
-        }});
-        tester.startPage(EmployeePage.class);
+        startPage(1, female);
         tester.assertRenderedPage(EmployeePage.class);
         context.assertIsSatisfied();
     }

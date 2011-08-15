@@ -2,24 +2,17 @@ package org.maxur.taskun.view.pages.employee;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
-import org.apache.wicket.util.tester.ITestPanelSource;
-import org.apache.wicket.util.tester.WicketTester;
 import org.jmock.Expectations;
-import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.domain.Specification;
 import org.maxur.taskun.domain.employee.AbstractEmployee;
 import org.maxur.taskun.domain.employee.Employee;
-import org.maxur.taskun.services.ApplicationController;
+import org.maxur.taskun.view.commands.CommandRepositoryImpl;
 import org.maxur.taskun.view.components.AjaxMarkupContainer;
 import org.maxur.taskun.view.model.employee.EmployeesGroup;
-import org.maxur.taskun.view.pages.StubWebApplication;
+import org.maxur.taskun.view.pages.AbstractPanelTest;
 
 import java.util.Collections;
 
@@ -28,62 +21,42 @@ import java.util.Collections;
  * @version 1.0 7/17/11
  */
 @RunWith(JMock.class)
-public class GroupPanelTest {
-
-    private WicketTester tester;
-
-    private Mockery context;
-
-    private ApplicationController controller;
+public class GroupPanelTest extends AbstractPanelTest {
 
     static private Employee dummy = new AbstractEmployee() {
         private static final long serialVersionUID = 3908424889025108375L;
     };
 
-    @Before
-    public void setUp() {
-        context = new JUnit4Mockery() {{
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }};
-        tester = new WicketTester(new StubWebApplication());
-        AnnotApplicationContextMock mockContext =
-                ((StubWebApplication) tester.getApplication()).getMockContext();
-        controller = context.mock(ApplicationController.class);
-        mockContext.putBean("applicationController", controller);
+    @Override
+    protected Panel makeTestPanel(String panelId) {
+        return new GroupPanel(panelId, new EmployeesGroup(), new CommandRepositoryImpl());
     }
 
-    private void startPanel() {
-        tester.startPanel(new ITestPanelSource() {
-            @Override
-            public Panel getTestPanel(String panelId) {
-                return new GroupPanel(panelId, new EmployeesGroup(), null);
-            }
-        });
+    @Override
+    protected void start() {
     }
 
+    private void startPanel(final int numberOfItems) {
+        context.checking(new Expectations() {{
+            oneOf(controller).getAllEmployee(with(any(Specification.class)));
+            will(returnValue(Collections.nCopies(numberOfItems, dummy)));
+        }});
+        super.start();
+    }
 
     @Test
     public void testRemoveOnEmployeesIsEmpty() {
-        context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee(with(any(Specification.class)));
-            will(returnValue(Collections.nCopies(0, null)));
-        }});
-        startPanel();
+        startPanel(0);
         tester.assertInvisible("panel:remove_item");
     }
 
     @Test
     public void testRemoveOnEmployeesIsNotEmpty() {
-        context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee(with(any(Specification.class)));
-            will(returnValue(Collections.nCopies(1, dummy)));
-        }});
-        startPanel();
+        startPanel(1);
         final Component panel = tester.getComponentFromLastRenderedPage("panel");
         final EmployeesGroup model = (EmployeesGroup) panel.getDefaultModel();
         model.getObject().get(0).select(null);
         tester.assertComponent("panel:remove_item", AjaxMarkupContainer.class);
     }
-
 
 }

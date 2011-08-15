@@ -281,7 +281,7 @@ html>body #content {
 }
 
 .post .tags {
-    margin: 0;
+    margin: 0 20px 0 10px;
     padding: 5px 10px;
     background: #F0F0F0;
     line-height: normal;
@@ -353,17 +353,17 @@ html>body #content {
 
 .post .list .header {
     padding-left: 25px;
-    background-color: #f5f5dc;
+    border-bottom: 1px solid #EEEEEE;
 }
 
 .post .list .name {
     padding-left: 5px;
-    background-color: #f5f5dc;
+    border-bottom: 1px solid #EEEEEE;
 }
 
 .post .list .login {
     padding-left: 5px;
-    background-color: #f5f5dc;
+    border-bottom: 1px solid #EEEEEE;
 }
 
 
@@ -495,6 +495,10 @@ html>body #content {
 
 #tag_cloud {
     margin-bottom: 20px;
+
+    padding: 0;
+    background: none;
+    border-bottom: none;
 }
 
 /* Footer */

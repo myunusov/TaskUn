@@ -1,12 +1,7 @@
 package org.maxur.taskun.view.pages;
 
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
-import org.apache.wicket.util.tester.WicketTester;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -14,27 +9,11 @@ import org.junit.Test;
  * @version 1.0
  * @since <pre>08.07.11</pre>
  */
-public class BasePageTest {
+public class BasePageTest extends AbstractPageTest {
 
-    private WicketTester tester;
-
-    private Mockery context;
-
-     @Before
-    public void setUp() {
-        context = new JUnit4Mockery() {{
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }};
-        tester = new WicketTester(new StubWebApplication());
-        AnnotApplicationContextMock mockContext =
-                ((StubWebApplication) tester.getApplication()).getMockContext();
-        tester.startPage(BasePage.class);
-    }
-
-
-    @Test
-    public void testBasePageBasicRender() {
-        tester.assertRenderedPage(BasePage.class);
+    @Override
+    protected Class<? extends WebPage> getPageClass() {
+        return BasePage.class;
     }
 
     @Test
@@ -45,10 +24,7 @@ public class BasePageTest {
         tester.assertComponent("title.application", Label.class);
     }
 
-
-
-
-/*
+/*  TODO
     public void testOnClickAction() {
             tester.startPage(MyPage.class);
 

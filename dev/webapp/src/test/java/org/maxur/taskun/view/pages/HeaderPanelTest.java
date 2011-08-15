@@ -1,34 +1,16 @@
 package org.maxur.taskun.view.pages;
 
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.ITestPanelSource;
-import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0 7/8/11
  */
-public class HeaderPanelTest {
+public class HeaderPanelTest extends AbstractPanelTest {
 
-    private WicketTester tester;
-
-    @Before
-    public void setUp() {
-        tester = new WicketTester();
-        tester.startPanel(new ITestPanelSource() {
-            @Override
-            public Panel getTestPanel(String panelId) {
-                return new HeaderPanel(panelId);
-            }
-        });
-    }
-
-    @Test
-    public void testWicketPanel() throws Exception {
-        tester.assertNoErrorMessage();
-        tester.assertNoInfoMessage();
+    @Override
+    protected Panel makeTestPanel(String panelId) {
+        return new HeaderPanel(panelId);
     }
 
 }

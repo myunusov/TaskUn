@@ -2,7 +2,6 @@ package org.maxur.taskun.view.pages.user;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ResourceModel;
 import org.maxur.taskun.view.commands.ShowModalWindowCommand;
@@ -34,7 +33,7 @@ public class CurrentUserPanel extends Panel {
             final String id,
             final CommandRepository commands
     ) {
-        super(id);        // CurerentUser is geted from session
+        super(id);        // TODO Current User is get from session
         final LogonWindow logonWindow = new LogonWindow("logon_window", commands);
         add(logonWindow);
 
@@ -51,14 +50,6 @@ public class CurrentUserPanel extends Panel {
         commands.persist("user.submit", new UserLogonCommand());
     }
 
-    private static class LogOffForm extends Form {
-
-        private static final long serialVersionUID = -1522617182842026034L;
-
-        public LogOffForm(final String id) {
-            super(id);
-        }
-    }
 
     private static class UserLogonCommand extends Command<UserBean> {
 
