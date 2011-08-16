@@ -1,7 +1,6 @@
 package org.maxur.taskun.view.commands;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.maxur.taskun.services.TaskunServiceException;
 import org.maxur.taskun.view.model.Command;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
 

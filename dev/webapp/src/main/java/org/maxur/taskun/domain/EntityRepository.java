@@ -1,6 +1,5 @@
 package org.maxur.taskun.domain;
 
-import org.maxur.taskun.datasource.UnexpectedResultException;
 import org.maxur.taskun.utils.Benchmark;
 
 /**

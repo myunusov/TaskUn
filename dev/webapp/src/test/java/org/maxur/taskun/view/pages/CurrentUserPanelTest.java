@@ -36,10 +36,4 @@ public class CurrentUserPanelTest extends AbstractPanelTest {
         tester.assertComponent("panel:logon_link", AjaxFallbackLink.class);
     }
 
-    @Test
-    public void testWicketPanel() throws Exception {
-        tester.assertNoErrorMessage();
-        tester.assertNoInfoMessage();
-    }
-
 }

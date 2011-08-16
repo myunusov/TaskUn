@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.view.commands.CommandRepositoryImpl;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
-import org.maxur.taskun.view.pages.AbstractTest;
+import org.maxur.taskun.view.pages.AbstractWicketTest;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0 7/28/11
  */
-public class EmployeeWindowTest extends AbstractTest {
+public class EmployeeWindowTest extends AbstractWicketTest {
 
     private EmployeeWindow window;
 

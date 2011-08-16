@@ -7,7 +7,7 @@ import org.junit.Test;
  * @author Maxim Yunusov
  * @version 1.0 8/15/11
  */
-public abstract class AbstractPageTest extends AbstractTest {
+public abstract class AbstractPageTest extends AbstractWicketTest {
 
     @Override
     protected void start() {

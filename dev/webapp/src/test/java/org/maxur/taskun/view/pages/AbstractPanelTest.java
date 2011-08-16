@@ -7,7 +7,7 @@ import org.apache.wicket.util.tester.ITestPanelSource;
  * @author Maxim Yunusov
  * @version 1.0 8/15/11
  */
-public abstract class AbstractPanelTest extends AbstractTest {
+public abstract class AbstractPanelTest extends AbstractWicketTest {
 
     @Override
     protected void start() {

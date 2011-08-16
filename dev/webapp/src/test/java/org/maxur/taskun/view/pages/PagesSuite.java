@@ -2,7 +2,9 @@ package org.maxur.taskun.view.pages;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.maxur.taskun.view.pages.admin.AdminPagesSuite;
 import org.maxur.taskun.view.pages.employee.EmployeePagesSuite;
+import org.maxur.taskun.view.pages.home.HomePagesSuite;
 
 /**
  * @author Maxim Yunusov
@@ -15,7 +17,9 @@ import org.maxur.taskun.view.pages.employee.EmployeePagesSuite;
         FooterPanelTest.class,
         CurrentUserPanelTest.class,
         MenuPanelTest.class,
-        EmployeePagesSuite.class
+        HomePagesSuite.class,
+        EmployeePagesSuite.class,
+        AdminPagesSuite.class
 })
 public class PagesSuite {
 }

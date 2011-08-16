@@ -8,14 +8,14 @@ import org.junit.runner.RunWith;
 import org.maxur.taskun.view.components.BeanWindow;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
 import org.maxur.taskun.view.model.employee.EmployeeBeanFactory;
-import org.maxur.taskun.view.pages.AbstractTest;
+import org.maxur.taskun.view.pages.AbstractWicketTest;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0 7/22/11
  */
 @RunWith(JMock.class)
-public class ShowModalWindowCommandTest extends AbstractTest {
+public class ShowModalWindowCommandTest extends AbstractWicketTest {
 
 
     private AjaxRequestTarget target;

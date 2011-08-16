@@ -64,9 +64,7 @@ public class ApplicationControllerImpl implements ApplicationController {
     /**
      * Save the Employee.
      *
-     *
      * @param employee The Employee to saveEmployee.
-     * @throws TaskunServiceException Raise on any error.
      */
     @Override
     @Trace

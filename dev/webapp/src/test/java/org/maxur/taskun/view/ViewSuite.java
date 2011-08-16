@@ -3,6 +3,7 @@ package org.maxur.taskun.view;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.maxur.taskun.view.commands.CommandsSuite;
+import org.maxur.taskun.view.config.ConfigSuite;
 import org.maxur.taskun.view.model.ModelSuite;
 import org.maxur.taskun.view.pages.PagesSuite;
 
@@ -15,7 +16,8 @@ import org.maxur.taskun.view.pages.PagesSuite;
         ModelSuite.class,
         CommandsSuite.class,
         TaskunApplicationTest.class,
-        PagesSuite.class
+        PagesSuite.class,
+        ConfigSuite.class
 })
 public class ViewSuite {
 }
