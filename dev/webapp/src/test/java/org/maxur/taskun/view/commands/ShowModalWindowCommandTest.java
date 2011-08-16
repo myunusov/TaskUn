@@ -2,25 +2,21 @@ package org.maxur.taskun.view.commands;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.jmock.Expectations;
-import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.view.components.BeanWindow;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
 import org.maxur.taskun.view.model.employee.EmployeeBeanFactory;
+import org.maxur.taskun.view.pages.AbstractTest;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0 7/22/11
  */
 @RunWith(JMock.class)
-public class ShowModalWindowCommandTest {
+public class ShowModalWindowCommandTest extends AbstractTest {
 
-    private Mockery context;
 
     private AjaxRequestTarget target;
 
@@ -28,11 +24,8 @@ public class ShowModalWindowCommandTest {
 
     private BeanWindow bean;
 
-    @Before
-    public void setUp() throws Exception {
-        context = new JUnit4Mockery() {{
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }};
+    @Override
+    protected void start() {
         target = context.mock(AjaxRequestTarget.class);
         mockModel = context.mock(EmployeeBean.class, "mockModel");
         bean = context.mock(BeanWindow.class);
