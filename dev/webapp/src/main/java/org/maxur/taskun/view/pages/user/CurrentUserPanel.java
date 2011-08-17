@@ -1,12 +1,10 @@
 package org.maxur.taskun.view.pages.user;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.ResourceModel;
 import org.maxur.taskun.view.commands.ShowModalWindowCommand;
 import org.maxur.taskun.view.components.CommandLink;
-import org.maxur.taskun.view.model.Command;
 import org.maxur.taskun.view.model.CommandRepository;
 import org.maxur.taskun.view.model.UserBean;
 
@@ -46,17 +44,8 @@ public class CurrentUserPanel extends Panel {
                 new ShowModalWindowCommand<UserBean>(logonWindow)
         );
         add(logon);
-
-        commands.persist("user.submit", new UserLogonCommand());
     }
 
 
-    private static class UserLogonCommand extends Command<UserBean> {
 
-        private static final long serialVersionUID = -642230153599081916L;
-
-        @Override
-        public void execute(final AjaxRequestTarget target, final UserBean model) {
-        }
-    }
 }

@@ -33,7 +33,7 @@ public class RepositoryImpl {
     }
 
     /**
-     * Instance of EmployeeHelper class that simplifies Hibernate data access code.
+     * Instance of EmployeeBuilder class that simplifies Hibernate data access code.
      *
      * @return The HibernateTemplate instance.
      * @see org.springframework.orm.hibernate3.HibernateTemplate

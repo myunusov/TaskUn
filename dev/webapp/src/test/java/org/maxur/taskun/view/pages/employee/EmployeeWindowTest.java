@@ -29,7 +29,7 @@ public class EmployeeWindowTest extends AbstractWicketTest {
                 return new EmployeePanel(panelId, bean, null, null);
             }
         });*/
-        window = new EmployeeWindow("1", repository);
+        window = new EmployeeWindow("window", repository);
     }
 
 
@@ -38,8 +38,5 @@ public class EmployeeWindowTest extends AbstractWicketTest {
         final AjaxRequestTarget target = context.mock(AjaxRequestTarget.class);
         window.show(target);
     }
-
-
-
 
 }

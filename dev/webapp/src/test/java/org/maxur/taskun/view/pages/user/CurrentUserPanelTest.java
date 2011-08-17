@@ -1,11 +1,11 @@
-package org.maxur.taskun.view.pages;
+package org.maxur.taskun.view.pages.user;
 
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.junit.Test;
 import org.maxur.taskun.view.commands.CommandRepositoryImpl;
-import org.maxur.taskun.view.pages.user.CurrentUserPanel;
+import org.maxur.taskun.view.pages.AbstractPanelTest;
 
 /**
  * @author Maxim Yunusov

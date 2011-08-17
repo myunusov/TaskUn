@@ -7,18 +7,13 @@ import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.html.PackageResource;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.IModel;
-import org.maxur.taskun.view.behavior.DefaultFocusBehavior;
-import org.maxur.taskun.view.behavior.DynamicUpdateBehavior;
-import org.maxur.taskun.view.behavior.ErrorHighlightBehavior;
-import org.maxur.taskun.view.behavior.Jsr303FormValidator;
 import org.maxur.taskun.view.components.CommandButton;
+import org.maxur.taskun.view.components.TaskunStatelessForm;
 import org.maxur.taskun.view.model.Command;
 import org.maxur.taskun.view.model.UserBean;
 
@@ -84,31 +79,3 @@ public class LogonPanel extends Panel {
 }
 
 
-class TaskunStatelessForm<T> extends StatelessForm<T> {
-
-    /**
-     * Serial Version UID.
-     */
-    private static final long serialVersionUID = 570532221624657729L;
-
-    private final Class<T> clazz;
-
-    public TaskunStatelessForm(final String id, final IModel<T> model, final Class<T> clazz) {
-        super(id, model);
-        this.clazz = clazz;
-    }
-
-    public void onBeforeRender() {
-        super.onBeforeRender();
-        ErrorHighlightBehavior.addToAllComponent(this);
-        DynamicUpdateBehavior.addToAllComponent(this);
-        Jsr303FormValidator.<T>addToAllComponent(this, this.clazz);
-        DefaultFocusBehavior.addToAll(this);
-    }
-
-    public void onError() {
-        super.onError();
-        DefaultFocusBehavior.setToFirstError(this);
-    }
-
-}

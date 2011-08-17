@@ -2,7 +2,7 @@ package org.maxur.taskun.view.pages.admin;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.junit.Test;
-import org.maxur.taskun.view.model.employee.EmployeeHelper;
+import org.maxur.taskun.services.ControllerExpectationBuilder;
 import org.maxur.taskun.view.pages.AbstractPageTest;
 
 /**
@@ -23,7 +23,7 @@ public class AdminPageTest extends AbstractPageTest {
 
     @Test
     public void testBasePageComponents() {
-        context.checking(EmployeeHelper.makeExpectations(controller, 0));
+        context.checking(new ControllerExpectationBuilder(controller).build());
         super.start();
         tester.assertComponent("user_panel", UserPanel.class);
         tester.assertComponent("admin_panel", AdminPanel.class);
@@ -31,7 +31,7 @@ public class AdminPageTest extends AbstractPageTest {
 
     @Test
     public void testPageBasicRender() {
-        context.checking(EmployeeHelper.makeExpectations(controller, 0));
+        context.checking(new ControllerExpectationBuilder(controller).build());
         super.start();
         tester.assertRenderedPage(getPageClass());
     }

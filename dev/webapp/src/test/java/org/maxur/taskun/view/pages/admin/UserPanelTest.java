@@ -1,13 +1,14 @@
 package org.maxur.taskun.view.pages.admin;
 
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.Model;
 import org.jmock.Expectations;
 import org.junit.Test;
 import org.maxur.taskun.view.commands.CommandRepositoryImpl;
 import org.maxur.taskun.view.components.HiddenPagingNavigator;
 import org.maxur.taskun.view.model.ModelList;
 import org.maxur.taskun.view.model.employee.EmployeeBean;
-import org.maxur.taskun.view.model.employee.EmployeeHelper;
+import org.maxur.taskun.view.model.employee.EmployeeBuilder;
 import org.maxur.taskun.view.model.employee.EmployeesGroup;
 import org.maxur.taskun.view.pages.AbstractPanelTest;
 
@@ -69,13 +70,22 @@ public class UserPanelTest extends AbstractPanelTest {
 
     private Expectations makeExpectations(final int count) {
         group = context.mock(EmployeesGroup.class);
-        final List<EmployeeBean> employeeBeans = Collections.nCopies(count, EmployeeHelper.makeEmployeeBean(group));
+        final EmployeeBean employeeBean = EmployeeBuilder.makeEmployeeBean();
+        final List<EmployeeBean> employeeBeans = Collections.nCopies(count, employeeBean);
         list = new ModelList<EmployeeBean>(employeeBeans);
         return new Expectations() {{
             allowing(group).getObject();
             will(returnValue(list));
-/*            allowing(group).iterator(0, 15);                 TODO
-            will(returnValue(list.subList(0, 15 < count ? 15 : count).iterator()));*/
+            allowing(group).iterator(0, 15);
+            will(returnValue(list.subList(0, 15 > count ? count : 15).iterator()));
+            allowing(group).iterator(0, 1);
+            if (count > 0) {
+                will(returnValue(list.subList(0, 1).iterator()));
+            } else {
+                will(returnValue(Collections.EMPTY_LIST));
+            }
+            allowing(group).model(employeeBean);
+            will(returnValue(new Model(employeeBean)));
             ignoring(group);
         }};
     }

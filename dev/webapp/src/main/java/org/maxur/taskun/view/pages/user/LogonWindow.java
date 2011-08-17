@@ -66,6 +66,8 @@ public class LogonWindow extends ModalWindow implements BeanWindow<UserBean> {
             }
         };
 
+        commands.persist("user.submit", new UserLogonCommand());
+
         final Command<UserBean> submit
                 = new BatchCommand<UserBean>(commands.<UserBean>reserve("user.submit"), close);
 
@@ -74,6 +76,15 @@ public class LogonWindow extends ModalWindow implements BeanWindow<UserBean> {
         title.wrapOnAssignment(panel);
         setTitle(title);
         super.show(target);
+    }
+
+    private static class UserLogonCommand extends Command<UserBean> {
+
+        private static final long serialVersionUID = -642230153599081916L;
+
+        @Override
+        public void execute(final AjaxRequestTarget target, final UserBean model) {
+        }
     }
 
 

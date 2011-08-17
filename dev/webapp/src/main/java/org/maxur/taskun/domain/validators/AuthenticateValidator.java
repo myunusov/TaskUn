@@ -16,7 +16,7 @@ public class AuthenticateValidator implements ConstraintValidator<Authenticated,
     private SecurityService securityService;
 
     @Autowired
-    public void setSecurityService(SecurityService securityService) {
+    public void setSecurityService(final SecurityService securityService) {
         this.securityService = securityService;
     }
 

@@ -58,7 +58,10 @@ class EmployeeWindow extends ModalWindow implements BeanWindow<EmployeeBean> {
     }
 
     private void doShow(
-            final AjaxRequestTarget target, final EmployeeBean model, final IComponentAssignedModel<String> title) {
+            final AjaxRequestTarget target,
+            final EmployeeBean model,
+            final IComponentAssignedModel<String> title
+    ) {
         final Command<EmployeeBean> close = new Command<EmployeeBean>() {
             @Override
             public void execute(final AjaxRequestTarget target, final EmployeeBean model) {
