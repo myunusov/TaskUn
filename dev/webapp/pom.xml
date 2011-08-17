@@ -41,6 +41,7 @@
         <derby.version>10.4.1000003.648739</derby.version>
         <hibernate.version>3.5.2-Final</hibernate.version>
         <spring.version>3.0.4.RELEASE</spring.version>
+        <spring-security.version>3.0.5.RELEASE</spring-security.version>
         <wicket.version>1.4.17</wicket.version>
         <clover.version>3.1.0</clover.version>
         <jmock.version>2.5.1</jmock.version>
@@ -338,6 +339,22 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-instrument-tomcat</artifactId>
         </dependency>
+        <!-- spring-security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
         <!-- javax -->
         <dependency>
             <groupId>net.sourceforge.findbugs</groupId>
@@ -364,16 +381,23 @@
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket</artifactId>
+            <version>${wicket.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-spring</artifactId>
+            <version>${wicket.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-extensions</artifactId>
+            <version>${wicket.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-auth-roles</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

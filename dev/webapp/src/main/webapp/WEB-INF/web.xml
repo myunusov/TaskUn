@@ -33,14 +33,19 @@
         <filter-name>wicket.filter</filter-name>
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
-            <param-name>applicationFactoryClassName</param-name>
-            <param-value>org.apache.wicket.spring.SpringWebApplicationFactory</param-value>
-        </init-param>
-        <init-param>
             <param-name>applicationBean</param-name>
             <param-value>wicketApplication</param-value>
         </init-param>
+        <init-param>
+            <param-name>applicationFactoryClassName</param-name>
+            <param-value>org.apache.wicket.spring.SpringWebApplicationFactory</param-value>
+        </init-param>
     </filter>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
 
     <!-- Important! This filter mapping must come before Wicket's! -->
     <filter-mapping>
@@ -52,6 +57,11 @@
         <filter-name>wicket.filter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
     <error-page>
         <error-code>

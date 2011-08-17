@@ -30,7 +30,9 @@ public class StubWebApplication extends TaskunApplication {
 
     @Override
     public Session newSession(final Request request, final Response response) {
-        return new UserSession(request, createMenuItems());
+        final UserSession userSession = new UserSession(request);
+        userSession.setMenuItems(createMenuItems());
+        return userSession;
     }
 
     private MenuItems createMenuItems() {

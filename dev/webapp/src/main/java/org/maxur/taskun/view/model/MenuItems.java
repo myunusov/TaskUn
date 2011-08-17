@@ -27,7 +27,6 @@ public class MenuItems extends ArrayList<MenuItem> {
         super(initialCapacity);
     }
 
-
     /**
      * Calls on select one of meu items. Deselects all other menu items.
      *

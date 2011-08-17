@@ -2,17 +2,16 @@ package org.maxur.taskun.view;
 
 import images.ImagesScope;
 import org.apache.wicket.Page;
-import org.apache.wicket.Request;
 import org.apache.wicket.ResourceReference;
-import org.apache.wicket.Response;
-import org.apache.wicket.Session;
+import org.apache.wicket.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
-import org.apache.wicket.util.lang.PackageName;
 import org.maxur.taskun.view.model.MenuItems;
+import org.maxur.taskun.view.pages.home.HomePage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -24,19 +23,12 @@ import java.io.File;
  * @version 1.0 7/5/11
  */
 @Component(value = "wicketApplication")
-public class TaskunApplication extends WebApplication {
+public class TaskunApplication extends AuthenticatedWebApplication {
 
     /**
-     *  It is default encoding for markup files.
+     * It is default encoding for markup files.
      */
     private static final String DEFAULT_ENCODING = "UTF-8";
-
-    /**
-     * @see org.springframework.context.ApplicationContext
-     *
-     */
-    @Autowired
-    private ApplicationContext applicationContext;
 
     /**
      * Home page class for this application.
@@ -48,9 +40,12 @@ public class TaskunApplication extends WebApplication {
      */
     private MenuItems menuItems;
 
+    private boolean isInitialized = false;
+
 
     /**
      * Static getter for get the TaskunApplication singleton instance.
+     *
      * @return the TaskunApplication singleton instance.
      */
     public static TaskunApplication get() {
@@ -62,17 +57,29 @@ public class TaskunApplication extends WebApplication {
      */
     @Override
     protected final void init() {
-        super.init();
-        springInjection();
+        if (isInitialized) {
+            super.init();
+            springInjection();
+        }
     }
 
     /**
      * Init listener for spring inject. This method exclude from init() by Unit Test needs.
      */
     protected void springInjection() {
-            addComponentInstantiationListener(
-                    new SpringComponentInjector(this, applicationContext, true)
-            );
+        addComponentInstantiationListener(
+                new SpringComponentInjector(this)
+        );
+    }
+
+    @Override
+    protected Class<? extends WebPage> getSignInPageClass() {
+        return HomePage.class;
+    }
+
+    @Override
+    protected Class<? extends AuthenticatedWebSession> getWebSessionClass() {
+        return UserSession.class;
     }
 
     /**
@@ -92,6 +99,7 @@ public class TaskunApplication extends WebApplication {
         }
 
         mountResources(ImagesScope.class, "images");
+        isInitialized = true;
     }
 
     private void mountResources(final Class clazz, final String directory) {
@@ -125,6 +133,7 @@ public class TaskunApplication extends WebApplication {
      * @param page The Home Page.
      */
     @Autowired
+    @Lazy
     public final void setHomePage(final Class<? extends WebPage> page) {
         mountBookmarkablePage("/home", page);
         this.homePage = page;
@@ -136,31 +145,10 @@ public class TaskunApplication extends WebApplication {
      * @param items Main Menu items.
      */
     @Autowired
+    @Lazy
     public final void setMenuItems(final MenuItems items) {
-        this.menuItems =  items;
+        this.menuItems = items;
     }
 
-    /**
-     * Setter for set  applicationContext without Spring inject.
-     * @param applicationContext The ApplicationContext.
-     */
-    public void setApplicationContext(final ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
-    /**
-     * @see org.apache.wicket.Application#newSession(org.apache.wicket.Request,
-     *      org.apache.wicket.Response)
-     *
-     * @param request  Represents http request.
-     * @param response Represents http response.
-     * @return new UserSession for represented request.
-     * @see org.apache.wicket.protocol.http.WebApplication#newSession(org.apache.wicket.Request,
-     *      org.apache.wicket.Response)
-     */
-    @Override
-    public Session newSession(final Request request, final Response response) {
-        return new UserSession(request, menuItems);
-    }
 
 }

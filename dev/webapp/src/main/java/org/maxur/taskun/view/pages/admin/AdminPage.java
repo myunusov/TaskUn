@@ -1,5 +1,6 @@
 package org.maxur.taskun.view.pages.admin;
 
+import org.apache.wicket.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.maxur.taskun.view.model.employee.EmployeesGroup;
 import org.maxur.taskun.view.pages.BasePage;
 
@@ -7,6 +8,7 @@ import org.maxur.taskun.view.pages.BasePage;
  * @author Maxim Yunusov
  * @version 1.0 7/29/11
  */
+@AuthorizeInstantiation("ROLE_ADMIN")
 public class AdminPage extends BasePage {
 
     /**
