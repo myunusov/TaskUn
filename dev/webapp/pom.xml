@@ -210,6 +210,17 @@
         </dependency>
 
         <!-- Logger -->
+<!--        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.1</version>
+        </dependency>-->
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>com.springsource.slf4j.log4j</artifactId>
@@ -343,6 +354,7 @@
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>com.springsource.javax.persistence</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>javax.transaction</groupId>
