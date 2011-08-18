@@ -8,12 +8,13 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.taskun.domain.AllSpecification;
-import org.maxur.taskun.domain.Factory;
-import org.maxur.taskun.domain.Repository;
-import org.maxur.taskun.domain.Specification;
+import org.maxur.commons.domain.AllSpecification;
+import org.maxur.commons.domain.Factory;
+import org.maxur.commons.domain.Repository;
+import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.domain.employee.AbstractEmployee;
 import org.maxur.taskun.domain.employee.Employee;
+import org.maxur.taskun.services.Impl.ApplicationControllerImpl;
 
 import java.util.Collection;
 import java.util.Collections;

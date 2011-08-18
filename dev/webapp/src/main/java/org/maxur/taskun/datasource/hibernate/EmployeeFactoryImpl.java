@@ -1,15 +1,15 @@
 package org.maxur.taskun.datasource.hibernate;
 
-import org.maxur.taskun.domain.Factory;
+import org.maxur.taskun.datasource.DataSourceNotifier;
+import org.maxur.commons.domain.Factory;
 import org.maxur.taskun.domain.employee.Employee;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 /**
  * The employee factory implementation (for hibernate data source).
- * @see org.maxur.taskun.domain.Factory
+ * @see org.maxur.commons.domain.Factory
  *
  * @author Maxim Yunusov
  * @version 1.0 7/3/11
@@ -18,20 +18,28 @@ import org.springframework.stereotype.Service;
 public class EmployeeFactoryImpl implements Factory<Employee> {
 
     /**
-     * The logger.
+     * The Notifier.
      */
-    private static final Logger LOGGER
-            = LoggerFactory.getLogger(EmployeeFactoryImpl.class);
+    private DataSourceNotifier notifier;
 
     /**
-     * @see org.maxur.taskun.domain.Factory#create()
+     * Sets the notifier.
+     * @param notifier The Notifier.
+     */
+    @Autowired
+    public void setNotifier(DataSourceNotifier notifier) {
+        this.notifier = notifier;
+    }
+
+    /**
+     * @see org.maxur.commons.domain.Factory#create()
      *
      * @return The Employee implementation.
      *
      */
     @Override
     public final Employee create() {
-        LOGGER.debug("New Employee was created ");
+        notifier.notifyEmployeeCreate(this.getClass());
         return new EmployeeImpl();
     }
 }

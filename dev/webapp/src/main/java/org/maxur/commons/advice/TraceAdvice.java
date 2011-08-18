@@ -1,11 +1,11 @@
-package org.maxur.taskun.services.advice;
+package org.maxur.commons.advice;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.maxur.commons.service.ServiceNotifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,15 +21,15 @@ import org.springframework.stereotype.Component;
 public class TraceAdvice {
 
     /**
-     * The Logger.
+     * The ServiceNotifier.
      */
-    public static final Logger LOGGER = LoggerFactory.getLogger("trace");
-
+    @Autowired
+    private ServiceNotifier notifier;
     /**
      * The Pointcut for tracing methods.
      */
     @SuppressWarnings("unused")
-    @Pointcut("@annotation(org.maxur.taskun.utils.Trace)")
+    @Pointcut("@annotation(org.maxur.commons.annotation.Trace)")
     private void tracePointcut() {
     }
 
@@ -43,10 +43,10 @@ public class TraceAdvice {
     public Object traceAdvice(final ProceedingJoinPoint pjp) throws Throwable {
         Object retVal;
         try {
-            LOGGER.debug(pjp.getSignature().toShortString() + " ENTER");
+            notifier.notifyEnter(pjp.getSignature());
             retVal = pjp.proceed();
         } finally {
-            LOGGER.debug(pjp.getSignature().toShortString() + " EXIT");
+            notifier.notifyExit(pjp.getSignature());
         }
         return retVal;
       }

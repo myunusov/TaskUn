@@ -6,9 +6,9 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
-import org.maxur.taskun.domain.Entity;
-import org.maxur.taskun.domain.EntityRepository;
-import org.maxur.taskun.utils.Benchmark;
+import org.maxur.commons.domain.EntityRepository;
+import org.maxur.commons.domain.Entity;
+import org.maxur.commons.annotation.Benchmark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +22,7 @@ import java.util.List;
 public class EntityRepositoryImpl extends RepositoryImpl implements EntityRepository {
 
     /**
-     * Constructs the instance of EmployeeRepository class.
+     * Constructs the instance of EntityRepository class.
      *
      * @param sessionFactory The Hibernate Session Factory.
      */

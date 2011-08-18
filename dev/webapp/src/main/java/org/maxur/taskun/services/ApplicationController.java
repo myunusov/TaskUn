@@ -1,6 +1,6 @@
 package org.maxur.taskun.services;
 
-import org.maxur.taskun.domain.Specification;
+import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.domain.employee.Employee;
 
 import java.io.Serializable;

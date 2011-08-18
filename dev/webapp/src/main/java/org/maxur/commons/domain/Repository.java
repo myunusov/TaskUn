@@ -1,4 +1,4 @@
-package org.maxur.taskun.domain;
+package org.maxur.commons.domain;
 
 import java.util.List;
 

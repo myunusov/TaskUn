@@ -2,7 +2,7 @@ package org.maxur.taskun.domain.user;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.maxur.taskun.domain.Entity;
+import org.maxur.commons.domain.Entity;
 import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.domain.validators.Authenticated;
 

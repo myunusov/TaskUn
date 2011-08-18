@@ -1,9 +1,9 @@
 package org.maxur.taskun.datasource.hibernate;
 
 import org.hibernate.SessionFactory;
-import org.maxur.taskun.domain.Specification;
+import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.domain.employee.Employee;
-import org.maxur.taskun.utils.Benchmark;
+import org.maxur.commons.annotation.Benchmark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * @since <pre>04.07.11</pre>
  */
 @Repository("employeeRepository")
-public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.taskun.domain.Repository<Employee> {
+public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.commons.domain.Repository<Employee> {
 
 
     /**
@@ -35,7 +35,7 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
 
     /**
      * @param entity The Employee for saving.
-     * @see org.maxur.taskun.domain.Repository#save(org.maxur.taskun.domain.Entity)
+     * @see org.maxur.commons.domain.Repository#save(org.maxur.commons.domain.Entity)
      */
     @Override
     @Benchmark
@@ -47,7 +47,7 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
 
     /**
      * @return The List of Employees.
-     * @see org.maxur.taskun.domain.Repository#getAll()
+     * @see org.maxur.commons.domain.Repository#getAll()
      */
     @Override
     @Benchmark
@@ -62,7 +62,7 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
     /**
      * @param specification The some condition for select employees.
      * @return The List of Employees by specification.
-     * @see org.maxur.taskun.domain.Repository#getAll(org.maxur.taskun.domain.Specification)
+     * @see org.maxur.commons.domain.Repository#getAll(org.maxur.commons.domain.Specification)
      */
     @Override
     @Benchmark
@@ -81,7 +81,7 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
     /**
      * @param id The Employees identifier.
      * @return The selected Employee.
-     * @see org.maxur.taskun.domain.Repository#get(String)
+     * @see org.maxur.commons.domain.Repository#get(String)
      */
     @Override
     @Benchmark
@@ -91,7 +91,7 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
 
     /**
      * @param entity The deleted Employee.
-     * @see org.maxur.taskun.domain.Repository#delete(org.maxur.taskun.domain.Entity)
+     * @see org.maxur.commons.domain.Repository#delete(org.maxur.commons.domain.Entity)
      */
     @Override
     @Benchmark

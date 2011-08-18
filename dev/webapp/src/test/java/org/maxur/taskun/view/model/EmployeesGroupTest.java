@@ -9,7 +9,7 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.taskun.domain.Specification;
+import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.domain.employee.AbstractEmployee;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.model.employee.EmployeesGroup;

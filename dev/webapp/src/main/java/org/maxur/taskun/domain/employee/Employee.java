@@ -2,9 +2,9 @@ package org.maxur.taskun.domain.employee;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.maxur.taskun.domain.Entity;
+import org.maxur.commons.domain.Entity;
+import org.maxur.commons.annotation.Unique;
 import org.maxur.taskun.domain.Gender;
-import org.maxur.taskun.domain.validators.Unique;
 
 import javax.annotation.Nullable;
 import javax.persistence.Transient;

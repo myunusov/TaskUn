@@ -2,6 +2,7 @@ package org.maxur.taskun.services;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.maxur.taskun.services.Impl.NotifierImplTest;
 
 /**
  * @author Maxim Yunusov
@@ -9,7 +10,8 @@ import org.junit.runners.Suite;
  * @since <pre>08.07.11</pre>
  */
 @RunWith(Suite.class)@Suite.SuiteClasses({
-        ApplicationControllerImplTest.class
+        ApplicationControllerImplTest.class,
+        NotifierImplTest.class
 })
 public class ServicesSuite {
 }

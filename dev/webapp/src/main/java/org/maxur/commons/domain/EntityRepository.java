@@ -1,6 +1,4 @@
-package org.maxur.taskun.domain;
-
-import org.maxur.taskun.utils.Benchmark;
+package org.maxur.commons.domain;
 
 /**
  * @author Maxim Yunusov
@@ -8,7 +6,6 @@ import org.maxur.taskun.utils.Benchmark;
  */
 public interface EntityRepository {
 
-    @Benchmark
     boolean isExist(Entity entity, String[] fields);
 
 }

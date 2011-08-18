@@ -1,16 +1,18 @@
 package org.maxur.taskun.domain.employee;
 
+import org.jmock.Expectations;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.maxur.commons.domain.Factory;
+import org.maxur.taskun.AbstractMockTest;
+import org.maxur.taskun.datasource.DataSourceNotifier;
 import org.maxur.taskun.datasource.hibernate.EmployeeFactoryImpl;
-import org.maxur.taskun.domain.Factory;
 import org.maxur.taskun.domain.Gender;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 
@@ -18,20 +20,27 @@ import java.util.Set;
  * @author Maxim Yunusov
  * @version 1.0 7/3/11
  */
-public class AbstractEmployeeTest {
+public class AbstractEmployeeTest extends AbstractMockTest {
 
     private Validator validator;
 
+    private Factory<Employee> factory;
+
     @Before
     public void setUp() throws Exception {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+        super.setUp();
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final EmployeeFactoryImpl employeeFactory = new EmployeeFactoryImpl();
+        final DataSourceNotifier notifier = context.mock(DataSourceNotifier.class);
+        employeeFactory.setNotifier(notifier);
+        factory = employeeFactory;
+        context.checking(new Expectations() {{
+            exactly(1).of(notifier).notifyEmployeeCreate(with(any(Class.class)));
+        }});
     }
 
     @Test
     public void testCreateEmployee() throws Exception {
-        //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         //Act
         final Employee employee = factory.create();
         //Assert
@@ -41,7 +50,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testEmployeeTitle() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -53,8 +61,6 @@ public class AbstractEmployeeTest {
 
     @Test
     public void testEmployeeTitleWithoutMiddleName() throws Exception {
-        //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         //Act
         final Employee employee = factory.create();
         employee.setFirstName("Иван");
@@ -65,8 +71,6 @@ public class AbstractEmployeeTest {
 
     @Test
     public void testEmployeeGender() throws Exception {
-        //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         //Act
         final Employee employee = factory.create();
         employee.setFirstName("Иван");
@@ -80,7 +84,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testEmployeeEquals() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         Assert.assertTrue(employee.equals(employee));
@@ -89,7 +92,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testValidEmployee() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -103,7 +105,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testValidEmployeeWithoutMiddleName() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -116,7 +117,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testInvalidEmployeeWithoutFirstName() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setLastName("Иванов");
@@ -128,7 +128,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testInvalidEmployeeWithoutLastName() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -140,7 +139,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testValidEmployeeWithLongFirstName() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("12345678901234567890123456789012345678901234567890");
@@ -153,7 +151,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testInvalidEmployeeWithLongFirstName() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("123456789012345678901234567890123456789012345678901");
@@ -166,7 +163,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testValidEmployeeWithLongLastName() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -179,7 +175,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testInvalidEmployeeWithLongLastName() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -192,7 +187,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testValidEmployeeWithLongMiddleName() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -206,7 +200,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testNullEmployeeWithLongMiddleName() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -221,7 +214,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testInvalidEmployeeWithLongMiddleName() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -235,7 +227,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testAutoDetectEmployeeGenderAsMale() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -248,7 +239,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testAutoDetectEmployeeGenderAsFemale() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -261,7 +251,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testAutoDetectEmployeeGenderAsUnknown() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         employee.setFirstName("Иван");
@@ -273,7 +262,6 @@ public class AbstractEmployeeTest {
     @Test
     public void testAbstractEmployeetString() throws Exception {
         //Arrange
-        Factory<Employee> factory = new EmployeeFactoryImpl();
         final Employee employee = factory.create();
         //Act
         final String s = employee.toString();

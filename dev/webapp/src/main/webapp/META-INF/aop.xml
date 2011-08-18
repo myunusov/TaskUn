@@ -9,8 +9,8 @@
     </weaver>
 
     <aspects>
-        <aspect name="org.maxur.taskun.services.advice.BenchmarkAdvice"/>
-        <aspect name="org.maxur.taskun.services.advice.TraceAdvice"/>
+        <aspect name="org.maxur.commons.advice.BenchmarkAdvice"/>
+        <aspect name="org.maxur.commons.advice.TraceAdvice"/>
     </aspects>
 
 </aspectj>

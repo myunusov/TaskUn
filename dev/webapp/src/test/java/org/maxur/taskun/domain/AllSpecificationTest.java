@@ -6,6 +6,9 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
+import org.maxur.commons.domain.AllSpecification;
+import org.maxur.commons.domain.Entity;
+import org.maxur.commons.domain.Specification;
 
 
 /**

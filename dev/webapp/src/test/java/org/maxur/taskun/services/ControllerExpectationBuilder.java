@@ -1,7 +1,7 @@
 package org.maxur.taskun.services;
 
 import org.jmock.Expectations;
-import org.maxur.taskun.domain.Specification;
+import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.view.model.employee.EmployeeBuilder;
 

@@ -6,7 +6,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.DummyPanelPage;
 import org.jmock.Expectations;
 import org.junit.Test;
-import org.maxur.taskun.domain.Specification;
+import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.view.pages.employee.EmployeePage;
 
 /**

@@ -1,7 +1,8 @@
-package org.maxur.taskun.domain.validators;
+package org.maxur.commons.validators;
 
-import org.maxur.taskun.domain.Entity;
-import org.maxur.taskun.domain.EntityRepository;
+import org.maxur.commons.domain.Entity;
+import org.maxur.commons.domain.EntityRepository;
+import org.maxur.commons.annotation.Unique;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -17,7 +18,7 @@ public class UniqueValidator implements ConstraintValidator<Unique, Entity> {
     private String[] fields;
 
     /*
-     * @see org.maxur.taskun.domain.Repository
+     * @see org.maxur.commons.domain.Repository
      */
     @Autowired()
     @Qualifier(value = "entityRepository")

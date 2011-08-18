@@ -1,10 +1,11 @@
-package org.maxur.taskun.services;
+package org.maxur.taskun.services.Impl;
 
-import org.maxur.taskun.domain.Factory;
-import org.maxur.taskun.domain.Repository;
-import org.maxur.taskun.domain.Specification;
+import org.maxur.commons.domain.Factory;
+import org.maxur.commons.domain.Repository;
+import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.domain.employee.Employee;
-import org.maxur.taskun.utils.Trace;
+import org.maxur.taskun.services.ApplicationController;
+import org.maxur.commons.annotation.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,12 @@ public class ApplicationControllerImpl implements ApplicationController {
     private static final long serialVersionUID = -1805613937773652086L;
 
     /**
-     * @see org.maxur.taskun.domain.Factory
+     * @see org.maxur.commons.domain.Factory
      */
     private Factory<Employee> employeeFactory;
 
     /**
-     * @see org.maxur.taskun.domain.Repository
+     * @see org.maxur.commons.domain.Repository
      */
     private  Repository<Employee> employeeRepository;
 

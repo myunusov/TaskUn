@@ -1,7 +1,7 @@
 package org.maxur.taskun.domain.employee;
 
 import org.apache.commons.lang3.StringUtils;
-import org.maxur.taskun.domain.AbstractEntity;
+import org.maxur.commons.domain.AbstractEntity;
 import org.maxur.taskun.domain.Gender;
 
 import javax.annotation.Nullable;

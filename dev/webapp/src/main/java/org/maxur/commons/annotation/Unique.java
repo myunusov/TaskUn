@@ -1,5 +1,7 @@
-package org.maxur.taskun.domain.validators;
+package org.maxur.commons.annotation;
 
+
+import org.maxur.commons.validators.UniqueValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

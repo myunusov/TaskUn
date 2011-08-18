@@ -1,11 +1,11 @@
-package org.maxur.taskun.services.advice;
+package org.maxur.commons.advice;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.maxur.commons.service.ServiceNotifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
@@ -21,15 +21,16 @@ import org.springframework.util.StopWatch;
 public class BenchmarkAdvice {
 
     /**
-     * The Logger.
+     * The ServiceNotifier.
      */
-    public static final Logger LOGGER = LoggerFactory.getLogger("benchmark");
+    @Autowired
+    private ServiceNotifier notifier;
 
     /**
      * The Pointcut for benchmarking methods.
      */
     @SuppressWarnings("unused")
-    @Pointcut("@annotation(org.maxur.taskun.utils.Benchmark)")
+    @Pointcut("@annotation(org.maxur.commons.annotation.Benchmark)")
     private void benchmarkPointcut() {
     }
 
@@ -48,7 +49,7 @@ public class BenchmarkAdvice {
             retVal = pjp.proceed();
         } finally {
             sw.stop();
-            LOGGER.info(pjp.getSignature().toShortString() + ", " + sw.toString());
+            notifier.notifyBenchmark(pjp.getSignature(), sw);
         }
         return retVal;
       }
