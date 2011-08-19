@@ -5,7 +5,7 @@
     <weaver options="-XnoInline -verbose -showWeaveInfo -Xlint:ignore -Xset:weaveJavaxPackages=true">
         <include within="javax.*"/>
         <include within="org.aspectj.*"/>
-        <include within="org.maxur.taskun..*"/>
+        <include within="org.maxur..*"/>
     </weaver>
 
     <aspects>

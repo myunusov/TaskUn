@@ -5,8 +5,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.maxur.commons.service.ServiceNotifier;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.maxur.taskun.services.impl.NotifierImpl;
 import org.springframework.util.StopWatch;
 
 /**
@@ -17,13 +16,11 @@ import org.springframework.util.StopWatch;
  * @since <pre>21.04.11</pre>
  */
 @Aspect
-@Component
 public class BenchmarkAdvice {
 
     /**
      * The ServiceNotifier.
      */
-    @Autowired
     private ServiceNotifier notifier;
 
     /**
@@ -54,5 +51,8 @@ public class BenchmarkAdvice {
         return retVal;
       }
 
+    public void setNotifier(NotifierImpl notifier) {
+        this.notifier = notifier;
+    }
 }
 

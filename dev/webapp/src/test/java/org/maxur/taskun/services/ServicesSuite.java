@@ -2,7 +2,7 @@ package org.maxur.taskun.services;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.maxur.taskun.services.Impl.NotifierImplTest;
+import org.maxur.taskun.services.impl.NotifierImplTest;
 
 /**
  * @author Maxim Yunusov

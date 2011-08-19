@@ -23,7 +23,7 @@ import java.util.List;
  * @author Maxim Yunusov
  * @version 1.0 7/9/11
  */
-public final class UserSession extends AuthenticatedWebSession {
+public class UserSession extends AuthenticatedWebSession {
 
     /**
      * Serial Version UID.

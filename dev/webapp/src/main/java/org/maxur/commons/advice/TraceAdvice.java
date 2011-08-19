@@ -5,11 +5,10 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.maxur.commons.service.ServiceNotifier;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.maxur.taskun.services.impl.NotifierImpl;
 
 /**
-/**
+ * /**
  * The Trace Advice. It processes tracing on annotated method.
  *
  * @author Maxim Yunusov
@@ -17,14 +16,19 @@ import org.springframework.stereotype.Component;
  * @since <pre>21.04.11</pre>
  */
 @Aspect
-@Component
 public class TraceAdvice {
 
     /**
      * The ServiceNotifier.
      */
-    @Autowired
     private ServiceNotifier notifier;
+
+
+    public void setNotifier(NotifierImpl notifier) {
+        this.notifier = notifier;
+    }
+
+
     /**
      * The Pointcut for tracing methods.
      */
@@ -35,7 +39,8 @@ public class TraceAdvice {
 
     /**
      * This method processes tracing on annotated method.
-     * @param pjp  The Proceeding Join Point.
+     *
+     * @param pjp The Proceeding Join Point.
      * @return The Object which returned processed method.
      * @throws Throwable The Throwable which throws processed method.
      */
@@ -49,6 +54,7 @@ public class TraceAdvice {
             notifier.notifyExit(pjp.getSignature());
         }
         return retVal;
-      }
+    }
+
 }
 

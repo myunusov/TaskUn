@@ -25,7 +25,7 @@ public class EmployeePageTest extends AbstractPageTest {
 
     @Test
     public void testPageBasicRender() {
-        context.checking(new ControllerExpectationBuilder(controller).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).build());
         super.start();
         super.testPageBasicRender();
     }
@@ -33,7 +33,7 @@ public class EmployeePageTest extends AbstractPageTest {
 
     @Test
     public void testHomePageBasicRender() {
-        context.checking(new ControllerExpectationBuilder(controller).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).build());
         super.start();
         tester.assertRenderedPage(EmployeePage.class);
         context.assertIsSatisfied();
@@ -41,7 +41,7 @@ public class EmployeePageTest extends AbstractPageTest {
 
     @Test
     public void testHomePageBasicRenderWithEmployee() {
-        context.checking(new ControllerExpectationBuilder(controller).count(1).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).count(1).build());
         super.start();
         tester.assertRenderedPage(EmployeePage.class);
         context.assertIsSatisfied();
@@ -50,7 +50,7 @@ public class EmployeePageTest extends AbstractPageTest {
     @Test
     public void testHomePageBasicRenderWithEmployeeMale() {
         context.checking(
-                new ControllerExpectationBuilder(controller)
+                new ControllerExpectationBuilder(application.controller)
                         .fromEmployee(new EmployeeBuilder().asMale().build())
                         .count(1)
                         .build());
@@ -62,7 +62,7 @@ public class EmployeePageTest extends AbstractPageTest {
     @Test
     public void testHomePageBasicRenderWithEmployeeFemale() {
         context.checking(
-                new ControllerExpectationBuilder(controller)
+                new ControllerExpectationBuilder(application.controller)
                         .fromEmployee(new EmployeeBuilder().asFemale().build())
                         .count(1)
                         .build());

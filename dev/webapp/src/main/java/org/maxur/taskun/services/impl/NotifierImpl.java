@@ -1,4 +1,4 @@
-package org.maxur.taskun.services.Impl;
+package org.maxur.taskun.services.impl;
 
 import org.maxur.taskun.datasource.DataSourceNotifier;
 import org.springframework.stereotype.Component;

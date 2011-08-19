@@ -1,4 +1,4 @@
-package org.maxur.taskun.services.Impl;
+package org.maxur.taskun.services.impl;
 
 import org.aspectj.lang.Signature;
 import org.maxur.commons.service.ServiceNotifier;

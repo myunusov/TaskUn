@@ -1,7 +1,6 @@
 package org.maxur.taskun.view.model.employee;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.WicketTester;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -11,10 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.domain.employee.Employee;
-import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.pages.StubWebApplication;
-
-import javax.validation.Validator;
 
 /**
  * @author Maxim Yunusov
@@ -26,27 +22,21 @@ public class EmployeeBeanTest {
 
     private JUnit4Mockery context;
 
-    private WicketTester tester;
-
-    private ApplicationController controller;
-
     private EmployeesGroup group;
 
     private EmployeeBean bean;
 
     private Employee employee;
 
+    private StubWebApplication application;
+
     @Before
     public void setUp() throws Exception {
         context = new JUnit4Mockery() {{
             setImposteriser(ClassImposteriser.INSTANCE);
         }};
-        tester = new WicketTester(new StubWebApplication());
-        AnnotApplicationContextMock mockContext =
-                ((StubWebApplication) tester.getApplication()).getMockContext();
-        controller = context.mock(ApplicationController.class);
-        mockContext.putBean("applicationController", controller);
-        mockContext.putBean("validator", context.mock(Validator.class));
+        application = new StubWebApplication(context);
+        new WicketTester(application);
         group = context.mock(EmployeesGroup.class);
         employee = context.mock(Employee.class);
         target = context.mock(AjaxRequestTarget.class);
@@ -55,7 +45,7 @@ public class EmployeeBeanTest {
     @Test
     public void testCreateNew() throws Exception {
         context.checking(new Expectations() {{
-            oneOf(controller).createEmployee();
+            oneOf(application.controller).createEmployee();
         }});
         bean = new EmployeeBean(group);
     }
@@ -228,7 +218,7 @@ public class EmployeeBeanTest {
     public void testDelete() throws Exception {
         bean = new EmployeeBean(group, employee);
         context.checking(new Expectations() {{
-            oneOf(controller).deleteEmployee(employee);
+            oneOf(application.controller).deleteEmployee(employee);
         }});
         bean.delete();
         context.assertIsSatisfied();
@@ -239,7 +229,7 @@ public class EmployeeBeanTest {
         bean = new EmployeeBean(group, employee);
         context.checking(new Expectations() {{
             oneOf(employee).getIdentifier();
-            oneOf(controller).saveEmployee(employee);
+            oneOf(application.controller).saveEmployee(employee);
         }});
         bean.save(target);
         context.assertIsSatisfied();
@@ -251,7 +241,7 @@ public class EmployeeBeanTest {
         context.checking(new Expectations() {{
             oneOf(employee).getIdentifier();
             will(returnValue(null));
-            oneOf(controller).saveEmployee(employee);
+            oneOf(application.controller).saveEmployee(employee);
             oneOf(group).addEmployee(target, bean);
         }});
         bean.save(target);

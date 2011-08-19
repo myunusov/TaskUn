@@ -14,7 +14,7 @@ import org.maxur.commons.domain.Repository;
 import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.domain.employee.AbstractEmployee;
 import org.maxur.taskun.domain.employee.Employee;
-import org.maxur.taskun.services.Impl.ApplicationControllerImpl;
+import org.maxur.taskun.services.impl.ApplicationControllerImpl;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -7,6 +7,8 @@
 
     <import resource="hibernate-config.xml"/>
     <import resource="main-config.xml" />
+    <import resource="advice-config.xml"/>
+    <import resource="security.xml"/>
 
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

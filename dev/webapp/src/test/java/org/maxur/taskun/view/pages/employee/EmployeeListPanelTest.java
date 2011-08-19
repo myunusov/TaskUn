@@ -32,35 +32,35 @@ public class EmployeeListPanelTest extends AbstractPanelTest {
 
     @Test
     public void testEmployeesList() {
-        context.checking(new ControllerExpectationBuilder(controller).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).build());
         super.start();
         tester.assertComponent("panel:employee_list", WebMarkupContainer.class);
     }
 
     @Test
     public void testEmployees() {
-        context.checking(new ControllerExpectationBuilder(controller).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).build());
         super.start();
         tester.assertComponent("panel:employee_list:employees", EmployeeListPanel.EmployeesView.class);
     }
 
     @Test
     public void testInvisibleNavigator() {
-        context.checking(new ControllerExpectationBuilder(controller).count(1).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).count(1).build());
         super.start();
         tester.assertInvisible("panel:employee_list:navigator");
     }
 
     @Test
     public void testNavigator() {
-        context.checking(new ControllerExpectationBuilder(controller).count(100).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).count(100).build());
         super.start();
         tester.assertComponent("panel:employee_list:navigator", HiddenPagingNavigator.class);
     }
 
     @Test
     public void testWicketPanel() throws Exception {
-        context.checking(new ControllerExpectationBuilder(controller).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).build());
         super.start();
         tester.assertNoErrorMessage();
         tester.assertNoInfoMessage();

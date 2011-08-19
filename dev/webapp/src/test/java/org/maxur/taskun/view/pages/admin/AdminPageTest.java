@@ -4,6 +4,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.junit.Test;
 import org.maxur.taskun.services.ControllerExpectationBuilder;
 import org.maxur.taskun.view.pages.AbstractPageTest;
+import org.maxur.taskun.view.pages.home.HomePage;
 
 /**
  * @author Maxim Yunusov
@@ -23,15 +24,23 @@ public class AdminPageTest extends AbstractPageTest {
 
     @Test
     public void testBasePageComponents() {
-        context.checking(new ControllerExpectationBuilder(controller).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).build());
+        application.setRole("ROLE_ADMIN");
         super.start();
         tester.assertComponent("user_panel", UserPanel.class);
         tester.assertComponent("admin_panel", AdminPanel.class);
     }
 
     @Test
+    public void testPageBasicRenderWithoutAdminRole() {
+        super.start();
+        tester.assertRenderedPage(HomePage.class);
+    }
+
+    @Test
     public void testPageBasicRender() {
-        context.checking(new ControllerExpectationBuilder(controller).build());
+        application.setRole("ROLE_ADMIN");
+        context.checking(new ControllerExpectationBuilder(application.controller).build());
         super.start();
         tester.assertRenderedPage(getPageClass());
     }
