@@ -1,12 +1,12 @@
 package org.maxur.commons.advice;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.maxur.commons.service.ServiceNotifier;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.maxur.commons.service.Logger;
+import org.maxur.commons.service.impl.BaseLogger;
 
 /**
 /**
@@ -17,14 +17,19 @@ import org.springframework.stereotype.Component;
  * @since <pre>21.04.11</pre>
  */
 @Aspect
-@Component
 public class TraceAdvice {
 
     /**
-     * The ServiceNotifier.
+     * Aspect's ID
      */
-    @Autowired
-    private ServiceNotifier notifier;
+    private static final String TRACE = "trace";
+
+    /**
+     * The BaseLogger.
+     */
+    private Logger logger = BaseLogger.instance();
+
+
     /**
      * The Pointcut for tracing methods.
      */
@@ -41,14 +46,25 @@ public class TraceAdvice {
      */
     @Around("tracePointcut()")
     public Object traceAdvice(final ProceedingJoinPoint pjp) throws Throwable {
-        Object retVal;
+        final Object retVal;
+        final Signature signature = pjp.getSignature();
         try {
-            notifier.notifyEnter(pjp.getSignature());
+            notifyEnter(signature);
             retVal = pjp.proceed();
         } finally {
-            notifier.notifyExit(pjp.getSignature());
+            notifyExit(signature);
         }
         return retVal;
       }
+
+    public final void notifyEnter(final Signature signature) {
+        logger.debug(TRACE, signature.toShortString() + " ENTER");
+    }
+
+    public final void notifyExit(final Signature signature) {
+        logger.debug(TRACE, signature.toShortString() + " EXIT");
+    }
+
+
 }
 

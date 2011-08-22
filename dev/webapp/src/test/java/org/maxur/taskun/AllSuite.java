@@ -8,13 +8,14 @@ package org.maxur.taskun;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.maxur.commons.domain.CommonsDomainSuite;
+import org.maxur.commons.AllCommonsSuite;
+import org.maxur.taskun.it.AllITSuite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         AllITSuite.class,
-        AllUnitSuite.class,
-        CommonsDomainSuite.class
+        AllTaskunSuite.class,
+        AllCommonsSuite.class
 })
 public class AllSuite {
 }

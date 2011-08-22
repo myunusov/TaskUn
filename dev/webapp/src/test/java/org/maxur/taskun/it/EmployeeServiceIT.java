@@ -19,7 +19,6 @@ import java.util.Collection;
  * @version 1.0
  * @since <pre>04.07.11</pre>
  */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/spring/applicationContext-test.xml"})
 public class EmployeeServiceIT {

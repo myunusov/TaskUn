@@ -6,10 +6,11 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
-import org.maxur.commons.domain.EntityRepository;
-import org.maxur.commons.domain.Entity;
 import org.maxur.commons.annotation.Benchmark;
+import org.maxur.commons.domain.Entity;
+import org.maxur.commons.domain.EntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateAccessor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -46,7 +47,10 @@ public class EntityRepositoryImpl extends RepositoryImpl implements EntityReposi
         }
         criteria.setProjection(Projections.rowCount());
 
+        final int flushMode = getHibernateTemplate().getFlushMode();
+        getHibernateTemplate().setFlushMode(HibernateAccessor.FLUSH_NEVER);  //prevent Stack Overflow
         final List results = getHibernateTemplate().findByCriteria(criteria);
+        getHibernateTemplate().setFlushMode(flushMode);
         assert(1 == results.size()) : "SELECT COUNT(*) has return more (less) than at one record";
         final Number count = (Number) results.iterator().next();
         return count.intValue() != 0;

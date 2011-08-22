@@ -19,5 +19,5 @@ import org.maxur.taskun.view.ViewSuite;
         ServicesSuite.class,
         ViewSuite.class
 })
-public class AllUnitSuite {
+public class AllTaskunSuite {
 }

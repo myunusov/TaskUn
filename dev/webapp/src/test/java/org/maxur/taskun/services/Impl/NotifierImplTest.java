@@ -3,8 +3,8 @@ package org.maxur.taskun.services.Impl;
 import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
+import org.maxur.commons.service.Logger;
 import org.maxur.taskun.AbstractMockTest;
-import org.slf4j.Logger;
 
 /**
  * @author Maxim Yunusov
@@ -13,21 +13,21 @@ import org.slf4j.Logger;
 public class NotifierImplTest extends AbstractMockTest {
 
     private NotifierImpl notifier;
+
     private Logger logger;
 
     @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        notifier = new NotifierImpl();
         logger = context.mock(Logger.class);
-        notifier.addLogger(NotifierImplTest.class.getName(), logger);
+        notifier = new NotifierImpl(logger);
     }
 
     @Test
     public void testNotifyEmployeeCreate() throws Exception {
         context.checking(new Expectations() {{
-            exactly(1).of(logger).debug(with(any(String.class)));
+            exactly(1).of(logger).debug(with(any(Class.class)), with(any(String.class)));
         }});
         notifier.notifyEmployeeCreate(NotifierImplTest.class);
         context.assertIsSatisfied();

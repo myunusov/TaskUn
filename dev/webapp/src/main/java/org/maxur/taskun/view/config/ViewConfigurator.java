@@ -4,18 +4,16 @@ import org.apache.wicket.markup.html.WebPage;
 import org.maxur.taskun.view.WicketSessionLocaleMessageInterpolator;
 import org.maxur.taskun.view.model.MenuItems;
 import org.maxur.taskun.view.pages.ExamplePage;
-import org.maxur.taskun.view.pages.home.HomePage;
 import org.maxur.taskun.view.pages.admin.AdminPage;
 import org.maxur.taskun.view.pages.archive.ArchivePage;
 import org.maxur.taskun.view.pages.employee.EmployeePage;
+import org.maxur.taskun.view.pages.home.HomePage;
 import org.maxur.taskun.view.pages.self.SelfPage;
 import org.maxur.taskun.view.pages.task.TaskPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.validation.MessageInterpolator;
-import javax.validation.Validator;
 
 /**
  * Spring configuration for Web Application.
@@ -52,15 +50,6 @@ public class ViewConfigurator {
         result.add("menu.item.self",     SelfPage.class);
         result.add("menu.item.example",  ExamplePage.class);
         return result;
-    }
-
-    @Bean
-    public Validator validator() {
-/*        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        return factory.getValidator();*/
-        final LocalValidatorFactoryBean validatorFactoryBean = new LocalValidatorFactoryBean();
-        validatorFactoryBean.setMessageInterpolator(new WicketSessionLocaleMessageInterpolator());
-        return validatorFactoryBean;
     }
 
     @Bean

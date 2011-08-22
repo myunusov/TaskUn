@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -70,7 +71,7 @@ public class ApplicationControllerImpl implements ApplicationController {
     @Override
     @Trace
     @Transactional(readOnly = false)
-    public final void saveEmployee(final Employee employee) {
+    public final void saveEmployee(@Valid final Employee employee) {
         employeeRepository.save(employee);
     }
 

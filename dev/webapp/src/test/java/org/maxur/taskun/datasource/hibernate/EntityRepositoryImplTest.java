@@ -9,6 +9,7 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.orm.hibernate3.HibernateAccessor;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import java.util.Collections;
@@ -45,7 +46,9 @@ public class EntityRepositoryImplTest {
     @Test
     public void testIsExist() throws Exception {
         context.checking(new Expectations() {{
-            oneOf(sessionFactory).getClassMetadata(with(Expectations.<Class>anything()));
+            ignoring(sessionFactory);
+            allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
+            allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
             will(returnValue(Collections.nCopies(1, new Integer(0))));
         }});
@@ -56,7 +59,9 @@ public class EntityRepositoryImplTest {
     @Test
     public void testIsExistWithInvalidFields() throws Exception {
         context.checking(new Expectations() {{
-            oneOf(sessionFactory).getClassMetadata(with(Expectations.<Class>anything()));
+            ignoring(sessionFactory);
+            allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
+            allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
             will(returnValue(Collections.nCopies(1, new Integer(0))));
         }});
@@ -67,7 +72,9 @@ public class EntityRepositoryImplTest {
     @Test
     public void testIsExistIfNotExist() throws Exception {
         context.checking(new Expectations() {{
-            oneOf(sessionFactory).getClassMetadata(with(Expectations.<Class>anything()));
+            ignoring(sessionFactory);
+            allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
+            allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
             will(returnValue(Collections.nCopies(1, new Integer(0))));
         }});
@@ -79,7 +86,9 @@ public class EntityRepositoryImplTest {
     @Test
     public void testIsExistIfExist() throws Exception {
         context.checking(new Expectations() {{
-            oneOf(sessionFactory).getClassMetadata(with(Expectations.<Class>anything()));
+            ignoring(sessionFactory);
+            allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
+            allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
             will(returnValue(Collections.nCopies(1, new Integer(1))));
         }});
@@ -91,7 +100,9 @@ public class EntityRepositoryImplTest {
     @Test(expected = AssertionError.class)
     public void testIsExistIfCountIsZero() throws Exception {
         context.checking(new Expectations() {{
-            oneOf(sessionFactory).getClassMetadata(with(Expectations.<Class>anything()));
+            ignoring(sessionFactory);
+            allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
+            allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
             will(returnValue(Collections.nCopies(0, new Integer(1))));
         }});
@@ -101,7 +112,9 @@ public class EntityRepositoryImplTest {
     @Test(expected = AssertionError.class)
     public void testIsExistIfCountMoreThan1() throws Exception {
         context.checking(new Expectations() {{
-            oneOf(sessionFactory).getClassMetadata(with(Expectations.<Class>anything()));
+            ignoring(sessionFactory);
+            allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
+            allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
             will(returnValue(Collections.nCopies(0, new Integer(2))));
         }});
@@ -112,7 +125,9 @@ public class EntityRepositoryImplTest {
     @Test
     public void testIsExistIfNotNew() throws Exception {
         context.checking(new Expectations() {{
-            oneOf(sessionFactory).getClassMetadata(with(Expectations.<Class>anything()));
+            ignoring(sessionFactory);
+            allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
+            allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
             will(returnValue(Collections.nCopies(1, new Integer(1))));
         }});

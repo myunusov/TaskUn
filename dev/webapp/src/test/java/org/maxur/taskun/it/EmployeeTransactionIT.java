@@ -1,7 +1,6 @@
 package org.maxur.taskun.it;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,6 +18,7 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import javax.annotation.Nullable;
+import javax.validation.ConstraintViolationException;
 import java.util.Collection;
 
 /**

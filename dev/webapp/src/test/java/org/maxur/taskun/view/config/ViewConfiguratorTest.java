@@ -13,7 +13,6 @@ import org.maxur.taskun.view.pages.self.SelfPage;
 import org.maxur.taskun.view.pages.task.TaskPage;
 
 import javax.validation.MessageInterpolator;
-import javax.validation.Validator;
 
 /**
  * @author Maxim Yunusov
@@ -52,11 +51,6 @@ public class ViewConfiguratorTest {
         Assert.assertEquals(SelfPage.class, items.get(5).getTargetPage());
     }
 
-    @Test
-    public void testValidator() throws Exception {
-        final Validator validator = viewConfigurator.validator();
-        Assert.assertNotNull(validator);
-    }
 
     @Test
     public void testMessageInterpolator() throws Exception {

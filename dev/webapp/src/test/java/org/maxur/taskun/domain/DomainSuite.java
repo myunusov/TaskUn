@@ -12,7 +12,6 @@ import org.maxur.taskun.domain.validators.ValidatorsSuite;
  */
 @RunWith(Suite.class)@Suite.SuiteClasses({
         AbstractEmployeeTest.class,
-        AllSpecificationTest.class,
         ValidatorsSuite.class
 })
 public class DomainSuite {

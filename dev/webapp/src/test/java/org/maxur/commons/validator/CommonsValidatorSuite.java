@@ -1,4 +1,4 @@
-package org.maxur.commons.domain;
+package org.maxur.commons.validator;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -9,8 +9,7 @@ import org.junit.runners.Suite;
  * @since <pre>08.07.11</pre>
  */
 @RunWith(Suite.class)@Suite.SuiteClasses({
-        AllSpecificationTest.class,
-        AbstractEntityTest.class
+        UniqueValidatorTest.class
 })
-public class CommonsDomainSuite {
+public class CommonsValidatorSuite {
 }

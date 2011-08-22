@@ -1,9 +1,7 @@
-package org.maxur.taskun;
+package org.maxur.taskun.it;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.maxur.taskun.it.EmployeeServiceIT;
-import org.maxur.taskun.it.EmployeeTransactionIT;
 
 /**
  * @author Maxim Yunusov
@@ -12,7 +10,9 @@ import org.maxur.taskun.it.EmployeeTransactionIT;
  */
 @RunWith(Suite.class)@Suite.SuiteClasses({
         EmployeeServiceIT.class,
-        EmployeeTransactionIT.class
+        EmployeeTransactionIT.class,
+        AbstractEmployeeWithValidatorsIT.class,
+        ValidatorIT.class
 })
 public class AllITSuite {
 }

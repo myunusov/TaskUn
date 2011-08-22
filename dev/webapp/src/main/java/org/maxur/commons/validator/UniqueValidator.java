@@ -1,8 +1,8 @@
-package org.maxur.commons.validators;
+package org.maxur.commons.validator;
 
+import org.maxur.commons.annotation.Unique;
 import org.maxur.commons.domain.Entity;
 import org.maxur.commons.domain.EntityRepository;
-import org.maxur.commons.annotation.Unique;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -20,8 +20,6 @@ public class UniqueValidator implements ConstraintValidator<Unique, Entity> {
     /*
      * @see org.maxur.commons.domain.Repository
      */
-    @Autowired()
-    @Qualifier(value = "entityRepository")
     private EntityRepository repository;
 
     public void initialize(final Unique annotation) {
@@ -30,6 +28,13 @@ public class UniqueValidator implements ConstraintValidator<Unique, Entity> {
 
     @Override
     public boolean isValid(final Entity value, final ConstraintValidatorContext context) {
-        return null == repository  || !repository.isExist(value, fields);
+        assert(null != repository) : "The EntityRepository is not be injected in UniqueValidator class";
+        return !repository.isExist(value, fields);
+    }
+
+    @Autowired()
+    @Qualifier(value = "entityRepository")
+    public void setRepository(final EntityRepository repository) {
+        this.repository = repository;
     }
 }
