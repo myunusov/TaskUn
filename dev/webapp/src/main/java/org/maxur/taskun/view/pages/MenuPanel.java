@@ -122,8 +122,9 @@ public class MenuPanel extends Panel {
              */
             public void onClick() {
                 MenuItem item = getModelObject();
-                setResponsePage(item.getTargetPage());
                 item.setActive(true);
+                setResponsePage(item.getTargetPage());
+
             }
         }
     }

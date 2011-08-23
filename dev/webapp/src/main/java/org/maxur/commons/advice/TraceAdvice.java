@@ -5,8 +5,6 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.maxur.commons.service.Logger;
-import org.maxur.commons.service.impl.BaseLogger;
 
 /**
 /**
@@ -17,17 +15,12 @@ import org.maxur.commons.service.impl.BaseLogger;
  * @since <pre>21.04.11</pre>
  */
 @Aspect
-public class TraceAdvice {
+public class TraceAdvice extends AbstractLoggerAdvice {
 
     /**
      * Aspect's ID
      */
     private static final String TRACE = "trace";
-
-    /**
-     * The BaseLogger.
-     */
-    private Logger logger = BaseLogger.instance();
 
 
     /**
@@ -57,12 +50,14 @@ public class TraceAdvice {
         return retVal;
       }
 
-    public final void notifyEnter(final Signature signature) {
-        logger.debug(TRACE, signature.toShortString() + " ENTER");
+
+    public void notifyEnter(final Signature signature) {
+        makeLogger().debug(TRACE, signature.toShortString() + " ENTER");
     }
 
-    public final void notifyExit(final Signature signature) {
-        logger.debug(TRACE, signature.toShortString() + " EXIT");
+
+    public void notifyExit(final Signature signature) {
+        makeLogger().debug(TRACE, signature.toShortString() + " EXIT");
     }
 
 

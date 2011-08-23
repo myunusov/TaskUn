@@ -9,11 +9,11 @@ package org.maxur.taskun;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.maxur.commons.AllCommonsSuite;
-import org.maxur.taskun.it.AllITSuite;
+import org.maxur.taskun.it.AllTaskunITSuite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        AllITSuite.class,
+        AllTaskunITSuite.class,
         AllTaskunSuite.class,
         AllCommonsSuite.class
 })

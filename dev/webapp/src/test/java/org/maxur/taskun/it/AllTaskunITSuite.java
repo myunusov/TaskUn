@@ -14,5 +14,5 @@ import org.junit.runners.Suite;
         AbstractEmployeeWithValidatorsIT.class,
         ValidatorIT.class
 })
-public class AllITSuite {
+public class AllTaskunITSuite {
 }

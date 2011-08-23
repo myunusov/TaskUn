@@ -5,8 +5,6 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.maxur.commons.service.Logger;
-import org.maxur.commons.service.impl.BaseLogger;
 import org.springframework.util.StopWatch;
 
 /**
@@ -17,17 +15,13 @@ import org.springframework.util.StopWatch;
  * @since <pre>21.04.11</pre>
  */
 @Aspect
-public class BenchmarkAdvice {
+public class BenchmarkAdvice extends AbstractLoggerAdvice {
 
     /**
      * Aspect's ID
      */
     private static final String BENCHMARK = "benchmark";
 
-    /**
-     * The BaseLogger.
-     */
-    private Logger logger = BaseLogger.instance();
 
     /**
      * The Pointcut for benchmarking methods.
@@ -58,7 +52,7 @@ public class BenchmarkAdvice {
       }
 
     public final void notifyBenchmark(final Signature signature, final StopWatch stopWatch) {
-        logger.info(BENCHMARK, signature.toShortString() + ", " + stopWatch.toString());
+        makeLogger().info(BENCHMARK, signature.toLongString() + "," + stopWatch.getTotalTimeMillis());
     }
 
 }

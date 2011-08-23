@@ -1,5 +1,6 @@
 package org.maxur.taskun.view.pages.employee;
 
+import org.maxur.commons.annotation.Benchmark;
 import org.maxur.taskun.view.commands.EmployeeRemoveCommand;
 import org.maxur.taskun.view.commands.EmployeeSelectCommand;
 import org.maxur.taskun.view.commands.EmployeeSubmitCommand;
@@ -27,6 +28,11 @@ public class EmployeePage extends BasePage {
      */
     public EmployeePage() {
         super();
+        createPage();
+    }
+
+    @Benchmark
+    private void createPage() {
         final EmployeesGroup group = new EmployeesGroup();
 
         final EmployeeWindow employeeWindow = new EmployeeWindow("employee_window", getCommands());

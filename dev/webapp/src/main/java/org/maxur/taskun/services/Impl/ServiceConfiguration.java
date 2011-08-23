@@ -13,7 +13,7 @@ import javax.validation.Validator;
  * @version 1.0 8/21/11
  */
 @Configuration
-public class ApplicationConfiguration {
+public class ServiceConfiguration {
 
     /**
      * The Base Application logger.
