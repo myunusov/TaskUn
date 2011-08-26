@@ -20,8 +20,8 @@ public class NotifierImpl implements DataSourceNotifier {
     }
 
     @Override
-    public void notifyEmployeeCreate(final Class<?> source) {
-        logger.debug(source, "New Employee was created.");
+    public void notifyEmployeeCreate(final Class<?> source, final String valueAsString) {
+        logger.debug(source, String.format("New Employee (%s) was created.", valueAsString));
     }
 
 }

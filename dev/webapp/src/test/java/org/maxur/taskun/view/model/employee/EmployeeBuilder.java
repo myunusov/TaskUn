@@ -1,7 +1,7 @@
 package org.maxur.taskun.view.model.employee;
 
 import org.maxur.taskun.domain.Gender;
-import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.BaseEmployee;
 import org.maxur.taskun.domain.employee.Employee;
 
 public class EmployeeBuilder {
@@ -10,7 +10,7 @@ public class EmployeeBuilder {
 
 
     public Employee build() {
-        final AbstractEmployee employee = new AbstractEmployee() {
+        final BaseEmployee employee = new BaseEmployee(null) {
             private static final long serialVersionUID = 3908424889025108375L;
         };
         employee.setGender(gender);

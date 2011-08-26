@@ -97,6 +97,6 @@ public class UserBean extends Bean implements User {
 
     @Override
     public String getIdentifier() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 }

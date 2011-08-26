@@ -1,4 +1,4 @@
-package org.maxur.taskun.datasource.hibernate;
+package org.maxur.taskun.datasource.hibernate.employee;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.commons.domain.AllSpecification;
 import org.maxur.commons.domain.Specification;
-import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.BaseEmployee;
 import org.maxur.taskun.domain.employee.Employee;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -30,25 +30,33 @@ public class EmployeeRepositoryImplTest {
 
     private Mockery context;
 
-    static private Employee dummy = new AbstractEmployee() {
+    static private Employee dummy = new BaseEmployee("") {
         private static final long serialVersionUID = -3552630573530150686L;
     };
+
+    private HibernateTemplate template;
+
+    private EmployeeRepositoryImpl repository;
 
     @Before
     public void setUp() throws Exception {
         context = new JUnit4Mockery() {{
         setImposteriser(ClassImposteriser.INSTANCE);
         }};
-
+        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
+        template = context.mock(HibernateTemplate.class);
+        repository = new EmployeeRepositoryImpl(sessionFactory) {
+            @Override
+            protected void setHibernateTemplate(final HibernateTemplate t) {
+                super.setHibernateTemplate(template);
+            }
+        };
     }
 
     @Test
     public void testSave() throws Exception {
+
         final Session session = context.mock(Session.class);
-        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
-        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
-        final HibernateTemplate template = context.mock(HibernateTemplate.class);
-        repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
             oneOf(template).saveOrUpdate(dummy);
             ignoring(session);
@@ -59,12 +67,8 @@ public class EmployeeRepositoryImplTest {
 
     @Test
     public void testGetAll() throws Exception {
-        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
-        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
-        final HibernateTemplate template = context.mock(HibernateTemplate.class);
-        repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
-            oneOf(template).find("from org.maxur.taskun.datasource.hibernate.EmployeeImpl");
+            oneOf(template).find("from org.maxur.taskun.datasource.hibernate.employee.EmployeeImpl");
         }});
         repository.getAll();
         context.assertIsSatisfied();
@@ -72,12 +76,8 @@ public class EmployeeRepositoryImplTest {
 
     @Test
     public void testGetAllByAllSpecification() throws Exception {
-        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
-        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
-        final HibernateTemplate template = context.mock(HibernateTemplate.class);
-        repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
-            oneOf(template).find("from org.maxur.taskun.datasource.hibernate.EmployeeImpl");
+            oneOf(template).find("from org.maxur.taskun.datasource.hibernate.employee.EmployeeImpl");
             will(returnValue((Object) Collections.nCopies(5, dummy)));
         }});
         final List<Employee> all = repository.getAll(new AllSpecification<Employee>());
@@ -87,12 +87,8 @@ public class EmployeeRepositoryImplTest {
 
     @Test
     public void testGetAllByNoneSpecification() throws Exception {
-        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
-        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
-        final HibernateTemplate template = context.mock(HibernateTemplate.class);
-        repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
-            oneOf(template).find("from org.maxur.taskun.datasource.hibernate.EmployeeImpl");
+            oneOf(template).find("from org.maxur.taskun.datasource.hibernate.employee.EmployeeImpl");
             will(returnValue((Object) Collections.nCopies(5, dummy)));
         }});
         final List<Employee> all = repository.getAll(new Specification<Employee>() {
@@ -108,10 +104,6 @@ public class EmployeeRepositoryImplTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void testGetAllCheckUnmodifiableResult() throws Exception {
-        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
-        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
-        final HibernateTemplate template = context.mock(HibernateTemplate.class);
-        repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
             oneOf(template).find(with(any(String.class)));
             will(returnValue(Collections.nCopies(3, dummy)));
@@ -122,10 +114,6 @@ public class EmployeeRepositoryImplTest {
 
     @Test
     public void testGet() throws Exception {
-        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
-        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
-        final HibernateTemplate template = context.mock(HibernateTemplate.class);
-        repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
             oneOf(template).get(EmployeeImpl.class, "1");
             will(returnValue(dummy));
@@ -137,10 +125,6 @@ public class EmployeeRepositoryImplTest {
 
     @Test
     public void testDelete() throws Exception {
-        final SessionFactory sessionFactory = context.mock(SessionFactory.class);
-        EmployeeRepositoryImpl repository = new EmployeeRepositoryImpl(sessionFactory);
-        final HibernateTemplate template = context.mock(HibernateTemplate.class);
-        repository.setHibernateTemplate(template);
         context.checking(new Expectations() {{
             oneOf(template).delete(dummy);
         }});

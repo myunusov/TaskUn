@@ -13,17 +13,23 @@ import static org.junit.Assert.assertTrue;
  * @author Maxim Yunusov
  * @version 1.0 7/3/11
  */
-public class AbstractEmployeeTest {
+public class BaseEmployeeTest {
 
-    private EmployeeBuilder builder;
+    protected EmployeeBuilder builder;
 
     @Before
     public void setUp() throws Exception {
-        builder = new EmployeeBuilder();
+        builder = new EmployeeBuilder() {
+            @Override
+            protected Employee make() {
+                return new BaseEmployee("") {
+                };
+            }
+        };
     }
 
-    @Test
-    public void shouldBeCreatedWithoutParameters() throws Exception {
+    @Test(expected = AssertionError.class)
+    public void shouldBeRaiseExceptionWithoutParameters() throws Exception {
         //Act
         final Employee employee = builder.build();
         //Assert
@@ -34,6 +40,8 @@ public class AbstractEmployeeTest {
     public void shouldBeSetEmptyMiddleNameOnNull() throws Exception {
         //Act
         final Employee employee = builder
+                .withFirstName("Иван")
+                .withLastName("Иванов")
                 .withMiddleName(null)
                 .build();
         //Assert
@@ -92,7 +100,10 @@ public class AbstractEmployeeTest {
     @Test
     public void shouldBeEqualsToSelf() throws Exception {
         //Arrange
-        final Employee employee = builder.build();
+        final Employee employee = builder
+                .withFirstName("Иван")
+                .withLastName("Иванов")
+                .build();
         //Act
         assertTrue(employee.equals(employee));
     }
@@ -145,9 +156,12 @@ public class AbstractEmployeeTest {
     }
 
     @Test
-    public void shouldBeReturnEmployeeAssString() throws Exception {
+    public void shouldBeReturnEmployeeAsString() throws Exception {
         //Arrange
-        final Employee employee = builder.build();
+        final Employee employee = builder
+                .withFirstName("Иван")
+                .withLastName("Иванов")
+                .build();
         //Act
         final String s = employee.toString();
         //Assert

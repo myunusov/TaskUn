@@ -12,6 +12,7 @@ import org.junit.runners.Suite;
         EmployeeServiceIT.class,
         EmployeeTransactionIT.class,
         AbstractEmployeeWithValidatorsIT.class,
+        EmployeeBuilderWithValidatorsIT.class,
         ValidatorIT.class
 })
 public class AllTaskunITSuite {

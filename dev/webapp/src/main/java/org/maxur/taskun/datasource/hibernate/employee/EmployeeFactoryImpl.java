@@ -1,4 +1,4 @@
-package org.maxur.taskun.datasource.hibernate;
+package org.maxur.taskun.datasource.hibernate.employee;
 
 import org.maxur.taskun.datasource.DataSourceNotifier;
 import org.maxur.commons.domain.Factory;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 /**
  * The employee factory implementation (for hibernate data source).
- * @see org.maxur.commons.domain.Factory
  *
  * @author Maxim Yunusov
  * @version 1.0 7/3/11
+ * @see org.maxur.commons.domain.Factory
  */
 @Service
 public class EmployeeFactoryImpl implements Factory<Employee> {
@@ -24,6 +24,7 @@ public class EmployeeFactoryImpl implements Factory<Employee> {
 
     /**
      * Sets the notifier.
+     *
      * @param notifier The Notifier.
      */
     @Autowired
@@ -32,14 +33,13 @@ public class EmployeeFactoryImpl implements Factory<Employee> {
     }
 
     /**
-     * @see org.maxur.commons.domain.Factory#create()
-     *
      * @return The Employee implementation.
-     *
+     * @see org.maxur.commons.domain.Factory#create()
      */
     @Override
     public final Employee create() {
-        notifier.notifyEmployeeCreate(this.getClass());
-        return new EmployeeImpl();
+        final EmployeeImpl employee = new EmployeeImpl();
+        notifier.notifyEmployeeCreate(this.getClass(), employee.toString());
+        return employee;
     }
 }

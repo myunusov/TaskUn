@@ -4,12 +4,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.commons.domain.Factory;
+import org.maxur.taskun.datasource.hibernate.employee.EmployeeBuilderImpl;
 import org.maxur.taskun.domain.employee.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -23,11 +22,14 @@ import java.util.Set;
 @ContextConfiguration(locations = {"/spring/applicationContext-test.xml"})
 public class AbstractEmployeeWithValidatorsIT {
 
+    private static final String STRING50 = "STRING50";
+    private static final String STRING51 = "123456789012345678901234567890123456789012345678901";
+
     @Autowired
     private Validator validator;
 
     @Autowired
-    private Factory<Employee> factory;
+    private EmployeeBuilderImpl builder;
 
     @Before
     public void setUp() throws Exception {
@@ -38,11 +40,11 @@ public class AbstractEmployeeWithValidatorsIT {
     @Test
     public void testValidEmployee() throws Exception {
         //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setFirstName("Иван");
-        employee.setLastName("Иванов");
-        employee.setMiddleName("Иванович");
+        final Employee employee = builder
+                .withFirstName("Иван")
+                .withLastName("Иванов")
+                .withMiddleName("Иванович")
+                .build();
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
@@ -51,44 +53,22 @@ public class AbstractEmployeeWithValidatorsIT {
     @Test
     public void testValidEmployeeWithoutMiddleName() throws Exception {
         //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setFirstName("Иван");
-        employee.setLastName("Иванов");
+        final Employee employee = builder
+                .withFirstName("Иван")
+                .withLastName("Иванов")
+                .build();
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
     }
 
     @Test
-    public void testInvalidEmployeeWithoutFirstName() throws Exception {
-        //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setLastName("Иванов");
-        //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
-        Assert.assertEquals("Invalid employee is validated", 2, constraintViolations.size());
-    }
-
-    @Test
-    public void testInvalidEmployeeWithoutLastName() throws Exception {
-        //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setFirstName("Иван");
-        //Assert
-        final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
-        Assert.assertEquals("Invalid employee is validated", 2, constraintViolations.size());
-    }
-
-    @Test
     public void testValidEmployeeWithLongFirstName() throws Exception {
         //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setFirstName("12345678901234567890123456789012345678901234567890");
-        employee.setLastName("Иванов");
+        final Employee employee = builder
+                .withFirstName("STRING50")
+                .withLastName("Иванов")
+                .build();
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
@@ -97,10 +77,10 @@ public class AbstractEmployeeWithValidatorsIT {
     @Test
     public void testInvalidEmployeeWithLongFirstName() throws Exception {
         //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setFirstName("123456789012345678901234567890123456789012345678901");
-        employee.setLastName("Иванов");
+        final Employee employee = builder
+                .withFirstName(STRING51)
+                .withLastName("Иванов")
+                .build();
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Invalid employee is validated", 1, constraintViolations.size());
@@ -109,10 +89,10 @@ public class AbstractEmployeeWithValidatorsIT {
     @Test
     public void testValidEmployeeWithLongLastName() throws Exception {
         //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setFirstName("Иван");
-        employee.setLastName("12345678901234567890123456789012345678901234567890");
+        final Employee employee = builder
+                .withFirstName("Иван")
+                .withLastName("STRING50")
+                .build();
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
@@ -121,10 +101,10 @@ public class AbstractEmployeeWithValidatorsIT {
     @Test
     public void testInvalidEmployeeWithLongLastName() throws Exception {
         //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setFirstName("Иван");
-        employee.setLastName("123456789012345678901234567890123456789012345678901");
+        final Employee employee = builder
+                .withFirstName("Иван")
+                .withLastName(STRING51)
+                .build();
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Invalid employee is validated", 1, constraintViolations.size());
@@ -133,11 +113,11 @@ public class AbstractEmployeeWithValidatorsIT {
     @Test
     public void testValidEmployeeWithLongMiddleName() throws Exception {
         //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setFirstName("Иван");
-        employee.setLastName("Иванов");
-        employee.setMiddleName("12345678901234567890123456789012345678901234567890");
+        final Employee employee = builder
+                .withFirstName("Иван")
+                .withLastName("Иванов")
+                .withMiddleName(STRING50)
+                .build();
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
@@ -146,11 +126,11 @@ public class AbstractEmployeeWithValidatorsIT {
     @Test
     public void testNullEmployeeWithLongMiddleName() throws Exception {
         //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setFirstName("Иван");
-        employee.setLastName("Иванов");
-        employee.setMiddleName(null);
+        final Employee employee = builder
+                .withFirstName("Иван")
+                .withLastName("Иванов")
+                .withMiddleName(null)
+                .build();
         //Assert
         Assert.assertEquals("", employee.getMiddleName());
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
@@ -160,11 +140,11 @@ public class AbstractEmployeeWithValidatorsIT {
     @Test
     public void testInvalidEmployeeWithLongMiddleName() throws Exception {
         //Arrange
-        final Employee employee = factory.create();
-        //Act
-        employee.setFirstName("Иван");
-        employee.setLastName("Иванов");
-        employee.setMiddleName("123456789012345678901234567890123456789012345678901");
+        final Employee employee = builder
+                .withFirstName("Иван")
+                .withLastName("Иванов")
+                .withMiddleName(STRING51)
+                .build();
         //Assert
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Invalid employee is validated", 1, constraintViolations.size());

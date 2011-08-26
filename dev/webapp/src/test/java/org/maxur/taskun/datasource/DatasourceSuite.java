@@ -2,9 +2,10 @@ package org.maxur.taskun.datasource;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.maxur.taskun.datasource.hibernate.EmployeeImplTest;
-import org.maxur.taskun.datasource.hibernate.EmployeeRepositoryImplTest;
 import org.maxur.taskun.datasource.hibernate.EntityRepositoryImplTest;
+import org.maxur.taskun.datasource.hibernate.employee.EmployeeBuilderImplTest;
+import org.maxur.taskun.datasource.hibernate.employee.EmployeeImplTest;
+import org.maxur.taskun.datasource.hibernate.employee.EmployeeRepositoryImplTest;
 
 /**
  * @author Maxim Yunusov
@@ -15,7 +16,8 @@ import org.maxur.taskun.datasource.hibernate.EntityRepositoryImplTest;
 @Suite.SuiteClasses({
         EmployeeRepositoryImplTest.class,
         EmployeeImplTest.class,
-        EntityRepositoryImplTest.class
+        EntityRepositoryImplTest.class,
+        EmployeeBuilderImplTest.class
 })
 public class DatasourceSuite {
 }

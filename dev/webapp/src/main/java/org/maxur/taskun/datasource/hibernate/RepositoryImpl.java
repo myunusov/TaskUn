@@ -28,7 +28,7 @@ public class RepositoryImpl {
      *
      * @param template The SessionFactory
      */
-    protected final void setHibernateTemplate(final HibernateTemplate template) {
+    protected void setHibernateTemplate(final HibernateTemplate template) {
         this.hibernateTemplate = template;
     }
 

@@ -29,7 +29,7 @@ public class NotifierImplTest extends AbstractMockTest {
         context.checking(new Expectations() {{
             exactly(1).of(logger).debug(with(any(Class.class)), with(any(String.class)));
         }});
-        notifier.notifyEmployeeCreate(NotifierImplTest.class);
+        notifier.notifyEmployeeCreate(NotifierImplTest.class, "A");
         context.assertIsSatisfied();
     }
 

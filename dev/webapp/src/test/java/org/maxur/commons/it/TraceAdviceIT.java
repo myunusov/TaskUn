@@ -1,11 +1,10 @@
 package org.maxur.commons.it;
 
-import org.junit.AfterClass;
+import org.aspectj.lang.Aspects;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxur.commons.service.Logger;
+import org.maxur.commons.advice.TraceAdvice;
 import org.maxur.commons.service.impl.BaseLogger;
 import org.mockito.InOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,51 +26,43 @@ public class TraceAdviceIT {
     @Autowired
     private Starter starter;
 
-    private static Logger oldLogger;
-
     private InOrder order;
 
-    @BeforeClass
-    public static void setUpAll() throws Exception {
-        oldLogger = BaseLogger.instance();
-        BaseLogger.setInstance(mock(BaseLogger.class));
-    }
-
-    @AfterClass
-    public static void tearDownAll() throws Exception {
-        BaseLogger.setInstance(oldLogger);
-    }
+    private BaseLogger logger;
 
     @Before
     public void setUp() throws Exception {
-        order = inOrder(BaseLogger.instance());
+        logger = mock(BaseLogger.class);
+        final TraceAdvice traceAdvice = Aspects.aspectOf(TraceAdvice.class);
+        traceAdvice.setLogger(logger);
+        order = inOrder(logger);
     }
 
     @Test
     public void shouldBeLogDebugMessageOnTraceMethod() throws Exception {
         starter.doTrace();
-        order.verify(BaseLogger.instance()).debug("trace", "Fake.trace() ENTER");
-        order.verify(BaseLogger.instance()).debug("trace", "Fake.trace() EXIT");
+        order.verify(logger).debug("trace", "Fake.trace() ENTER");
+        order.verify(logger).debug("trace", "Fake.trace() EXIT");
     }
 
     @Test
     public void shouldBeLogDebugMessageOnTraceMethodWithReturnValue() throws Exception {
         starter.doTraceWithReturn();
-        order.verify(BaseLogger.instance()).debug("trace", "Fake.traceWithReturn() ENTER");
-        order.verify(BaseLogger.instance()).debug("trace", "Fake.traceWithReturn() EXIT");
+        order.verify(logger).debug("trace", "Fake.traceWithReturn() ENTER");
+        order.verify(logger).debug("trace", "Fake.traceWithReturn() EXIT");
     }
 
     @Test
     public void shouldBeLogDebugMessageOnTraceMethodWithArguments() throws Exception {
         starter.doTraceWithArguments();
-        order.verify(BaseLogger.instance()).debug("trace", "Fake.traceWithArguments(..) ENTER");
-        order.verify(BaseLogger.instance()).debug("trace", "Fake.traceWithArguments(..) EXIT");
+        order.verify(logger).debug("trace", "Fake.traceWithArguments(..) ENTER");
+        order.verify(logger).debug("trace", "Fake.traceWithArguments(..) EXIT");
     }
 
     @Test
     public void shouldBeNoInteractionOnDirectCall() throws Exception {
         starter.doDirectTrace();
-        verifyNoMoreInteractions(BaseLogger.instance());
+        verifyNoMoreInteractions(logger);
     }
 
 }

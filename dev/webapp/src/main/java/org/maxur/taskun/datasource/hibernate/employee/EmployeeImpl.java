@@ -1,0 +1,128 @@
+package org.maxur.taskun.datasource.hibernate.employee;
+
+import org.maxur.taskun.datasource.hibernate.EntityImpl;
+import org.maxur.taskun.domain.Gender;
+import org.maxur.taskun.domain.employee.BaseEmployee;
+import org.maxur.taskun.domain.employee.Employee;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Nullable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
+
+/**
+ * The Employee persistence class (hibernate implementation).
+ *
+ * @author Maxim Yunusov
+ * @version 1.0 7/3/11
+ */
+@Component
+@Entity
+@Table(
+        name = "EMPLOYEE",
+        uniqueConstraints =
+                {@UniqueConstraint(columnNames =
+                        {"FIRST_NAME", "LAST_NAME", "MIDDLE_NAME"})
+                })
+public class EmployeeImpl extends EntityImpl<BaseEmployee> implements Employee {
+
+    /**
+     * Serial Version UID.
+     */
+    private static final long serialVersionUID = -5936703120817989967L;
+
+    private final BaseEmployee employee;
+
+    public EmployeeImpl() {
+        this.employee = new BaseEmployee(null);
+        setEntity(this.employee);
+    }
+
+
+    /**
+     * @return The Employee's First Name
+     * @see org.maxur.taskun.domain.employee.BaseEmployee#getFirstName()
+     */
+    @Column(name = "FIRST_NAME", nullable = false)
+    @Override
+    public String getFirstName() {
+        return this.employee.getFirstName();
+    }
+
+    /**
+     * @return The Employee's Last Name
+     * @see org.maxur.taskun.domain.employee.BaseEmployee#getLastName()
+     */
+    @Column(name = "LAST_NAME", nullable = false)
+    @Override
+    public String getLastName() {
+        return this.employee.getLastName();
+    }
+
+    /**
+     * @return The Employee's Middle Name
+     * @see org.maxur.taskun.domain.employee.BaseEmployee#getMiddleName()
+     */
+    @Column(name = "MIDDLE_NAME", nullable = false)
+    @Override
+    public String getMiddleName() {
+        return this.employee.getMiddleName();
+    }
+
+    /**
+     * @return The Employee's Gender.
+     * @see org.maxur.taskun.domain.employee.BaseEmployee#getGender()
+     */
+    @Column(name = "GENDER")
+    @Override
+    @Enumerated(value = EnumType.STRING)
+    public Gender getGender() {
+        return this.employee.getGender();
+    }
+
+    @Override
+    @Transient
+    public String getTitle() {
+        return this.employee.getTitle();
+    }
+
+    @Override
+    public void setFirstName(final String value) {
+        this.employee.setFirstName(value);
+    }
+
+    @Override
+    public void setLastName(final String value) {
+        this.employee.setLastName(value);
+    }
+
+    @Override
+    public void setMiddleName(final @Nullable String value) {
+        this.employee.setMiddleName(value);
+    }
+
+    @Override
+    public void setGender(final Gender value) {
+        this.employee.setGender(value);
+    }
+
+    @Override
+    public String toString() {
+        return employee.toString();
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        return this == obj || employee.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return employee.hashCode();
+    }
+}

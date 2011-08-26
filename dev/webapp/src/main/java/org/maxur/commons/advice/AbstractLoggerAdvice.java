@@ -9,8 +9,13 @@ import org.maxur.commons.service.impl.BaseLogger;
  */
 public class AbstractLoggerAdvice {
 
-    protected Logger makeLogger() {
-        return BaseLogger.instance();
+    private Logger logger = BaseLogger.instance();
+
+    public Logger getLogger() {
+        return logger;
     }
 
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
 }

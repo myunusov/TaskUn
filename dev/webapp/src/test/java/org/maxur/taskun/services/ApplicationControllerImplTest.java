@@ -12,7 +12,7 @@ import org.maxur.commons.domain.AllSpecification;
 import org.maxur.commons.domain.Factory;
 import org.maxur.commons.domain.Repository;
 import org.maxur.commons.domain.Specification;
-import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.BaseEmployee;
 import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.services.Impl.ApplicationControllerImpl;
 
@@ -30,7 +30,7 @@ public class ApplicationControllerImplTest {
 
     private Mockery context;
 
-    static private Employee dummy = new AbstractEmployee() {};
+    static private Employee dummy = new BaseEmployee("") {};
 
     @Before
     public void setUp() throws Exception {

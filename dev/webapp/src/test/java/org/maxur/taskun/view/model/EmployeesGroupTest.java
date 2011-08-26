@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.maxur.commons.domain.Specification;
-import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.BaseEmployee;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.model.employee.EmployeesGroup;
 import org.maxur.taskun.view.pages.StubWebApplication;
@@ -37,7 +37,7 @@ public class EmployeesGroupTest {
         mockContext.putBean("applicationController", controller);
         context.checking(new Expectations() {{
             oneOf(controller).getAllEmployee(with(any(Specification.class)));
-            will(returnValue(Collections.<AbstractEmployee>nCopies(5, new AbstractEmployee(){})));
+            will(returnValue(Collections.<BaseEmployee>nCopies(5, new BaseEmployee(""))));
         }});
         group = new EmployeesGroup();
     }

@@ -9,6 +9,7 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
+import org.maxur.taskun.datasource.hibernate.employee.EmployeeImpl;
 import org.springframework.orm.hibernate3.HibernateAccessor;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -20,9 +21,7 @@ import java.util.Collections;
  */
 public class EntityRepositoryImplTest {
 
-    static private EmployeeImpl dummy = new EmployeeImpl() {
-        private static final long serialVersionUID = -3552630573530150686L;
-    };
+    static private EmployeeImpl dummy;
 
     private Mockery context;
 
@@ -34,6 +33,8 @@ public class EntityRepositoryImplTest {
 
     @Before
     public void setUp() throws Exception {
+        dummy = new EmployeeImpl();
+        dummy.setIdentifier("");
         context = new JUnit4Mockery() {{
         setImposteriser(ClassImposteriser.INSTANCE);
         }};

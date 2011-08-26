@@ -1,4 +1,4 @@
-package org.maxur.taskun.datasource.hibernate;
+package org.maxur.taskun.datasource.hibernate.employee;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -12,6 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -88,6 +89,19 @@ public class BaseLoggerTest {
             }
         };
         assertNotNull("BaseLogger should Be Create inner Logger As SLF4J", fake1.createLogger("A"));
+    }
+
+     @Test
+    public void shouldBeReuseCreatedLogger() throws Exception {
+        BaseLogger fake1 = new BaseLogger() {
+            @Override
+            public org.slf4j.Logger createLogger(String name) {
+                return log;
+            }
+        };
+        fake1.info("A", "M");
+        fake1.info("A", "M");
+        verify(log, times(2)).info("M");
     }
 
     @Test

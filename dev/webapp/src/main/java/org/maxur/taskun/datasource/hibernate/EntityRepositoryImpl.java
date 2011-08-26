@@ -35,25 +35,72 @@ public class EntityRepositoryImpl extends RepositoryImpl implements EntityReposi
     @Override
     @Benchmark
     public final boolean isExist(final Entity entity, String[] fields) {
-        ClassMetadata meta = getFactory().getClassMetadata(entity.getClass());
-        String idName = meta.getIdentifierPropertyName();
-
-        DetachedCriteria criteria = DetachedCriteria.forClass(entity.getClass());
-        for (String field : fields) {
-            criteria.add(Restrictions.eq(field, meta.getPropertyValue(entity, field, EntityMode.POJO)));
-        }
-        if (null != entity.getIdentifier()) {
-            criteria.add(Restrictions.ne(idName, entity.getIdentifier()));
-        }
-        criteria.setProjection(Projections.rowCount());
-
-        final int flushMode = getHibernateTemplate().getFlushMode();
-        getHibernateTemplate().setFlushMode(HibernateAccessor.FLUSH_NEVER);  //prevent Stack Overflow
-        final List results = getHibernateTemplate().findByCriteria(criteria);
-        getHibernateTemplate().setFlushMode(flushMode);
-        assert(1 == results.size()) : "SELECT COUNT(*) has return more (less) than at one record";
-        final Number count = (Number) results.iterator().next();
-        return count.intValue() != 0;
+        final DetachedCriteria criteria = new CriteriaBuilder()
+                .forEntity(entity)
+                .byFields(fields)
+                .build();
+        return query(criteria).intValue() != 0;
     }
 
+    private Number query(DetachedCriteria criteria) {
+        final int flushMode = getHibernateTemplate().getFlushMode();
+        getHibernateTemplate().setFlushMode(HibernateAccessor.FLUSH_NEVER);  //prevent Stack Overflow
+        final List results;
+        try {
+
+            results = getHibernateTemplate().findByCriteria(criteria);
+        } finally {
+            getHibernateTemplate().setFlushMode(flushMode);
+        }
+        assert (1 == results.size()) : "SELECT COUNT(*) has return more (less) than at one record";
+        return (Number) results.iterator().next();
+    }
+
+
+    public class CriteriaBuilder {
+
+        private Entity entity;
+
+        private String[] fields;
+
+        private Class<? extends Entity> clazz;
+
+        CriteriaBuilder forClass(final Class<? extends Entity> clazz) {
+            this.clazz = clazz;
+            return this;
+        }
+
+        CriteriaBuilder forEntity(final Entity entity) {
+            this.entity = entity;
+            return this;
+        }
+
+        CriteriaBuilder byFields(final  String[] fields) {
+            this.fields = fields;
+            return this;
+        }
+
+        DetachedCriteria build() {
+            clazz = null != clazz ? clazz : entity.getClass();
+            DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
+            for (String field : fields) {
+                criteria.add(Restrictions.eq(field, getFieldValue(entity, field)));
+            }
+
+            String idName = getMetadata(entity).getIdentifierPropertyName();
+            if (null != entity.getIdentifier()) {
+                criteria.add(Restrictions.ne(idName, entity.getIdentifier()));
+            }
+            criteria.setProjection(Projections.rowCount());
+            return criteria;
+        }
+
+        private Object getFieldValue(Entity entity, String field) {
+            return getMetadata(entity).getPropertyValue(entity, field, EntityMode.POJO);
+        }
+
+        private ClassMetadata getMetadata(Entity entity) {
+            return EntityRepositoryImpl.this.getFactory().getClassMetadata(entity.getClass());
+        }
+    }
 }

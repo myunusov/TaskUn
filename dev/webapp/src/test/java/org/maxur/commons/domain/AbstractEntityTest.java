@@ -3,7 +3,7 @@ package org.maxur.commons.domain;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.taskun.domain.employee.AbstractEmployee;
+import org.maxur.taskun.domain.employee.BaseEmployee;
 
 /**
  * @author Maxim Yunusov
@@ -11,18 +11,18 @@ import org.maxur.taskun.domain.employee.AbstractEmployee;
  */
 public class AbstractEntityTest {
 
-    private AbstractEntity entity;
+    private BaseEntity entity;
 
     @Before
     public void setUp() {
-        entity = new AbstractEntity() {
+        entity = new BaseEntity("") {
         };
     }
 
     @Test
-    public void testEquals() throws Exception {
+    public void shouldBeEqualsByEqualsIdentifier() throws Exception {
         entity.setIdentifier("1");
-        AbstractEntity entity2 = new AbstractEntity() {
+        BaseEntity entity2 = new BaseEntity("") {
         };
         entity2.setIdentifier("1");
         Assert.assertEquals(entity, entity2);
@@ -30,38 +30,44 @@ public class AbstractEntityTest {
 
 
     @Test
-    public void testEqualsWithNullIdentifier() throws Exception {
+    public void shouldBeNotEqualsByNullIdentifier() throws Exception {
         entity.setIdentifier(null);
-        AbstractEntity entity2 = new AbstractEntity() {
+        BaseEntity entity2 = new BaseEntity("") {
         };
         entity2.setIdentifier(null);
          Assert.assertFalse(entity.equals(entity2));
     }
 
     @Test
-    public void testEqualsWithOtherClassInstance() throws Exception {
+    public void shouldBeNotEqualsWithOtherClassInstance() throws Exception {
         entity.setIdentifier("1");
-        AbstractEntity entity2 = new AbstractEmployee() {
+        BaseEntity entity2 = new BaseEmployee("") {
         };
         entity2.setIdentifier("1");
         Assert.assertEquals(entity, entity2);
     }
 
     @Test
-    public void testEqualsWithOtherHierarchicInstance() throws Exception {
+    public void shouldBeNotEqualsWithOtherHierarchicInstance() throws Exception {
         entity.setIdentifier("1");
         Object entity2 = new Object();
         Assert.assertFalse(entity.equals(entity2));
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void shouldBeWithHashCodeByIdentifier() throws Exception {
         entity.setIdentifier("1");
         Assert.assertEquals(entity.hashCode(), "1".hashCode());
     }
 
     @Test
-    public void testGetIdentifier() throws Exception {
+    public void shouldBeWithZeroHashCodeByNullIdentifier() throws Exception {
+        entity.setIdentifier(null);
+        Assert.assertEquals(entity.hashCode(), 0);
+    }
+
+    @Test
+    public void shouldBeSetAndGetIdentifier() throws Exception {
         entity.setIdentifier("1");
         Assert.assertEquals("1", entity.getIdentifier());
     }

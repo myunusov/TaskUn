@@ -1,9 +1,10 @@
-package org.maxur.taskun.datasource.hibernate;
+package org.maxur.taskun.datasource.hibernate.employee;
 
 import org.hibernate.SessionFactory;
-import org.maxur.commons.domain.Specification;
-import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.commons.annotation.Benchmark;
+import org.maxur.commons.domain.Specification;
+import org.maxur.taskun.datasource.hibernate.RepositoryImpl;
+import org.maxur.taskun.domain.employee.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -54,7 +55,7 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
     @SuppressWarnings("unchecked")
     public final List<Employee> getAll() {
         return (List<Employee>) this.getHibernateTemplate().find(
-                "from org.maxur.taskun.datasource.hibernate.EmployeeImpl"
+                "from org.maxur.taskun.datasource.hibernate.employee.EmployeeImpl"
         );
 
     }

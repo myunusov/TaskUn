@@ -52,14 +52,13 @@ public class TraceAdvice extends AbstractLoggerAdvice {
 
 
     public void notifyEnter(final Signature signature) {
-        makeLogger().debug(TRACE, signature.toShortString() + " ENTER");
+        getLogger().debug(TRACE, signature.toShortString() + " ENTER");
     }
 
 
     public void notifyExit(final Signature signature) {
-        makeLogger().debug(TRACE, signature.toShortString() + " EXIT");
+        getLogger().debug(TRACE, signature.toShortString() + " EXIT");
     }
-
 
 }
 

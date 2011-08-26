@@ -6,6 +6,6 @@ package org.maxur.taskun.datasource;
  */
 public interface DataSourceNotifier {
 
-    void notifyEmployeeCreate(Class<?> source);
+    void notifyEmployeeCreate(Class<?> source, String valueAsString);
 
 }

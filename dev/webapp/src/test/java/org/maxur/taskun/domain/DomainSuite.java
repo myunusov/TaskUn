@@ -2,7 +2,7 @@ package org.maxur.taskun.domain;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.maxur.taskun.domain.employee.AbstractEmployeeTest;
+import org.maxur.taskun.domain.employee.BaseEmployeeTest;
 import org.maxur.taskun.domain.validators.ValidatorsSuite;
 
 /**
@@ -11,7 +11,7 @@ import org.maxur.taskun.domain.validators.ValidatorsSuite;
  * @since <pre>08.07.11</pre>
  */
 @RunWith(Suite.class)@Suite.SuiteClasses({
-        AbstractEmployeeTest.class,
+        BaseEmployeeTest.class,
         ValidatorsSuite.class
 })
 public class DomainSuite {

@@ -1,7 +1,7 @@
 package org.maxur.taskun.domain.employee;
 
 import org.apache.commons.lang3.StringUtils;
-import org.maxur.commons.domain.AbstractEntity;
+import org.maxur.commons.domain.BaseEntity;
 import org.maxur.taskun.domain.Gender;
 
 import javax.annotation.Nullable;
@@ -16,7 +16,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
  * @version 1.0
  * @since <pre>06.07.11</pre>
  */
-public abstract class AbstractEmployee extends AbstractEntity implements Employee {
+public class BaseEmployee extends BaseEntity implements Employee {
 
     /**
      * The Serial Version UID.
@@ -43,6 +43,10 @@ public abstract class AbstractEmployee extends AbstractEntity implements Employe
      * The Employee's Gender.
      */
     private Gender gender = Gender.UNKNOWN;
+
+    public BaseEmployee(final String id) {
+        super(id);
+    }
 
     /**
      * Getter for First Name.
@@ -91,6 +95,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Employe
      */
     @Override
     public void setFirstName(final String value) {
+        assert(null != value);
         this.firstName = value.toUpperCase();
     }
 
@@ -101,6 +106,7 @@ public abstract class AbstractEmployee extends AbstractEntity implements Employe
      */
     @Override
     public void setLastName(final String value) {
+        assert(null != value);
         this.lastName = value.toUpperCase();
     }
 

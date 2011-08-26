@@ -23,6 +23,9 @@ public class BenchmarkAdvice extends AbstractLoggerAdvice {
     private static final String BENCHMARK = "benchmark";
 
 
+    private StopWatchFactory factory = new StopWatchFactory();
+
+
     /**
      * The Pointcut for benchmarking methods.
      */
@@ -39,7 +42,7 @@ public class BenchmarkAdvice extends AbstractLoggerAdvice {
      */
     @Around("benchmarkPointcut()")
     public Object benchmarkAdvice(final ProceedingJoinPoint pjp) throws Throwable {
-        StopWatch sw = new StopWatch();
+        StopWatch sw = factory.make();
         Object retVal;
         try {
             sw.start();
@@ -52,8 +55,11 @@ public class BenchmarkAdvice extends AbstractLoggerAdvice {
       }
 
     public final void notifyBenchmark(final Signature signature, final StopWatch stopWatch) {
-        makeLogger().info(BENCHMARK, signature.toLongString() + "," + stopWatch.getTotalTimeMillis());
+        getLogger().info(BENCHMARK, signature.toLongString() + "," + stopWatch.getTotalTimeMillis());
     }
 
+    public void setFactory(final StopWatchFactory factory) {
+        this.factory = factory;
+    }
 }
 
