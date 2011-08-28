@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.maxur.taskun.domain.Gender;
+import org.maxur.taskun.domain.MiddleName;
+import org.maxur.taskun.domain.Name;
 import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.view.pages.StubWebApplication;
 
@@ -104,30 +106,33 @@ public class EmployeeBeanTest {
     @Test
     public void testSetFirstName() throws Exception {
         bean = new EmployeeBean(group, employee);
+        final Name name = new Name("1") {};
         context.checking(new Expectations() {{
-            oneOf(employee).setFirstName("1");
+            oneOf(employee).setFirstName(name);
         }});
-        bean.setFirstName("1");
+        bean.setFirstName(name);
         context.assertIsSatisfied();
     }
 
     @Test
     public void testSetLastName() throws Exception {
         bean = new EmployeeBean(group, employee);
+        final Name name = new Name("1") {};
         context.checking(new Expectations() {{
-            oneOf(employee).setLastName("1");
+            oneOf(employee).setLastName(name);
         }});
-        bean.setLastName("1");
+        bean.setLastName(name);
         context.assertIsSatisfied();
     }
 
     @Test
     public void testSetMiddleName() throws Exception {
         bean = new EmployeeBean(group, employee);
+        final MiddleName name = new MiddleName("1") {};
         context.checking(new Expectations() {{
-            oneOf(employee).setMiddleName("1");
+            oneOf(employee).setMiddleName(name);
         }});
-        bean.setMiddleName("1");
+        bean.setMiddleName(name);
         context.assertIsSatisfied();
     }
 

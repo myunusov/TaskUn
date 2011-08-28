@@ -2,6 +2,10 @@ package org.maxur.taskun.datasource.hibernate.employee;
 
 import org.maxur.commons.domain.Entity;
 import org.maxur.taskun.datasource.DataSourceNotifier;
+import org.maxur.taskun.datasource.hibernate.MiddleNameImpl;
+import org.maxur.taskun.datasource.hibernate.NameImpl;
+import org.maxur.taskun.domain.MiddleName;
+import org.maxur.taskun.domain.Name;
 import org.maxur.taskun.domain.employee.EmployeeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -46,6 +50,16 @@ public class EmployeeBuilderImpl extends EmployeeBuilder<EmployeeImpl> {
     @Override
     protected EmployeeImpl make() {
         return new EmployeeImpl();
+    }
+
+    @Override
+    public Name makeName(final String value) {
+        return new NameImpl(value);
+    }
+
+    @Override
+    public MiddleName makeMiddleName(final String value) {
+        return new MiddleNameImpl(value);
     }
 
     @Override

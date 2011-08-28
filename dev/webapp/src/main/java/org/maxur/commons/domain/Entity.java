@@ -10,7 +10,19 @@ import java.io.Serializable;
  */
 public interface Entity extends Serializable {
 
+
+    /**
+     * Getter for the Entity's Identifier.
+     *
+     * @return The Entity's Identifier.
+     */
     String getIdentifier();
 
+
+    /**
+     * Return true if Entity is new (is builder of Entity).
+     *
+     * @return true if Entity is new (is builder of Entity).
+     */
     boolean isNew();
 }

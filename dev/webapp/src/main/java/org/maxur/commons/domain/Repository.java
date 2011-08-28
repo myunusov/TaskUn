@@ -47,5 +47,5 @@ public interface Repository<T extends Entity> {
      */
     void delete(T entity);
 
-    Employee getByNames(String firstName, String lastName, @Nullable String middleName);
+    Employee getByKey(String firstName, String lastName, @Nullable String middleName);
 }

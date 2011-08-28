@@ -1,13 +1,12 @@
 package org.maxur.taskun.domain.employee;
 
-import org.apache.commons.lang3.StringUtils;
 import org.maxur.commons.domain.BaseEntity;
 import org.maxur.taskun.domain.Gender;
+import org.maxur.taskun.domain.MiddleName;
+import org.maxur.taskun.domain.Name;
 
 import javax.annotation.Nullable;
 import javax.persistence.Transient;
-
-import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 /**
  * The Employee domain class.
@@ -27,17 +26,17 @@ public class BaseEmployee extends BaseEntity implements Employee {
     /**
      * The Employee's First Name.
      */
-    private String firstName = EMPTY;
+    private Name firstName = Name.UNKNOWN;
 
     /**
      * The Employee's Last Name.
      */
-    private String lastName = EMPTY;
+    private Name lastName = Name.UNKNOWN;
 
     /**
      * The Employee's Middle Name.
      */
-    private String middleName = EMPTY;
+    private MiddleName middleName = MiddleName.UNKNOWN;
 
     /**
      * The Employee's Gender.
@@ -54,7 +53,7 @@ public class BaseEmployee extends BaseEntity implements Employee {
      * @return The Employee's First Name.
      */
     @Override
-    public String getFirstName() {
+    public Name getFirstName() {
         return firstName;
     }
 
@@ -64,7 +63,7 @@ public class BaseEmployee extends BaseEntity implements Employee {
      * @return The Employee's Last Name.
      */
     @Override
-    public String getLastName() {
+    public Name getLastName() {
         return lastName;
     }
 
@@ -74,7 +73,7 @@ public class BaseEmployee extends BaseEntity implements Employee {
      * @return The Employee's Middle Name.
      */
     @Override
-    public String getMiddleName() {
+    public MiddleName getMiddleName() {
         return middleName;
     }
 
@@ -101,13 +100,14 @@ public class BaseEmployee extends BaseEntity implements Employee {
     @Override
     @Transient
     public final String getTitle() {
-        return EMPTY.equals(getMiddleName())
-                ? String.format("%s %s", toName(getFirstName()), toName(getLastName()))
+        return Name.UNKNOWN.equals(getMiddleName())
+                ? String.format("%s %s",
+                getFirstName().asNormal(),
+                getLastName().asNormal())
                 : String.format("%s %s %s",
-                toName(getFirstName()),
-                toName(getMiddleName()),
-                toName(getLastName())
-        );
+                getFirstName().asNormal(),
+                getMiddleName().asNormal(),
+                getLastName().asNormal());
     }
 
 
@@ -117,9 +117,9 @@ public class BaseEmployee extends BaseEntity implements Employee {
      * @param value The Employee's First Name
      */
     @Override
-    public void setFirstName(final String value) {
+    public void setFirstName(final Name value) {
         assert (null != value);
-        this.firstName = value.toUpperCase();
+        this.firstName = value;
     }
 
     /**
@@ -128,9 +128,9 @@ public class BaseEmployee extends BaseEntity implements Employee {
      * @param value The Employee's Last Name
      */
     @Override
-    public void setLastName(final String value) {
+    public void setLastName(final Name value) {
         assert (null != value);
-        this.lastName = value.toUpperCase();
+        this.lastName = value;
     }
 
     /**
@@ -139,20 +139,12 @@ public class BaseEmployee extends BaseEntity implements Employee {
      * @param value The Employee's Middle Name
      */
     @Override
-    public void setMiddleName(@Nullable final String value) {
-        final String name = null == value ? EMPTY : value.toUpperCase();
-        detectGenderByRusMiddleName(name);
-        this.middleName = name;
-    }
-
-    private void detectGenderByRusMiddleName(final String value) {
+    public void setMiddleName(@Nullable final MiddleName value) {
+        final MiddleName name = (null == value ? MiddleName.UNKNOWN : value);
         if (gender == Gender.UNKNOWN) {
-            if (value.endsWith("ВИЧ")) {
-                gender = Gender.MALE;
-            } else if (value.endsWith("ВНА")) {
-                gender = Gender.FEMALE;
-            }
+            gender = name.detectGenderForRU();
         }
+        this.middleName = name;
     }
 
     /**
@@ -163,11 +155,6 @@ public class BaseEmployee extends BaseEntity implements Employee {
     @Override
     public void setGender(final Gender value) {
         this.gender = value;
-    }
-
-
-    private String toName(final String name) {
-        return StringUtils.capitalize(name.toLowerCase());
     }
 
     /**

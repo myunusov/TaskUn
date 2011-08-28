@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.maxur.commons.domain.Entity;
 import org.maxur.taskun.domain.Gender;
+import org.maxur.taskun.domain.MiddleName;
+import org.maxur.taskun.domain.Name;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -26,6 +28,20 @@ public class BaseEmployeeTest {
             @Override
             protected BaseEmployee make() {
                 return new BaseEmployee("") {};
+            }
+
+            @Override
+            public Name makeName(String value) {
+                return new Name(value) {
+
+                };
+            }
+
+            @Override
+            public MiddleName makeMiddleName(String value) {
+                return new MiddleName(value) {
+
+                };
             }
 
             @Override
@@ -57,7 +73,7 @@ public class BaseEmployeeTest {
                 .withMiddleName(null)
                 .build();
         //Assert
-        assertEquals("", employee.getMiddleName());
+        assertEquals(MiddleName.UNKNOWN, employee.getMiddleName());
     }
 
     @Test

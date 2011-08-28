@@ -91,7 +91,7 @@ public class SelectByKeysBuilder<T extends Entity> {
         if (null == clazz) {
             setClass(entity.getClass());
         }
-        this.values = new String[fields.length];
+        this.values = new Object[fields.length];
         for (int i = 0; i < fields.length; i++) {
             values[i] = getValueFor(entity, fields[i]);
         }
@@ -121,7 +121,18 @@ public class SelectByKeysBuilder<T extends Entity> {
         DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
         if (null != fields && null != values) {
             for (int i = 0; i < fields.length; i++) {
-                criteria.add(Restrictions.eq(fields[i], values[i]));
+                String field = fields[i];
+                Object value = values[i];
+                if ("firstName".equals(field)) {         //TODO
+                    field = "firstNameImpl";
+                }
+                if ("lastName".equals(field)) {         //TODO
+                    field = "lastNameImpl";
+                }
+                if ("middleName".equals(field)) {         //TODO
+                    field = "middleNameImpl";
+                }
+                criteria.add(Restrictions.eq(field, value));
             }
         }
         if (null != idValue) {

@@ -59,11 +59,11 @@ public class EmployeeServiceIT {
         Assert.assertEquals(employee.getMiddleName(), employee1.getMiddleName());
         final Employee employee2 = controller.getEmployee(employee1.getIdentifier());
         Assert.assertEquals(employee1, employee2);
-        employee2.setMiddleName("Петрович");
+        employee2.setMiddleName(builder.makeMiddleName("Петрович"));
         controller.saveEmployee(employee2);
         final Employee employee3 = controller.getEmployee(employee1.getIdentifier());
         Assert.assertEquals(employee1, employee3);
-        Assert.assertEquals("ПЕТРОВИЧ", employee3.getMiddleName());
+        Assert.assertEquals("ПЕТРОВИЧ", employee3.getMiddleName().getName());
         controller.deleteEmployee(employee3);
         final Collection<Employee> employees2 = controller.getAllEmployee();
         Assert.assertEquals(0, employees2.size());

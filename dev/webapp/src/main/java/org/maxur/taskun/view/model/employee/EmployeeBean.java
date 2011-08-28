@@ -2,8 +2,10 @@ package org.maxur.taskun.view.model.employee;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.domain.Gender;
+import org.maxur.taskun.domain.MiddleName;
+import org.maxur.taskun.domain.Name;
+import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.model.Bean;
 
@@ -68,7 +70,7 @@ public class EmployeeBean extends Bean<Employee> implements Employee {
      * @return The Employee's First Name.
      */
     @Override
-    public final String getFirstName() {
+    public final Name getFirstName() {
         return getObject().getFirstName();
     }
 
@@ -78,7 +80,7 @@ public class EmployeeBean extends Bean<Employee> implements Employee {
      * @return The Employee's Last Name.
      */
     @Override
-    public final String getLastName() {
+    public final Name getLastName() {
         return getObject().getLastName();
     }
 
@@ -88,7 +90,7 @@ public class EmployeeBean extends Bean<Employee> implements Employee {
      * @return The Employee's Middle Name.
      */
     @Override
-    public final String getMiddleName() {
+    public final MiddleName getMiddleName() {
         return getObject().getMiddleName();
     }
 
@@ -161,12 +163,12 @@ public class EmployeeBean extends Bean<Employee> implements Employee {
      * @param value The Employee's First Name.
      */
     @Override
-    public final void setFirstName(final String value) {
+    public final void setFirstName(final Name value) {
         getObject().setFirstName(value);
     }
 
     @Override
-    public final void setLastName(final String value) {
+    public final void setLastName(final Name value) {
         getObject().setLastName(value);
     }
 
@@ -176,7 +178,7 @@ public class EmployeeBean extends Bean<Employee> implements Employee {
      * @param value The Employee's Last Name.
      */
     @Override
-    public final void setMiddleName(@Nullable final String value) {
+    public final void setMiddleName(@Nullable final MiddleName value) {
         getObject().setMiddleName(value);
     }
 

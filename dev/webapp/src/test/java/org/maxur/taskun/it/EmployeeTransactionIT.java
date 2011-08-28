@@ -64,7 +64,7 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
     public void deleteEmployee() {
         final Employee employee = createEmployee("Иван", "Иванов", "Иванович");
         repository.save(employee);
-        final Employee employee1 = repository.getByNames("Иван", "Иванов", "Иванович");
+        final Employee employee1 = repository.getByKey("Иван", "Иванов", "Иванович");
         repository.delete(employee1);
         final Collection<Employee> employees = repository.getAll();
         Assert.assertEquals(0, employees.size());

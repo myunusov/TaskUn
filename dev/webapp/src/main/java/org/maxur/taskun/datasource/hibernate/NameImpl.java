@@ -6,30 +6,34 @@
  *                   http://www.apache.org/licenses/LICENSE-2.0.txt
  ******************************************************************************/
 
-package org.maxur.commons.domain;
+package org.maxur.taskun.datasource.hibernate;
 
-import org.maxur.taskun.domain.MiddleName;
 import org.maxur.taskun.domain.Name;
+
+import javax.persistence.Embeddable;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0 8/28/11
  */
-public abstract class EntityBuilder<T extends Entity> implements Entity {
+@Embeddable
+public class NameImpl extends Name {
 
-    private static final long serialVersionUID = -2678265243438440679L;
-
-    protected abstract T make();
-
-    public abstract Name makeName(final String value);
-
-    public abstract MiddleName makeMiddleName(final String value);
-
-    public abstract T build();
-
-    public String getIdentifier() {
-        return null;
+    public NameImpl() {
     }
 
-    public abstract Class<? extends Entity> getResultClass();
+    public NameImpl(final String value) {
+        super(value);
+    }
+
+    @Override
+    public void setName(final String value) {
+        super.setName(value);
+    }
+
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
 }

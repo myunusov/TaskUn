@@ -3,6 +3,8 @@ package org.maxur.taskun.datasource.hibernate.employee;
 import org.hibernate.SessionFactory;
 import org.maxur.commons.annotation.Benchmark;
 import org.maxur.commons.domain.Specification;
+import org.maxur.taskun.datasource.hibernate.MiddleNameImpl;
+import org.maxur.taskun.datasource.hibernate.NameImpl;
 import org.maxur.taskun.datasource.hibernate.RepositoryImpl;
 import org.maxur.taskun.datasource.hibernate.SelectByKeysBuilder;
 import org.maxur.taskun.domain.employee.Employee;
@@ -106,11 +108,11 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
     }
 
     @Override
-    public final Employee getByNames(final String firstName, final String lastName, @Nullable final String middleName) {
+    public final Employee getByKey(final String firstName, final String lastName, @Nullable final String middleName) {
         final Object[] values = {
-                firstName.toUpperCase(),
-                lastName.toUpperCase(),
-                null == middleName ? null :  middleName.toUpperCase()
+                new NameImpl(firstName),
+                new NameImpl(lastName),
+                new MiddleNameImpl(middleName)
         };
         return (Employee) new SelectByKeysBuilder<Employee>(this.getHibernateTemplate())
                 .forClass(EmployeeImpl.class)

@@ -132,7 +132,7 @@ public class AbstractEmployeeWithValidatorsIT {
                 .withMiddleName(null)
                 .build();
         //Assert
-        Assert.assertEquals("", employee.getMiddleName());
+        Assert.assertEquals("", employee.getMiddleName().getName());
         final Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
         Assert.assertEquals("Valid employee is not validated", 0, constraintViolations.size());
     }

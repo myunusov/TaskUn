@@ -2,6 +2,8 @@ package org.maxur.taskun.domain.employee;
 
 import org.maxur.commons.domain.EntityBuilder;
 import org.maxur.taskun.domain.Gender;
+import org.maxur.taskun.domain.MiddleName;
+import org.maxur.taskun.domain.Name;
 
 import javax.annotation.Nullable;
 
@@ -11,11 +13,11 @@ public abstract class EmployeeBuilder<T extends Employee> extends EntityBuilder<
 
     private static final long serialVersionUID = -6030778261130153455L;
 
-    private String firstName;
+    private Name firstName;
 
-    private String lastName;
+    private Name lastName;
 
-    private String middleName;
+    private MiddleName middleName = makeMiddleName(EMPTY);
 
     private Gender gender = Gender.UNKNOWN;
 
@@ -25,9 +27,7 @@ public abstract class EmployeeBuilder<T extends Employee> extends EntityBuilder<
         employee = make();
         employee.setFirstName(this.firstName);
         employee.setLastName(this.lastName);
-        if (this.getMiddleName() != null) {
-            employee.setMiddleName(this.middleName);
-        }
+        employee.setMiddleName(this.middleName);
         if (this.gender != Gender.UNKNOWN) {
             employee.setGender(this.gender);
         }
@@ -35,19 +35,21 @@ public abstract class EmployeeBuilder<T extends Employee> extends EntityBuilder<
     }
 
     public EmployeeBuilder<T> withFirstName(final String name) {
-        this.setFirstName(name);
+        this.setFirstName(makeName(name));
         return this;
     }
 
+
     public EmployeeBuilder<T> withLastName(final String name) {
-        setLastName(name);
+        setLastName(makeName(name));
         return this;
     }
 
     public EmployeeBuilder<T> withMiddleName(@Nullable final String name) {
-        setMiddleName(name);
+        setMiddleName(makeMiddleName(name));
         return this;
     }
+
 
     public EmployeeBuilder<T> asFemale() {
         this.gender = Gender.FEMALE;
@@ -60,17 +62,17 @@ public abstract class EmployeeBuilder<T extends Employee> extends EntityBuilder<
     }
 
     @Override
-    public String getFirstName() {
+    public Name getFirstName() {
         return firstName;
     }
 
     @Override
-    public String getLastName() {
+    public Name getLastName() {
         return lastName;
     }
 
     @Override
-    public String getMiddleName() {
+    public MiddleName getMiddleName() {
         return middleName;
     }
 
@@ -85,22 +87,26 @@ public abstract class EmployeeBuilder<T extends Employee> extends EntityBuilder<
     }
 
     @Override
-    public void setFirstName(String value) {
-        firstName = value.toUpperCase();
+    public void setFirstName(final Name value) {
+        firstName = value;
     }
 
     @Override
-    public void setLastName(String value) {
-        lastName = value.toUpperCase();
+    public void setLastName(Name value) {
+        lastName = value;
     }
 
     @Override
-    public void setMiddleName(@Nullable String value) {
-        middleName = null != value ? value.toUpperCase() : EMPTY;
+    public void setMiddleName(@Nullable MiddleName value) {
+        if (null != value) {
+            middleName = value;
+        }
     }
 
     @Override
     public void setGender(Gender value) {
         gender = value;
     }
+
+
 }
