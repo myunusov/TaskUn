@@ -88,53 +88,9 @@ public class BaseEmployee extends BaseEntity implements Employee {
         return gender;
     }
 
-    /**
-     * Setter for First Name.
-     *
-     * @param value The Employee's First Name
-     */
     @Override
-    public void setFirstName(final String value) {
-        assert(null != value);
-        this.firstName = value.toUpperCase();
-    }
-
-    /**
-     * Setter for Last Name.
-     *
-     * @param value The Employee's Last Name
-     */
-    @Override
-    public void setLastName(final String value) {
-        assert(null != value);
-        this.lastName = value.toUpperCase();
-    }
-
-    /**
-     * Setter for Middle Name.
-     *
-     * @param value The Employee's Middle Name
-     */
-    @Override
-    public void setMiddleName(@Nullable final String value) {
-        if (null != value && gender == Gender.UNKNOWN) {
-            if (value.endsWith("вич")) {
-                gender = Gender.MALE;
-            } else if (value.endsWith("вна")) {
-                gender = Gender.FEMALE;
-            }
-        }
-        this.middleName = value == null ? EMPTY : value.toUpperCase();
-    }
-
-    /**
-     * Setter for Gender.
-     *
-     * @param value The Employee's Gender
-     */
-    @Override
-    public void setGender(final Gender value) {
-        this.gender = value;
+    public boolean isNew() {
+        return false;
     }
 
     /**
@@ -148,11 +104,67 @@ public class BaseEmployee extends BaseEntity implements Employee {
         return EMPTY.equals(getMiddleName())
                 ? String.format("%s %s", toName(getFirstName()), toName(getLastName()))
                 : String.format("%s %s %s",
-                    toName(getFirstName()),
-                    toName(getMiddleName()),
-                    toName(getLastName())
+                toName(getFirstName()),
+                toName(getMiddleName()),
+                toName(getLastName())
         );
     }
+
+
+    /**
+     * Setter for First Name.
+     *
+     * @param value The Employee's First Name
+     */
+    @Override
+    public void setFirstName(final String value) {
+        assert (null != value);
+        this.firstName = value.toUpperCase();
+    }
+
+    /**
+     * Setter for Last Name.
+     *
+     * @param value The Employee's Last Name
+     */
+    @Override
+    public void setLastName(final String value) {
+        assert (null != value);
+        this.lastName = value.toUpperCase();
+    }
+
+    /**
+     * Setter for Middle Name.
+     *
+     * @param value The Employee's Middle Name
+     */
+    @Override
+    public void setMiddleName(@Nullable final String value) {
+        final String name = null == value ? EMPTY : value.toUpperCase();
+        detectGenderByRusMiddleName(name);
+        this.middleName = name;
+    }
+
+    private void detectGenderByRusMiddleName(final String value) {
+        if (gender == Gender.UNKNOWN) {
+            if (value.endsWith("ВИЧ")) {
+                gender = Gender.MALE;
+            } else if (value.endsWith("ВНА")) {
+                gender = Gender.FEMALE;
+            }
+        }
+    }
+
+    /**
+     * Setter for Gender.
+     *
+     * @param value The Employee's Gender
+     */
+    @Override
+    public void setGender(final Gender value) {
+        this.gender = value;
+    }
+
 
     private String toName(final String name) {
         return StringUtils.capitalize(name.toLowerCase());

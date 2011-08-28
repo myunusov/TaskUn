@@ -7,7 +7,7 @@ package org.maxur.commons.domain;
  * @version 1.0
  * @since <pre>06.07.11</pre>
  */
-public class BaseEntity implements Entity {
+public abstract class BaseEntity implements Entity {
 
     private static final long serialVersionUID = 2853087286450189484L;
     /**

@@ -111,8 +111,9 @@ public class SelectByKeysBuilder<T extends Entity> {
         }
     }
 
-    public SelectByKeysBuilder equalsToValues(Object[] values) {
-        this.values = values;
+    public SelectByKeysBuilder byKeysValues(Object[] values) {
+        this.values = new Object[values.length];
+        System.arraycopy(values, 0, this.values, 0, values.length);
         return this;
     }
 

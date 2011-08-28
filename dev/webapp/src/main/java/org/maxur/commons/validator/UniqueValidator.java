@@ -30,7 +30,7 @@ public class UniqueValidator implements ConstraintValidator<Unique, Entity> {
     @Override
     public boolean isValid(final Entity value, final ConstraintValidatorContext context) {
         assert (null != repository) : "The EntityRepository is not be injected in UniqueValidator class";
-        if (value instanceof EntityBuilder) {
+        if (value.isNew()) {
             return !repository.isExistAs((EntityBuilder) value, fields);
         } else {
             return !repository.isExist(value, fields);

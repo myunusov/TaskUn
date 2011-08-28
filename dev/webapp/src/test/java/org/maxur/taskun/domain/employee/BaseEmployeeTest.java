@@ -32,6 +32,11 @@ public class BaseEmployeeTest {
             public Class<? extends Entity> getResultClass() {
                 return BaseEmployee.class;
             }
+
+            @Override
+            public boolean isNew() {
+                return false;
+            }
         };
     }
 

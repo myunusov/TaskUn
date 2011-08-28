@@ -15,15 +15,13 @@ public class AbstractEntityTest {
 
     @Before
     public void setUp() {
-        entity = new BaseEntity("") {
-        };
+        entity = new FakeBaseEntity();
     }
 
     @Test
     public void shouldBeEqualsByEqualsIdentifier() throws Exception {
         entity.setIdentifier("1");
-        BaseEntity entity2 = new BaseEntity("") {
-        };
+        BaseEntity entity2 = new FakeBaseEntity();
         entity2.setIdentifier("1");
         Assert.assertEquals(entity, entity2);
     }
@@ -32,10 +30,9 @@ public class AbstractEntityTest {
     @Test
     public void shouldBeNotEqualsByNullIdentifier() throws Exception {
         entity.setIdentifier(null);
-        BaseEntity entity2 = new BaseEntity("") {
-        };
+        BaseEntity entity2 = new FakeBaseEntity();
         entity2.setIdentifier(null);
-         Assert.assertFalse(entity.equals(entity2));
+        Assert.assertFalse(entity.equals(entity2));
     }
 
     @Test
@@ -72,4 +69,14 @@ public class AbstractEntityTest {
         Assert.assertEquals("1", entity.getIdentifier());
     }
 
+    private static class FakeBaseEntity extends BaseEntity {
+        public FakeBaseEntity() {
+            super("");
+        }
+
+        @Override
+        public boolean isNew() {
+            return false;
+        }
+    }
 }

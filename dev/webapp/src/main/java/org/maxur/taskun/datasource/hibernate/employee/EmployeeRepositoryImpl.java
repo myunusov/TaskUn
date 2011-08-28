@@ -44,7 +44,7 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
     @Override
     @Benchmark
     public final void save(final Employee entity) {
-        if (entity instanceof EmployeeBuilder) {            // TODO
+        if (entity.isNew()) {
             this.getHibernateTemplate().saveOrUpdate(((EmployeeBuilder) entity).build());
         } else {
             this.getHibernateTemplate().update(entity);
@@ -114,7 +114,7 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
         };
         return (Employee) new SelectByKeysBuilder<Employee>(this.getHibernateTemplate())
                 .forClass(EmployeeImpl.class)
-                .equalsToValues(values)
+                .byKeysValues(values)
                 .getOne();
     }
 

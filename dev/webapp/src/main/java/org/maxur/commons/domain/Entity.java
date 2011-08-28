@@ -12,4 +12,5 @@ public interface Entity extends Serializable {
 
     String getIdentifier();
 
+    boolean isNew();
 }

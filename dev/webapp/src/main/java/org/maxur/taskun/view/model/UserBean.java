@@ -65,7 +65,7 @@ public class UserBean extends Bean implements User {
 
     @Override
     public void setObject(Object object) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        //TODO
     }
 
     @Override
@@ -98,5 +98,10 @@ public class UserBean extends Bean implements User {
     @Override
     public String getIdentifier() {
         return null;
+    }
+
+    @Override
+    public boolean isNew() {
+        return employee.isNew();
     }
 }

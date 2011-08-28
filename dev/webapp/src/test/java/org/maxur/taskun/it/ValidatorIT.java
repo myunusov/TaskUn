@@ -42,6 +42,11 @@ public class ValidatorIT {
             public String getIdentifier() {
                 return null;
             }
+
+            @Override
+            public boolean isNew() {
+                return false;
+            }
         };
         validator.validate(entity);
     }

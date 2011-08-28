@@ -48,4 +48,8 @@ public class EmployeeBuilderImpl extends EmployeeBuilder<EmployeeImpl> {
         return new EmployeeImpl();
     }
 
+    @Override
+    public boolean isNew() {
+        return true;
+    }
 }

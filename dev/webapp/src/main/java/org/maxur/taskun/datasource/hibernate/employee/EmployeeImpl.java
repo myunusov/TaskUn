@@ -92,6 +92,13 @@ public class EmployeeImpl extends EntityImpl<BaseEmployee> implements Employee {
     }
 
     @Override
+    @Transient
+    public boolean isNew() {
+        return false;
+    }
+
+
+    @Override
     public void setFirstName(final String value) {
         super.getEntity().setFirstName(value);
     }
