@@ -27,10 +27,6 @@ public class EmployeeBuilder {
         return this;
     }
 
-    public static EmployeeBean makeEmployeeBean(final EmployeesGroup group) {
-        return new EmployeeBean(group, new EmployeeBuilder().build());
-    }
-
     public static EmployeeBean makeEmployeeBean() {
         return new EmployeeBean(null, new EmployeeBuilder().build()) {
         };

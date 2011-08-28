@@ -8,4 +8,5 @@ public interface EntityRepository {
 
     boolean isExist(Entity entity, String[] fields);
 
+    boolean isExistAs(EntityBuilder value, String[] fields);
 }

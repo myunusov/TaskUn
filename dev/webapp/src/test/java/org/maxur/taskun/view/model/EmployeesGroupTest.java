@@ -1,6 +1,5 @@
 package org.maxur.taskun.view.model;
 
-import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.WicketTester;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -11,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.domain.employee.BaseEmployee;
-import org.maxur.taskun.services.ApplicationController;
 import org.maxur.taskun.view.model.employee.EmployeesGroup;
 import org.maxur.taskun.view.pages.StubWebApplication;
 
@@ -30,13 +28,10 @@ public class EmployeesGroupTest {
         Mockery context = new JUnit4Mockery() {{
             setImposteriser(ClassImposteriser.INSTANCE);
         }};
-        final ApplicationController controller = context.mock(ApplicationController.class);
-        WicketTester tester = new WicketTester(new StubWebApplication());
-        AnnotApplicationContextMock mockContext =
-                ((StubWebApplication) tester.getApplication()).getMockContext();
-        mockContext.putBean("applicationController", controller);
+        final StubWebApplication application = new StubWebApplication(context);
+        new WicketTester(application);
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee(with(any(Specification.class)));
+            oneOf(application.controller).getAllEmployee(with(any(Specification.class)));
             will(returnValue(Collections.<BaseEmployee>nCopies(5, new BaseEmployee(""))));
         }});
         group = new EmployeesGroup();

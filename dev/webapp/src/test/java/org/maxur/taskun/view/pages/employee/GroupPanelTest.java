@@ -29,14 +29,14 @@ public class GroupPanelTest extends AbstractPanelTest {
 
     @Test
     public void testRemoveOnEmployeesIsEmpty() {
-        context.checking(new ControllerExpectationBuilder(controller).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).build());
         super.start();
         tester.assertInvisible("panel:remove_item");
     }
 
     @Test
     public void testRemoveOnEmployeesIsNotEmpty() {
-        context.checking(new ControllerExpectationBuilder(controller).count(1).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).count(1).build());
         super.start();
         final Component panel = tester.getComponentFromLastRenderedPage("panel");
         final EmployeesGroup model = (EmployeesGroup) panel.getDefaultModel();

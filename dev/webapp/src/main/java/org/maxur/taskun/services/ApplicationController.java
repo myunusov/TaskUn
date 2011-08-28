@@ -12,12 +12,6 @@ import java.util.List;
  */
 public interface ApplicationController extends Serializable {
 
-    /**
-     * This Method creates new instance of Employee.
-     *
-     * @return New instance of Employee.
-     */
-    Employee createEmployee();
 
     /**
      * Save the Employee.

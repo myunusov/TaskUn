@@ -21,9 +21,10 @@ public class AdminPageTest extends AbstractPageTest {
         return AdminPage.class;
     }
 
+
     @Test
     public void testBasePageComponents() {
-        context.checking(new ControllerExpectationBuilder(controller).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).build());
         super.start();
         tester.assertComponent("user_panel", UserPanel.class);
         tester.assertComponent("admin_panel", AdminPanel.class);
@@ -31,7 +32,7 @@ public class AdminPageTest extends AbstractPageTest {
 
     @Test
     public void testPageBasicRender() {
-        context.checking(new ControllerExpectationBuilder(controller).build());
+        context.checking(new ControllerExpectationBuilder(application.controller).build());
         super.start();
         tester.assertRenderedPage(getPageClass());
     }

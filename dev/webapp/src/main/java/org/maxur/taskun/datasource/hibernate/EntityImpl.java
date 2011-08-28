@@ -2,7 +2,6 @@ package org.maxur.taskun.datasource.hibernate;
 
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.type.VersionType;
 import org.maxur.commons.domain.BaseEntity;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 /**
@@ -23,6 +23,7 @@ import javax.persistence.Version;
 @Entity
 @Table(name = "ENTITY")
 @Inheritance(strategy = InheritanceType.JOINED)
+//@MappedSuperclass
 public abstract class EntityImpl<T extends BaseEntity> implements org.maxur.commons.domain.Entity {
 
     private static final long serialVersionUID = 6256559380130002522L;
@@ -31,8 +32,16 @@ public abstract class EntityImpl<T extends BaseEntity> implements org.maxur.comm
 
     private Integer version;
 
-    public void setEntity(T entity) {
+    public EntityImpl() {
+    }
+
+    public EntityImpl(final T entity) {
         this.entity = entity;
+    }
+
+    @Transient
+    public T getEntity() {
+        return entity;
     }
 
     @Id
@@ -55,4 +64,5 @@ public abstract class EntityImpl<T extends BaseEntity> implements org.maxur.comm
     public void setVersion(Integer version) {
         this.version = version;
     }
+
 }

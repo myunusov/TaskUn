@@ -2,6 +2,7 @@ package org.maxur.taskun.domain.employee;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.maxur.commons.domain.Entity;
 import org.maxur.taskun.domain.Gender;
 
 import static org.junit.Assert.assertEquals;
@@ -15,15 +16,21 @@ import static org.junit.Assert.assertTrue;
  */
 public class BaseEmployeeTest {
 
-    protected EmployeeBuilder builder;
+    protected EmployeeBuilder<? extends  BaseEmployee> builder;
 
     @Before
     public void setUp() throws Exception {
-        builder = new EmployeeBuilder() {
+
+        builder = new EmployeeBuilder<BaseEmployee>()  {
+
             @Override
-            protected Employee make() {
-                return new BaseEmployee("") {
-                };
+            protected BaseEmployee make() {
+                return new BaseEmployee("") {};
+            }
+
+            @Override
+            public Class<? extends Entity> getResultClass() {
+                return BaseEmployee.class;
             }
         };
     }

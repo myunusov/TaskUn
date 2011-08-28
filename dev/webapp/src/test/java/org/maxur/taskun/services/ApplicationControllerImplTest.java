@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.commons.domain.AllSpecification;
-import org.maxur.commons.domain.Factory;
 import org.maxur.commons.domain.Repository;
 import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.domain.employee.BaseEmployee;
@@ -38,21 +37,9 @@ public class ApplicationControllerImplTest {
     }
 
     @Test
-    public void testCreateEmployee() throws Exception {
-        final Factory<Employee> factory = context.mock(Factory.class, "factory");
-        controller = new ApplicationControllerImpl(factory, null);
-        context.checking(new Expectations() {{
-            oneOf(factory).create();
-            will(returnValue(dummy));
-        }});
-        final Employee employee = controller.createEmployee();
-        Assert.assertNotNull(employee);
-    }
-
-    @Test
     public void testGetAllEmployee() throws Exception {
         final Repository<Employee> repository = context.mock(Repository.class, "repository");
-        controller = new ApplicationControllerImpl(null, repository);
+        controller = new ApplicationControllerImpl(repository);
         context.checking(new Expectations() {{
             oneOf(repository).getAll();
             will(returnValue(Collections.nCopies(3, dummy)));
@@ -64,7 +51,7 @@ public class ApplicationControllerImplTest {
     @Test
     public void testGetAllByAllSpecificationEmployee() throws Exception {
         final Repository<Employee> repository = context.mock(Repository.class, "repository");
-        controller = new ApplicationControllerImpl(null, repository);
+        controller = new ApplicationControllerImpl(repository);
         context.checking(new Expectations() {{
             oneOf(repository).getAll(with(any(Specification.class)));
             will(returnValue(Collections.nCopies(3, dummy)));
@@ -76,7 +63,7 @@ public class ApplicationControllerImplTest {
     @Test
     public void testGetEmployee() throws Exception {
         final Repository<Employee> repository = context.mock(Repository.class, "repository");
-        controller = new ApplicationControllerImpl(null, repository);
+        controller = new ApplicationControllerImpl(repository);
         context.checking(new Expectations() {{
             oneOf(repository).get("1");
             will(returnValue(dummy));
@@ -88,7 +75,7 @@ public class ApplicationControllerImplTest {
     @Test
     public void testSaveEmployee() throws Exception {
         final Repository<Employee> repository = context.mock(Repository.class, "repository");
-        controller = new ApplicationControllerImpl(null, repository);
+        controller = new ApplicationControllerImpl(repository);
         context.checking(new Expectations() {{
             oneOf(repository).save(dummy);
         }});
@@ -99,7 +86,7 @@ public class ApplicationControllerImplTest {
     @Test
     public void testDeleteEmployee() throws Exception {
         final Repository<Employee> repository = context.mock(Repository.class, "repository");
-        controller = new ApplicationControllerImpl(null, repository);
+        controller = new ApplicationControllerImpl(repository);
         context.checking(new Expectations() {{
             oneOf(repository).delete(dummy);
         }});

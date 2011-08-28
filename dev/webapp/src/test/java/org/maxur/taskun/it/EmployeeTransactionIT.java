@@ -5,9 +5,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.commons.domain.Factory;
 import org.maxur.commons.domain.Repository;
 import org.maxur.taskun.domain.employee.Employee;
+import org.maxur.taskun.domain.employee.EmployeeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.Rollback;
@@ -30,12 +30,12 @@ import java.util.Collection;
 @TransactionConfiguration(transactionManager="txMan2", defaultRollback=false)
 public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringContextTests {
 
-    @Autowired
-    private Factory<Employee> factory;
-
     @Autowired()
     @Qualifier(value = "employeeRepository")
     private Repository<Employee> repository;
+
+    @Autowired()
+    private EmployeeBuilder<Employee> builder;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -64,7 +64,8 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
     public void deleteEmployee() {
         final Employee employee = createEmployee("Иван", "Иванов", "Иванович");
         repository.save(employee);
-        repository.delete(employee);
+        final Employee employee1 = repository.getByNames("Иван", "Иванов", "Иванович");
+        repository.delete(employee1);
         final Collection<Employee> employees = repository.getAll();
         Assert.assertEquals(0, employees.size());
     }
@@ -89,8 +90,8 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
     @Test(expected = ConstraintViolationException.class)
     @Rollback(true)
     public void saveDuplicateEmployeeWithoutMiddleName() {
-        repository.save(createEmployee("Иван", "Иванов"));
-        repository.save(createEmployee("Иван", "Иванов"));
+        repository.save(builder.withFirstName("Иван").withLastName("Иванов"));
+        repository.save(builder.withFirstName("Иван").withLastName("Иванов"));
         sessionFactory.getCurrentSession().flush();
     }
 
@@ -106,16 +107,10 @@ public class EmployeeTransactionIT extends AbstractTransactionalJUnit4SpringCont
     }
 
     private Employee createEmployee(final String firstName, final String lastName, @Nullable final String middleName) {
-        Employee result = createEmployee(firstName, lastName);
-        result.setMiddleName(middleName);
-        return result;
-    }
-
-    private Employee createEmployee(final String firstName, final String lastName) {
-        Employee result = factory.create();
-        result.setFirstName(firstName);
-        result.setLastName(lastName);
-        return result;
+        return builder
+                .withFirstName(firstName)
+                .withLastName(lastName)
+                .withMiddleName(middleName);
     }
 
 }

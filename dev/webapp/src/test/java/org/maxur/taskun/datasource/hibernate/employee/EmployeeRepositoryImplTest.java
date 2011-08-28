@@ -58,7 +58,7 @@ public class EmployeeRepositoryImplTest {
 
         final Session session = context.mock(Session.class);
         context.checking(new Expectations() {{
-            oneOf(template).saveOrUpdate(dummy);
+            oneOf(template).update(dummy);
             ignoring(session);
         }});
         repository.save(dummy);
@@ -78,7 +78,7 @@ public class EmployeeRepositoryImplTest {
     public void testGetAllByAllSpecification() throws Exception {
         context.checking(new Expectations() {{
             oneOf(template).find("from org.maxur.taskun.datasource.hibernate.employee.EmployeeImpl");
-            will(returnValue((Object) Collections.nCopies(5, dummy)));
+            will(returnValue(Collections.nCopies(5, dummy)));
         }});
         final List<Employee> all = repository.getAll(new AllSpecification<Employee>());
         context.assertIsSatisfied();
@@ -89,7 +89,7 @@ public class EmployeeRepositoryImplTest {
     public void testGetAllByNoneSpecification() throws Exception {
         context.checking(new Expectations() {{
             oneOf(template).find("from org.maxur.taskun.datasource.hibernate.employee.EmployeeImpl");
-            will(returnValue((Object) Collections.nCopies(5, dummy)));
+            will(returnValue(Collections.nCopies(5, dummy)));
         }});
         final List<Employee> all = repository.getAll(new Specification<Employee>() {
             @Override

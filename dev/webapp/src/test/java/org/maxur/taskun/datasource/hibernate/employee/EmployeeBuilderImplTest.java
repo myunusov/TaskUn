@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.datasource.DataSourceNotifier;
 import org.maxur.taskun.domain.employee.BaseEmployeeTest;
+import org.maxur.taskun.domain.employee.EmployeeBuilder;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -20,7 +21,7 @@ public class EmployeeBuilderImplTest extends BaseEmployeeTest {
     public void setUp() throws Exception {
         final EmployeeBuilderImpl employeeBuilder = new EmployeeBuilderImpl();
         employeeBuilder.setNotifier(notifier);
-        builder = employeeBuilder;
+        builder = (EmployeeBuilder) employeeBuilder;
     }
 
 

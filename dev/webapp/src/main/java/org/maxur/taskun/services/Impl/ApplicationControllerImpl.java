@@ -1,11 +1,10 @@
 package org.maxur.taskun.services.Impl;
 
-import org.maxur.commons.domain.Factory;
+import org.maxur.commons.annotation.Trace;
 import org.maxur.commons.domain.Repository;
 import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.domain.employee.Employee;
 import org.maxur.taskun.services.ApplicationController;
-import org.maxur.commons.annotation.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -27,11 +26,6 @@ public class ApplicationControllerImpl implements ApplicationController {
     private static final long serialVersionUID = -1805613937773652086L;
 
     /**
-     * @see org.maxur.commons.domain.Factory
-     */
-    private Factory<Employee> employeeFactory;
-
-    /**
      * @see org.maxur.commons.domain.Repository
      */
     private  Repository<Employee> employeeRepository;
@@ -40,27 +34,12 @@ public class ApplicationControllerImpl implements ApplicationController {
     /**
      * Constructs the instance of ApplicationController class.
      *
-     * @param factory    The Employee Factory bean.
      * @param repository The Employee Repository bean.
      */
     @Autowired
     public ApplicationControllerImpl(
-            final Factory<Employee> factory,
-            @Qualifier(value = "employeeRepository") final Repository<Employee> repository
-    ) {
-        this.employeeFactory = factory;
+            @Qualifier(value = "employeeRepository") final Repository<Employee> repository) {
         this.employeeRepository = repository;
-    }
-
-    /**
-     * This Method creates new instance of Employee.
-     *
-     * @return New instance of Employee.
-     */
-    @Override
-    @Trace
-    public final Employee createEmployee() {
-        return employeeFactory.create();
     }
 
     /**

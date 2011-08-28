@@ -1,13 +1,9 @@
 package org.maxur.taskun.view.pages;
 
-import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 import org.maxur.taskun.AbstractMockTest;
-import org.maxur.taskun.services.ApplicationController;
-
-import javax.validation.Validator;
 
 /**
  * @author Maxim Yunusov
@@ -17,18 +13,14 @@ public abstract class AbstractWicketTest extends AbstractMockTest {
 
     protected WicketTester tester;
 
-    protected ApplicationController controller;
+    protected StubWebApplication application;
 
     @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        tester = new WicketTester(new StubWebApplication());
-        AnnotApplicationContextMock mockContext =
-                ((StubWebApplication) tester.getApplication()).getMockContext();
-        controller = context.mock(ApplicationController.class);
-        mockContext.putBean("applicationController", controller);
-        mockContext.putBean("validator", context.mock(Validator.class));
+        tester = new WicketTester(new StubWebApplication(context));
+        application = (StubWebApplication) tester.getApplication();
         start();
     }
 

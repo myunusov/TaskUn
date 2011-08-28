@@ -1,10 +1,13 @@
 package org.maxur.taskun.domain.employee;
 
+import org.maxur.commons.domain.EntityBuilder;
 import org.maxur.taskun.domain.Gender;
 
 import javax.annotation.Nullable;
 
-public abstract class EmployeeBuilder<T extends Employee> implements Employee {
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+
+public abstract class EmployeeBuilder<T extends Employee> extends EntityBuilder<T> implements Employee {
 
     private static final long serialVersionUID = -6030778261130153455L;
 
@@ -14,52 +17,46 @@ public abstract class EmployeeBuilder<T extends Employee> implements Employee {
 
     private String middleName;
 
-    private Gender gender;
+    private Gender gender = Gender.UNKNOWN;
 
-    protected abstract T make();
-
+    @Override
     public T build() {
         final T employee;
         employee = make();
         employee.setFirstName(this.firstName);
         employee.setLastName(this.lastName);
-        if (this.middleName != null) {
+        if (this.getMiddleName() != null) {
             employee.setMiddleName(this.middleName);
         }
-        if (this.gender != null) {
+        if (this.gender != Gender.UNKNOWN) {
             employee.setGender(this.gender);
         }
         return employee;
     }
 
-    public EmployeeBuilder withFirstName(final String name) {
-        this.firstName = name;
+    public EmployeeBuilder<T> withFirstName(final String name) {
+        this.setFirstName(name);
         return this;
     }
 
-    public EmployeeBuilder withLastName(final String name) {
-        lastName = name;
+    public EmployeeBuilder<T> withLastName(final String name) {
+        setLastName(name);
         return this;
     }
 
-    public EmployeeBuilder withMiddleName(@Nullable final String name) {
-        middleName = name;
+    public EmployeeBuilder<T> withMiddleName(@Nullable final String name) {
+        setMiddleName(name);
         return this;
     }
 
-    public EmployeeBuilder asFemale() {
+    public EmployeeBuilder<T> asFemale() {
         this.gender = Gender.FEMALE;
         return this;
     }
 
-    public EmployeeBuilder asMale() {
+    public EmployeeBuilder<T> asMale() {
         this.gender = Gender.MALE;
         return this;
-    }
-
-    @Override
-    public String getIdentifier() {
-        return null;
     }
 
     @Override
@@ -89,17 +86,17 @@ public abstract class EmployeeBuilder<T extends Employee> implements Employee {
 
     @Override
     public void setFirstName(String value) {
-        firstName = value;
+        firstName = value.toUpperCase();
     }
 
     @Override
     public void setLastName(String value) {
-        lastName = value;
+        lastName = value.toUpperCase();
     }
 
     @Override
     public void setMiddleName(@Nullable String value) {
-        middleName = value;
+        middleName = null != value ? value.toUpperCase() : EMPTY;
     }
 
     @Override

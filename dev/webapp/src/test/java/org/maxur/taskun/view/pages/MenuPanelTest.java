@@ -43,7 +43,7 @@ public class MenuPanelTest extends AbstractPanelTest {
     @Test
     public void testOnClickAction() {
         context.checking(new Expectations() {{
-            oneOf(controller).getAllEmployee(with(any(Specification.class)));
+            oneOf(application.controller).getAllEmployee(with(any(Specification.class)));
         }});
         tester.clickLink("panel:menu_items:0:menu_item");
         tester.assertRenderedPage(EmployeePage.class);

@@ -44,18 +44,6 @@ public class EmployeeBean extends Bean<Employee> implements Employee {
     /**
      * Wraps  employee with Employee Bean instance.
      *
-     * @param group The owner group
-     */
-    public EmployeeBean(EmployeesGroup group) {
-        super();
-        this.owner = group;
-        this.employee = controller.createEmployee();
-    }
-
-
-    /**
-     * Wraps  employee with Employee Bean instance.
-     *
      * @param group  The owner group
      * @param entity The wrapped employee.
      */

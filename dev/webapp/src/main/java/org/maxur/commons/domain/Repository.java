@@ -1,5 +1,8 @@
 package org.maxur.commons.domain;
 
+import org.maxur.taskun.domain.employee.Employee;
+
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -44,4 +47,5 @@ public interface Repository<T extends Entity> {
      */
     void delete(T entity);
 
+    Employee getByNames(String firstName, String lastName, @Nullable String middleName);
 }

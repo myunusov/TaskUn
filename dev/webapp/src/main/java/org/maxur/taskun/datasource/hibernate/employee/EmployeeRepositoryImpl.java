@@ -4,10 +4,13 @@ import org.hibernate.SessionFactory;
 import org.maxur.commons.annotation.Benchmark;
 import org.maxur.commons.domain.Specification;
 import org.maxur.taskun.datasource.hibernate.RepositoryImpl;
+import org.maxur.taskun.datasource.hibernate.SelectByKeysBuilder;
 import org.maxur.taskun.domain.employee.Employee;
+import org.maxur.taskun.domain.employee.EmployeeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,9 +44,11 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
     @Override
     @Benchmark
     public final void save(final Employee entity) {
-        this.getHibernateTemplate().saveOrUpdate(entity);
-        // TODO for constraints detected
-       // this.getFactory().getCurrentSession().flush();
+        if (entity instanceof EmployeeBuilder) {            // TODO
+            this.getHibernateTemplate().saveOrUpdate(((EmployeeBuilder) entity).build());
+        } else {
+            this.getHibernateTemplate().update(entity);
+        }
     }
 
     /**
@@ -98,6 +103,19 @@ public class EmployeeRepositoryImpl extends RepositoryImpl implements org.maxur.
     @Benchmark
     public final void delete(final Employee entity) {
         this.getHibernateTemplate().delete(entity);
+    }
+
+    @Override
+    public final Employee getByNames(final String firstName, final String lastName, @Nullable final String middleName) {
+        final Object[] values = {
+                firstName.toUpperCase(),
+                lastName.toUpperCase(),
+                null == middleName ? null :  middleName.toUpperCase()
+        };
+        return (Employee) new SelectByKeysBuilder<Employee>(this.getHibernateTemplate())
+                .forClass(EmployeeImpl.class)
+                .equalsToValues(values)
+                .getOne();
     }
 
 }

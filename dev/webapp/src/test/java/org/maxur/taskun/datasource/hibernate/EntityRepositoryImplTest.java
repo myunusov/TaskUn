@@ -48,6 +48,7 @@ public class EntityRepositoryImplTest {
     public void testIsExist() throws Exception {
         context.checking(new Expectations() {{
             ignoring(sessionFactory);
+            allowing(template).getSessionFactory(); will(returnValue(sessionFactory));
             allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
             allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
@@ -61,6 +62,7 @@ public class EntityRepositoryImplTest {
     public void testIsExistWithInvalidFields() throws Exception {
         context.checking(new Expectations() {{
             ignoring(sessionFactory);
+            allowing(template).getSessionFactory(); will(returnValue(sessionFactory));
             allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
             allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
@@ -74,6 +76,7 @@ public class EntityRepositoryImplTest {
     public void testIsExistIfNotExist() throws Exception {
         context.checking(new Expectations() {{
             ignoring(sessionFactory);
+            allowing(template).getSessionFactory(); will(returnValue(sessionFactory));
             allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
             allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
@@ -88,6 +91,7 @@ public class EntityRepositoryImplTest {
     public void testIsExistIfExist() throws Exception {
         context.checking(new Expectations() {{
             ignoring(sessionFactory);
+            allowing(template).getSessionFactory(); will(returnValue(sessionFactory));
             allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
             allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
@@ -102,6 +106,7 @@ public class EntityRepositoryImplTest {
     public void testIsExistIfCountIsZero() throws Exception {
         context.checking(new Expectations() {{
             ignoring(sessionFactory);
+            allowing(template).getSessionFactory(); will(returnValue(sessionFactory));
             allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
             allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
@@ -114,6 +119,7 @@ public class EntityRepositoryImplTest {
     public void testIsExistIfCountMoreThan1() throws Exception {
         context.checking(new Expectations() {{
             ignoring(sessionFactory);
+            allowing(template).getSessionFactory(); will(returnValue(sessionFactory));
             allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
             allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));
@@ -127,6 +133,7 @@ public class EntityRepositoryImplTest {
     public void testIsExistIfNotNew() throws Exception {
         context.checking(new Expectations() {{
             ignoring(sessionFactory);
+            allowing(template).getSessionFactory(); will(returnValue(sessionFactory));
             allowing(template).getFlushMode(); will(returnValue(HibernateAccessor.FLUSH_AUTO));
             allowing(template).setFlushMode(with(any(int.class)));
             oneOf(template).findByCriteria(with(any(DetachedCriteria.class)));

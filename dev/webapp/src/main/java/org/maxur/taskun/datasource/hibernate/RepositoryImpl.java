@@ -11,15 +11,12 @@ public class RepositoryImpl {
 
     private HibernateTemplate hibernateTemplate;
 
-    private final SessionFactory factory;
-
     /**
      * Constructs the instance of EmployeeRepository class.
      *
      * @param sessionFactory The Hibernate Session Factory.
      */
     public RepositoryImpl(final SessionFactory sessionFactory) {
-        this.factory = sessionFactory;
         this.setHibernateTemplate(new HibernateTemplate(sessionFactory));
     }
 
@@ -48,6 +45,6 @@ public class RepositoryImpl {
      * @return The Hibernate Session Factory
      */
     public SessionFactory getFactory() {
-        return factory;
+        return hibernateTemplate.getSessionFactory();
     }
 }

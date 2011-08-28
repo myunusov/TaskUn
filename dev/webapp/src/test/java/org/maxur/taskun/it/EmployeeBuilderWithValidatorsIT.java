@@ -2,7 +2,6 @@ package org.maxur.taskun.it;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxur.taskun.datasource.hibernate.employee.EmployeeBuilderImpl;
@@ -37,7 +36,6 @@ public class EmployeeBuilderWithValidatorsIT {
     }
 
     @Test
-    @Ignore
     public void testValidEmployee() throws Exception {
         //Arrange
         builder.withFirstName("Иван")
@@ -49,7 +47,6 @@ public class EmployeeBuilderWithValidatorsIT {
     }
 
     @Test
-    @Ignore
     public void testValidEmployeeWithoutMiddleName() throws Exception {
         //Arrange
         builder.withFirstName("Иван")
@@ -60,7 +57,6 @@ public class EmployeeBuilderWithValidatorsIT {
     }
 
     @Test
-    @Ignore
     public void testValidEmployeeWithLongFirstName() throws Exception {
         //Arrange
         builder
@@ -72,7 +68,6 @@ public class EmployeeBuilderWithValidatorsIT {
     }
 
     @Test
-    @Ignore
     public void testInvalidEmployeeWithLongFirstName() throws Exception {
         //Arrange
         builder
@@ -84,7 +79,6 @@ public class EmployeeBuilderWithValidatorsIT {
     }
 
     @Test
-    @Ignore
     public void testValidEmployeeWithLongLastName() throws Exception {
         //Arrange
         builder
@@ -96,7 +90,6 @@ public class EmployeeBuilderWithValidatorsIT {
     }
 
     @Test
-    @Ignore
     public void testInvalidEmployeeWithLongLastName() throws Exception {
         //Arrange
         builder
@@ -108,7 +101,6 @@ public class EmployeeBuilderWithValidatorsIT {
     }
 
     @Test
-    @Ignore
     public void testValidEmployeeWithLongMiddleName() throws Exception {
         //Arrange
         builder
@@ -121,7 +113,6 @@ public class EmployeeBuilderWithValidatorsIT {
     }
 
     @Test
-    @Ignore
     public void testNullEmployeeWithLongMiddleName() throws Exception {
         //Arrange
         builder
@@ -134,7 +125,6 @@ public class EmployeeBuilderWithValidatorsIT {
     }
 
     @Test
-    @Ignore
     public void testInvalidEmployeeWithLongMiddleName() throws Exception {
         //Arrange
         builder

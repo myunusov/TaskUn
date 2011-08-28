@@ -1,7 +1,7 @@
 package org.maxur.taskun.view.model.employee;
 
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.maxur.taskun.services.ApplicationController;
+import org.maxur.taskun.domain.employee.EmployeeBuilder;
 import org.maxur.taskun.view.model.BeanFactory;
 
 /**
@@ -16,7 +16,7 @@ public class EmployeeBeanFactory extends BeanFactory<EmployeeBean> {
      * The ApplicationController bean. It's injected by Wicket IoC.
      */
     @SpringBean
-    private ApplicationController controller;
+    private EmployeeBuilder builder;
 
     private final EmployeesGroup group;
 
@@ -24,10 +24,9 @@ public class EmployeeBeanFactory extends BeanFactory<EmployeeBean> {
         this.group = group;
     }
 
-
     @Override
     public EmployeeBean getObject() {
-        return new EmployeeBean(group, controller.createEmployee());
+        return new EmployeeBean(group, builder);
     }
 
 

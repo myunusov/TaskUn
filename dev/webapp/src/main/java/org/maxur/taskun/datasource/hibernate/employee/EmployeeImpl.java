@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -29,6 +30,7 @@ import javax.persistence.UniqueConstraint;
                 {@UniqueConstraint(columnNames =
                         {"FIRST_NAME", "LAST_NAME", "MIDDLE_NAME"})
                 })
+@PrimaryKeyJoinColumn(name="ENTITY_ID")
 public class EmployeeImpl extends EntityImpl<BaseEmployee> implements Employee {
 
     /**
@@ -36,11 +38,9 @@ public class EmployeeImpl extends EntityImpl<BaseEmployee> implements Employee {
      */
     private static final long serialVersionUID = -5936703120817989967L;
 
-    private final BaseEmployee employee;
-
     public EmployeeImpl() {
-        this.employee = new BaseEmployee(null);
-        setEntity(this.employee);
+        super(new BaseEmployee(null));
+        //setEntity(this.getEmployee());
     }
 
 
@@ -51,7 +51,7 @@ public class EmployeeImpl extends EntityImpl<BaseEmployee> implements Employee {
     @Column(name = "FIRST_NAME", nullable = false)
     @Override
     public String getFirstName() {
-        return this.employee.getFirstName();
+        return super.getEntity().getFirstName();
     }
 
     /**
@@ -61,7 +61,7 @@ public class EmployeeImpl extends EntityImpl<BaseEmployee> implements Employee {
     @Column(name = "LAST_NAME", nullable = false)
     @Override
     public String getLastName() {
-        return this.employee.getLastName();
+        return super.getEntity().getLastName();
     }
 
     /**
@@ -71,7 +71,7 @@ public class EmployeeImpl extends EntityImpl<BaseEmployee> implements Employee {
     @Column(name = "MIDDLE_NAME", nullable = false)
     @Override
     public String getMiddleName() {
-        return this.employee.getMiddleName();
+        return super.getEntity().getMiddleName();
     }
 
     /**
@@ -82,47 +82,49 @@ public class EmployeeImpl extends EntityImpl<BaseEmployee> implements Employee {
     @Override
     @Enumerated(value = EnumType.STRING)
     public Gender getGender() {
-        return this.employee.getGender();
+        return super.getEntity().getGender();
     }
 
     @Override
     @Transient
     public String getTitle() {
-        return this.employee.getTitle();
+        return super.getEntity().getTitle();
     }
 
     @Override
     public void setFirstName(final String value) {
-        this.employee.setFirstName(value);
+        super.getEntity().setFirstName(value);
     }
 
     @Override
     public void setLastName(final String value) {
-        this.employee.setLastName(value);
+        super.getEntity().setLastName(value);
     }
 
     @Override
     public void setMiddleName(final @Nullable String value) {
-        this.employee.setMiddleName(value);
+        super.getEntity().setMiddleName(value);
     }
 
     @Override
     public void setGender(final Gender value) {
-        this.employee.setGender(value);
+        super.getEntity().setGender(value);
     }
 
     @Override
     public String toString() {
-        return employee.toString();
+        return super.getEntity().toString();
     }
 
     @Override
     public boolean equals(final Object obj) {
-        return this == obj || employee.equals(obj);
+        return this == obj || super.getEntity().equals(obj);
     }
 
     @Override
     public int hashCode() {
-        return employee.hashCode();
+        return super.getEntity().hashCode();
     }
+
+
 }
