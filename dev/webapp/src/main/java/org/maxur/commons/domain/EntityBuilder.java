@@ -8,22 +8,23 @@
 
 package org.maxur.commons.domain;
 
-import org.maxur.taskun.domain.MiddleName;
-import org.maxur.taskun.domain.Name;
-
 /**
  * @author Maxim Yunusov
  * @version 1.0 8/28/11
  */
 public abstract class EntityBuilder<T extends Entity> implements Entity {
 
+    /**
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = -2678265243438440679L;
 
+    /**
+     * The factory method for creating Entity.
+     * @return  new Entity.
+     */
     protected abstract T make();
 
-    public abstract Name makeName(final String value);
-
-    public abstract MiddleName makeMiddleName(final String value);
 
     public abstract T build();
 

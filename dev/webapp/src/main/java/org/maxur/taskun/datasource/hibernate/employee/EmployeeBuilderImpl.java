@@ -53,13 +53,13 @@ public class EmployeeBuilderImpl extends EmployeeBuilder<EmployeeImpl> {
     }
 
     @Override
-    public Name makeName(final String value) {
-        return new NameImpl(value);
+    public Name makeName(final String name) {
+        return new NameImpl(name);
     }
 
     @Override
-    public MiddleName makeMiddleName(final String value) {
-        return new MiddleNameImpl(value);
+    public MiddleName makeMiddleName(final String name) {
+        return new MiddleNameImpl(name);
     }
 
     @Override

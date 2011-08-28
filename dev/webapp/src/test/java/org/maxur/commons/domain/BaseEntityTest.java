@@ -9,7 +9,7 @@ import org.maxur.taskun.domain.employee.BaseEmployee;
  * @author Maxim Yunusov
  * @version 1.0 7/9/11
  */
-public class AbstractEntityTest {
+public class BaseEntityTest {
 
     private BaseEntity entity;
 

@@ -1,3 +1,11 @@
+/*******************************************************************************
+ * Copyright (c) 2011 by Maxim N.Yunusov. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *                   http://www.apache.org/licenses/LICENSE-2.0.txt
+ ******************************************************************************/
+
 package org.maxur.commons.domain;
 
 /**
@@ -9,12 +17,20 @@ package org.maxur.commons.domain;
  */
 public abstract class BaseEntity implements Entity {
 
+    /**
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 2853087286450189484L;
+
     /**
      * The Employee's Id.
      */
     private String identifier;
 
+    /**
+     * Constructs a BaseEntity instance.
+     * @param id The BaseEntity identifier.
+     */
     public BaseEntity(final String id) {
         setIdentifier(id);
     }

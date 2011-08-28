@@ -31,15 +31,15 @@ public class BaseEmployeeTest {
             }
 
             @Override
-            public Name makeName(String value) {
-                return new Name(value) {
+            public Name makeName(String name) {
+                return new Name(name) {
 
                 };
             }
 
             @Override
-            public MiddleName makeMiddleName(String value) {
-                return new MiddleName(value) {
+            public MiddleName makeMiddleName(String name) {
+                return new MiddleName(name) {
 
                 };
             }

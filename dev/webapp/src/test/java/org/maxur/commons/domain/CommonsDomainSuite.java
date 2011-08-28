@@ -10,7 +10,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)@Suite.SuiteClasses({
         AllSpecificationTest.class,
-        AbstractEntityTest.class
+        BaseEntityTest.class,
+        EntityBuilderTest.class
 })
 public class CommonsDomainSuite {
 }

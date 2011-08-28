@@ -1,3 +1,11 @@
+/*******************************************************************************
+ * Copyright (c) 2011 by Maxim N.Yunusov. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *                   http://www.apache.org/licenses/LICENSE-2.0.txt
+ ******************************************************************************/
+
 package org.maxur.taskun.domain.employee;
 
 import org.maxur.commons.domain.EntityBuilder;
@@ -11,15 +19,47 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 public abstract class EmployeeBuilder<T extends Employee> extends EntityBuilder<T> implements Employee {
 
+    /**
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = -6030778261130153455L;
 
+    /**
+     * The First Name Value Object.
+     */
     private Name firstName;
 
+    /**
+     * The Last Name Value Object.
+     */
     private Name lastName;
 
+    /**
+     * The Middle Name Value Object.
+     */
     private MiddleName middleName = makeMiddleName(EMPTY);
 
+    /**
+     * The Employees Gender.
+     */
     private Gender gender = Gender.UNKNOWN;
+
+    /**
+     * The factory method for creating Employees Name.
+     *
+     * @param name The string presentation of name.
+     * @return The value object presentation of name.
+     */
+    public abstract Name makeName(final String name);
+
+    /**
+     * The factory method for creating Employees MiddleName.
+     *
+     * @param name The string presentation of middle name.
+     * @return The value object presentation of middle name.
+     */
+    public abstract MiddleName makeMiddleName(final String name);
+
 
     @Override
     public T build() {
