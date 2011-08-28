@@ -11,6 +11,7 @@ package org.maxur.commons.domain;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 
 /**
@@ -31,28 +32,43 @@ public class EntityBuilderTest {
         assertNull("Should Be Returns Null Identifier", builder.getIdentifier());
     }
 
-    private static class FakeEntityEntityBuilder extends EntityBuilder<Entity> {
+    @Test
+    public void shouldBeReturnsGenericType() throws Exception {
+        assertEquals("Should Be Returns Generic Type", FakeEntity.class, builder.getResultClass());
+    }
+
+
+
+    private static class FakeEntityEntityBuilder extends EntityBuilder<FakeEntity> {
 
         private static final long serialVersionUID = 8320459437653879254L;
 
         @Override
-        protected Entity make() {
+        protected FakeEntity make() {
             return null;
         }
 
         @Override
-        public Entity build() {
-            return null;
-        }
-
-        @Override
-        public Class<? extends Entity> getResultClass() {
+        public FakeEntity build() {
             return null;
         }
 
         @Override
         public boolean isNew() {
             return false;
+        }
+    }
+
+    private static class FakeEntity implements Entity {
+
+        @Override
+        public String getIdentifier() {
+            return null;
+        }
+
+        @Override
+        public boolean isNew() {
+            return true;
         }
     }
 }

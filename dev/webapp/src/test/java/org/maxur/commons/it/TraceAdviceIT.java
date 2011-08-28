@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  * @version 1.0 8/23/11
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"test-aspect-config.xml"})
+@ContextConfiguration(locations = {"/spring/test-aspect-config.xml"})
 public class TraceAdviceIT {
 
     @Autowired

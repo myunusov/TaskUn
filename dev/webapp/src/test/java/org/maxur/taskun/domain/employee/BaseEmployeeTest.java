@@ -2,7 +2,6 @@ package org.maxur.taskun.domain.employee;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.commons.domain.Entity;
 import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.domain.MiddleName;
 import org.maxur.taskun.domain.Name;
@@ -42,11 +41,6 @@ public class BaseEmployeeTest {
                 return new MiddleName(name) {
 
                 };
-            }
-
-            @Override
-            public Class<? extends Entity> getResultClass() {
-                return BaseEmployee.class;
             }
 
             @Override

@@ -1,6 +1,5 @@
 package org.maxur.taskun.datasource.hibernate.employee;
 
-import org.maxur.commons.domain.Entity;
 import org.maxur.taskun.datasource.DataSourceNotifier;
 import org.maxur.taskun.datasource.hibernate.MiddleNameImpl;
 import org.maxur.taskun.datasource.hibernate.NameImpl;
@@ -40,11 +39,6 @@ public class EmployeeBuilderImpl extends EmployeeBuilder<EmployeeImpl> {
         final EmployeeImpl employee = super.build();
         notifier.notifyEmployeeCreate(this.getClass(), employee.toString());
         return employee;
-    }
-
-    @Override
-    public Class<? extends Entity> getResultClass() {
-        return EmployeeImpl.class;
     }
 
     @Override
