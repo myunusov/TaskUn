@@ -429,12 +429,12 @@
     <build>
         <finalName>taskun</finalName>
         <filters>
-            <filter>${project.build.sourceDirectory}/main/filters/user-${env}.properties</filter>
+            <filter>${project.basedir}/src/main/filters/user-${env}.properties</filter>
         </filters>
         <resources>
             <resource>
                 <filtering>true</filtering>
-                <directory>${project.build.sourceDirectory}/main/resources</directory>
+                <directory>${project.basedir}/src/main/resources</directory>
             </resource>
         </resources>
         <plugins>
@@ -510,7 +510,7 @@
                     <webResources>
                         <resource>
                             <filtering>true</filtering>
-                            <directory>${project.build.sourceDirectory}/main/webapp/WEB-INF</directory>
+                            <directory>${project.basedir}/src/main/webapp/WEB-INF</directory>
                             <targetPath>WEB-INF</targetPath>
                         </resource>
                     </webResources>
