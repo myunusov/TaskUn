@@ -11,12 +11,16 @@ package org.maxur.taskun.domain;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+
 /**
  * @author Maxim Yunusov
  * @version 1.0 8/28/11
  */
 public class Name extends AbstractName {
 
+    public static final Name UNKNOWN = new Name(EMPTY) {
+    };
 
     protected Name() {
     }

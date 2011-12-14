@@ -3,7 +3,6 @@ package org.maxur.commons.validator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.maxur.commons.annotation.Unique;
 import org.maxur.commons.domain.Entity;
 import org.maxur.commons.domain.EntityRepository;
 

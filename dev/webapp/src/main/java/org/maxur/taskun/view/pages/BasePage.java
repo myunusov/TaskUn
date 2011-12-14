@@ -9,8 +9,11 @@ import org.apache.wicket.model.ResourceModel;
 import org.maxur.taskun.view.UserSession;
 import org.maxur.taskun.view.commands.CommandRepositoryImpl;
 import org.maxur.taskun.view.model.CommandRepository;
+import org.maxur.taskun.view.model.MenuItem;
 import org.maxur.taskun.view.pages.calendar.CalendarPanel;
 import org.maxur.taskun.view.pages.user.CurrentUserPanel;
+
+import java.util.List;
 
 /**
  * The Base Page Controller.
@@ -52,6 +55,14 @@ public class BasePage extends WebPage {
         add(JavascriptPackageResource.getHeaderContribution(effects));
 
         this.commands = new CommandRepositoryImpl();
+
+        final List<MenuItem> items = getUserSession().getMenuItems();
+        for (MenuItem item : items) {
+            if (item.getTargetPage() == this.getClass()) {
+                item.setActive(true);
+                break;
+            }
+        }
 
         add(new Label("title.application" ,new ResourceModel("title.application")));
         add(new MenuPanel("menu"));

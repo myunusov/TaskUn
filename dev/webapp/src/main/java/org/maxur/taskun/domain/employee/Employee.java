@@ -1,6 +1,6 @@
 package org.maxur.taskun.domain.employee;
 
-import org.maxur.commons.annotation.Unique;
+import org.maxur.commons.validator.Unique;
 import org.maxur.commons.domain.Entity;
 import org.maxur.taskun.domain.Gender;
 import org.maxur.taskun.domain.MiddleName;

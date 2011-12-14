@@ -1,7 +1,5 @@
-package org.maxur.commons.annotation;
+package org.maxur.commons.validator;
 
-
-import org.maxur.commons.validator.UniqueValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

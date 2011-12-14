@@ -44,9 +44,37 @@
         <wicket.version>1.4.17</wicket.version>
         <clover.version>3.1.0</clover.version>
         <jmock.version>2.5.1</jmock.version>
+        <slf4j.version>1.6.1</slf4j.version>
     </properties>
 
     <profiles>
+        <profile>
+            <id>sonarj</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonarj.prepareForSonar>true</sonarj.prepareForSonar>
+                <sonarj.activationCode>583F-5255-C9A5-9AE1</sonarj.activationCode>
+                <sonargraph.installationDirectory>/home/maxim/opt/SonargraphQuality</sonargraph.installationDirectory>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.hello2morrow.sonargraph</groupId>
+                        <artifactId>maven-sonargraph-plugin</artifactId>
+                        <version>7.0.4</version>
+                    </plugin>
+                </plugins>
+            </build>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>hello2morrow.maven.repository</id>
+                    <url>http://maven.hello2morrow.com/repository</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
         <profile>
             <id>sonar</id>
             <properties>
@@ -67,16 +95,23 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>sonar-maven-plugin</artifactId>
-                        <version>1.0-beta-2</version>
+                        <version>2.0-beta-2</version>
                     </plugin>
                 </plugins>
             </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.codehaus.sonar-plugins</groupId>
+                    <artifactId>sonar-taglist-plugin</artifactId>
+                    <version>1.0</version>
+                </dependency>
+            </dependencies>
             <reporting>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>sonar-maven-plugin</artifactId>
-                        <version>1.0-beta-2</version>
+                        <version>2.0-beta-2</version>
                     </plugin>
                 </plugins>
             </reporting>
@@ -97,7 +132,8 @@
                             <targetPercentage>75%</targetPercentage>
                             <includesTestSourceRoots>false</includesTestSourceRoots>
                             <jdk>${compileSource}</jdk>
-                            <snapshot>${basedir}/.clover/${groupId}-${artifactId}/clover.snapshot</snapshot>
+                            <snapshot>${basedir}/.clover/${project.groupId}-${project.artifactId}/clover.snapshot
+                            </snapshot>
                         </configuration>
                         <executions>
                             <execution>
@@ -230,21 +266,20 @@
 
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>com.springsource.slf4j.log4j</artifactId>
+            <artifactId>log4j-over-slf4j</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>com.springsource.slf4j.api</artifactId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <!-- Apache commons -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>com.springsource.org.apache.commons.logging</artifactId>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>com.springsource.org.apache.commons.collections</artifactId>
-            <version>3.2.1</version>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -416,6 +451,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <outputDirectory/>
@@ -423,6 +459,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -508,12 +545,12 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
+                <version>1.0-alpha-1</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>native2ascii</goal>
                         </goals>
-                        <!-- specific configurations -->
                         <configuration>
                             <encoding>UTF8</encoding>
                         </configuration>
@@ -656,49 +693,64 @@
         </plugins>
     </reporting>
 
+
     <repositories>
+
+        <repository>
+            <id>com.springsource.repository.bundles.release</id>
+            <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
+            <url>http://repository.springsource.com/maven/bundles/release</url>
+        </repository>
+
+        <repository>
+            <id>com.springsource.repository.bundles.external</id>
+            <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+            <url>http://repository.springsource.com/maven/bundles/external</url>
+        </repository>
+
     </repositories>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.slf4j</groupId>
-                <artifactId>com.springsource.slf4j.log4j</artifactId>
-                <version>1.6.1</version>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
-                <artifactId>com.springsource.slf4j.api</artifactId>
-                <version>1.6.1</version>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>
-                    com.springsource.org.apache.commons.logging
-                </artifactId>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
                 <version>1.1.1</version>
             </dependency>
             <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.1</version>
+            </dependency>
+
+            <!-- AspectJ -->
+            <dependency>
                 <groupId>org.aspectj</groupId>
-                <artifactId>
-                    com.springsource.org.aspectj.tools
-                </artifactId>
+                <artifactId>com.springsource.org.aspectj.tools</artifactId>
                 <version>${aspectj.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.aspectj</groupId>
-                <artifactId>
-                    com.springsource.org.aspectj.weaver
-                </artifactId>
+                <artifactId>com.springsource.org.aspectj.weaver</artifactId>
                 <version>${aspectj.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.aspectj</groupId>
-                <artifactId>
-                    com.springsource.org.aspectj.runtime
-                </artifactId>
+                <artifactId>com.springsource.org.aspectj.runtime</artifactId>
                 <version>${aspectj.version}</version>
             </dependency>
+
+
             <dependency>
                 <groupId>org.apache.derby</groupId>
                 <artifactId>
@@ -721,7 +773,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>4.0.2.GA</version>
+                <version>4.2.0.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>

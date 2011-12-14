@@ -13,7 +13,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.maxur.commons.annotation.Unique;
+import org.maxur.commons.validator.Unique;
 import org.maxur.commons.domain.Entity;
 import org.springframework.orm.hibernate3.HibernateAccessor;
 import org.springframework.orm.hibernate3.HibernateTemplate;

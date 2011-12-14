@@ -1,6 +1,5 @@
 package org.maxur.commons.validator;
 
-import org.maxur.commons.annotation.Unique;
 import org.maxur.commons.domain.Entity;
 import org.maxur.commons.domain.EntityBuilder;
 import org.maxur.commons.domain.EntityRepository;
