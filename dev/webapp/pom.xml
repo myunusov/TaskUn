@@ -510,7 +510,7 @@
                     <webResources>
                         <resource>
                             <filtering>true</filtering>
-                            <directory>src/main/webapp/WEB-INF</directory>
+                            <directory>${project.build.sourceDirectory}/main/webapp/WEB-INF</directory>
                             <targetPath>WEB-INF</targetPath>
                         </resource>
                     </webResources>
